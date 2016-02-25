@@ -1,4 +1,4 @@
-package com.github.yuttyann.custommessage.listener;
+﻿package com.github.yuttyann.custommessage.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -20,9 +20,6 @@ public class PlayerKickListener implements Listener {
 	@EventHandler
 	public void onPlayerKick(PlayerKickEvent event) {
 		if (plugin.getConfig().getBoolean("PlayerKickMessage.Enable")) {
-			if (!plugin.getConfig().getString("PlayerKickMessage.Broadcast").equals("none")) {
-				Bukkit.broadcastMessage("");
-			}
 			String PlayerKickMessage = ClassHandler.getMainClass().getConfig().getString("PlayerKickMessage.Message");
 			PlayerKickMessage = PlayerKickMessage.replace("%player", event.getPlayer().getName());
 			PlayerKickMessage = PlayerKickMessage.replace("%line", "\n");
