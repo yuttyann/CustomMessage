@@ -1,16 +1,14 @@
-# CustomMessage
+# CustomMessage v5.0
 このプラグインはyuttyann44581によって作成されています。  
 Minecraftの様々なメッセージを変更できるプラグインです。  
 
 # Commands
 /rules  
-/custommessage config  
 /custommessage reload  
 
 # Permissions
 custommessage.rules  
 custommessage.reload  
-custommessage.config  
 
 # API  
 全バージョン対応:  
