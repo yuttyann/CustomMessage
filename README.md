@@ -1,4 +1,4 @@
-# CustomMessage v5.0
+# CustomMessage v5.1
 このプラグインはyuttyann44581によって作成されています。  
 Minecraftの様々なメッセージを変更できるプラグインです。  
 
