@@ -1,0 +1,10 @@
+name: CustomMessage
+main: com.github.yuttyann.custommessage.Main
+version: 5.1
+author: yuttyann44581
+website: http://ch.nicovideo.jp/yuttyann44581/blomaga/ar810622
+commands:
+  custommessage:
+  rules:
+  say:
+  me:
