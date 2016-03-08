@@ -18,9 +18,9 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
-import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.TimeManager;
+import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 
 public class ProtocolLibPacket {
 

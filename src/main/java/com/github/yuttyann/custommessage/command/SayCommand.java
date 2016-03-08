@@ -8,9 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
+import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 
 public class SayCommand implements CommandExecutor {
 

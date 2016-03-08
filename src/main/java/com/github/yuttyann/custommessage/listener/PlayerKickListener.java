@@ -7,9 +7,9 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 
-import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.TimeManager;
+import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 
 
 public class PlayerKickListener implements Listener {

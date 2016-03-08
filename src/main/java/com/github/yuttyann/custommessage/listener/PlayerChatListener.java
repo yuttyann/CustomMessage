@@ -4,9 +4,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.TimeManager;
+import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 
 public class PlayerChatListener implements Listener {
 

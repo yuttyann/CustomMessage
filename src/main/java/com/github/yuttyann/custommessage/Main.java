@@ -17,6 +17,7 @@ import com.github.yuttyann.custommessage.command.MeCommand;
 import com.github.yuttyann.custommessage.command.RulesCommand;
 import com.github.yuttyann.custommessage.command.SayCommand;
 import com.github.yuttyann.custommessage.command.TellCommand;
+import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 import com.github.yuttyann.custommessage.listener.PlayerChatListener;
 import com.github.yuttyann.custommessage.listener.PlayerDeathListener;
 import com.github.yuttyann.custommessage.listener.PlayerJoinQuitListener;

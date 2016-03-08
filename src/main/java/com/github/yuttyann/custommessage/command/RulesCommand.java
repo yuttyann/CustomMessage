@@ -7,9 +7,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
+import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 
 public class RulesCommand implements CommandExecutor {
 

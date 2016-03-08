@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
+import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+
 public class TimeManager {
 
 	private static FileConfiguration file = CustomMessageConfig.getConfig();

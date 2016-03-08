@@ -23,6 +23,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+
 public class Updater implements Listener {
 
 	Main plugin;

@@ -7,8 +7,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
+import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 import com.github.yuttyann.custommessage.packet.versions.v1_7_R4;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R1;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R2;
