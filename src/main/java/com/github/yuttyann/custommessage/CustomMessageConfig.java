@@ -17,7 +17,7 @@ public class CustomMessageConfig {
 		CustomMessageConfig.Encode = encode;
 		File configFile = new File(plugin.getDataFolder(), "config_" + encode + ".yml");
 		if (!configFile.exists()) {
-			plugin.saveResource("config_" + encode + ".yml", true);
+			plugin.saveResource("config_" + encode + ".yml", false);
 		}
 	}
 
