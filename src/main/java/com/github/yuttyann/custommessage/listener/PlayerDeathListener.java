@@ -3,6 +3,7 @@ package com.github.yuttyann.custommessage.listener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
@@ -18,7 +19,7 @@ public class PlayerDeathListener implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onDeathMessage(PlayerDeathEvent event) {
 		Player killer = event.getEntity().getKiller();
 		if (event.getEntity().getKiller() != null) {

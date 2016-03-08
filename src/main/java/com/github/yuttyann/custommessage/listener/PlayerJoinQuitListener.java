@@ -1,6 +1,7 @@
 package com.github.yuttyann.custommessage.listener;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -17,7 +18,7 @@ public class PlayerJoinQuitListener implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if (CustomMessageConfig.getConfig().getBoolean("PlayerJoinQuitMessage.Enable")) {
 			if (event.getPlayer().hasPlayedBefore()) {
@@ -36,7 +37,7 @@ public class PlayerJoinQuitListener implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		if (CustomMessageConfig.getConfig().getBoolean("PlayerJoinQuitMessage.Enable")) {
 			String PlayerQuitMessage = CustomMessageConfig.getConfig().getString("PlayerJoinQuitMessage.QuitMessage");

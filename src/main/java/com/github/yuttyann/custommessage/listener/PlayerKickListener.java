@@ -2,6 +2,7 @@ package com.github.yuttyann.custommessage.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -20,7 +21,7 @@ public class PlayerKickListener implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerKick(PlayerKickEvent event) {
 		if (CustomMessageConfig.getConfig().getBoolean("PlayerKickMessage.Enable")) {
 			if (!CustomMessageConfig.getConfig().getString("PlayerKickMessage.BroadcastMessage").equals("none")) {
@@ -52,7 +53,7 @@ public class PlayerKickListener implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		if (CustomMessageConfig.getConfig().getBoolean("PlayerLoginKickMessage.Enable")) {
 			if(event.getResult() == Result.KICK_BANNED) {

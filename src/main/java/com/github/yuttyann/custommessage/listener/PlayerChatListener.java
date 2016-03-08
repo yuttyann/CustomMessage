@@ -1,6 +1,7 @@
 package com.github.yuttyann.custommessage.listener;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
@@ -16,7 +17,7 @@ public class PlayerChatListener implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		if (CustomMessageConfig.getConfig().getBoolean("ChatMessageFormat.Enable")) {
 			String PlayerChatMessage = CustomMessageConfig.getConfig().getString("ChatMessageFormat.Message");
