@@ -4,12 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
-import com.github.yuttyann.custommessage.handle.ClassHandler;
 import com.github.yuttyann.custommessage.packet.versions.v1_7_R4;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R1;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R2;
@@ -24,24 +23,24 @@ public class PlayerTitleListener implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler
 	public void onPlayerJoinEvent(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		playerTitle(player);
 	}
 
 	private void playerTitle(Player player) {
-		if (ClassHandler.getMainClass().getConfig().getBoolean("Title.Enable")) {
-			int FadeIn = ClassHandler.getMainClass().getConfig().getInt("TitleTime.FadeIn");
-			int Stay = ClassHandler.getMainClass().getConfig().getInt("TitleTime.Stay");
-			int FadeOut = ClassHandler.getMainClass().getConfig().getInt("TitleTime.FadeOut");
-			String TitleMessage = ClassHandler.getMainClass().getConfig().getString("Title.TitleMessage");
-			String SubTitleMessage = ClassHandler.getMainClass().getConfig().getString("Title.SubTitleMessage");
+		if (CustomMessageConfig.getConfig().getBoolean("Title.Enable")) {
+			int FadeIn = CustomMessageConfig.getConfig().getInt("TitleTime.FadeIn");
+			int Stay = CustomMessageConfig.getConfig().getInt("TitleTime.Stay");
+			int FadeOut = CustomMessageConfig.getConfig().getInt("TitleTime.FadeOut");
+			String TitleMessage = CustomMessageConfig.getConfig().getString("Title.TitleMessage");
+			String SubTitleMessage = CustomMessageConfig.getConfig().getString("Title.SubTitleMessage");
 			sendTitle(player, FadeIn, Stay, FadeOut, TitleMessage, SubTitleMessage);
 		}
-		if (ClassHandler.getMainClass().getConfig().getBoolean("TabTitle.Enable")) {
-			String Header = ClassHandler.getMainClass().getConfig().getString("TabTitle.Header");
-			String Footer = ClassHandler.getMainClass().getConfig().getString("TabTitle.Footer");
+		if (CustomMessageConfig.getConfig().getBoolean("TabTitle.Enable")) {
+			String Header = CustomMessageConfig.getConfig().getString("TabTitle.Header");
+			String Footer = CustomMessageConfig.getConfig().getString("TabTitle.Footer");
 			sendTabTitle(player, Header, Footer);
 		}
 	}

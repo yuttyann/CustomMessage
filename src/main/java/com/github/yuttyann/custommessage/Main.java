@@ -17,7 +17,6 @@ import com.github.yuttyann.custommessage.command.MeCommand;
 import com.github.yuttyann.custommessage.command.RulesCommand;
 import com.github.yuttyann.custommessage.command.SayCommand;
 import com.github.yuttyann.custommessage.command.TellCommand;
-import com.github.yuttyann.custommessage.handle.ClassHandler;
 import com.github.yuttyann.custommessage.listener.PlayerChatListener;
 import com.github.yuttyann.custommessage.listener.PlayerDeathListener;
 import com.github.yuttyann.custommessage.listener.PlayerJoinQuitListener;
@@ -33,13 +32,12 @@ import com.github.yuttyann.custommessage.packet.versions.v1_9_R1;
 public class Main extends JavaPlugin {
 
 	public Boolean protocollib = null;
-	public Logger logger = Logger.getLogger("Minecraft");
-	private HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();;
+	private Logger logger = Logger.getLogger("Minecraft");
+	private HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();
 
 	@Override
 	public void onEnable() {
-		saveDefaultConfig();
-		loadHandler();
+		setUpConfig();
 		loadProtocolLib();
 		loadClass();
 		loadCommands();
@@ -60,15 +58,55 @@ public class Main extends JavaPlugin {
 		return commands.get(command.getName()).onCommand(sender, command, label, args);
 	}
 
-	private void loadHandler() {
-		if (getConfig().getBoolean("CustomMessageAPI")) {
-			return;
+	private void setUpConfig() {
+		if ((PlatformUtils.isLinux()) || (PlatformUtils.isMac())) {
+			CustomMessageConfig.loadConfig(this, "utf-8");
+		} else if (PlatformUtils.isWindows()) {
+			if(isUpperVersion(Bukkit.getBukkitVersion(), "1.9")) {
+				CustomMessageConfig.loadConfig(this, "utf-8");
+			} else {
+				CustomMessageConfig.loadConfig(this, "s-jis");
+			}
 		}
-		new ClassHandler(this);
+	}
+
+	private static boolean isUpperVersion(String version, String border) {
+		int hyphen = version.indexOf("-");
+		if (hyphen > 0) {
+			version = version.substring(0, hyphen);
+		}
+		String[] versionArray = version.split("\\.");
+		int[] versionNumbers = new int[versionArray.length];
+		for (int i = 0; i < versionArray.length; i++) {
+			if (!versionArray[i].matches("[0-9]+"))
+				return false;
+			versionNumbers[i] = Integer.parseInt(versionArray[i]);
+		}
+		String[] borderArray = border.split("\\.");
+		int[] borderNumbers = new int[borderArray.length];
+		for (int i = 0; i < borderArray.length; i++) {
+			if (!borderArray[i].matches("[0-9]+"))
+				return false;
+			borderNumbers[i] = Integer.parseInt(borderArray[i]);
+		}
+		int index = 0;
+		while ((versionNumbers.length > index) && (borderNumbers.length > index)) {
+			if (versionNumbers[index] > borderNumbers[index]) {
+				return true;
+			} else if (versionNumbers[index] < borderNumbers[index]) {
+				return false;
+			}
+			index++;
+		}
+		if (borderNumbers.length == index) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private void loadClass() {
-		if (getConfig().getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
 			return;
 		}
 		getServer().getPluginManager().registerEvents(new PlayerChatListener(this), this);
@@ -80,7 +118,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadProtocolLib() {
-		if (getConfig().getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
 			return;
 		}
 		if (!getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
@@ -100,7 +138,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadAPI() {
-		if (!getConfig().getBoolean("CustomMessageAPI")) {
+		if (!CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
 			return;
 		}
 		Server server = Bukkit.getServer();
@@ -129,7 +167,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadTitle() {
-		if (getConfig().getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
 			return;
 		}
 		Server server = Bukkit.getServer();
@@ -138,7 +176,7 @@ public class Main extends JavaPlugin {
 		if (packageName.equalsIgnoreCase("v1_7_R4")) {
 			if(getConfig().getBoolean("ProtocolHack")) {
 				new v1_7_R4(this);
-				getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
+				new PlayerTitleListener(this);
 			}
 		} else if (packageName.equalsIgnoreCase("v1_8_R1")) {
 			new v1_8_R1(this);

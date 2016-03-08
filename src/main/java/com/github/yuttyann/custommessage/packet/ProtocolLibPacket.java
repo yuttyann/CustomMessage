@@ -18,20 +18,26 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
+import com.github.yuttyann.custommessage.CustomMessageConfig;
+import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.TimeManager;
-import com.github.yuttyann.custommessage.handle.ClassHandler;
 
 public class ProtocolLibPacket {
 
-	private static final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
+	private Main plugin;
+	private final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
+
+	public ProtocolLibPacket(Main plugin) {
+		this.plugin = plugin;
+	}
 
 	public void sendPlayerCountMessage() {
-		if (ClassHandler.getMainClass().getConfig().getBoolean("PlayerCountMessage.Enable")) {
-			manager.addPacketListener(new PacketAdapter(ClassHandler.getMainClass(), ListenerPriority.NORMAL, Arrays.asList(new PacketType[] { PacketType.Status.Server.OUT_SERVER_INFO }), new ListenerOptions[] { ListenerOptions.ASYNC }) {
+		if (CustomMessageConfig.getConfig().getBoolean("PlayerCountMessage.Enable")) {
+			manager.addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, Arrays.asList(new PacketType[] { PacketType.Status.Server.OUT_SERVER_INFO }), new ListenerOptions[] { ListenerOptions.ASYNC }) {
 				@Override
 				public void onPacketSending(PacketEvent event) {
 					WrappedServerPing ping = event.getPacket().getServerPings().read(0);
-					if(ClassHandler.getMainClass().getConfig().getStringList("PlayerCountMessage.Message").contains("null")) {
+					if(CustomMessageConfig.getConfig().getStringList("PlayerCountMessage.Message").contains("null")) {
 						ping.setPlayers(null);
 						return;
 					}
@@ -39,14 +45,14 @@ public class ProtocolLibPacket {
 					int playerlength = getOnlinePlayers().size();
 					int maxplayer = Bukkit.getMaxPlayers();
 					String name = Bukkit.getServerName();
-					String ver = Bukkit.getServer().getVersion();
-					ver = ver.split("\\(")[1];
-					ver = ver.substring(4, ver.length() - 1);
-					for (String pcm : ClassHandler.getMainClass().getConfig().getStringList("PlayerCountMessage.Message")) {
+					String version = Bukkit.getServer().getVersion();
+					version = version.split("\\(")[1];
+					version = version.substring(4, version.length() - 1);
+					for (String pcm : CustomMessageConfig.getConfig().getStringList("PlayerCountMessage.Message")) {
 						pcm = pcm.replace("%players", String.valueOf(playerlength));
 						pcm = pcm.replace("%maxplayers", String.valueOf(maxplayer));
 						pcm = pcm.replace("%servername", name);
-						pcm = pcm.replace("%version", ver);
+						pcm = pcm.replace("%version", version);
 						pcm = pcm.replace("%time", TimeManager.getTime());
 						pcm = pcm.replace("&", "§");
 						list.add(new WrappedGameProfile("1", pcm));

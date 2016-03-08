@@ -3,13 +3,12 @@ package com.github.yuttyann.custommessage.listener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.TimeManager;
-import com.github.yuttyann.custommessage.handle.ClassHandler;
 
 public class PlayerDeathListener implements Listener {
 
@@ -19,13 +18,13 @@ public class PlayerDeathListener implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler
 	public void onDeathMessage(PlayerDeathEvent event) {
 		Player killer = event.getEntity().getKiller();
 		if (event.getEntity().getKiller() != null) {
-			if (ClassHandler.getMainClass().getConfig().getBoolean("PlayerKillMessage.Enable")) {
-				String PlayerKillMessage = ClassHandler.getMainClass().getConfig().getString("PlayerKillMessage.Message");
-				String NullMessage = ClassHandler.getMainClass().getConfig().getString("PlayerKillMessage.NullMessage");
+			if (CustomMessageConfig.getConfig().getBoolean("PlayerKillMessage.Enable")) {
+				String PlayerKillMessage = CustomMessageConfig.getConfig().getString("PlayerKillMessage.Message");
+				String NullMessage = CustomMessageConfig.getConfig().getString("PlayerKillMessage.NullMessage");
 				PlayerKillMessage = PlayerKillMessage.replace("%deader", event.getEntity().getDisplayName());
 				PlayerKillMessage = PlayerKillMessage.replace("%killer", killer.getDisplayName());
 				PlayerKillMessage = PlayerKillMessage.replace("%weapon", getItemName(killer, NullMessage));
@@ -35,9 +34,9 @@ public class PlayerDeathListener implements Listener {
 			}
 		}
 		if (killer == null) {
-			if (ClassHandler.getMainClass().getConfig().getBoolean("PlayerDeathMessage.Enable")) {
+			if (CustomMessageConfig.getConfig().getBoolean("PlayerDeathMessage.Enable")) {
 				Player deader = event.getEntity();
-				String PlayerDeathMessage = ClassHandler.getMainClass().getConfig().getString("PlayerDeathMessage.Message");
+				String PlayerDeathMessage = CustomMessageConfig.getConfig().getString("PlayerDeathMessage.Message");
 				PlayerDeathMessage = PlayerDeathMessage.replace("%deader", deader.getDisplayName());
 				PlayerDeathMessage = PlayerDeathMessage.replace("%time", TimeManager.getTime());
 				PlayerDeathMessage = PlayerDeathMessage.replace("&", "§");

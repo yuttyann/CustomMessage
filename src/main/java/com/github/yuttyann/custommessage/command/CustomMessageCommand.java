@@ -5,9 +5,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
-import com.github.yuttyann.custommessage.handle.ClassHandler;
 
 public class CustomMessageCommand implements CommandExecutor {
 
@@ -19,7 +19,7 @@ public class CustomMessageCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (plugin.getConfig().getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
 		}
@@ -33,7 +33,7 @@ public class CustomMessageCommand implements CommandExecutor {
 		}
 		if (args.length == 1) {
 			if (args[0].equalsIgnoreCase("reload")) {
-				ClassHandler.getMainClass().reloadConfig();
+				CustomMessageConfig.reloadConfig();
 				sender.sendMessage(ChatColor.GREEN + "Configのリロードが完了しました");
 				return true;
 			}

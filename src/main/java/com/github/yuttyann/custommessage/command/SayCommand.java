@@ -8,9 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
-import com.github.yuttyann.custommessage.handle.ClassHandler;
 
 public class SayCommand implements CommandExecutor {
 
@@ -30,7 +30,7 @@ public class SayCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "Usage: /say <message ...>");
 			return false;
 		}
-		String message = ClassHandler.getMainClass().getConfig().getString("Commands.Say");
+		String message = CustomMessageConfig.getConfig().getString("Commands.Say");
 		message = message.replace("%name", getName(sender));
 		message = message.replace("%message", stringBuilder(args, 0).replace("&", "§"));
 		message = message.replace("&", "§");

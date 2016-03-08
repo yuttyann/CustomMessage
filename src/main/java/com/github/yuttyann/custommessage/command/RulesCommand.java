@@ -7,9 +7,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
-import com.github.yuttyann.custommessage.handle.ClassHandler;
 
 public class RulesCommand implements CommandExecutor {
 
@@ -21,11 +21,11 @@ public class RulesCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (plugin.getConfig().getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
 		}
-		if (!plugin.getConfig().getBoolean("Rules.Enable")) {
+		if (!CustomMessageConfig.getConfig().getBoolean("Rules.Enable")) {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
 		}
@@ -33,7 +33,7 @@ public class RulesCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "権限がありません");
 			return true;
 		}
-		List<String> rules = ClassHandler.getMainClass().getConfig().getStringList("Rules.Message");
+		List<String> rules = CustomMessageConfig.getConfig().getStringList("Rules.Message");
 		for (String s : rules) {
 			s = s.replace("&", "§");
 			sender.sendMessage(s);

@@ -1,5 +1,5 @@
-#CustomMessage v5.2 Config
-#BukkitVersion 1.7.2～1.8.x
+#CustomMessage v5.3 Config
+#BukkitVersion 1.7.2～1.9
 #ColorCodeList http://ess.khhq.net/mc/
 
 #SpigotProtocolHack1.7-1.8を使用しているか
@@ -54,7 +54,7 @@ Time: "&e%year年%month月%day日%week曜日 %hour時%minute分%second秒"
 #%versionでサーバーのバージョンを取得します。
 #%timeでTimeに設定した時間を取得します。
 # trueで有効 falseで無効
-#初期: true
+#初期: false
 PlayerCountMessage:
   Enable: false
   Message:
@@ -64,15 +64,14 @@ PlayerCountMessage:
 
 #コマンドメッセージの設定
 #&で色を指定できます。ColorCodeListのURL参照
-#%nameで名前を取得します。(say、meで使用可能)
+#%nameで名前を取得します。
 #%messageでメッセージを取得します。
-#%playerでコマンドを実行したプレイヤーを取得します。(tell、tell_targetで使用可能)
 #%targetで指定したプレイヤーを取得します。(tell、tell_targetで使用可能)
 Commands:
   Say: '&d[%name] %message'
   Me: '* %name %message'
-  tell: '[%player->%target] %message'
-  tell_target: '&7%player whispers %message'
+  tell: '[%name->%target] %message'
+  tell_target: '&7%name whispers %message'
 
 #接続人数表示変更の設定
 #接続人数の表示を変えてるだけなので実際に入れる人数は変わりません。

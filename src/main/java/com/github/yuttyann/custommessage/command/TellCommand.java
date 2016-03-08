@@ -7,9 +7,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
-import com.github.yuttyann.custommessage.handle.ClassHandler;
 
 public class TellCommand implements CommandExecutor {
 
@@ -34,14 +34,14 @@ public class TellCommand implements CommandExecutor {
 			sender.sendMessage("There's no player by that name online.");
 		} else {
 			String stringBuilder = stringBuilder(args, 1);
-			String tell = ClassHandler.getMainClass().getConfig().getString("Commands.tell");
-			String tell_target = ClassHandler.getMainClass().getConfig().getString("Commands.tell_target");
+			String tell = CustomMessageConfig.getConfig().getString("Commands.tell");
+			String tell_target = CustomMessageConfig.getConfig().getString("Commands.tell_target");
 			tell = tell.replace("%target", player.getName());
-			tell = tell.replace("%player", sender.getName());
+			tell = tell.replace("%name", sender.getName());
 			tell = tell.replace("%message", stringBuilder);
 			tell = tell.replace("&", "§");
 			tell_target = tell_target.replace("%target", player.getName());
-			tell_target = tell_target.replace("%player", sender.getName());
+			tell_target = tell_target.replace("%name", sender.getName());
 			tell_target = tell_target.replace("%message", stringBuilder);
 			tell_target = tell_target.replace("&", "§");
 			sender.sendMessage(tell);

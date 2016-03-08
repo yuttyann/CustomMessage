@@ -1,6 +1,7 @@
-# CustomMessage v5.2
+# CustomMessage v5.3
 このプラグインはyuttyann44581によって作成されています。  
-Minecraftの様々なメッセージを変更できるプラグインです。  
+Minecraftの様々なメッセージを変更できるプラグインです。
+ライセンス: LGPLv3    
 
 # Commands
 /rules  

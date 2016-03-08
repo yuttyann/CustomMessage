@@ -16,7 +16,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -81,10 +80,10 @@ public class Updater implements Listener {
 	}
 
 	public void updateCheck() {
-		if(plugin.getConfig().getBoolean("UpdateChecker")) {
+		if(CustomMessageConfig.getConfig().getBoolean("UpdateChecker")) {
 			if((!getVersion().equals(getCurrentVersion())) && (Double.valueOf(getVersion()) > Double.valueOf(getCurrentVersion()))) {
 				enable = true;
-				if(plugin.getConfig().getBoolean("AutoDownload")) {
+				if(CustomMessageConfig.getConfig().getBoolean("AutoDownload")) {
 					download();
 				}
 			} else {
@@ -147,7 +146,7 @@ public class Updater implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		sendCheckMessage(event.getPlayer());
 	}

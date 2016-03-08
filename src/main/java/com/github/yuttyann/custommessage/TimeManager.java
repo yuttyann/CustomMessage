@@ -4,11 +4,9 @@ import java.util.Calendar;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import com.github.yuttyann.custommessage.handle.ClassHandler;
-
 public class TimeManager {
 
-	private static FileConfiguration file = ClassHandler.getMainClass().getConfig();
+	private static FileConfiguration file = CustomMessageConfig.getConfig();
 	private static Calendar cal = Calendar.getInstance();
 	private static String[] week_name = {file.getString("Sunday"), file.getString("Monday"), file.getString("Tuesday"),
 	file.getString("Wednesday"), file.getString("Thursday"), file.getString("Friday"), file.getString("Saturday")};

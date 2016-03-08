@@ -6,9 +6,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import com.github.yuttyann.custommessage.CustomMessageConfig;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
-import com.github.yuttyann.custommessage.handle.ClassHandler;
 
 public class MeCommand implements CommandExecutor {
 
@@ -28,7 +28,7 @@ public class MeCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "Usage: /me <action>");
 			return false;
 		}
-		String message = ClassHandler.getMainClass().getConfig().getString("Commands.Me");
+		String message = CustomMessageConfig.getConfig().getString("Commands.Me");
 		message = message.replace("%name", sender.getName());
 		message = message.replace("%message", stringBuilder(args, 0).replace("&", "§"));
 		message = message.replace("&", "§");
