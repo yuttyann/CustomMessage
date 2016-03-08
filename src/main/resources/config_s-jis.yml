@@ -1,0 +1,211 @@
+#CustomMessage v5.3 Config
+#BukkitVersion 1.7.2～1.9
+#ColorCodeList http://ess.khhq.net/mc/
+
+#SpigotProtocolHack1.7-1.8を使用しているか
+#ProtocolHackがわからない時はサーバーに1.7-1.8で接続できるか確認してください。
+#ProtocolHackを使用している場合は、trueと書いてください。
+# trueで有効 falseで無効
+#初期: false
+ProtocolHack: false
+
+#このプラグインをAPIとして使うか
+#このプラグインの機能が無効化されます。
+# trueで有効 falseで無効
+#初期: false
+CustomMessageAPI: false
+
+#バージョンチェック、ダウンロード
+#このプラグインが最新バージョンかチェックします。
+#メッセージはOPにしか表示されません。
+# trueで有効 falseで無効
+#初期: true
+UpdateChecker: true
+AutoDownload: true
+
+#曜日の設定
+#ここに設定した曜日は%weekで使用されます。
+Sunday: '日'
+Monday: '月'
+Tuesday: '火'
+Wednesday: '水'
+Thursday: '木'
+Friday: '金'
+Saturday: '土'
+
+#時間の設定
+#&で色を指定できます。ColorCodeListのURL参照
+#%yearで現在の年を取得します。
+#%monthで現在の月を取得します。
+#%dayで現在の日を取得します。
+#%hourで現在の時を取得します。
+#%minuteで現在の分を取得します。
+#%secondで現在の秒を取得します。
+#%weekで現在の曜日を取得します。
+#%dayofyearで現在の年の何日目かを取得します。
+Time: "&e%year年%month月%day日%week曜日 %hour時%minute分%second秒"
+
+#プレイヤーカウントメッセージの設定
+#nullを入力することでプレイヤーが接続していてもプレイヤーIDが表示されなくなります。
+#&で色を指定できます。ColorCodeListのURL参照
+#%playersでサーバーにログインしている人数を取得します。
+#%maxplayersで最大接続人数を取得します。
+#%servernameでサーバー名を取得します。
+#%versionでサーバーのバージョンを取得します。
+#%timeでTimeに設定した時間を取得します。
+# trueで有効 falseで無効
+#初期: false
+PlayerCountMessage:
+  Enable: false
+  Message:
+  - '&aMinecraft1'
+  - '&cMinecraft2'
+  - '&eMinecraft3'
+
+#コマンドメッセージの設定
+#&で色を指定できます。ColorCodeListのURL参照
+#%nameで名前を取得します。
+#%messageでメッセージを取得します。
+#%targetで指定したプレイヤーを取得します。(tell、tell_targetで使用可能)
+Commands:
+  Say: '&d[%name] %message'
+  Me: '* %name %message'
+  tell: '[%name->%target] %message'
+  tell_target: '&7%name whispers %message'
+
+#接続人数表示変更の設定
+#接続人数の表示を変えてるだけなので実際に入れる人数は変わりません。
+# trueで有効 falseで無効
+#初期: true
+FakeMaxPlayer:
+  Enable: true
+  MaxPlayer: 999
+
+#殺害メッセージの設定
+#&で色を指定できます。ColorCodeListのURL参照
+#%deaderで殺害されたプレイヤーを取得します。
+#%killerで殺害したプレイヤーを取得します。
+#%weaponで殺害したプレイヤーの武器を取得します。
+#%timeでTimeに設定した時間を取得します。
+# trueで有効 falseで無効
+#初期: false
+PlayerKillMessage:
+  Enable: false
+  NullMessage: '素手'
+  Message: '&c%deaderは%killerに%weaponで殺害されました'
+
+#死亡メッセージの設定
+#&で色を指定できます。ColorCodeListのURL参照
+#%deaderで死亡したプレイヤーを取得します。
+#%timeでTimeに設定した時間を取得します。
+# trueで有効 falseで無効
+#初期: false
+PlayerDeathMessage:
+  Enable: false
+  Message: '&c%deaderは死んでしまった'
+
+#ログイン/ログアウトメッセージの設定
+#%playerでプレイヤーを取得します。
+#%timeでTimeに設定した時間を取得します。
+#&で色を指定できます。ColorCodeListのURL参照
+# trueで有効 falseで無効
+#初期: true
+PlayerJoinQuitMessage:
+  Enable: true
+  FirstJoinMssage: '&e%playerさんが初めてサーバーに参加しました'
+  JoinMessage: '&e%playerさんがサーバーに参加しました'
+  QuitMessage: '&e%playerさんがサーバーから退出しました'
+
+#プレイヤーチャットの設定
+#&で色を指定できます。ColorCodeListのURL参照
+#%playerでプレイヤーを取得します。
+#%chatでプレイヤーのチャットが取得できます。
+#%timeでTimeに設定した時間を取得します。
+# trueで有効 falseで無効
+#初期: false
+ChatMessageFormat:
+  Enable: false
+  Message: '<&e%player&f> %chat'
+
+#キックメッセージの設定
+#BroadcastMessageはキック時にサーバー全体に流れるメッセージです。
+#noneと入力することでそのメッセージを無効化できます。
+#&で色を指定できます。ColorCodeListのURL参照
+#%playerでプレイヤーを取得します。
+#%lineで改行することができます。(Message、AFKMessageで使用可能)
+#%timeでTimeに設定した時間を取得します。
+# trueで有効 falseで無効
+#初期: false
+PlayerKickMessage:
+  Enable: false
+  Message: '&eあなたはキックされました'
+  AFKMessage: '&c放置していたためキックされました！'
+  BroadcastMessage: '&c%playerさんがキックされました！'
+
+#ログインキックメッセージの設定
+#&で色を指定できます。ColorCodeListのURL参照
+#%playerでプレイヤーを取得します。
+#%lineで改行することができます。
+#%timeでTimeに設定した時間を取得します。
+# trueで有効 falseで無効
+#初期: false
+PlayerLoginKickMessage:
+  Enable: false
+  BanMessage: '&cBANされているためログインできません'
+  WhiteListMessage: 'ホワイトリストが有効になっているためログインできません'
+
+#サーバールールの設定
+#&で色を指定できます。ColorCodeListのURL参照
+# trueで有効 falseで無効
+#初期: true
+Rules:
+  Enable: true
+  Message:
+  - '&b---------&aサーバールール&b---------'
+  - '&e楽しんでください'
+  - '&e挨拶をしてください'
+
+#タイトルの表示時間などの設定
+#FadeIn：表示するまでの時間
+#Stay：表示させている時間
+#FadeOut：消えるまでの時間
+TitleTime:
+  FadeIn: 10
+  Stay: 40
+  FadeOut: 10
+
+#タイトルメッセージの設定
+#&で色を指定できます。ColorCodeListのURL参照
+#%playerでプレイヤーを取得します。
+#%timeでTimeに設定した時間を取得します。
+# trueで有効 falseで無効
+#初期: true
+Title:
+  Enable: true
+  TitleMessage: '&aテスト1'
+  SubTitleMessage: '&eテスト2'
+
+#タブタイトルの設定
+#&で色を指定できます。ColorCodeListのURL参照
+#%playerでプレイヤーを取得します。
+#%timeでTimeに設定した時間を取得します。
+# trueで有効 falseで無効
+#初期: true
+TabTitle:
+  Enable: true
+  Header: '&dテスト1'
+  Footer: '&bテスト2'
+
+#Motdの表示変更設定 
+#&で色を指定できます。ColorCodeListのURL参照
+#%playersでサーバーにログインしている人数を取得します。
+#%maxplayersで最大接続人数を取得します。
+#%servernameでサーバー名を取得します。
+#%versionでサーバーのバージョンを取得します。
+#%timeでTimeに設定した時間を取得します。
+# trueで有効 falseで無効
+#初期: true
+Motd:
+  Enable: true
+  1line: '&bようこそマインクラフトサーバーへ'
+  2line: '&dバージョン%version &6現在サーバーで%players人が遊んでます'
