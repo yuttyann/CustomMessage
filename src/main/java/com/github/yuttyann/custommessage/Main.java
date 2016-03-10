@@ -71,7 +71,7 @@ public class Main extends JavaPlugin {
 		}
 	}
 
-	private static boolean isUpperVersion(String version, String border) {
+	private boolean isUpperVersion(String version, String border) {
 		int hyphen = version.indexOf("-");
 		if (hyphen > 0) {
 			version = version.substring(0, hyphen);
