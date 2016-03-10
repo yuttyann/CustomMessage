@@ -31,17 +31,17 @@ public class PlayerTitleListener implements Listener {
 	}
 
 	private void playerTitle(Player player) {
-		if (CustomMessageConfig.getConfig().getBoolean("Title.Enable")) {
-			int FadeIn = CustomMessageConfig.getConfig().getInt("TitleTime.FadeIn");
-			int Stay = CustomMessageConfig.getConfig().getInt("TitleTime.Stay");
-			int FadeOut = CustomMessageConfig.getConfig().getInt("TitleTime.FadeOut");
-			String TitleMessage = CustomMessageConfig.getConfig().getString("Title.TitleMessage");
-			String SubTitleMessage = CustomMessageConfig.getConfig().getString("Title.SubTitleMessage");
+		if (CustomMessageConfig.getBoolean("Title.Enable")) {
+			int FadeIn = CustomMessageConfig.getInt("TitleTime.FadeIn");
+			int Stay = CustomMessageConfig.getInt("TitleTime.Stay");
+			int FadeOut = CustomMessageConfig.getInt("TitleTime.FadeOut");
+			String TitleMessage = CustomMessageConfig.getString("Title.TitleMessage");
+			String SubTitleMessage = CustomMessageConfig.getString("Title.SubTitleMessage");
 			sendTitle(player, FadeIn, Stay, FadeOut, TitleMessage, SubTitleMessage);
 		}
-		if (CustomMessageConfig.getConfig().getBoolean("TabTitle.Enable")) {
-			String Header = CustomMessageConfig.getConfig().getString("TabTitle.Header");
-			String Footer = CustomMessageConfig.getConfig().getString("TabTitle.Footer");
+		if (CustomMessageConfig.getBoolean("TabTitle.Enable")) {
+			String Header = CustomMessageConfig.getString("TabTitle.Header");
+			String Footer = CustomMessageConfig.getString("TabTitle.Footer");
 			sendTabTitle(player, Header, Footer);
 		}
 	}

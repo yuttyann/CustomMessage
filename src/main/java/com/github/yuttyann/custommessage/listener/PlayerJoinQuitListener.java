@@ -20,15 +20,15 @@ public class PlayerJoinQuitListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		if (CustomMessageConfig.getConfig().getBoolean("PlayerJoinQuitMessage.Enable")) {
+		if (CustomMessageConfig.getBoolean("PlayerJoinQuitMessage.Enable")) {
 			if (event.getPlayer().hasPlayedBefore()) {
-				String PlayerJoinMessage = CustomMessageConfig.getConfig().getString("PlayerJoinQuitMessage.JoinMessage");
+				String PlayerJoinMessage = CustomMessageConfig.getString("PlayerJoinQuitMessage.JoinMessage");
 				PlayerJoinMessage = PlayerJoinMessage.replace("%player", event.getPlayer().getDisplayName());
 				PlayerJoinMessage = PlayerJoinMessage.replace("%time", TimeManager.getTime());
 				PlayerJoinMessage = PlayerJoinMessage.replace("&", "§");
 				event.setJoinMessage(PlayerJoinMessage);
 			} else {
-				String PlayerFirstJoinMessage = CustomMessageConfig.getConfig().getString("PlayerJoinQuitMessage.FirstJoinMssage");
+				String PlayerFirstJoinMessage = CustomMessageConfig.getString("PlayerJoinQuitMessage.FirstJoinMssage");
 				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%player", event.getPlayer().getDisplayName());
 				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%time", TimeManager.getTime());
 				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("&", "§");
@@ -39,8 +39,8 @@ public class PlayerJoinQuitListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerQuit(PlayerQuitEvent event) {
-		if (CustomMessageConfig.getConfig().getBoolean("PlayerJoinQuitMessage.Enable")) {
-			String PlayerQuitMessage = CustomMessageConfig.getConfig().getString("PlayerJoinQuitMessage.QuitMessage");
+		if (CustomMessageConfig.getBoolean("PlayerJoinQuitMessage.Enable")) {
+			String PlayerQuitMessage = CustomMessageConfig.getString("PlayerJoinQuitMessage.QuitMessage");
 			PlayerQuitMessage = PlayerQuitMessage.replace("%player", event.getPlayer().getDisplayName());
 			PlayerQuitMessage = PlayerQuitMessage.replace("%time", TimeManager.getTime());
 			PlayerQuitMessage = PlayerQuitMessage.replace("&", "§");

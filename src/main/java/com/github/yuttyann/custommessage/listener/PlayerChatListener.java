@@ -19,8 +19,8 @@ public class PlayerChatListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
-		if (CustomMessageConfig.getConfig().getBoolean("ChatMessageFormat.Enable")) {
-			String PlayerChatMessage = CustomMessageConfig.getConfig().getString("ChatMessageFormat.Message");
+		if (CustomMessageConfig.getBoolean("ChatMessageFormat.Enable")) {
+			String PlayerChatMessage = CustomMessageConfig.getString("ChatMessageFormat.Message");
 			PlayerChatMessage = PlayerChatMessage.replace("%player", event.getPlayer().getDisplayName());
 			PlayerChatMessage = PlayerChatMessage.replace("%chat", event.getMessage());
 			PlayerChatMessage = PlayerChatMessage.replace("%time", TimeManager.getTime());

@@ -23,9 +23,9 @@ public class PlayerDeathListener implements Listener {
 	public void onDeathMessage(PlayerDeathEvent event) {
 		Player killer = event.getEntity().getKiller();
 		if (event.getEntity().getKiller() != null) {
-			if (CustomMessageConfig.getConfig().getBoolean("PlayerKillMessage.Enable")) {
-				String PlayerKillMessage = CustomMessageConfig.getConfig().getString("PlayerKillMessage.Message");
-				String NullMessage = CustomMessageConfig.getConfig().getString("PlayerKillMessage.NullMessage");
+			if (CustomMessageConfig.getBoolean("PlayerKillMessage.Enable")) {
+				String PlayerKillMessage = CustomMessageConfig.getString("PlayerKillMessage.Message");
+				String NullMessage = CustomMessageConfig.getString("PlayerKillMessage.NullMessage");
 				PlayerKillMessage = PlayerKillMessage.replace("%deader", event.getEntity().getDisplayName());
 				PlayerKillMessage = PlayerKillMessage.replace("%killer", killer.getDisplayName());
 				PlayerKillMessage = PlayerKillMessage.replace("%weapon", getItemName(killer, NullMessage));
@@ -35,9 +35,9 @@ public class PlayerDeathListener implements Listener {
 			}
 		}
 		if (killer == null) {
-			if (CustomMessageConfig.getConfig().getBoolean("PlayerDeathMessage.Enable")) {
+			if (CustomMessageConfig.getBoolean("PlayerDeathMessage.Enable")) {
 				Player deader = event.getEntity();
-				String PlayerDeathMessage = CustomMessageConfig.getConfig().getString("PlayerDeathMessage.Message");
+				String PlayerDeathMessage = CustomMessageConfig.getString("PlayerDeathMessage.Message");
 				PlayerDeathMessage = PlayerDeathMessage.replace("%deader", deader.getDisplayName());
 				PlayerDeathMessage = PlayerDeathMessage.replace("%time", TimeManager.getTime());
 				PlayerDeathMessage = PlayerDeathMessage.replace("&", "§");

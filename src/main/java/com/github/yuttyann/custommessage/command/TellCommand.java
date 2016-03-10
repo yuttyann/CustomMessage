@@ -34,8 +34,8 @@ public class TellCommand implements CommandExecutor {
 			sender.sendMessage("There's no player by that name online.");
 		} else {
 			String stringBuilder = stringBuilder(args, 1);
-			String tell = CustomMessageConfig.getConfig().getString("Commands.tell");
-			String tell_target = CustomMessageConfig.getConfig().getString("Commands.tell_target");
+			String tell = CustomMessageConfig.getString("Commands.tell");
+			String tell_target = CustomMessageConfig.getString("Commands.tell_target");
 			tell = tell.replace("%target", player.getName());
 			tell = tell.replace("%name", sender.getName());
 			tell = tell.replace("%message", stringBuilder);
@@ -50,7 +50,7 @@ public class TellCommand implements CommandExecutor {
 		return false;
 	}
 
-	public static String stringBuilder(String[] args, Integer integer) {
+	private String stringBuilder(String[] args, Integer integer) {
 		StringBuilder builder = new StringBuilder();
 		for (int i = integer; i < args.length; i++) {
 			if (i > integer)

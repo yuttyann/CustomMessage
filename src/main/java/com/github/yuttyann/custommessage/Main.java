@@ -61,12 +61,12 @@ public class Main extends JavaPlugin {
 
 	private void setUpConfig() {
 		if ((PlatformUtils.isLinux()) || (PlatformUtils.isMac())) {
-			CustomMessageConfig.loadConfig(this, "utf-8");
+			new CustomMessageConfig(this, "utf-8");
 		} else if (PlatformUtils.isWindows()) {
 			if(isUpperVersion(Bukkit.getBukkitVersion(), "1.9")) {
-				CustomMessageConfig.loadConfig(this, "utf-8");
+				new CustomMessageConfig(this, "utf-8");
 			} else {
-				CustomMessageConfig.loadConfig(this, "s-jis");
+				new CustomMessageConfig(this, "s-jis");
 			}
 		}
 	}
@@ -107,7 +107,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadClass() {
-		if (CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
 			return;
 		}
 		getServer().getPluginManager().registerEvents(new PlayerChatListener(this), this);
@@ -119,7 +119,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadProtocolLib() {
-		if (CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
 			return;
 		}
 		if (!getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
@@ -139,7 +139,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadAPI() {
-		if (!CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
+		if (!CustomMessageConfig.getBoolean("CustomMessageAPI")) {
 			return;
 		}
 		Server server = Bukkit.getServer();
@@ -168,7 +168,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadTitle() {
-		if (CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
 			return;
 		}
 		Server server = Bukkit.getServer();

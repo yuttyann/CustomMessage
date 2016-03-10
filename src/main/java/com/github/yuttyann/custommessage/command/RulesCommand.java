@@ -21,11 +21,11 @@ public class RulesCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
 		}
-		if (!CustomMessageConfig.getConfig().getBoolean("Rules.Enable")) {
+		if (!CustomMessageConfig.getBoolean("Rules.Enable")) {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
 		}
@@ -33,10 +33,10 @@ public class RulesCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "権限がありません");
 			return true;
 		}
-		List<String> rules = CustomMessageConfig.getConfig().getStringList("Rules.Message");
-		for (String s : rules) {
-			s = s.replace("&", "§");
-			sender.sendMessage(s);
+		List<String> rules = CustomMessageConfig.getStringList("Rules.Message");
+		for (String message : rules) {
+			message = message.replace("&", "§");
+			sender.sendMessage(message);
 		}
 		return true;
 	}

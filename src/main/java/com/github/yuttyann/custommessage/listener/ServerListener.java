@@ -21,13 +21,13 @@ public class ServerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onServerListPing(ServerListPingEvent event) {
-		if (CustomMessageConfig.getConfig().getBoolean("FakeMaxPlayer.Enable")) {
+		if (CustomMessageConfig.getBoolean("FakeMaxPlayer.Enable")) {
 			int MaxPlayer = CustomMessageConfig.getConfig().getInt("FakeMaxPlayer.MaxPlayer");
 			event.setMaxPlayers(MaxPlayer);
 		}
-		if (CustomMessageConfig.getConfig().getBoolean("Motd.Enable")) {
-			String line1 = CustomMessageConfig.getConfig().getString("Motd.1line");
-			String line2 = CustomMessageConfig.getConfig().getString("Motd.2line");
+		if (CustomMessageConfig.getBoolean("Motd.Enable")) {
+			String line1 = CustomMessageConfig.getString("Motd.1line");
+			String line2 = CustomMessageConfig.getString("Motd.2line");
 			int players = event.getNumPlayers();
 			int maxplayer = Bukkit.getMaxPlayers();
 			String name = Bukkit.getServerName();

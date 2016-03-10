@@ -32,12 +32,12 @@ public class ProtocolLibPacket {
 	}
 
 	public void sendPlayerCountMessage() {
-		if (CustomMessageConfig.getConfig().getBoolean("PlayerCountMessage.Enable")) {
+		if (CustomMessageConfig.getBoolean("PlayerCountMessage.Enable")) {
 			manager.addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, Arrays.asList(new PacketType[] { PacketType.Status.Server.OUT_SERVER_INFO }), new ListenerOptions[] { ListenerOptions.ASYNC }) {
 				@Override
 				public void onPacketSending(PacketEvent event) {
 					WrappedServerPing ping = event.getPacket().getServerPings().read(0);
-					if(CustomMessageConfig.getConfig().getStringList("PlayerCountMessage.Message").contains("null")) {
+					if(CustomMessageConfig.getStringList("PlayerCountMessage.Message").contains("null")) {
 						ping.setPlayers(null);
 						return;
 					}
@@ -48,7 +48,7 @@ public class ProtocolLibPacket {
 					String version = Bukkit.getServer().getVersion();
 					version = version.split("\\(")[1];
 					version = version.substring(4, version.length() - 1);
-					for (String pcm : CustomMessageConfig.getConfig().getStringList("PlayerCountMessage.Message")) {
+					for (String pcm : CustomMessageConfig.getStringList("PlayerCountMessage.Message")) {
 						pcm = pcm.replace("%players", String.valueOf(playerlength));
 						pcm = pcm.replace("%maxplayers", String.valueOf(maxplayer));
 						pcm = pcm.replace("%servername", name);

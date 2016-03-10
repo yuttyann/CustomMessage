@@ -83,10 +83,10 @@ public class Updater implements Listener {
 	}
 
 	public void updateCheck() {
-		if(CustomMessageConfig.getConfig().getBoolean("UpdateChecker")) {
+		if(CustomMessageConfig.getBoolean("UpdateChecker")) {
 			if((!getVersion().equals(getCurrentVersion())) && (Double.valueOf(getVersion()) > Double.valueOf(getCurrentVersion()))) {
 				enable = true;
-				if(CustomMessageConfig.getConfig().getBoolean("AutoDownload")) {
+				if(CustomMessageConfig.getBoolean("AutoDownload")) {
 					download();
 				}
 			} else {

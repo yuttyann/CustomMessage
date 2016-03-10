@@ -28,7 +28,7 @@ public class MeCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "Usage: /me <action>");
 			return false;
 		}
-		String message = CustomMessageConfig.getConfig().getString("Commands.Me");
+		String message = CustomMessageConfig.getString("Commands.Me");
 		message = message.replace("%name", sender.getName());
 		message = message.replace("%message", stringBuilder(args, 0).replace("&", "§"));
 		message = message.replace("&", "§");
@@ -36,7 +36,7 @@ public class MeCommand implements CommandExecutor {
 		return true;
 	}
 
-	public static String stringBuilder(String[] args, Integer integer) {
+	private String stringBuilder(String[] args, Integer integer) {
 		StringBuilder builder = new StringBuilder();
 		for (int i = integer; i < args.length; i++) {
 			if (i > integer)

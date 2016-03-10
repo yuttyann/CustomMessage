@@ -30,7 +30,7 @@ public class SayCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "Usage: /say <message ...>");
 			return false;
 		}
-		String message = CustomMessageConfig.getConfig().getString("Commands.Say");
+		String message = CustomMessageConfig.getString("Commands.Say");
 		message = message.replace("%name", getName(sender));
 		message = message.replace("%message", stringBuilder(args, 0).replace("&", "§"));
 		message = message.replace("&", "§");
@@ -48,7 +48,7 @@ public class SayCommand implements CommandExecutor {
 		}
 	}
 
-	public static String stringBuilder(String[] args, Integer integer) {
+	private String stringBuilder(String[] args, Integer integer) {
 		StringBuilder builder = new StringBuilder();
 		for (int i = integer; i < args.length; i++) {
 			if (i > integer)

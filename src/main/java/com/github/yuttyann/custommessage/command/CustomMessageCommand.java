@@ -19,7 +19,7 @@ public class CustomMessageCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (CustomMessageConfig.getConfig().getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
 		}
