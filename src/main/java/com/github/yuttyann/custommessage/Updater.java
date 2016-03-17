@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -48,23 +49,23 @@ public class Updater implements Listener {
 		sendCheckMessage();
 	}
 
-	public String getName() {
+	private String getName() {
 		return pluginName;
 	}
 
-	public String getVersion() {
+	private String getVersion() {
 		return version;
 	}
 
-	public String getCurrentVersion() {
+	private String getCurrentVersion() {
 		return currentVersion;
 	}
 
-	public String getURL() {
+	private String getURL() {
 		return pluginURL;
 	}
 
-	public void setUp() {
+	private void setUp() {
 		try {
 			URL url = new URL("http://versionview.yuttyann44581.net/" + getName() + "/");
 			InputStream input = url.openConnection().getInputStream();
@@ -82,7 +83,7 @@ public class Updater implements Listener {
 		}
 	}
 
-	public void updateCheck() {
+	private void updateCheck() {
 		if(CustomMessageConfig.getBoolean("UpdateChecker")) {
 			if((!getVersion().equals(getCurrentVersion())) && (Double.valueOf(getVersion()) > Double.valueOf(getCurrentVersion()))) {
 				enable = true;
@@ -95,7 +96,7 @@ public class Updater implements Listener {
 		}
 	}
 
-	public void download() {
+	private void download() {
 		try {
 			URL url = new URL(getURL());
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -108,7 +109,7 @@ public class Updater implements Listener {
 				throw new Exception();
 			}
 			InputStream in = conn.getInputStream();
-			File file = new File("plugins/" + getName() + "/" + getName() + " v"+ getVersion() + ".jar");
+			File file = new File(plugin.getDataFolder(), getName() + " v"+ getVersion() + ".jar");
 			FileOutputStream out = new FileOutputStream(file, false);
 			byte[] b = new byte[4096];
 			int readByte = 0;
@@ -118,7 +119,8 @@ public class Updater implements Listener {
 			in.close();
 			out.close();
 			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[" + getName() + " v"+ getVersion() + ".jar] のダウンロードが終了しました。");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[" + getName() + " v"+ getVersion() + ".jar]" + " 保存先: plugins/" + getName() + "/");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[" + getName() + " v"+ getVersion() + ".jar] ファイルサイズ: " + getSize(file.length()));
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[" + getName() + " v"+ getVersion() + ".jar] 保存先: plugins/" + getName() + "/");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (ProtocolException e) {
@@ -132,14 +134,32 @@ public class Updater implements Listener {
 		}
 	}
 
-	public void sendCheckMessage() {
+	private String getSize(long size) {
+		if (1024 > size) {
+			return size + " Byte";
+		} else if (1024 * 1024 > size) {
+			double dsize = size;
+			dsize = dsize / 1024;
+			BigDecimal bi = new BigDecimal(String.valueOf(dsize));
+			double value = bi.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+			return value + " KB";
+		} else {
+			double dsize = size;
+			dsize = dsize / 1024 / 1024;
+			BigDecimal bi = new BigDecimal(String.valueOf(dsize));
+			double value = bi.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+			return value + " MB";
+		}
+	}
+
+	private void sendCheckMessage() {
 		if(enable) {
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "URL: " + getURL());
 		}
 	}
 
-	public void sendCheckMessage(Player player) {
+	private void sendCheckMessage(Player player) {
 		if(enable) {
 			if(!player.isOp()) {
 				return;
@@ -150,7 +170,7 @@ public class Updater implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
-	public void onPlayerJoin(PlayerJoinEvent event) {
+	private void onPlayerJoin(PlayerJoinEvent event) {
 		sendCheckMessage(event.getPlayer());
 	}
 }
