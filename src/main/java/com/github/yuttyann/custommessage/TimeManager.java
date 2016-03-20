@@ -2,13 +2,13 @@ package com.github.yuttyann.custommessage;
 
 import java.util.Calendar;
 
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 
 public class TimeManager {
 
-	private static FileConfiguration file = CustomMessageConfig.getConfig();
+	private static YamlConfiguration file = CustomMessageConfig.getConfig();
 	private static Calendar cal = Calendar.getInstance();
 	private static String[] week_name = {file.getString("Sunday"), file.getString("Monday"), file.getString("Tuesday"),
 	file.getString("Wednesday"), file.getString("Thursday"), file.getString("Friday"), file.getString("Saturday")};

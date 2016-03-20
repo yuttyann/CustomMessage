@@ -120,7 +120,7 @@ public class Updater implements Listener {
 			out.close();
 			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[" + getName() + " v"+ getVersion() + ".jar] のダウンロードが終了しました。");
 			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[" + getName() + " v"+ getVersion() + ".jar] ファイルサイズ: " + getSize(file.length()));
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[" + getName() + " v"+ getVersion() + ".jar] 保存先: plugins/" + getName() + "/");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[" + getName() + " v"+ getVersion() + ".jar] 保存先: plugins/" + getName() + "/" + getName() + " v"+ getVersion() + ".jar");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (ProtocolException e) {
