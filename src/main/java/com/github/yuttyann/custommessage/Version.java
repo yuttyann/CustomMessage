@@ -5,27 +5,23 @@ import org.bukkit.Bukkit;
 public class Version {
 
 	public static boolean isVersion(String targetversion) {
-		int version = verInt(getVersion().split("\\."));
-		int target = verInt(targetversion.split("\\."));
+		int version = versionInt(getVersion().split("\\."));
+		int target = versionInt(targetversion.split("\\."));
 		if (version >= target) {
 			return true;
 		}
 		return false;
 	}
 
-	private static int verInt(String[] str) {
-		if(str.length < 3) {
-			str = new String[]{str[0], str[1], "0"};
+	private static int versionInt(String[] version) {
+		if(version.length < 3) {
+			version = new String[]{version[0], version[1], "0"};
 		}
-		if(str[2].length() == 1) {
-			str[2] = "0" + str[2];
+		if(version[2].length() == 1) {
+			version[2] = "0" + version[2];
 		}
-		str[2] = "0" + str[2];
-		return parseInt(str[0]) * 10000 + parseInt(str[1]) * 1000 + parseInt(str[2]);
-	}
-
-	private static int parseInt(String str) {
-		return Integer.parseInt(str);
+		version[2] = "0" + version[2];
+		return parseInt(version[0]) * 10000 + parseInt(version[1]) * 1000 + parseInt(version[2]);
 	}
 
 	private static String getVersion() {
@@ -33,5 +29,9 @@ public class Version {
 		version = version.split("\\(")[1];
 		version = version.substring(4, version.length() - 1);
 		return version;
+	}
+
+	private static int parseInt(String str) {
+		return Integer.parseInt(str);
 	}
 }
