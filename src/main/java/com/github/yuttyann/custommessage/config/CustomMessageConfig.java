@@ -19,7 +19,8 @@ import com.github.yuttyann.custommessage.Main;
 
 public class CustomMessageConfig {
 
-	private static Main plugin;
+	static Main plugin;
+
 	private static String encode;
 	private static File configFile;
 	private static YamlConfiguration config;
