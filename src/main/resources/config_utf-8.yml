@@ -46,7 +46,7 @@ Saturday: '土'
 Time: "&e%year年%month月%day日%week曜日 %hour時%minute分%second秒"
 
 #プレイヤーカウントメッセージの設定
-#nullを入力することでプレイヤーが接続していてもプレイヤーIDが表示されなくなります。
+#nullを1行目に入力することで接続中のプレイヤーIDが表示されなくなります。
 #&で色を指定できます。ColorCodeListのURL参照
 #%playersでサーバーにログインしている人数を取得します。
 #%maxplayersで最大接続人数を取得します。

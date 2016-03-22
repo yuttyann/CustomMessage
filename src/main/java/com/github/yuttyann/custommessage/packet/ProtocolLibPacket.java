@@ -1,9 +1,7 @@
 package com.github.yuttyann.custommessage.packet;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -24,7 +22,8 @@ import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 
 public class ProtocolLibPacket {
 
-	private Main plugin;
+	Main plugin;
+
 	private final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
 
 	public ProtocolLibPacket(Main plugin) {
@@ -37,12 +36,12 @@ public class ProtocolLibPacket {
 				@Override
 				public void onPacketSending(PacketEvent event) {
 					WrappedServerPing ping = event.getPacket().getServerPings().read(0);
-					if(CustomMessageConfig.getStringList("PlayerCountMessage.Message").contains("null")) {
+					if(isNull()) {
 						ping.setPlayers(null);
 						return;
 					}
 					List<WrappedGameProfile> list = new ArrayList<WrappedGameProfile>();
-					int playerlength = getOnlinePlayers().size();
+					int playerlength = getOnlinePlayerLength();
 					int maxplayer = Bukkit.getMaxPlayers();
 					String name = Bukkit.getServerName();
 					String version = Bukkit.getServer().getVersion();
@@ -63,24 +62,19 @@ public class ProtocolLibPacket {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	private ArrayList<Player> getOnlinePlayers() {
-		try {
-			if (Bukkit.class.getMethod("getOnlinePlayers", new Class<?>[0]).getReturnType() == Collection.class) {
-				Collection<?> temp = ((Collection<?>) Bukkit.class.getMethod("getOnlinePlayers", new Class<?>[0]).invoke(null, new Object[0]));
-				return new ArrayList<Player>((Collection<? extends Player>) temp);
-			} else {
-				Player[] temp = ((Player[]) Bukkit.class.getMethod("getOnlinePlayers", new Class<?>[0]).invoke(null, new Object[0]));
-				ArrayList<Player> players = new ArrayList<Player>();
-				for (Player t : temp) {
-					players.add(t);
-				}
-				return players;
-			}
-		} catch (NoSuchMethodException ex) {
-		} catch (InvocationTargetException ex) {
-		} catch (IllegalAccessException ex) {
+	private boolean isNull() {
+		List<String> list = CustomMessageConfig.getStringList("PlayerCountMessage.Message");
+		if(list.get(0).equals("null") && list.size() == 1) {
+			return true;
 		}
-		return new ArrayList<Player>();
+		return false;
+	}
+
+	private int getOnlinePlayerLength() {
+		List<Player> players = new ArrayList<Player>();
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			players.add(player);
+		}
+		return players.size();
 	}
 }
