@@ -41,7 +41,7 @@ public class ProtocolLibPacket {
 						return;
 					}
 					List<WrappedGameProfile> list = new ArrayList<WrappedGameProfile>();
-					int playerlength = getOnlinePlayerLength();
+					int playerlength = getOnlinePlayers().size();
 					int maxplayer = Bukkit.getMaxPlayers();
 					String name = Bukkit.getServerName();
 					String version = Bukkit.getServer().getVersion();
@@ -70,11 +70,11 @@ public class ProtocolLibPacket {
 		return false;
 	}
 
-	private int getOnlinePlayerLength() {
-		List<Player> players = new ArrayList<Player>();
+	private ArrayList<Player> getOnlinePlayers() {
+		ArrayList<Player> players = new ArrayList<Player>();
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			players.add(player);
 		}
-		return players.size();
+		return players;
 	}
 }
