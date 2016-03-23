@@ -21,16 +21,16 @@ public class CustomMessageConfig {
 
 	static Main plugin;
 
-	private static String encode;
+	private static String filename;
 	private static File configFile;
 	private static YamlConfiguration config;
 
 	public CustomMessageConfig(Main plugin, String encode) {
 		CustomMessageConfig.plugin = plugin;
-		CustomMessageConfig.encode = encode;
-		CustomMessageConfig.configFile = new File(plugin.getDataFolder(), "config_" + encode + ".yml");
+		CustomMessageConfig.filename = "config_" + encode + ".yml";
+		CustomMessageConfig.configFile = new File(plugin.getDataFolder(), filename);
 		if (!CustomMessageConfig.configFile.exists()) {
-			plugin.saveResource("config_" + encode + ".yml", false);
+			plugin.saveResource(filename, false);
 		}
 		CustomMessageConfig.config = YamlConfiguration.loadConfiguration(configFile);
 	}
@@ -41,10 +41,10 @@ public class CustomMessageConfig {
 
 	public static void reloadConfig() {
 		if (!CustomMessageConfig.configFile.exists()) {
-			plugin.saveResource("config_" + encode + ".yml", false);
+			plugin.saveResource(filename, false);
 		}
 		config = YamlConfiguration.loadConfiguration(configFile);
-		InputStream defConfigStream = plugin.getResource("config_" + encode + ".yml");
+		InputStream defConfigStream = plugin.getResource(filename);
 		if (defConfigStream != null) {
 			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
 			config.setDefaults(defConfig);
