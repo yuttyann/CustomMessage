@@ -119,7 +119,7 @@ PlayerJoinQuitMessage:
 #プレイヤーチャットの設定
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
-#%chatでプレイヤーのチャットが取得できます。
+#%chatでプレイヤーのチャットを取得します。
 #%timeでTimeに設定した時間を取得します。
 # trueで有効 falseで無効
 #初期: false
