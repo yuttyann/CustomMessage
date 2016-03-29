@@ -23,7 +23,7 @@ public class CustomMessageCommand implements CommandExecutor {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
 		}
-		if (!Permission.hasPermission(Permission.CUSTOMMESSAGE_RELOAD, sender)) {
+		if (!Permission.has(Permission.CUSTOMMESSAGE_RELOAD, sender)) {
 			sender.sendMessage(ChatColor.RED + "権限がありません");
 			return true;
 		}

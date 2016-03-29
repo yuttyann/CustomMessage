@@ -20,11 +20,11 @@ public enum Permission {
 		return node;
 	}
 
-	public static Boolean hasPermission(Permission permission, CommandSender sender) {
+	public static Boolean has(Permission permission, CommandSender sender) {
 		return sender.hasPermission(permission.getNode());
 	}
 
-	public static Boolean hasPermission(Permission permission, Player player) {
+	public static Boolean has(Permission permission, Player player) {
 		return player.hasPermission(permission.getNode());
 	}
 }

@@ -22,7 +22,7 @@ public class SayCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (!Permission.hasPermission(Permission.BUKKIT_COMMAND_SAY, sender)) {
+		if (!Permission.has(Permission.BUKKIT_COMMAND_SAY, sender)) {
 			sender.sendMessage(ChatColor.RED + "I'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.");
 			return true;
 		}

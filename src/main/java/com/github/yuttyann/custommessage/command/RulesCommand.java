@@ -29,7 +29,7 @@ public class RulesCommand implements CommandExecutor {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
 		}
-		if (!Permission.hasPermission(Permission.CUSTOMMESSAGE_RULES, sender)) {
+		if (!Permission.has(Permission.CUSTOMMESSAGE_RULES, sender)) {
 			sender.sendMessage(ChatColor.RED + "権限がありません");
 			return true;
 		}
