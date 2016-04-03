@@ -71,6 +71,18 @@ public class Main extends JavaPlugin {
 		}
 	}
 
+	private void loadProtocolLib() {
+		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
+			return;
+		}
+		if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
+			protocollib = true;
+		} else {
+			logger.severe("ProtocolLibが導入されていないのでPlayerCountMessageは機能しません！");
+			protocollib = false;
+		}
+	}
+
 	private void loadClass() {
 		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
 			return;
@@ -81,18 +93,6 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerKickListener(this), this);
 		getServer().getPluginManager().registerEvents(new ServerListener(this), this);
 		getServer().getPluginManager().registerEvents(new Updater(this), this);
-	}
-
-	private void loadProtocolLib() {
-		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
-			return;
-		}
-		if (!getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
-			logger.severe("ProtocolLibが導入されていないのでPlayerCountMessageは機能しません！");
-			protocollib = false;
-		} else {
-			protocollib = true;
-		}
 	}
 
 	private void loadCommands() {

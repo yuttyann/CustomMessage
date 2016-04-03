@@ -47,16 +47,16 @@ public class ServerListener implements Listener {
 	}
 
 	private void setPlayerCountMessage() {
-		if (getProtocolLib() == null) {
+		if (isProtocolLib() == null) {
 			return;
-		} else if (getProtocolLib()) {
+		} else if (isProtocolLib()) {
 			new ProtocolLibPacket(plugin).sendPlayerCountMessage();
 		} else {
 			return;
 		}
 	}
 
-	private Boolean getProtocolLib() {
+	private Boolean isProtocolLib() {
 		return plugin.protocollib;
 	}
 }
