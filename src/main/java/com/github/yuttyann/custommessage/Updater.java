@@ -34,6 +34,7 @@ public class Updater implements Listener {
 	private Boolean enable;
 	private PluginDescriptionFile yml;
 	private String currentVersion;
+	private String content;
 	private String pluginName;
 	private String pluginURL;
 	private String version;
@@ -49,25 +50,29 @@ public class Updater implements Listener {
 		sendCheckMessage();
 	}
 
-	private String getName() {
+	private String getCurrentVersion() {
+		return currentVersion;
+	}
+
+	private String getContent() {
+		return content;
+	}
+
+	private String getPluginName() {
 		return pluginName;
+	}
+
+	private String getPluginURL() {
+		return pluginURL;
 	}
 
 	private String getVersion() {
 		return version;
 	}
 
-	private String getCurrentVersion() {
-		return currentVersion;
-	}
-
-	private String getURL() {
-		return pluginURL;
-	}
-
 	private void setUp() {
 		try {
-			URL url = new URL("http://versionview.yuttyann44581.net/" + getName() + "/");
+			URL url = new URL("http://versionview.yuttyann44581.net/" + getPluginName() + "/");
 			InputStream input = url.openConnection().getInputStream();
 			Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
 			Node node = document.getElementsByTagName("p").item(0);
@@ -76,6 +81,8 @@ public class Updater implements Listener {
 			version = version.trim();
 			pluginURL = nodelist.item(2).getTextContent();
 			pluginURL = pluginURL.trim();
+			content = nodelist.item(4).getTextContent();
+			content = content.trim();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch(Exception e) {
@@ -98,7 +105,8 @@ public class Updater implements Listener {
 
 	private void download() {
 		try {
-			URL url = new URL(getURL());
+			String prefix = "[" + getPluginName() + " v"+ getVersion() + ".jar]";
+			URL url = new URL(getPluginURL());
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setAllowUserInteraction(false);
 			conn.setInstanceFollowRedirects(true);
@@ -109,7 +117,7 @@ public class Updater implements Listener {
 				throw new Exception();
 			}
 			InputStream in = conn.getInputStream();
-			File file = new File(plugin.getDataFolder(), getName() + " v"+ getVersion() + ".jar");
+			File file = new File(plugin.getDataFolder(), getPluginName() + " v"+ getVersion() + ".jar");
 			FileOutputStream out = new FileOutputStream(file, false);
 			byte[] b = new byte[4096];
 			int readByte = 0;
@@ -118,9 +126,9 @@ public class Updater implements Listener {
 			}
 			in.close();
 			out.close();
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[" + getName() + " v"+ getVersion() + ".jar] のダウンロードが終了しました。");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[" + getName() + " v"+ getVersion() + ".jar] ファイルサイズ: " + getSize(file.length()));
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[" + getName() + " v"+ getVersion() + ".jar] 保存先: plugins/" + getName() + "/" + getName() + " v"+ getVersion() + ".jar");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + prefix + " のダウンロードが終了しました。");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + prefix + " ファイルサイズ: " + getSize(file.length()));
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + prefix + " 保存先: plugins/" + getPluginName() + "/" + getPluginName() + " v"+ getVersion() + ".jar");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (ProtocolException e) {
@@ -155,7 +163,8 @@ public class Updater implements Listener {
 	private void sendCheckMessage() {
 		if(enable) {
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "URL: " + getURL());
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "アップデート内容: " + getContent());
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "URL: " + getPluginURL());
 		}
 	}
 
@@ -165,7 +174,8 @@ public class Updater implements Listener {
 				return;
 			}
 			player.sendMessage(ChatColor.RED + "最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
-			player.sendMessage(ChatColor.RED + "URL: " + getURL());
+			player.sendMessage(ChatColor.RED + "アップデート内容: " + getContent());
+			player.sendMessage(ChatColor.RED + "URL: " + getPluginURL());
 		}
 	}
 
