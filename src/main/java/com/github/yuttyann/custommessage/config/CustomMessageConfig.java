@@ -40,7 +40,7 @@ public class CustomMessageConfig {
 	}
 
 	public static void reloadConfig() {
-		if (!CustomMessageConfig.configFile.exists()) {
+		if (!configFile.exists()) {
 			plugin.saveResource(filename, false);
 		}
 		config = YamlConfiguration.loadConfiguration(configFile);

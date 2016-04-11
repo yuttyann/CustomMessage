@@ -7,7 +7,11 @@ softdepend: [ProtocolLib]
 
 commands:
   custommessage:
+    description: Config再読み込みコマンド
+    usage: /<command> reload - Configの再読み込みをします。
   rules:
+    description: ルールコマンド
+    usage: /<command> - ルールを表示します。
   say:
   me:
   tell:

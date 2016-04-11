@@ -41,17 +41,17 @@ public class Main extends JavaPlugin {
 		setUpConfig();
 		loadProtocolLib();
 		loadClass();
-		loadCommands();
+		loadCommand();
 		loadTitle();
 		loadAPI();
 		PluginDescriptionFile yml = getDescription();
-		logger.info("[" + yml.getName() + "] v" + yml.getVersion() + " が有効になりました");
+		logger.info("[" + yml.getName() + "] v" + yml.getVersion() + " が有効になりました。");
 	}
 
 	@Override
 	public void onDisable() {
 		PluginDescriptionFile yml = getDescription();
-		logger.info("[" + yml.getName() + "] v" + yml.getVersion() + " が無効になりました");
+		logger.info("[" + yml.getName() + "] v" + yml.getVersion() + " が無効になりました。");
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class Main extends JavaPlugin {
 		if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
 			protocollib = true;
 		} else {
-			logger.severe("ProtocolLibが導入されていないのでPlayerCountMessageは機能しません！");
+			logger.severe("ProtocolLibが導入されていないため、PlayerCountMessageを無効にしました。");
 			protocollib = false;
 		}
 	}
@@ -95,7 +95,7 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new Updater(this), this);
 	}
 
-	private void loadCommands() {
+	private void loadCommand() {
 		commands.put("rules", new RulesCommand(this));
 		commands.put("custommessage", new CustomMessageCommand(this));
 		commands.put("tell", new TellCommand(this));

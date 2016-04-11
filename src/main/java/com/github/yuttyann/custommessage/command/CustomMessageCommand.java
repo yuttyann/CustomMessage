@@ -24,21 +24,19 @@ public class CustomMessageCommand implements CommandExecutor {
 			return true;
 		}
 		if (!Permission.has(Permission.CUSTOMMESSAGE_RELOAD, sender)) {
-			sender.sendMessage(ChatColor.RED + "権限がありません");
-			return true;
-		}
-		if (args.length == 0) {
-			sender.sendMessage(ChatColor.GREEN + "コマンド: /custommessage reload");
+			sender.sendMessage(ChatColor.RED + "パーミッションが無いため、実行できません。");
 			return true;
 		}
 		if (args.length == 1) {
 			if (args[0].equalsIgnoreCase("reload")) {
 				CustomMessageConfig.reloadConfig();
-				sender.sendMessage(ChatColor.GREEN + "Configのリロードが完了しました");
+				sender.sendMessage(ChatColor.GREEN + "Configの再読み込みが完了しました。");
 				return true;
 			}
-			return true;
 		}
-		return false;
+		sender.sendMessage(ChatColor.LIGHT_PURPLE + "=== CustomMessage Commands ===");
+		sender.sendMessage(ChatColor.AQUA + "/custommessage reload - Configの再読み込みをします。");
+		sender.sendMessage(ChatColor.AQUA + "/rules - ルールを表示します。");
+		return true;
 	}
 }

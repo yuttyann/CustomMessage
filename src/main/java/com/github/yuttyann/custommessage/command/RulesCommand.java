@@ -21,16 +21,12 @@ public class RulesCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
-			sender.sendMessage("Unknown command. Type \"/help\" for help.");
-			return true;
-		}
-		if (!CustomMessageConfig.getBoolean("Rules.Enable")) {
+		if (CustomMessageConfig.getBoolean("CustomMessageAPI") || !CustomMessageConfig.getBoolean("Rules.Enable")) {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
 		}
 		if (!Permission.has(Permission.CUSTOMMESSAGE_RULES, sender)) {
-			sender.sendMessage(ChatColor.RED + "権限がありません");
+			sender.sendMessage(ChatColor.RED + "パーミッションが無いため、実行できません。");
 			return true;
 		}
 		List<String> rules = CustomMessageConfig.getStringList("Rules.Message");

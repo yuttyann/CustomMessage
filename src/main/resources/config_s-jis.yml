@@ -33,7 +33,7 @@ Thursday: '木'
 Friday: '金'
 Saturday: '土'
 
-#時間の設定
+#時刻の設定
 #&で色を指定できます。ColorCodeListのURL参照
 #%yearで現在の年を取得します。
 #%monthで現在の月を取得します。
@@ -52,7 +52,7 @@ Time: "&e%year年%month月%day日%week曜日 %hour時%minute分%second秒"
 #%maxplayersで最大接続人数を取得します。
 #%servernameでサーバー名を取得します。
 #%versionでサーバーのバージョンを取得します。
-#%timeでTimeに設定した時間を取得します。
+#%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 PlayerCountMessage:
@@ -86,7 +86,7 @@ FakeMaxPlayer:
 #%deaderで殺害されたプレイヤーを取得します。
 #%killerで殺害したプレイヤーを取得します。
 #%weaponで殺害したプレイヤーの武器を取得します。
-#%timeでTimeに設定した時間を取得します。
+#%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 PlayerKillMessage:
@@ -97,7 +97,7 @@ PlayerKillMessage:
 #死亡メッセージの設定
 #&で色を指定できます。ColorCodeListのURL参照
 #%deaderで死亡したプレイヤーを取得します。
-#%timeでTimeに設定した時間を取得します。
+#%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 PlayerDeathMessage:
@@ -106,7 +106,7 @@ PlayerDeathMessage:
 
 #ログイン/ログアウトメッセージの設定
 #%playerでプレイヤーを取得します。
-#%timeでTimeに設定した時間を取得します。
+#%timeでTimeに設定した時刻を取得します。
 #&で色を指定できます。ColorCodeListのURL参照
 # trueで有効 falseで無効
 #初期: true
@@ -120,7 +120,7 @@ PlayerJoinQuitMessage:
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
 #%chatでプレイヤーのチャットを取得します。
-#%timeでTimeに設定した時間を取得します。
+#%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 ChatMessageFormat:
@@ -133,7 +133,7 @@ ChatMessageFormat:
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
 #%lineで改行することができます。(Message、AFKMessageで使用可能)
-#%timeでTimeに設定した時間を取得します。
+#%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 PlayerKickMessage:
@@ -146,7 +146,7 @@ PlayerKickMessage:
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
 #%lineで改行することができます。
-#%timeでTimeに設定した時間を取得します。
+#%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 PlayerLoginKickMessage:
@@ -177,7 +177,7 @@ TitleTime:
 #タイトルメッセージの設定
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
-#%timeでTimeに設定した時間を取得します。
+#%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: true
 Title:
@@ -188,7 +188,7 @@ Title:
 #タブタイトルの設定
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
-#%timeでTimeに設定した時間を取得します。
+#%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: true
 TabTitle:
@@ -202,7 +202,7 @@ TabTitle:
 #%maxplayersで最大接続人数を取得します。
 #%servernameでサーバー名を取得します。
 #%versionでサーバーのバージョンを取得します。
-#%timeでTimeに設定した時間を取得します。
+#%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: true
 Motd:
