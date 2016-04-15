@@ -1,4 +1,4 @@
-# CustomMessage v5.3
+# CustomMessage Readme
 このプラグインはyuttyann44581によって作成されています。  
 Minecraftの様々なメッセージを変更できるプラグインです。  
 ライセンス: LGPLv3    
