@@ -1,9 +1,11 @@
-﻿#CustomMessage v5.3 Config
-#BukkitVersion 1.7.2～1.9
+﻿#CustomMessage v5.4 Config
+#BukkitVersion 1.7.2～1.9.2
 #ColorCodeList http://ess.khhq.net/mc/
+#SoundList http://www.yuttyann44581.net/uploads/SoundList/
+#OldSoundList http://www.yuttyann44581.net/uploads/OldSoundList/ 
 
 #SpigotProtocolHack1.7-1.8を使用しているか
-#ProtocolHackがわからない時はサーバーに1.7-1.8で接続できるか確認してください。
+#ProtocolHackかわからない場合は1.7、1.8で接続できるか確認してください。
 #ProtocolHackを使用している場合は、trueと書いてください。
 # trueで有効 falseで無効
 #初期: false
@@ -46,7 +48,7 @@ Saturday: '土'
 Time: "&e%year年%month月%day日%week曜日 %hour時%minute分%second秒"
 
 #プレイヤーカウントメッセージの設定
-#nullを1行目に入力することで接続中のプレイヤーIDが表示されなくなります。
+#noneで接続中のプレイヤーIDが表示されなくなります。
 #&で色を指定できます。ColorCodeListのURL参照
 #%playersでサーバーにログインしている人数を取得します。
 #%maxplayersで最大接続人数を取得します。
@@ -62,6 +64,14 @@ PlayerCountMessage:
   - '&cMinecraft2'
   - '&eMinecraft3'
 
+#接続人数表示変更の設定
+#接続人数の表示を変えてるだけなので実際に入れる人数は変わりません。
+# trueで有効 falseで無効
+#初期: true
+FakeMaxPlayer:
+  Enable: true
+  MaxPlayer: 999
+
 #コマンドメッセージの設定
 #&で色を指定できます。ColorCodeListのURL参照
 #%nameで名前を取得します。
@@ -73,13 +83,33 @@ Commands:
   tell: '[%name->%target] %message'
   tell_target: '&7%name whispers %message'
 
-#接続人数表示変更の設定
-#接続人数の表示を変えてるだけなので実際に入れる人数は変わりません。
-# trueで有効 falseで無効
-#初期: true
-FakeMaxPlayer:
-  Enable: true
-  MaxPlayer: 999
+#サウンドの設定
+#1.8以前と1.9以降で(音の種類)が変わります。
+#1.9以降の場合はSoundListを参照してください。
+#1.8以前の場合はOldSoundListを参照してください。
+#(音の種類)-(音量)-(音の高さ)-(音が鳴る時間)
+#※音を追加したいときは設定の最後に,を入れてください。
+#noneで音を再生しないようにできます。
+Sounds:
+  KillSound: none
+  DeathSound: none
+  FirstJoinSound: none
+  JoinSound: none
+  QuitSound: none
+  ChatSound: CHICKEN_EGG_POP-1-1-0
+  KickBroadcastSound: none
+
+#サウンドタイプの設定
+#playerでイベントを発生させたプレイヤーに音を再生します。
+#allplayersでログインしているプレイヤーに音を再生します。
+SoundTypes:
+  KillSoundType: player
+  DeathSoundType: player
+  FirstJoinSoundType: player
+  JoinSoundType: player
+  QuitSoundType: player
+  ChatSoundType: allplayers
+  KickBroadcastSoundType: player
 
 #殺害メッセージの設定
 #&で色を指定できます。ColorCodeListのURL参照
@@ -207,5 +237,6 @@ TabTitle:
 #初期: true
 Motd:
   Enable: true
-  1line: '&bようこそマインクラフトサーバーへ'
-  2line: '&dバージョン%version &6現在サーバーで%players人が遊んでます'
+  Message:
+  - '&bようこそマインクラフトサーバーへ'
+  - '&dバージョン%version &6現在サーバーで%players人が遊んでます'

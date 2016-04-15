@@ -1,5 +1,7 @@
 package com.github.yuttyann.custommessage.listener;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,15 +28,13 @@ public class ServerListener implements Listener {
 			event.setMaxPlayers(MaxPlayer);
 		}
 		if (CustomMessageConfig.getBoolean("Motd.Enable")) {
-			String line1 = CustomMessageConfig.getString("Motd.1line");
-			String line2 = CustomMessageConfig.getString("Motd.2line");
 			int players = event.getNumPlayers();
 			int maxplayer = Bukkit.getMaxPlayers();
 			String name = Bukkit.getServerName();
 			String version = Bukkit.getServer().getVersion();
 			version = version.split("\\(")[1];
 			version = version.substring(4, version.length() - 1);
-			String motd = line1 + "\n" + line2;
+			String motd = getMotd();
 			motd = motd.replace("%players", String.valueOf(players));
 			motd = motd.replace("%maxplayers", String.valueOf(maxplayer));
 			motd = motd.replace("%servername", name);
@@ -44,6 +44,18 @@ public class ServerListener implements Listener {
 			event.setMotd(motd);
 		}
 		setPlayerCountMessage();
+	}
+
+	private String getMotd() {
+		List<String> list = CustomMessageConfig.getStringList("Motd.Message");
+		String motd = "";
+		if(list.size() <= 2) {
+			motd = list.get(0);
+			if(list.size() == 2) {
+				motd = motd + "\n" + list.get(1);
+			}
+		}
+		return motd;
 	}
 
 	private void setPlayerCountMessage() {

@@ -64,7 +64,7 @@ public class ProtocolLibPacket {
 
 	private boolean isNull() {
 		List<String> list = CustomMessageConfig.getStringList("PlayerCountMessage.Message");
-		if(list.get(0).equals("null") && list.size() == 1) {
+		if(list.get(0).equals("none") && list.size() == 1) {
 			return true;
 		}
 		return false;

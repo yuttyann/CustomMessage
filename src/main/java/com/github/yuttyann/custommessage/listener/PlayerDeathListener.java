@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import com.github.yuttyann.custommessage.Main;
+import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 
@@ -22,7 +23,7 @@ public class PlayerDeathListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onDeathMessage(PlayerDeathEvent event) {
 		Player killer = event.getEntity().getKiller();
-		if (event.getEntity().getKiller() != null) {
+		if (killer != null) {
 			if (CustomMessageConfig.getBoolean("PlayerKillMessage.Enable")) {
 				String PlayerKillMessage = CustomMessageConfig.getString("PlayerKillMessage.Message");
 				String NullMessage = CustomMessageConfig.getString("PlayerKillMessage.NullMessage");
@@ -33,15 +34,21 @@ public class PlayerDeathListener implements Listener {
 				PlayerKillMessage = PlayerKillMessage.replace("&", "§");
 				event.setDeathMessage(PlayerKillMessage);
 			}
+			if (!CustomMessageConfig.getString("Sounds.KillSound").equals("none")) {
+				new Sounds(plugin).playSounds(killer, "Sounds.KillSound", "SoundTypes.KillSoundType");
+			}
 		}
 		if (killer == null) {
+			Player deader = event.getEntity();
 			if (CustomMessageConfig.getBoolean("PlayerDeathMessage.Enable")) {
-				Player deader = event.getEntity();
 				String PlayerDeathMessage = CustomMessageConfig.getString("PlayerDeathMessage.Message");
 				PlayerDeathMessage = PlayerDeathMessage.replace("%deader", deader.getDisplayName());
 				PlayerDeathMessage = PlayerDeathMessage.replace("%time", TimeManager.getTime());
 				PlayerDeathMessage = PlayerDeathMessage.replace("&", "§");
 				event.setDeathMessage(PlayerDeathMessage);
+			}
+			if (!CustomMessageConfig.getString("Sounds.DeathSound").equals("none")) {
+				new Sounds(plugin).playSounds(deader, "Sounds.DeathSound", "SoundTypes.DeathSoundType");
 			}
 		}
 	}
