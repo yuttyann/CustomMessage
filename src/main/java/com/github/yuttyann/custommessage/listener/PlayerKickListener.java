@@ -34,7 +34,7 @@ public class PlayerKickListener implements Listener {
 				BroadcastMessage = BroadcastMessage.replace("&", "§");
 				Bukkit.broadcastMessage(BroadcastMessage);
 				if (!CustomMessageConfig.getString("Sounds.KickBroadcastSound").equals("none")) {
-					new Sounds(plugin).playSounds(player, "Sounds.KickBroadcastSound", "SoundTypes.KickBroadcastSoundType");
+					new Sounds(plugin).playSound(player, "Sounds.KickBroadcastSound", "SoundTypes.KickBroadcastSoundType");
 				}
 			}
 			if (!CustomMessageConfig.getString("PlayerKickMessage.AFKMessage").equals("none")) {

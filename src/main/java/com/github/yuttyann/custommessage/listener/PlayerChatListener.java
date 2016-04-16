@@ -31,7 +31,7 @@ public class PlayerChatListener implements Listener {
 			event.setFormat(PlayerChatMessage);
 		}
 		if (!CustomMessageConfig.getString("Sounds.ChatSound").equals("none")) {
-			new Sounds(plugin).playSounds(player, "Sounds.ChatSound", "SoundTypes.ChatSoundType");
+			new Sounds(plugin).playSound(player, "Sounds.ChatSound", "SoundTypes.ChatSoundType");
 		}
 	}
 }

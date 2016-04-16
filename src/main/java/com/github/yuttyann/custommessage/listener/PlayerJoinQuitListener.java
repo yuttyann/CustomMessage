@@ -32,7 +32,7 @@ public class PlayerJoinQuitListener implements Listener {
 				event.setJoinMessage(PlayerJoinMessage);
 			}
 			if (!CustomMessageConfig.getString("Sounds.JoinSound").equals("none")) {
-				new Sounds(plugin).playSounds(player, "Sounds.JoinSound", "SoundTypes.JoinSoundType");
+				new Sounds(plugin).playSound(player, "Sounds.JoinSound", "SoundTypes.JoinSoundType");
 			}
 		} else {
 			if (CustomMessageConfig.getBoolean("PlayerJoinQuitMessage.Enable")) {
@@ -43,7 +43,7 @@ public class PlayerJoinQuitListener implements Listener {
 				event.setJoinMessage(PlayerFirstJoinMessage);
 			}
 			if (!CustomMessageConfig.getString("Sounds.FirstJoinSound").equals("none")) {
-				new Sounds(plugin).playSounds(player, "Sounds.FirstJoinSound", "SoundTypes.FirstJoinSoundType");
+				new Sounds(plugin).playSound(player, "Sounds.FirstJoinSound", "SoundTypes.FirstJoinSoundType");
 			}
 		}
 	}
@@ -59,7 +59,7 @@ public class PlayerJoinQuitListener implements Listener {
 			event.setQuitMessage(PlayerQuitMessage);
 		}
 		if (!CustomMessageConfig.getString("Sounds.QuitSound").equals("none")) {
-			new Sounds(plugin).playSounds(player, "Sounds.QuitSound", "SoundTypes.QuitSoundType");
+			new Sounds(plugin).playSound(player, "Sounds.QuitSound", "SoundTypes.QuitSoundType");
 		}
 	}
 }

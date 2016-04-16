@@ -16,7 +16,7 @@ public class Sounds {
 		this.plugin = plugin;
 	}
 
-	public void playSounds(final Player player, String sound, final String soundtype) {
+	public void playSound(final Player player, String sound, final String soundtype) {
 		String soundList = CustomMessageConfig.getString(sound);
 		String[] soundFxList = soundList.replace(" ", "").split(",");
 		for (final String soundFx : soundFxList) {
@@ -24,16 +24,16 @@ public class Sounds {
 			new BukkitRunnable() {
 				public void run() {
 					try {
-						playSound(player, soundtype, args);
+						soundType(player, soundtype, args);
 					} catch (IllegalArgumentException e) {
 						Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "サウンドが存在しないか設定を間違えている可能性があります。");
 					}
 				}
-			}.runTaskLater(plugin, Long.parseLong(args[3]));
+			}.runTaskLater(plugin, parseLong(args[3]));
 		}
 	}
 
-	private void playSound(Player player, String soundtype, String[] args) {
+	private void soundType(Player player, String soundtype, String[] args) {
 		String type = CustomMessageConfig.getString(soundtype);
 		switch (type) {
 		case "player":
@@ -47,6 +47,10 @@ public class Sounds {
 		default:
 			break;
 		}
+	}
+
+	private long parseLong(String str) {
+		return Long.parseLong(str);
 	}
 
 	private float parseFloat(String str) {

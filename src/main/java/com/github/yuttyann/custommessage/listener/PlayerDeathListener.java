@@ -35,7 +35,7 @@ public class PlayerDeathListener implements Listener {
 				event.setDeathMessage(PlayerKillMessage);
 			}
 			if (!CustomMessageConfig.getString("Sounds.KillSound").equals("none")) {
-				new Sounds(plugin).playSounds(killer, "Sounds.KillSound", "SoundTypes.KillSoundType");
+				new Sounds(plugin).playSound(killer, "Sounds.KillSound", "SoundTypes.KillSoundType");
 			}
 		}
 		if (killer == null) {
@@ -48,7 +48,7 @@ public class PlayerDeathListener implements Listener {
 				event.setDeathMessage(PlayerDeathMessage);
 			}
 			if (!CustomMessageConfig.getString("Sounds.DeathSound").equals("none")) {
-				new Sounds(plugin).playSounds(deader, "Sounds.DeathSound", "SoundTypes.DeathSoundType");
+				new Sounds(plugin).playSound(deader, "Sounds.DeathSound", "SoundTypes.DeathSoundType");
 			}
 		}
 	}
