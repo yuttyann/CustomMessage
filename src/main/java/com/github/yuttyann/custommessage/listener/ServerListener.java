@@ -10,6 +10,7 @@ import org.bukkit.event.server.ServerListPingEvent;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.TimeManager;
+import com.github.yuttyann.custommessage.Version;
 import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 import com.github.yuttyann.custommessage.packet.ProtocolLibPacket;
 
@@ -28,17 +29,14 @@ public class ServerListener implements Listener {
 			event.setMaxPlayers(MaxPlayer);
 		}
 		if (CustomMessageConfig.getBoolean("Motd.Enable")) {
-			int players = event.getNumPlayers();
-			int maxplayer = Bukkit.getMaxPlayers();
-			String name = Bukkit.getServerName();
-			String version = Bukkit.getServer().getVersion();
-			version = version.split("\\(")[1];
-			version = version.substring(4, version.length() - 1);
+			Integer players = event.getNumPlayers();
+			Integer maxplayer = Bukkit.getMaxPlayers();
+			String servername = Bukkit.getServerName();
 			String motd = getMotd();
-			motd = motd.replace("%players", String.valueOf(players));
-			motd = motd.replace("%maxplayers", String.valueOf(maxplayer));
-			motd = motd.replace("%servername", name);
-			motd = motd.replace("%version", version);
+			motd = motd.replace("%players", players.toString());
+			motd = motd.replace("%maxplayers", maxplayer.toString());
+			motd = motd.replace("%servername", servername);
+			motd = motd.replace("%version", Version.getVersion());
 			motd = motd.replace("%time", TimeManager.getTime());
 			motd = motd.replace("&", "§");
 			event.setMotd(motd);
@@ -49,7 +47,7 @@ public class ServerListener implements Listener {
 	private String getMotd() {
 		List<String> list = CustomMessageConfig.getStringList("Motd.Message");
 		String motd = "";
-		if(list.size() <= 2) {
+		if(list != null && list.size() >= 1 && list.size() <= 2) {
 			motd = list.get(0);
 			if(list.size() == 2) {
 				motd = motd + "\n" + list.get(1);

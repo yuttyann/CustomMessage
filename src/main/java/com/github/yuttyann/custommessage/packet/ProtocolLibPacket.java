@@ -18,6 +18,7 @@ import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.TimeManager;
+import com.github.yuttyann.custommessage.Version;
 import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 
 public class ProtocolLibPacket {
@@ -41,17 +42,14 @@ public class ProtocolLibPacket {
 						return;
 					}
 					List<WrappedGameProfile> list = new ArrayList<WrappedGameProfile>();
-					int playerlength = getOnlinePlayers().size();
-					int maxplayer = Bukkit.getMaxPlayers();
-					String name = Bukkit.getServerName();
-					String version = Bukkit.getServer().getVersion();
-					version = version.split("\\(")[1];
-					version = version.substring(4, version.length() - 1);
+					Integer playerlength = getOnlinePlayers().size();
+					Integer maxplayer = Bukkit.getMaxPlayers();
+					String servername = Bukkit.getServerName();
 					for (String pcm : CustomMessageConfig.getStringList("PlayerCountMessage.Message")) {
-						pcm = pcm.replace("%players", String.valueOf(playerlength));
-						pcm = pcm.replace("%maxplayers", String.valueOf(maxplayer));
-						pcm = pcm.replace("%servername", name);
-						pcm = pcm.replace("%version", version);
+						pcm = pcm.replace("%players", playerlength.toString());
+						pcm = pcm.replace("%maxplayers", maxplayer.toString());
+						pcm = pcm.replace("%servername", servername);
+						pcm = pcm.replace("%version", Version.getVersion());
 						pcm = pcm.replace("%time", TimeManager.getTime());
 						pcm = pcm.replace("&", "§");
 						list.add(new WrappedGameProfile("1", pcm));

@@ -13,6 +13,13 @@ public class Version {
 		return false;
 	}
 
+	public static String getVersion() {
+		String version = Bukkit.getServer().getVersion();
+		version = version.split("\\(")[1];
+		version = version.substring(4, version.length() - 1);
+		return version;
+	}
+
 	private static int versionInt(String[] version) {
 		if(version.length < 3) {
 			version = new String[]{version[0], version[1], "0"};
@@ -22,13 +29,6 @@ public class Version {
 		}
 		version[2] = "0" + version[2];
 		return parseInt(version[0]) * 10000 + parseInt(version[1]) * 1000 + parseInt(version[2]);
-	}
-
-	private static String getVersion() {
-		String version = Bukkit.getServer().getVersion();
-		version = version.split("\\(")[1];
-		version = version.substring(4, version.length() - 1);
-		return version;
 	}
 
 	private static int parseInt(String str) {

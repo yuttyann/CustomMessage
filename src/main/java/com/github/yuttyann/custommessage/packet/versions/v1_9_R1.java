@@ -56,7 +56,7 @@ public class v1_9_R1 {
 		footer = footer.replace("%player", player.getName());
 		footer = footer.replace("%time", TimeManager.getTime());
 		footer = footer.replace("&", "§");
-		PlayerConnection connection = ((CraftPlayer)player).getHandle().playerConnection;
+		PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
 		IChatBaseComponent tabTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + header + "\"}");
 		IChatBaseComponent tabFoot = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + footer + "\"}");
 		PacketPlayOutPlayerListHeaderFooter headerPacket = new PacketPlayOutPlayerListHeaderFooter(tabTitle);

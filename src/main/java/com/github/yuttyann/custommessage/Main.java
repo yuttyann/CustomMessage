@@ -12,6 +12,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.yuttyann.custommessage.api.CustomMessageAPI;
+import com.github.yuttyann.custommessage.command.BanCommand;
 import com.github.yuttyann.custommessage.command.CustomMessageCommand;
 import com.github.yuttyann.custommessage.command.MeCommand;
 import com.github.yuttyann.custommessage.command.RulesCommand;
@@ -78,7 +79,7 @@ public class Main extends JavaPlugin {
 		if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
 			protocollib = true;
 		} else {
-			logger.severe("ProtocolLibが導入されていないため、PlayerCountMessageを無効にしました。");
+			logger.severe("ProtocolLibが導入されていないため、PlayerCountMessageを無効化しました。");
 			protocollib = false;
 		}
 	}
@@ -96,11 +97,12 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadCommand() {
-		commands.put("rules", new RulesCommand(this));
 		commands.put("custommessage", new CustomMessageCommand(this));
-		commands.put("tell", new TellCommand(this));
-		commands.put("say", new SayCommand(this));
+		commands.put("rules", new RulesCommand(this));
+		commands.put("ban", new BanCommand(this));
 		commands.put("me", new MeCommand(this));
+		commands.put("say", new SayCommand(this));
+		commands.put("tell", new TellCommand(this));
 	}
 
 	private void loadAPI() {

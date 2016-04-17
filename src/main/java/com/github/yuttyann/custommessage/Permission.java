@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 public enum Permission {
 	CUSTOMMESSAGE_RELOAD("custommessage.reload"),
 	CUSTOMMESSAGE_RULES("custommessage.rules"),
+	BUKKIT_COMMAND_BAN_PLAYER("bukkit.command.ban.player"),
 	BUKKIT_COMMAND_ME("bukkit.command.me"),
 	BUKKIT_COMMAND_SAY("bukkit.command.say"),
 	BUKKIT_COMMAND_TELL("bukkit.command.tell");

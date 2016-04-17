@@ -1,6 +1,6 @@
 name: CustomMessage
 main: com.github.yuttyann.custommessage.Main
-version: 5.4
+version: 5.5
 author: yuttyann44581
 website: http://ch.nicovideo.jp/yuttyann44581/blomaga/ar810622
 softdepend: [ProtocolLib]
@@ -12,7 +12,16 @@ commands:
   rules:
     description: ルールコマンド
     usage: /<command> - ルールを表示します。
-  say:
+  ban:
+    description: Prevents the specified player from using this server
+    usage: /<command> <player> [reason ...]
   me:
+    description: Performs the specified action in chat
+    usage: /<command> <action>
+  say:
+    description: Broadcasts the given message as the sender
+    usage: /<command> <message ...>
   tell:
+    description: Sends a private message to the givenplayer
+    usage: /<command> <player> <message>
     aliases: [w, msg]

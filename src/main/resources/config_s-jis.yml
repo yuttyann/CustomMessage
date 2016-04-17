@@ -1,4 +1,4 @@
-#CustomMessage v5.4 Config
+#CustomMessage v5.5 Config
 #BukkitVersion 1.7.2～1.9.2
 #ColorCodeList http://ess.khhq.net/mc/
 #SoundList http://www.yuttyann44581.net/uploads/SoundList/
@@ -89,7 +89,7 @@ Commands:
 #1.8以前の場合はOldSoundListを参照してください。
 #(音の種類)-(音量)-(音の高さ)-(音が鳴る時間)
 #※音を追加したいときは設定の最後に,を入れてください。
-#noneで音を再生しないようにできます。
+#noneで音の設定を無効化できます。
 Sounds:
   KillSound: none
   DeathSound: none
@@ -97,7 +97,9 @@ Sounds:
   JoinSound: none
   QuitSound: none
   ChatSound: CHICKEN_EGG_POP-1-1-0
+  BanBroadcastSound: none
   KickBroadcastSound: none
+  AFKBroadcastSound: none
 
 #サウンドタイプの設定
 #playerでイベントを発生させたプレイヤーに音を再生します。
@@ -109,7 +111,9 @@ SoundTypes:
   JoinSoundType: player
   QuitSoundType: player
   ChatSoundType: allplayers
+  BanBroadcastSoundType: player
   KickBroadcastSoundType: player
+  AFKBroadcastSoundType: player
 
 #殺害メッセージの設定
 #&で色を指定できます。ColorCodeListのURL参照
@@ -158,19 +162,23 @@ ChatMessageFormat:
   Message: '<&e%player&f> %chat'
 
 #キックメッセージの設定
-#BroadcastMessageはキック時にサーバー全体に流れるメッセージです。
-#noneと入力することでそのメッセージを無効化できます。
+#BroadcastMessageはサーバー全体に流れるメッセージです。
+#noneでメッセージの設定を無効化できます。
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
+#%reasonでKick、Ban理由を取得できます。
 #%lineで改行することができます。(Message、AFKMessageで使用可能)
 #%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 PlayerKickMessage:
   Enable: false
-  Message: '&eあなたはキックされました'
+  BanMessage: '&cあなたはBANされました。'
+  KickMessage: '&eあなたはキックされました'
   AFKMessage: '&c放置していたためキックされました！'
-  BroadcastMessage: '&c%playerさんがキックされました！'
+  BanBroadcastMessage: '&c%playerさんがBANされました！'
+  KickBroadcastMessage: '&c%playerさんがキックされました！'
+  AFKBroadcastMessage: '&c%playerさんが放置していたためキックされました！'
 
 #ログインキックメッセージの設定
 #&で色を指定できます。ColorCodeListのURL参照
