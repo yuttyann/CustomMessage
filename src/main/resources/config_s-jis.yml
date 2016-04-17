@@ -166,19 +166,19 @@ ChatMessageFormat:
 #noneでメッセージの設定を無効化できます。
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
-#%reasonでKick、Ban理由を取得できます。
-#%lineで改行することができます。(Message、AFKMessageで使用可能)
+#%reasonで理由を取得できます。
+#%lineで改行することができます。(BroadcastMessage以外で使用可能)
 #%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 PlayerKickMessage:
   Enable: false
-  BanMessage: '&cあなたはBANされました。'
-  KickMessage: '&eあなたはキックされました'
-  AFKMessage: '&c放置していたためキックされました！'
-  BanBroadcastMessage: '&c%playerさんがBANされました！'
-  KickBroadcastMessage: '&c%playerさんがキックされました！'
-  AFKBroadcastMessage: '&c%playerさんが放置していたためキックされました！'
+  BanMessage: '&cあなたはBanされました。'
+  KickMessage: '&eあなたはKickされました'
+  AFKMessage: '&c放置していたためKickされました！'
+  BanBroadcastMessage: '&c%playerさんがBanされました！'
+  KickBroadcastMessage: '&c%playerさんがKickされました！'
+  AFKBroadcastMessage: '&c%playerさんが放置していたためKickされました！'
 
 #ログインキックメッセージの設定
 #&で色を指定できます。ColorCodeListのURL参照
