@@ -18,7 +18,7 @@ CustomMessageAPI.getItemName(player, nullmessage);
 getItemName説明：  
 CustomMessageAPI.getItemName(プレイヤー, 何も持っていない場合のメッセージ);  
 9月28日追記： アイテム名を返しているだけなのでsendMessageやbroadcastMessageなどで表示させてください。  
-1.8.xのみ対応 ※SpigotProtocolHackでも使用可能:  
+1.8-1.9のみ対応 ※SpigotProtocolHackでも使用可能:  
 CustomMessageAPI.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);  
 CustomMessageAPI.sendTabTitle(player, header, footer);  
 setTitle説明：  
