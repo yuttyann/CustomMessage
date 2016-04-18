@@ -28,7 +28,7 @@ public class BanCommand implements CommandExecutor {
 		}
 		if (args.length == 0) {
 			sender.sendMessage(ChatColor.RED + "Usage: /ban <player> [reason ...]");
-			return false;
+			return true;
 		}
 		String reason = args.length > 0 ? StringUtils.join(args, ' ', 1, args.length) : null;
 		Bukkit.getBanList(BanList.Type.NAME).addBan(args[0], reason, null, sender.getName());

@@ -26,7 +26,7 @@ public class MeCommand implements CommandExecutor {
 		}
 		if (args.length == 0)  {
 			sender.sendMessage(ChatColor.RED + "Usage: /me <action>");
-			return false;
+			return true;
 		}
 		String message = CustomMessageConfig.getString("Commands.Me");
 		message = message.replace("%name", sender.getName());

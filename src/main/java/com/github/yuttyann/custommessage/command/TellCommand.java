@@ -27,7 +27,7 @@ public class TellCommand implements CommandExecutor {
 		}
 		if (args.length < 2) {
 			sender.sendMessage(ChatColor.RED + "Usage: /tell <player> <message>");
-			return false;
+			return true;
 		}
 		Player player = Bukkit.getPlayerExact(args[0]);
 		if (player == null || (sender instanceof Player && !((Player) sender).canSee(player))) {

@@ -28,7 +28,7 @@ public class SayCommand implements CommandExecutor {
 		}
 		if (args.length == 0) {
 			sender.sendMessage(ChatColor.RED + "Usage: /say <message ...>");
-			return false;
+			return true;
 		}
 		String message = CustomMessageConfig.getString("Commands.Say");
 		message = message.replace("%name", getName(sender));
