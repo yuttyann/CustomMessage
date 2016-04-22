@@ -40,7 +40,7 @@ public class Sounds {
 			player.playSound(player.getLocation(), Sound.valueOf(args[0].toUpperCase()), parseFloat(args[1]), parseFloat(args[2]));
 			break;
 		case "allplayers":
-			for(Player players : Bukkit.getOnlinePlayers()) {
+			for (Player players : Bukkit.getOnlinePlayers()) {
 				players.playSound(players.getLocation(), Sound.valueOf(args[0].toUpperCase()), parseFloat(args[1]), parseFloat(args[2]));
 			}
 			break;

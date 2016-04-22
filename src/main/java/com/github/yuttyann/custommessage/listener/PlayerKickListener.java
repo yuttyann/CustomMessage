@@ -28,7 +28,7 @@ public class PlayerKickListener implements Listener {
 	public void onPlayerKick(PlayerKickEvent event) {
 		Player player = event.getPlayer();
 		if (CustomMessageConfig.getBoolean("PlayerKickMessage.Enable")) {
-			if(isBanned(player)) {
+			if (isBanned(player)) {
 				if (!CustomMessageConfig.getString("PlayerKickMessage.BanBroadcastMessage").equals("none")) {
 					String BanBroadcastMessage = CustomMessageConfig.getString("PlayerKickMessage.BanBroadcastMessage");
 					BanBroadcastMessage = BanBroadcastMessage.replace("%player", player.getName());

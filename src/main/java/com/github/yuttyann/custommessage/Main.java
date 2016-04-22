@@ -64,7 +64,7 @@ public class Main extends JavaPlugin {
 		if ((PlatformUtils.isLinux()) || (PlatformUtils.isMac())) {
 			new CustomMessageConfig(this, "utf-8");
 		} else if (PlatformUtils.isWindows()) {
-			if(Version.isVersion("1.9")) {
+			if (Version.isVersion("1.9")) {
 				new CustomMessageConfig(this, "utf-8");
 			} else {
 				new CustomMessageConfig(this, "s-jis");
@@ -142,7 +142,7 @@ public class Main extends JavaPlugin {
 		String packageName = server.getClass().getPackage().getName();
 		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
 		if (packageName.equalsIgnoreCase("v1_7_R4")) {
-			if(getConfig().getBoolean("ProtocolHack")) {
+			if (getConfig().getBoolean("ProtocolHack")) {
 				new v1_7_R4(this);
 				new PlayerTitleListener(this);
 			}

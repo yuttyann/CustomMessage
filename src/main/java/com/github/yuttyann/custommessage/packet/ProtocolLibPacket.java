@@ -37,7 +37,7 @@ public class ProtocolLibPacket {
 				@Override
 				public void onPacketSending(PacketEvent event) {
 					WrappedServerPing ping = event.getPacket().getServerPings().read(0);
-					if(isNull()) {
+					if (isNone()) {
 						ping.setPlayers(null);
 						return;
 					}
@@ -60,7 +60,7 @@ public class ProtocolLibPacket {
 		}
 	}
 
-	private boolean isNull() {
+	private boolean isNone() {
 		List<String> list = CustomMessageConfig.getStringList("PlayerCountMessage.Message");
 		if(list.get(0).equals("none") && list.size() == 1) {
 			return true;

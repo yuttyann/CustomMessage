@@ -21,10 +21,10 @@ public class Version {
 	}
 
 	private static int versionInt(String[] version) {
-		if(version.length < 3) {
+		if (version.length < 3) {
 			version = new String[]{version[0], version[1], "0"};
 		}
-		if(version[2].length() == 1) {
+		if (version[2].length() == 1) {
 			version[2] = "0" + version[2];
 		}
 		version[2] = "0" + version[2];

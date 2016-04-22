@@ -91,10 +91,10 @@ public class Updater implements Listener {
 	}
 
 	private void updateCheck() {
-		if(CustomMessageConfig.getBoolean("UpdateChecker")) {
-			if((!getVersion().equals(getCurrentVersion())) && (Double.parseDouble(getVersion()) > Double.parseDouble(getCurrentVersion()))) {
+		if (CustomMessageConfig.getBoolean("UpdateChecker")) {
+			if ((!getVersion().equals(getCurrentVersion())) && (Double.parseDouble(getVersion()) > Double.parseDouble(getCurrentVersion()))) {
 				enable = true;
-				if(CustomMessageConfig.getBoolean("AutoDownload")) {
+				if (CustomMessageConfig.getBoolean("AutoDownload")) {
 					download();
 				}
 			} else {
@@ -161,7 +161,7 @@ public class Updater implements Listener {
 	}
 
 	private void sendCheckMessage() {
-		if(enable) {
+		if (enable) {
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "アップデート内容: " + getContent());
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "URL: " + getPluginURL());
@@ -169,7 +169,7 @@ public class Updater implements Listener {
 	}
 
 	private void sendCheckMessage(Player player) {
-		if(enable) {
+		if (enable) {
 			if(!player.isOp()) {
 				return;
 			}

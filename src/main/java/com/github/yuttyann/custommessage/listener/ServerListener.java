@@ -47,9 +47,9 @@ public class ServerListener implements Listener {
 	private String getMotd() {
 		List<String> list = CustomMessageConfig.getStringList("Motd.Message");
 		String motd = "";
-		if(list != null && list.size() >= 1 && list.size() <= 2) {
+		if (list != null && list.size() >= 1 && list.size() <= 2) {
 			motd = list.get(0);
-			if(list.size() == 2) {
+			if (list.size() == 2) {
 				motd = motd + "\n" + list.get(1);
 			}
 		}
