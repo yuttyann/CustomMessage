@@ -9,7 +9,6 @@ import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 public class TimeManager {
 
 	private static YamlConfiguration file = CustomMessageConfig.getConfig();
-	private static Calendar cal = Calendar.getInstance();
 	private static String[] week_name = {file.getString("Sunday"), file.getString("Monday"), file.getString("Tuesday"),
 	file.getString("Wednesday"), file.getString("Thursday"), file.getString("Friday"), file.getString("Saturday")};
 
@@ -23,42 +22,42 @@ public class TimeManager {
 	private static Integer day_of_year;
 
 	public static Integer getYear() {
-		year = cal.get(Calendar.YEAR);
+		year = Calendar.getInstance().get(Calendar.YEAR);
 		return year;
 	}
 
 	public static Integer getMonth() {
-		month = cal.get(Calendar.MONTH) + 1;
+		month = Calendar.getInstance().get(Calendar.MONTH) + 1;
 		return month;
 	}
 
 	public static Integer getDay() {
-		day = cal.get(Calendar.DATE);
+		day = Calendar.getInstance().get(Calendar.MONTH) + 1;
 		return day;
 	}
 
 	public static Integer getHour() {
-		hour = cal.get(Calendar.HOUR_OF_DAY);
+		hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 		return hour;
 	}
 
 	public static Integer getMinute() {
-		minute = cal.get(Calendar.MINUTE);
+		minute = Calendar.getInstance().get(Calendar.MINUTE);
 		return minute;
 	}
 
 	public static Integer getSecond() {
-		second = cal.get(Calendar.SECOND);
+		second = Calendar.getInstance().get(Calendar.SECOND);
 		return second;
 	}
 
 	public static Integer getWeek() {
-		week = cal.get(Calendar.DAY_OF_WEEK) - 1;
+		week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
 		return week;
 	}
 
 	public static Integer getDay_Of_Year() {
-		day_of_year = cal.get(Calendar.DAY_OF_YEAR);
+		day_of_year = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
 		return day_of_year;
 	}
 

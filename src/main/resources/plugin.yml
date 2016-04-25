@@ -1,6 +1,6 @@
 name: CustomMessage
 main: com.github.yuttyann.custommessage.Main
-version: 5.5
+version: 5.6
 author: yuttyann44581
 website: http://ch.nicovideo.jp/yuttyann44581/blomaga/ar810622
 softdepend: [ProtocolLib]

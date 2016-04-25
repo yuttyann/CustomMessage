@@ -54,7 +54,6 @@ public class v1_8_R2 {
 		header = header.replace("%time", TimeManager.getTime());
 		header = header.replace("&", "§");
 		footer = footer.replace("%player", player.getName());
-		footer = footer.replace("%time", TimeManager.getTime());
 		footer = footer.replace("&", "§");
 		PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
 		IChatBaseComponent tabTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + header + "\"}");

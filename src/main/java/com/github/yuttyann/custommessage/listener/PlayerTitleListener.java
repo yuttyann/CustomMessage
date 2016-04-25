@@ -1,5 +1,7 @@
 package com.github.yuttyann.custommessage.listener;
 
+import java.util.HashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
@@ -7,6 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.config.CustomMessageConfig;
@@ -20,14 +24,25 @@ public class PlayerTitleListener implements Listener {
 
 	Main plugin;
 
+	private HashMap<String, BukkitRunnable> timers;
+
 	public PlayerTitleListener(Main plugin) {
 		this.plugin = plugin;
+		timers = new HashMap<String, BukkitRunnable>();
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onPlayerJoinEvent(PlayerJoinEvent event) {
+	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		playerTitle(player);
+	}
+
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onPlayerQuit(PlayerQuitEvent event) {
+		Player player = event.getPlayer();
+		if(timers.containsKey(player.getName())) {
+			tabTitleTimerStop(player);
+		}
 	}
 
 	private void playerTitle(Player player) {
@@ -42,11 +57,15 @@ public class PlayerTitleListener implements Listener {
 		if (CustomMessageConfig.getBoolean("TabTitle.Enable")) {
 			String Header = CustomMessageConfig.getString("TabTitle.Header");
 			String Footer = CustomMessageConfig.getString("TabTitle.Footer");
-			sendTabTitle(player, Header, Footer);
+			if(Header.contains("%time") || Footer.contains("%time")) {
+				tabTitleTimerStart(player, Header, Footer);
+			} else {
+				sendTabTitle(player, Header, Footer);
+			}
 		}
 	}
 
-	private static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
+	private void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
 		Server server = Bukkit.getServer();
 		String packageName = server.getClass().getPackage().getName();
 		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
@@ -65,7 +84,7 @@ public class PlayerTitleListener implements Listener {
 		}
 	}
 
-	private static void sendTabTitle(Player player, String header, String footer) {
+	private void sendTabTitle(Player player, String header, String footer) {
 		Server server = Bukkit.getServer();
 		String packageName = server.getClass().getPackage().getName();
 		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
@@ -82,5 +101,21 @@ public class PlayerTitleListener implements Listener {
 		} else {
 			return;
 		}
+	}
+
+	private void tabTitleTimerStart(final Player player, final String Header, final String Footer) {
+		BukkitRunnable timer = new BukkitRunnable() {
+			@Override
+			public void run() {
+				sendTabTitle(player, Header, Footer);
+			}
+		};
+		timer.runTaskTimer(plugin, 0, 20);
+		timers.put(player.getName(), timer);
+	}
+
+	private void tabTitleTimerStop(Player player) {
+		timers.get(player.getName()).cancel();
+		timers.remove(player.getName());
 	}
 }

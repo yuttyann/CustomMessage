@@ -1,4 +1,4 @@
-#CustomMessage v5.5 Config
+#CustomMessage v5.6 Config
 #BukkitVersion 1.7.2～1.9.2
 #ColorCodeList http://ess.khhq.net/mc/
 #SoundList http://www.yuttyann44581.net/uploads/SoundList/
@@ -227,6 +227,7 @@ Title:
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
 #%timeでTimeに設定した時刻を取得します。
+#※メッセージに%timeが含まれているとタブタイトルが20tick毎に更新されます。
 # trueで有効 falseで無効
 #初期: true
 TabTitle:
