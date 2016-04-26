@@ -32,7 +32,7 @@ public class TimeManager {
 	}
 
 	public static Integer getDay() {
-		day = Calendar.getInstance().get(Calendar.MONTH) + 1;
+		day = Calendar.getInstance().get(Calendar.DATE);
 		return day;
 	}
 
