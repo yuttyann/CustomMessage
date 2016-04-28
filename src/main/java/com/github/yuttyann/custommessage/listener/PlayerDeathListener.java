@@ -63,23 +63,15 @@ public class PlayerDeathListener implements Listener {
 		ItemStack hand;
 		if(Version.isVersion("1.9")) {
 			hand = player.getInventory().getItemInMainHand();
-			if (hand == null || hand.getType() == Material.AIR) {
-				return nullmessage;
-			}
-			if (!hand.hasItemMeta() || !hand.getItemMeta().hasDisplayName()) {
-				return hand.getType().toString();
-			}
-			return hand.getItemMeta().getDisplayName();
 		} else {
 			hand = player.getInventory().getItemInHand();
-			if (player.getItemInHand() == null || player.getItemInHand().getType() == Material.AIR) {
-				return nullmessage;
-			}
-			if (!player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName()) {
-				return player.getItemInHand().getType().toString();
-			}
-			return player.getItemInHand().getItemMeta().getDisplayName();
 		}
+		if (hand == null || hand.getType() == Material.AIR) {
+			return nullmessage;
+		}
+		if (!hand.hasItemMeta() || !hand.getItemMeta().hasDisplayName()) {
+			return hand.getType().toString();
+		}
+		return hand.getItemMeta().getDisplayName();
 	}
-
 }
