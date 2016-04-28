@@ -3,6 +3,7 @@ package com.github.yuttyann.custommessage.config;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import com.github.yuttyann.custommessage.Main;
+import com.github.yuttyann.custommessage.Version;
+import com.google.common.base.Charsets;
 
 public class CustomMessageConfig {
 
@@ -39,6 +42,7 @@ public class CustomMessageConfig {
 		return config;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void reloadConfig() {
 		if (!configFile.exists()) {
 			plugin.saveResource(filename, false);
@@ -46,7 +50,12 @@ public class CustomMessageConfig {
 		config = YamlConfiguration.loadConfiguration(configFile);
 		InputStream defConfigStream = plugin.getResource(filename);
 		if (defConfigStream != null) {
-			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+			YamlConfiguration defConfig;
+			if(Version.isVersion("1.9")) {
+				defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8));
+			} else {
+				defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+			}
 			config.setDefaults(defConfig);
 		}
 	}

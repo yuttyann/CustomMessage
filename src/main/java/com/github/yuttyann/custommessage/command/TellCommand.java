@@ -29,7 +29,7 @@ public class TellCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "Usage: /tell <player> <message>");
 			return true;
 		}
-		Player player = Bukkit.getPlayerExact(args[0]);
+		Player player = getPlayerExact(args[0]);
 		if (player == null || (sender instanceof Player && !((Player) sender).canSee(player))) {
 			sender.sendMessage("There's no player by that name online.");
 		} else {
@@ -58,5 +58,10 @@ public class TellCommand implements CommandExecutor {
 			builder.append(args[i]);
 		}
 		return builder.toString();
+	}
+
+	@SuppressWarnings("deprecation")
+	private Player getPlayerExact(String name) {
+		return Bukkit.getPlayerExact(name);
 	}
 }

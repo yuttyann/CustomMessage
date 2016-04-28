@@ -4,8 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import com.github.yuttyann.custommessage.Main;
+import com.github.yuttyann.custommessage.Version;
 import com.github.yuttyann.custommessage.packet.versions.v1_7_R4;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R1;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R2;
@@ -20,17 +22,31 @@ public class CustomMessageAPI {
 		CustomMessageAPI.this.plugin = plugin;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static String getItemName(Player player, String nullmessage) {
 		if (player == null) {
 			return "";
 		}
-		if (player.getItemInHand() == null || player.getItemInHand().getType() == Material.AIR) {
-			return nullmessage;
+		ItemStack hand;
+		if(Version.isVersion("1.9")) {
+			hand = player.getInventory().getItemInMainHand();
+			if (hand == null || hand.getType() == Material.AIR) {
+				return nullmessage;
+			}
+			if (!hand.hasItemMeta() || !hand.getItemMeta().hasDisplayName()) {
+				return hand.getType().toString();
+			}
+			return hand.getItemMeta().getDisplayName();
+		} else {
+			hand = player.getInventory().getItemInHand();
+			if (player.getItemInHand() == null || player.getItemInHand().getType() == Material.AIR) {
+				return nullmessage;
+			}
+			if (!player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName()) {
+				return player.getItemInHand().getType().toString();
+			}
+			return player.getItemInHand().getItemMeta().getDisplayName();
 		}
-		if (!player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName()) {
-			return player.getItemInHand().getType().toString();
-		}
-		return player.getItemInHand().getItemMeta().getDisplayName();
 	}
 
 	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {

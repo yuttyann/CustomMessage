@@ -6,10 +6,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.inventory.ItemStack;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
+import com.github.yuttyann.custommessage.Version;
 import com.github.yuttyann.custommessage.config.CustomMessageConfig;
 
 public class PlayerDeathListener implements Listener {
@@ -53,16 +55,31 @@ public class PlayerDeathListener implements Listener {
 		}
 	}
 
-	private static String getItemName(Player player, String nullmessage) {
+	@SuppressWarnings("deprecation")
+	public static String getItemName(Player player, String nullmessage) {
 		if (player == null) {
 			return "";
 		}
-		if (player.getItemInHand() == null || player.getItemInHand().getType() == Material.AIR) {
-			return nullmessage;
+		ItemStack hand;
+		if(Version.isVersion("1.9")) {
+			hand = player.getInventory().getItemInMainHand();
+			if (hand == null || hand.getType() == Material.AIR) {
+				return nullmessage;
+			}
+			if (!hand.hasItemMeta() || !hand.getItemMeta().hasDisplayName()) {
+				return hand.getType().toString();
+			}
+			return hand.getItemMeta().getDisplayName();
+		} else {
+			hand = player.getInventory().getItemInHand();
+			if (player.getItemInHand() == null || player.getItemInHand().getType() == Material.AIR) {
+				return nullmessage;
+			}
+			if (!player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName()) {
+				return player.getItemInHand().getType().toString();
+			}
+			return player.getItemInHand().getItemMeta().getDisplayName();
 		}
-		if (!player.getItemInHand().hasItemMeta() || !player.getItemInHand().getItemMeta().hasDisplayName()) {
-			return player.getItemInHand().getType().toString();
-		}
-		return player.getItemInHand().getItemMeta().getDisplayName();
 	}
+
 }

@@ -3,6 +3,7 @@ package com.github.yuttyann.custommessage.packet.versions;
 import java.lang.reflect.Field;
 
 import net.minecraft.server.v1_9_R1.IChatBaseComponent;
+import net.minecraft.server.v1_9_R1.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_9_R1.PacketPlayOutPlayerListHeaderFooter;
 import net.minecraft.server.v1_9_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_9_R1.PlayerConnection;
@@ -29,7 +30,7 @@ public class v1_9_R1 {
 			title = title.replace("%player", player.getName());
 			title = title.replace("%time", TimeManager.getTime());
 			title = title.replace("&", "§");
-			IChatBaseComponent titleMain = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + title + "\"}");
+			IChatBaseComponent titleMain = ChatSerializer.a("{\"text\": \"" + title + "\"}");
 			PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, titleMain);
 			connection.sendPacket(packetPlayOutTitle);
 		}
@@ -37,7 +38,7 @@ public class v1_9_R1 {
 			subtitle = subtitle.replace("%player", player.getName());
 			subtitle = subtitle.replace("%time", TimeManager.getTime());
 			subtitle = subtitle.replace("&", "§");
-			IChatBaseComponent titleSub = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + subtitle + "\"}");
+			IChatBaseComponent titleSub = ChatSerializer.a("{\"text\": \"" + subtitle + "\"}");
 			PacketPlayOutTitle packetPlayOutSubTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, titleSub);
 			connection.sendPacket(packetPlayOutSubTitle);
 		}
@@ -57,8 +58,8 @@ public class v1_9_R1 {
 		footer = footer.replace("%time", TimeManager.getTime());
 		footer = footer.replace("&", "§");
 		PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
-		IChatBaseComponent tabTitle = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + header + "\"}");
-		IChatBaseComponent tabFoot = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + footer + "\"}");
+		IChatBaseComponent tabTitle = ChatSerializer.a("{\"text\": \"" + header + "\"}");
+		IChatBaseComponent tabFoot = ChatSerializer.a("{\"text\": \"" + footer + "\"}");
 		PacketPlayOutPlayerListHeaderFooter headerPacket = new PacketPlayOutPlayerListHeaderFooter(tabTitle);
 		try {
 			Field field = headerPacket.getClass().getDeclaredField("b");
