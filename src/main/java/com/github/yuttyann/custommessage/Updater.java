@@ -15,6 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -31,8 +32,10 @@ public class Updater implements Listener {
 
 	Main plugin;
 
-	private Boolean enable;
+	private ConsoleCommandSender sender;
 	private PluginDescriptionFile yml;
+	private Boolean enable;
+	private Boolean error;
 	private String currentVersion;
 	private String content;
 	private String pluginName;
@@ -42,9 +45,11 @@ public class Updater implements Listener {
 	public Updater(Main plugin) {
 		this.plugin = plugin;
 		this.enable = false;
+		this.error = false;
 		this.yml = plugin.getDescription();
 		this.currentVersion = yml.getVersion();
 		this.pluginName = yml.getName();
+		this.sender = Bukkit.getConsoleSender();
 		setUp();
 		updateCheck();
 		sendCheckMessage();
@@ -77,33 +82,20 @@ public class Updater implements Listener {
 			Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
 			Node node = document.getElementsByTagName("p").item(0);
 			NodeList nodelist = node.getChildNodes();
-			version = nodelist.item(0).getTextContent();
-			version = version.trim();
-			pluginURL = nodelist.item(2).getTextContent();
-			pluginURL = pluginURL.trim();
-			content = nodelist.item(4).getTextContent();
-			content = content.trim();
+			version = nodelist.item(0).getTextContent().trim();
+			pluginURL = nodelist.item(2).getTextContent().trim();
+			content = nodelist.item(4).getTextContent().trim();
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			sender.sendMessage(ChatColor.RED + "エラーが発生しました。URLが不正または不明です(MalformedURLException)");
+			errorMessageTemplate();
 		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void updateCheck() {
-		if (CustomMessageConfig.getBoolean("UpdateChecker")) {
-			if ((!getVersion().equals(getCurrentVersion())) && (Double.parseDouble(getVersion()) > Double.parseDouble(getCurrentVersion()))) {
-				enable = true;
-				if (CustomMessageConfig.getBoolean("AutoDownload")) {
-					download();
-				}
-			} else {
-				enable = false;
-			}
+			sender.sendMessage(ChatColor.RED + "エラーが発生しました。何らかのエラーが発生しました(Exception)");
+			errorMessageTemplate();
 		}
 	}
 
 	private void download() {
+		sender.sendMessage(ChatColor.LIGHT_PURPLE + "プラグインのダウンロードを開始しています...");
 		try {
 			String prefix = "[" + getPluginName() + " v"+ getVersion() + ".jar]";
 			URL url = new URL(getPluginURL());
@@ -126,19 +118,24 @@ public class Updater implements Listener {
 			}
 			in.close();
 			out.close();
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + prefix + " のダウンロードが終了しました。");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + prefix + " ファイルサイズ: " + getSize(file.length()));
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + prefix + " 保存先: plugins/" + getPluginName() + "/" + getPluginName() + " v"+ getVersion() + ".jar");
+			sender.sendMessage(ChatColor.GOLD + prefix + " のダウンロードが終了しました。");
+			sender.sendMessage(ChatColor.GOLD + prefix + " ファイルサイズ: " + getSize(file.length()));
+			sender.sendMessage(ChatColor.GOLD + prefix + " 保存場所: plugins/" + getPluginName() + "/" + getPluginName() + " v"+ getVersion() + ".jar");
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			sender.sendMessage(ChatColor.RED + "エラーが発生しました。ファイルが存在しません(FileNotFoundException)");
+			errorMessageTemplate();
 		} catch (ProtocolException e) {
-			e.printStackTrace();
+			sender.sendMessage(ChatColor.RED + "エラーが発生しました。使用しているプロトコルでエラーが発生または不正です(ProtocolException)");
+			errorMessageTemplate();
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			sender.sendMessage(ChatColor.RED + "エラーが発生しました。URLが不正または不明です(MalformedURLException)");
+			errorMessageTemplate();
 		} catch (IOException e) {
-			e.printStackTrace();
+			sender.sendMessage(ChatColor.RED + "エラーが発生しました。何らかの入出力処理が失敗しました(IOException)");
+			errorMessageTemplate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			sender.sendMessage(ChatColor.RED + "エラーが発生しました。何らかのエラーが発生しました(Exception)");
+			errorMessageTemplate();
 		}
 	}
 
@@ -160,22 +157,46 @@ public class Updater implements Listener {
 		}
 	}
 
+	private void updateCheck() {
+		if(CustomMessageConfig.getBoolean("UpdateChecker")) {
+			if((!getVersion().equals(getCurrentVersion())) && (Double.parseDouble(getVersion()) > Double.parseDouble(getCurrentVersion()))) {
+				enable = true;
+				if(CustomMessageConfig.getBoolean("AutoDownload")) {
+					download();
+				}
+			} else {
+				enable = false;
+			}
+		}
+	}
+
 	private void sendCheckMessage() {
-		if (enable) {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "アップデート内容: " + getContent());
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "URL: " + getPluginURL());
+		if(enable && !error && getPluginURL() != null) {
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "アップデート内容: " + getContent());
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "URL: " + getPluginURL());
 		}
 	}
 
 	private void sendCheckMessage(Player player) {
-		if (enable) {
+		if(enable && !error && getPluginURL() != null) {
 			if(!player.isOp()) {
 				return;
 			}
-			player.sendMessage(ChatColor.RED + "最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
-			player.sendMessage(ChatColor.RED + "アップデート内容: " + getContent());
-			player.sendMessage(ChatColor.RED + "URL: " + getPluginURL());
+			player.sendMessage(ChatColor.GREEN + "最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
+			player.sendMessage(ChatColor.GREEN + "アップデート内容: " + getContent());
+			player.sendMessage(ChatColor.GREEN + "URL: " + getPluginURL());
+		}
+	}
+
+	private void errorMessageTemplate() {
+		if(!error) {
+			error = true;
+			sender.sendMessage(ChatColor.RED + "プラグイン名: " + getPluginName());
+			sender.sendMessage(ChatColor.RED + "バージョン: v" + getVersion());
+			sender.sendMessage(ChatColor.RED + "ダウンロードページ: " + "http://versionview.yuttyann44581.net/" + getPluginName() + "/");
+			sender.sendMessage(ChatColor.RED + "連絡用ページ: http://file.yuttyann44581.net/contact/");
+			sender.sendMessage(ChatColor.RED + "時間が経っても解決しない場合は、製作者に連絡してください。");
 		}
 	}
 

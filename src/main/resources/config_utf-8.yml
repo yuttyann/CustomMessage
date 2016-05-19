@@ -1,5 +1,5 @@
-﻿#CustomMessage v5.6 Config
-#BukkitVersion 1.7.2～1.9.2
+﻿#CustomMessage v5.7 Config
+#CompliantVersion 1.7.2～1.9.4
 #ColorCodeList http://ess.khhq.net/mc/
 #SoundList http://www.yuttyann44581.net/uploads/SoundList/
 #OldSoundList http://www.yuttyann44581.net/uploads/OldSoundList/ 
@@ -174,7 +174,7 @@ ChatMessageFormat:
 PlayerKickMessage:
   Enable: false
   BanMessage: '&cあなたはBanされました。'
-  KickMessage: '&eあなたはKickされました'
+  KickMessage: '&eあなたはKickされました。'
   AFKMessage: '&c放置していたためKickされました！'
   BanBroadcastMessage: '&c%playerさんがBanされました！'
   KickBroadcastMessage: '&c%playerさんがKickされました！'

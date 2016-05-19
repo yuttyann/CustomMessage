@@ -19,6 +19,7 @@ import com.github.yuttyann.custommessage.packet.versions.v1_8_R1;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R2;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R3;
 import com.github.yuttyann.custommessage.packet.versions.v1_9_R1;
+import com.github.yuttyann.custommessage.packet.versions.v1_9_R2;
 
 public class PlayerTitleListener implements Listener {
 
@@ -79,6 +80,8 @@ public class PlayerTitleListener implements Listener {
 			v1_8_R3.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
 		} else if (packageName.equalsIgnoreCase("v1_9_R1")) {
 			v1_9_R1.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
+		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
+			v1_9_R2.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
 		} else {
 			return;
 		}
@@ -98,6 +101,8 @@ public class PlayerTitleListener implements Listener {
 			v1_8_R3.sendTabTitle(player, header, footer);
 		} else if (packageName.equalsIgnoreCase("v1_9_R1")) {
 			v1_9_R1.sendTabTitle(player, header, footer);
+		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
+			v1_9_R2.sendTabTitle(player, header, footer);
 		} else {
 			return;
 		}

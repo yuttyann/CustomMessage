@@ -30,6 +30,7 @@ import com.github.yuttyann.custommessage.packet.versions.v1_8_R1;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R2;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R3;
 import com.github.yuttyann.custommessage.packet.versions.v1_9_R1;
+import com.github.yuttyann.custommessage.packet.versions.v1_9_R2;
 
 public class Main extends JavaPlugin {
 
@@ -129,6 +130,9 @@ public class Main extends JavaPlugin {
 		} else if (packageName.equalsIgnoreCase("v1_9_R1")) {
 			new v1_9_R1(this);
 			new CustomMessageAPI(this);
+		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
+			new v1_9_R2(this);
+			new CustomMessageAPI(this);
 		} else {
 			new CustomMessageAPI(this);
 		}
@@ -157,6 +161,9 @@ public class Main extends JavaPlugin {
 			getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
 		} else if (packageName.equalsIgnoreCase("v1_9_R1")) {
 			new v1_9_R1(this);
+			getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
+		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
+			new v1_9_R2(this);
 			getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
 		} else {
 			return;
