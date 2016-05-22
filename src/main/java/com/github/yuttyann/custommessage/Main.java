@@ -74,7 +74,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadProtocolLib() {
-		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getBoolean("CustomMessageAPI") && !CustomMessageConfig.getBoolean("UseWithoutDisableTheFunction")) {
 			return;
 		}
 		if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
@@ -86,7 +86,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadClass() {
-		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getBoolean("CustomMessageAPI") && !CustomMessageConfig.getBoolean("UseWithoutDisableTheFunction")) {
 			return;
 		}
 		getServer().getPluginManager().registerEvents(new PlayerChatListener(this), this);
@@ -107,14 +107,14 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadAPI() {
-		if (!CustomMessageConfig.getBoolean("CustomMessageAPI")) {
+		if (!CustomMessageConfig.getBoolean("CustomMessageAPI") && !CustomMessageConfig.getBoolean("UseWithoutDisableTheFunction")) {
 			return;
 		}
 		Server server = Bukkit.getServer();
 		String packageName = server.getClass().getPackage().getName();
 		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
 		if (packageName.equalsIgnoreCase("v1_7_R4")) {
-			if(getConfig().getBoolean("ProtocolHack")) {
+			if(getConfig().getBoolean("UseSpigotProtocolHack")) {
 				new v1_7_R4(this);
 			}
 			new CustomMessageAPI(this);
@@ -139,14 +139,14 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadTitle() {
-		if (CustomMessageConfig.getBoolean("CustomMessageAPI")) {
+		if (CustomMessageConfig.getBoolean("CustomMessageAPI") && !CustomMessageConfig.getBoolean("UseWithoutDisableTheFunction")) {
 			return;
 		}
 		Server server = Bukkit.getServer();
 		String packageName = server.getClass().getPackage().getName();
 		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
 		if (packageName.equalsIgnoreCase("v1_7_R4")) {
-			if (getConfig().getBoolean("ProtocolHack")) {
+			if (getConfig().getBoolean("UseSpigotProtocolHack")) {
 				new v1_7_R4(this);
 				new PlayerTitleListener(this);
 			}

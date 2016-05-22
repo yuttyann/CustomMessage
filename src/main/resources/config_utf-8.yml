@@ -9,13 +9,16 @@
 #ProtocolHackを使用している場合は、trueと書いてください。
 # trueで有効 falseで無効
 #初期: false
-ProtocolHack: false
+UseSpigotProtocolHack: false
 
 #このプラグインをAPIとして使うか
-#このプラグインの機能が無効化されます。
+#CustomMessageAPI このプラグインの機能が無効化されます。
+#UseWithoutDisableTheFunction このプラグインの機能を無効化せずにAPIを使用します。
+#※UseWithoutDisableTheFunctionを使用する場合はCustomMessageAPIもtrueにしてください。
 # trueで有効 falseで無効
 #初期: false
-CustomMessageAPI: false
+CustomMessageAPI: true
+UseWithoutDisableTheFunction: true
 
 #バージョンチェック、ダウンロード
 #このプラグインが最新バージョンかチェックします。
