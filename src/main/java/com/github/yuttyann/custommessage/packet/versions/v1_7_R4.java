@@ -15,10 +15,6 @@ public class v1_7_R4 {
 
 	Main plugin;
 
-	public v1_7_R4(Main plugin) {
-		this.plugin = plugin;
-	}
-
 	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
 		CraftPlayer craftPlayer = (CraftPlayer) player;
 		if (craftPlayer.getHandle().playerConnection.networkManager.getVersion() != 47) {

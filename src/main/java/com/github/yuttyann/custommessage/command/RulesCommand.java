@@ -21,7 +21,7 @@ public class RulesCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (CustomMessageConfig.getBoolean("CustomMessageAPI") && !CustomMessageConfig.getBoolean("UseWithoutDisableTheFunction") || !CustomMessageConfig.getBoolean("Rules.Enable")) {
+		if (!CustomMessageConfig.getBoolean("Rules.Enable")) {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
 		}

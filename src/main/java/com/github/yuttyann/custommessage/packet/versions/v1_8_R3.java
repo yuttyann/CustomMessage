@@ -18,10 +18,6 @@ public class v1_8_R3 {
 
 	Main plugin;
 
-	public v1_8_R3(Main plugin) {
-		this.plugin = plugin;
-	}
-
 	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
 		PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
 		PacketPlayOutTitle packetPlayOutTimes = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TIMES, null, fadeIn, stay, fadeOut);

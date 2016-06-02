@@ -1,4 +1,4 @@
-#CustomMessage v5.8 Config
+#CustomMessage v5.9 Config
 #CompliantVersion 1.7.2～1.9.4
 #ColorCodeList http://ess.khhq.net/mc/
 #SoundList http://www.yuttyann44581.net/uploads/SoundList/
@@ -10,15 +10,6 @@
 # trueで有効 falseで無効
 #初期: false
 UseSpigotProtocolHack: false
-
-#このプラグインをAPIとして使うか
-#CustomMessageAPI このプラグインの機能が無効化されます。
-#UseWithoutDisableTheFunction このプラグインの機能を無効化せずにAPIを使用します。
-#※UseWithoutDisableTheFunctionを使用する場合はCustomMessageAPIもtrueにしてください。
-# trueで有効 falseで無効
-#初期: false
-CustomMessageAPI: true
-UseWithoutDisableTheFunction: true
 
 #バージョンチェック、ダウンロード
 #このプラグインが最新バージョンかチェックします。
@@ -195,6 +186,18 @@ PlayerLoginKickMessage:
   BanMessage: '&cBANされているためログインできません'
   WhiteListMessage: 'ホワイトリストが有効になっているためログインできません'
 
+#ログイン時のメッセージの設定
+#プレイヤーのログイン時ログインメッセージとは別にメッセージを表示できます。
+#&で色を指定できます。ColorCodeListのURL参照
+#%playerでプレイヤーを取得します。
+#%timeでTimeに設定した時刻を取得します。
+# trueで有効 falseで無効
+#初期: true
+PlayerLoginMessage:
+  Enable: true
+  Message:
+  - 'アップデート情報: てすと'
+
 #サーバールールの設定
 #&で色を指定できます。ColorCodeListのURL参照
 # trueで有効 falseで無効
@@ -238,7 +241,7 @@ TabTitle:
   Header: '&dテスト1'
   Footer: '&bテスト2'
 
-#Motdの表示変更設定 
+#Motdの設定 
 #&で色を指定できます。ColorCodeListのURL参照
 #%playersでサーバーにログインしている人数を取得します。
 #%maxplayersで最大接続人数を取得します。

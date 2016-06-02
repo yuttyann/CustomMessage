@@ -1,5 +1,10 @@
 package com.github.yuttyann.custommessage.listener;
 
+import java.util.List;
+import java.util.logging.Logger;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -29,7 +34,8 @@ public class PlayerJoinQuitListener implements Listener {
 				PlayerJoinMessage = PlayerJoinMessage.replace("%player", player.getDisplayName());
 				PlayerJoinMessage = PlayerJoinMessage.replace("%time", TimeManager.getTime());
 				PlayerJoinMessage = PlayerJoinMessage.replace("&", "§");
-				event.setJoinMessage(PlayerJoinMessage);
+				event.setJoinMessage(null);
+				broadcastMessage(PlayerJoinMessage);
 			}
 			if (!CustomMessageConfig.getString("Sounds.JoinSound").equals("none")) {
 				new Sounds(plugin).playSound(player, "Sounds.JoinSound", "SoundTypes.JoinSoundType");
@@ -40,10 +46,20 @@ public class PlayerJoinQuitListener implements Listener {
 				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%player", player.getDisplayName());
 				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%time", TimeManager.getTime());
 				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("&", "§");
-				event.setJoinMessage(PlayerFirstJoinMessage);
+				event.setJoinMessage(null);
+				broadcastMessage(PlayerFirstJoinMessage);
 			}
 			if (!CustomMessageConfig.getString("Sounds.FirstJoinSound").equals("none")) {
 				new Sounds(plugin).playSound(player, "Sounds.FirstJoinSound", "SoundTypes.FirstJoinSoundType");
+			}
+		}
+		if (CustomMessageConfig.getBoolean("PlayerLoginMessage.Enable")) {
+			List<String> loginmessages = CustomMessageConfig.getStringList("PlayerLoginMessage.Message");
+			for (String message : loginmessages) {
+				message = message.replace("%player", player.getDisplayName());
+				message = message.replace("%time", TimeManager.getTime());
+				message = message.replace("&", "§");
+				player.sendMessage(message);
 			}
 		}
 	}
@@ -60,6 +76,13 @@ public class PlayerJoinQuitListener implements Listener {
 		}
 		if (!CustomMessageConfig.getString("Sounds.QuitSound").equals("none")) {
 			new Sounds(plugin).playSound(player, "Sounds.QuitSound", "SoundTypes.QuitSoundType");
+		}
+	}
+
+	private void broadcastMessage(String message) {
+		Logger.getLogger("Minecraft").info(ChatColor.stripColor(message));
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			player.sendMessage(message);
 		}
 	}
 }

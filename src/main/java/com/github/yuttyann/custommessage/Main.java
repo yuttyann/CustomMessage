@@ -3,8 +3,6 @@ package com.github.yuttyann.custommessage;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,12 +23,6 @@ import com.github.yuttyann.custommessage.listener.PlayerJoinQuitListener;
 import com.github.yuttyann.custommessage.listener.PlayerKickListener;
 import com.github.yuttyann.custommessage.listener.PlayerTitleListener;
 import com.github.yuttyann.custommessage.listener.ServerListener;
-import com.github.yuttyann.custommessage.packet.versions.v1_7_R4;
-import com.github.yuttyann.custommessage.packet.versions.v1_8_R1;
-import com.github.yuttyann.custommessage.packet.versions.v1_8_R2;
-import com.github.yuttyann.custommessage.packet.versions.v1_8_R3;
-import com.github.yuttyann.custommessage.packet.versions.v1_9_R1;
-import com.github.yuttyann.custommessage.packet.versions.v1_9_R2;
 
 public class Main extends JavaPlugin {
 
@@ -44,8 +36,6 @@ public class Main extends JavaPlugin {
 		loadProtocolLib();
 		loadClass();
 		loadCommand();
-		loadTitle();
-		loadAPI();
 		PluginDescriptionFile yml = getDescription();
 		logger.info("[" + yml.getName() + "] v" + yml.getVersion() + " が有効になりました。");
 	}
@@ -74,9 +64,6 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadProtocolLib() {
-		if (CustomMessageConfig.getBoolean("CustomMessageAPI") && !CustomMessageConfig.getBoolean("UseWithoutDisableTheFunction")) {
-			return;
-		}
 		if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
 			protocollib = true;
 		} else {
@@ -86,15 +73,14 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadClass() {
-		if (CustomMessageConfig.getBoolean("CustomMessageAPI") && !CustomMessageConfig.getBoolean("UseWithoutDisableTheFunction")) {
-			return;
-		}
 		getServer().getPluginManager().registerEvents(new PlayerChatListener(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerKickListener(this), this);
+		getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
 		getServer().getPluginManager().registerEvents(new ServerListener(this), this);
 		getServer().getPluginManager().registerEvents(new Updater(this), this);
+		new CustomMessageAPI(this);
 	}
 
 	private void loadCommand() {
@@ -104,69 +90,5 @@ public class Main extends JavaPlugin {
 		commands.put("me", new MeCommand(this));
 		commands.put("say", new SayCommand(this));
 		commands.put("tell", new TellCommand(this));
-	}
-
-	private void loadAPI() {
-		if (!CustomMessageConfig.getBoolean("CustomMessageAPI") && !CustomMessageConfig.getBoolean("UseWithoutDisableTheFunction")) {
-			return;
-		}
-		Server server = Bukkit.getServer();
-		String packageName = server.getClass().getPackage().getName();
-		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
-		if (packageName.equalsIgnoreCase("v1_7_R4")) {
-			if(getConfig().getBoolean("UseSpigotProtocolHack")) {
-				new v1_7_R4(this);
-			}
-			new CustomMessageAPI(this);
-		} else if (packageName.equalsIgnoreCase("v1_8_R1")) {
-			new v1_8_R1(this);
-			new CustomMessageAPI(this);
-		} else if (packageName.equalsIgnoreCase("v1_8_R2")) {
-			new v1_8_R2(this);
-			new CustomMessageAPI(this);
-		} else if (packageName.equalsIgnoreCase("v1_8_R3")) {
-			new v1_8_R3(this);
-			new CustomMessageAPI(this);
-		} else if (packageName.equalsIgnoreCase("v1_9_R1")) {
-			new v1_9_R1(this);
-			new CustomMessageAPI(this);
-		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
-			new v1_9_R2(this);
-			new CustomMessageAPI(this);
-		} else {
-			new CustomMessageAPI(this);
-		}
-	}
-
-	private void loadTitle() {
-		if (CustomMessageConfig.getBoolean("CustomMessageAPI") && !CustomMessageConfig.getBoolean("UseWithoutDisableTheFunction")) {
-			return;
-		}
-		Server server = Bukkit.getServer();
-		String packageName = server.getClass().getPackage().getName();
-		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
-		if (packageName.equalsIgnoreCase("v1_7_R4")) {
-			if (getConfig().getBoolean("UseSpigotProtocolHack")) {
-				new v1_7_R4(this);
-				new PlayerTitleListener(this);
-			}
-		} else if (packageName.equalsIgnoreCase("v1_8_R1")) {
-			new v1_8_R1(this);
-			getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
-		} else if (packageName.equalsIgnoreCase("v1_8_R2")) {
-			new v1_8_R2(this);
-			getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
-		} else if (packageName.equalsIgnoreCase("v1_8_R3")) {
-			new v1_8_R3(this);
-			getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
-		} else if (packageName.equalsIgnoreCase("v1_9_R1")) {
-			new v1_9_R1(this);
-			getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
-		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
-			new v1_9_R2(this);
-			getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
-		} else {
-			return;
-		}
 	}
 }

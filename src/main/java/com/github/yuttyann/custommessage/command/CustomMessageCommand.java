@@ -19,10 +19,6 @@ public class CustomMessageCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (CustomMessageConfig.getBoolean("CustomMessageAPI") && !CustomMessageConfig.getBoolean("UseWithoutDisableTheFunction")) {
-			sender.sendMessage("Unknown command. Type \"/help\" for help.");
-			return true;
-		}
 		if (!Permission.has(Permission.CUSTOMMESSAGE_RELOAD, sender)) {
 			sender.sendMessage(ChatColor.RED + "パーミッションが無いため、実行できません。");
 			return true;

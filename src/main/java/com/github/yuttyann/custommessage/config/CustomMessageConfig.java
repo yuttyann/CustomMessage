@@ -38,6 +38,10 @@ public class CustomMessageConfig {
 		CustomMessageConfig.config = YamlConfiguration.loadConfiguration(configFile);
 	}
 
+	public static File getFile() {
+		return configFile;
+	}
+
 	public static YamlConfiguration getConfig() {
 		return config;
 	}
