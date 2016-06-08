@@ -3,16 +3,16 @@
 Minecraftの様々なメッセージを変更できるプラグインです。  
 ライセンス: LGPLv3    
 
-# Commands
+# Commands  
 /rules  
 /custommessage reload  
 /title <player> <title> <subtitle>  
-/title tab <player> <header> <footer>  
+/title tab <player> <header> <footer>    
 
-# Permissions
+# Permissions  
 custommessage.command.rules  
 custommessage.command.reload  
-custommessage.command.title  
+custommessage.command.title    
 
 # API  
 全バージョン対応:  
@@ -21,7 +21,7 @@ CustomMessage.getAPI().getItemName(player, nullmessage);
 getItemInHand説明：  
 CustomMessage.getAPI().getItemInHand(プレイヤー);  
 getItemName説明：  
-CustomMessage.getAPI().getItemName(プレイヤー, 何も持っていない場合のメッセージ);  
+CustomMessage.getAPI().getItemName(プレイヤー, 何も持っていない場合のメッセージ);    
 
 1.8～のみ対応 ※SpigotProtocolHackでも使用可能:  
 CustomMessage.getAPI().sendFullTitle(player, fadeIn, stay, fadeOut, title, subtitle);  
