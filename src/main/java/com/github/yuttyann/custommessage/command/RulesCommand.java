@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.file.Config;
 
 public class RulesCommand implements CommandExecutor {
 
@@ -21,15 +21,15 @@ public class RulesCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (!CustomMessageConfig.getBoolean("Rules.Enable")) {
+		if (!Config.getBoolean("Rules.Enable")) {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
 		}
-		if (!Permission.has(Permission.CUSTOMMESSAGE_RULES, sender)) {
+		if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_RULES, sender)) {
 			sender.sendMessage(ChatColor.RED + "パーミッションが無いため、実行できません。");
 			return true;
 		}
-		List<String> rules = CustomMessageConfig.getStringList("Rules.Message");
+		List<String> rules = Config.getStringList("Rules.Message");
 		for (String message : rules) {
 			message = message.replace("&", "§");
 			sender.sendMessage(message);

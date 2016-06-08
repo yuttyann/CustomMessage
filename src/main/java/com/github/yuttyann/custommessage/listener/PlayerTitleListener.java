@@ -11,18 +11,20 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.github.yuttyann.custommessage.Main;
-import com.github.yuttyann.custommessage.api.CustomMessageAPI;
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.api.CustomMessage;
+import com.github.yuttyann.custommessage.file.Config;
 
 public class PlayerTitleListener implements Listener {
 
 	Main plugin;
+	CustomMessage api;
 
-	private HashMap<String, BukkitRunnable> timers;
+	HashMap<String, BukkitRunnable> timers;
 
 	public PlayerTitleListener(Main plugin) {
 		this.plugin = plugin;
-		timers = new HashMap<String, BukkitRunnable>();
+		this.api = CustomMessage.getAPI();
+		this.timers = new HashMap<String, BukkitRunnable>();
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -40,21 +42,21 @@ public class PlayerTitleListener implements Listener {
 	}
 
 	private void playerTitle(Player player) {
-		if (CustomMessageConfig.getBoolean("Title.Enable")) {
-			int FadeIn = CustomMessageConfig.getInt("TitleTime.FadeIn");
-			int Stay = CustomMessageConfig.getInt("TitleTime.Stay");
-			int FadeOut = CustomMessageConfig.getInt("TitleTime.FadeOut");
-			String TitleMessage = CustomMessageConfig.getString("Title.TitleMessage");
-			String SubTitleMessage = CustomMessageConfig.getString("Title.SubTitleMessage");
-			CustomMessageAPI.sendTitle(player, FadeIn, Stay, FadeOut, TitleMessage, SubTitleMessage);
+		if (Config.getBoolean("Title.Enable")) {
+			int FadeIn = Config.getInt("TitleTime.FadeIn");
+			int Stay = Config.getInt("TitleTime.Stay");
+			int FadeOut = Config.getInt("TitleTime.FadeOut");
+			String TitleMessage = Config.getString("Title.TitleMessage");
+			String SubTitleMessage = Config.getString("Title.SubTitleMessage");
+			api.sendFullTitle(player, FadeIn, Stay, FadeOut, TitleMessage, SubTitleMessage);
 		}
-		if (CustomMessageConfig.getBoolean("TabTitle.Enable")) {
-			String Header = CustomMessageConfig.getString("TabTitle.Header");
-			String Footer = CustomMessageConfig.getString("TabTitle.Footer");
+		if (Config.getBoolean("TabTitle.Enable")) {
+			String Header = Config.getString("TabTitle.Header");
+			String Footer = Config.getString("TabTitle.Footer");
 			if(Header.contains("%time") || Footer.contains("%time")) {
 				tabTitleTimerStart(player, Header, Footer);
 			} else {
-				CustomMessageAPI.sendTabTitle(player, Header, Footer);
+				api.sendFullTabTitle(player, Header, Footer);
 			}
 		}
 	}
@@ -63,7 +65,7 @@ public class PlayerTitleListener implements Listener {
 		BukkitRunnable timer = new BukkitRunnable() {
 			@Override
 			public void run() {
-				CustomMessageAPI.sendTabTitle(player, Header, Footer);
+				api.sendFullTabTitle(player, Header, Footer);
 			}
 		};
 		timer.runTaskTimer(plugin, 0, 20);

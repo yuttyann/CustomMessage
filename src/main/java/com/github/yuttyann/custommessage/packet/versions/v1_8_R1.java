@@ -13,7 +13,7 @@ import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import com.github.yuttyann.custommessage.Main;
-import com.github.yuttyann.custommessage.TimeManager;
+import com.github.yuttyann.custommessage.util.Utils;
 
 public class v1_8_R1 {
 
@@ -25,7 +25,7 @@ public class v1_8_R1 {
 		connection.sendPacket(packetPlayOutTimes);
 		if (title != null) {
 			title = title.replace("%player", player.getName());
-			title = title.replace("%time", TimeManager.getTime());
+			title = title.replace("%time", Utils.getTime());
 			title = title.replace("&", "§");
 			IChatBaseComponent titleMain = ChatSerializer.a("{\"text\": \"" + title + "\"}");
 			PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(EnumTitleAction.TITLE, titleMain);
@@ -33,7 +33,7 @@ public class v1_8_R1 {
 		}
 		if (subtitle != null) {
 			subtitle = subtitle.replace("%player", player.getName());
-			subtitle = subtitle.replace("%time", TimeManager.getTime());
+			subtitle = subtitle.replace("%time", Utils.getTime());
 			subtitle = subtitle.replace("&", "§");
 			IChatBaseComponent titleSub = ChatSerializer.a("{\"text\": \"" + subtitle + "\"}");
 			PacketPlayOutTitle packetPlayOutSubTitle = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, titleSub);
@@ -49,10 +49,10 @@ public class v1_8_R1 {
 			footer = "";
 		}
 		header = header.replace("%player", player.getName());
-		header = header.replace("%time", TimeManager.getTime());
+		header = header.replace("%time", Utils.getTime());
 		header = header.replace("&", "§");
 		footer = footer.replace("%player", player.getName());
-		footer = footer.replace("%time", TimeManager.getTime());
+		footer = footer.replace("%time", Utils.getTime());
 		footer = footer.replace("&", "§");
 		PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
 		IChatBaseComponent tabTitle = ChatSerializer.a("{\"text\": \"" + header + "\"}");

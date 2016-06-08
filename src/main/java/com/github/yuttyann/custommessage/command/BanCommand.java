@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
+import com.github.yuttyann.custommessage.util.Utils;
 
 public class BanCommand implements CommandExecutor {
 
@@ -32,30 +33,15 @@ public class BanCommand implements CommandExecutor {
 		}
 		String reason = args.length > 0 ? StringUtils.join(args, ' ', 1, args.length) : null;
 		Bukkit.getBanList(BanList.Type.NAME).addBan(args[0], reason, null, sender.getName());
-		Player player = getPlayerExact(args[0]);
+		Player player = Utils.getPlayerExact(args[0]);
 		if (player != null) {
 			if (args.length >= 2) {
-				player.kickPlayer(stringBuilder(args, 1));
+				player.kickPlayer(Utils.stringBuilder(args, 1));
 			} else {
 				player.kickPlayer("Banned by admin.");
 			}
 		}
 		Command.broadcastCommandMessage(sender, "Banned player " + args[0]);
 		return true;
-	}
-
-	@SuppressWarnings("deprecation")
-	private Player getPlayerExact(String name) {
-		return Bukkit.getPlayerExact(name);
-	}
-
-	private String stringBuilder(String[] args, Integer integer) {
-		StringBuilder builder = new StringBuilder();
-		for (int i = integer; i < args.length; i++) {
-			if (i > integer)
-				builder.append(" ");
-			builder.append(args[i]);
-		}
-		return builder.toString();
 	}
 }

@@ -1,6 +1,5 @@
 package com.github.yuttyann.custommessage.command;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,7 +8,8 @@ import org.bukkit.entity.Player;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.util.Utils;
 
 public class TellCommand implements CommandExecutor {
 
@@ -29,13 +29,13 @@ public class TellCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "Usage: /tell <player> <message>");
 			return true;
 		}
-		Player player = getPlayerExact(args[0]);
+		Player player = Utils.getPlayerExact(args[0]);
 		if (player == null || (sender instanceof Player && !((Player) sender).canSee(player))) {
 			sender.sendMessage("There's no player by that name online.");
 		} else {
-			String stringBuilder = stringBuilder(args, 1);
-			String tell = CustomMessageConfig.getString("Commands.tell");
-			String tell_target = CustomMessageConfig.getString("Commands.tell_target");
+			String stringBuilder = Utils.stringBuilder(args, 1);
+			String tell = Config.getString("Commands.tell");
+			String tell_target = Config.getString("Commands.tell_target");
 			tell = tell.replace("%target", player.getName());
 			tell = tell.replace("%name", sender.getName());
 			tell = tell.replace("%message", stringBuilder);
@@ -47,21 +47,6 @@ public class TellCommand implements CommandExecutor {
 			sender.sendMessage(tell);
 			player.sendMessage(tell_target);
 		}
-		return false;
-	}
-
-	private String stringBuilder(String[] args, Integer integer) {
-		StringBuilder builder = new StringBuilder();
-		for (int i = integer; i < args.length; i++) {
-			if (i > integer)
-				builder.append(" ");
-			builder.append(args[i]);
-		}
-		return builder.toString();
-	}
-
-	@SuppressWarnings("deprecation")
-	private Player getPlayerExact(String name) {
-		return Bukkit.getPlayerExact(name);
+		return true;
 	}
 }

@@ -8,8 +8,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Sounds;
-import com.github.yuttyann.custommessage.TimeManager;
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.util.Utils;
 
 public class PlayerChatListener implements Listener {
 
@@ -22,15 +22,15 @@ public class PlayerChatListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
-		if (CustomMessageConfig.getBoolean("ChatMessageFormat.Enable")) {
-			String PlayerChatMessage = CustomMessageConfig.getString("ChatMessageFormat.Message");
+		if (Config.getBoolean("ChatMessageFormat.Enable")) {
+			String PlayerChatMessage = Config.getString("ChatMessageFormat.Message");
 			PlayerChatMessage = PlayerChatMessage.replace("%player", player.getDisplayName());
 			PlayerChatMessage = PlayerChatMessage.replace("%chat", event.getMessage());
-			PlayerChatMessage = PlayerChatMessage.replace("%time", TimeManager.getTime());
+			PlayerChatMessage = PlayerChatMessage.replace("%time", Utils.getTime());
 			PlayerChatMessage = PlayerChatMessage.replace("&", "§");
 			event.setFormat(PlayerChatMessage);
 		}
-		if (!CustomMessageConfig.getString("Sounds.ChatSound").equals("none")) {
+		if (!Config.getString("Sounds.ChatSound").equals("none")) {
 			new Sounds(plugin).playSound(player, "Sounds.ChatSound", "SoundTypes.ChatSoundType");
 		}
 	}

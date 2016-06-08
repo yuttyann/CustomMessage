@@ -14,8 +14,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Sounds;
-import com.github.yuttyann.custommessage.TimeManager;
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.util.Utils;
 
 public class PlayerJoinQuitListener implements Listener {
 
@@ -29,35 +29,35 @@ public class PlayerJoinQuitListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		if (event.getPlayer().hasPlayedBefore()) {
-			if (CustomMessageConfig.getBoolean("PlayerJoinQuitMessage.Enable")) {
-				String PlayerJoinMessage = CustomMessageConfig.getString("PlayerJoinQuitMessage.JoinMessage");
+			if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
+				String PlayerJoinMessage = Config.getString("PlayerJoinQuitMessage.JoinMessage");
 				PlayerJoinMessage = PlayerJoinMessage.replace("%player", player.getDisplayName());
-				PlayerJoinMessage = PlayerJoinMessage.replace("%time", TimeManager.getTime());
+				PlayerJoinMessage = PlayerJoinMessage.replace("%time", Utils.getTime());
 				PlayerJoinMessage = PlayerJoinMessage.replace("&", "§");
 				event.setJoinMessage(null);
 				broadcastMessage(PlayerJoinMessage);
 			}
-			if (!CustomMessageConfig.getString("Sounds.JoinSound").equals("none")) {
+			if (!Config.getString("Sounds.JoinSound").equals("none")) {
 				new Sounds(plugin).playSound(player, "Sounds.JoinSound", "SoundTypes.JoinSoundType");
 			}
 		} else {
-			if (CustomMessageConfig.getBoolean("PlayerJoinQuitMessage.Enable")) {
-				String PlayerFirstJoinMessage = CustomMessageConfig.getString("PlayerJoinQuitMessage.FirstJoinMssage");
+			if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
+				String PlayerFirstJoinMessage = Config.getString("PlayerJoinQuitMessage.FirstJoinMssage");
 				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%player", player.getDisplayName());
-				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%time", TimeManager.getTime());
+				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%time", Utils.getTime());
 				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("&", "§");
 				event.setJoinMessage(null);
 				broadcastMessage(PlayerFirstJoinMessage);
 			}
-			if (!CustomMessageConfig.getString("Sounds.FirstJoinSound").equals("none")) {
+			if (!Config.getString("Sounds.FirstJoinSound").equals("none")) {
 				new Sounds(plugin).playSound(player, "Sounds.FirstJoinSound", "SoundTypes.FirstJoinSoundType");
 			}
 		}
-		if (CustomMessageConfig.getBoolean("PlayerLoginMessage.Enable")) {
-			List<String> loginmessages = CustomMessageConfig.getStringList("PlayerLoginMessage.Message");
+		if (Config.getBoolean("PlayerLoginMessage.Enable")) {
+			List<String> loginmessages = Config.getStringList("PlayerLoginMessage.Message");
 			for (String message : loginmessages) {
 				message = message.replace("%player", player.getDisplayName());
-				message = message.replace("%time", TimeManager.getTime());
+				message = message.replace("%time", Utils.getTime());
 				message = message.replace("&", "§");
 				player.sendMessage(message);
 			}
@@ -67,14 +67,14 @@ public class PlayerJoinQuitListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		if (CustomMessageConfig.getBoolean("PlayerJoinQuitMessage.Enable")) {
-			String PlayerQuitMessage = CustomMessageConfig.getString("PlayerJoinQuitMessage.QuitMessage");
+		if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
+			String PlayerQuitMessage = Config.getString("PlayerJoinQuitMessage.QuitMessage");
 			PlayerQuitMessage = PlayerQuitMessage.replace("%player", player.getDisplayName());
-			PlayerQuitMessage = PlayerQuitMessage.replace("%time", TimeManager.getTime());
+			PlayerQuitMessage = PlayerQuitMessage.replace("%time", Utils.getTime());
 			PlayerQuitMessage = PlayerQuitMessage.replace("&", "§");
 			event.setQuitMessage(PlayerQuitMessage);
 		}
-		if (!CustomMessageConfig.getString("Sounds.QuitSound").equals("none")) {
+		if (!Config.getString("Sounds.QuitSound").equals("none")) {
 			new Sounds(plugin).playSound(player, "Sounds.QuitSound", "SoundTypes.QuitSoundType");
 		}
 	}

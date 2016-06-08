@@ -1,4 +1,4 @@
-package com.github.yuttyann.custommessage.config;
+package com.github.yuttyann.custommessage.file;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,10 +17,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import com.github.yuttyann.custommessage.Main;
-import com.github.yuttyann.custommessage.Version;
+import com.github.yuttyann.custommessage.util.Utils;
 import com.google.common.base.Charsets;
 
-public class CustomMessageConfig {
+public class Config {
 
 	static Main plugin;
 
@@ -28,14 +28,14 @@ public class CustomMessageConfig {
 	private static File configFile;
 	private static YamlConfiguration config;
 
-	public CustomMessageConfig(Main plugin, String encode) {
-		CustomMessageConfig.plugin = plugin;
-		CustomMessageConfig.filename = "config_" + encode + ".yml";
-		CustomMessageConfig.configFile = new File(plugin.getDataFolder(), filename);
-		if (!CustomMessageConfig.configFile.exists()) {
+	public Config(Main plugin, String encode) {
+		Config.plugin = plugin;
+		Config.filename = "config_" + encode + ".yml";
+		Config.configFile = new File(plugin.getDataFolder(), filename);
+		if (!Config.configFile.exists()) {
 			plugin.saveResource(filename, false);
 		}
-		CustomMessageConfig.config = YamlConfiguration.loadConfiguration(configFile);
+		Config.config = YamlConfiguration.loadConfiguration(configFile);
 	}
 
 	public static File getFile() {
@@ -55,7 +55,7 @@ public class CustomMessageConfig {
 		InputStream defConfigStream = plugin.getResource(filename);
 		if (defConfigStream != null) {
 			YamlConfiguration defConfig;
-			if(Version.isVersion("1.9")) {
+			if(Utils.isVersion("1.9")) {
 				defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8));
 			} else {
 				defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
@@ -87,7 +87,7 @@ public class CustomMessageConfig {
 			config.save(file);
 		} catch (IOException e) {
 			e.printStackTrace();
-		};
+		}
 	}
 
 	public static void addDefault(String path, Object value) {

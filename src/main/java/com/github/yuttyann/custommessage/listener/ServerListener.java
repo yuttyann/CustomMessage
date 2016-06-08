@@ -9,10 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
 import com.github.yuttyann.custommessage.Main;
-import com.github.yuttyann.custommessage.TimeManager;
-import com.github.yuttyann.custommessage.Version;
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.file.Config;
 import com.github.yuttyann.custommessage.packet.ProtocolLibPacket;
+import com.github.yuttyann.custommessage.util.Utils;
 
 public class ServerListener implements Listener {
 
@@ -24,11 +23,11 @@ public class ServerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onServerListPing(ServerListPingEvent event) {
-		if (CustomMessageConfig.getBoolean("FakeMaxPlayer.Enable")) {
-			int MaxPlayer = CustomMessageConfig.getConfig().getInt("FakeMaxPlayer.MaxPlayer");
+		if (Config.getBoolean("FakeMaxPlayer.Enable")) {
+			int MaxPlayer = Config.getConfig().getInt("FakeMaxPlayer.MaxPlayer");
 			event.setMaxPlayers(MaxPlayer);
 		}
-		if (CustomMessageConfig.getBoolean("Motd.Enable")) {
+		if (Config.getBoolean("Motd.Enable")) {
 			Integer players = event.getNumPlayers();
 			Integer maxplayer = Bukkit.getMaxPlayers();
 			String servername = Bukkit.getServerName();
@@ -36,8 +35,8 @@ public class ServerListener implements Listener {
 			motd = motd.replace("%players", players.toString());
 			motd = motd.replace("%maxplayers", maxplayer.toString());
 			motd = motd.replace("%servername", servername);
-			motd = motd.replace("%version", Version.getVersion());
-			motd = motd.replace("%time", TimeManager.getTime());
+			motd = motd.replace("%version", Utils.getVersion());
+			motd = motd.replace("%time", Utils.getTime());
 			motd = motd.replace("&", "§");
 			event.setMotd(motd);
 		}
@@ -45,7 +44,7 @@ public class ServerListener implements Listener {
 	}
 
 	private String getMotd() {
-		List<String> list = CustomMessageConfig.getStringList("Motd.Message");
+		List<String> list = Config.getStringList("Motd.Message");
 		String motd = "";
 		if (list != null && list.size() >= 1 && list.size() <= 2) {
 			motd = list.get(0);

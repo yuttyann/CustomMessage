@@ -9,20 +9,21 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.github.yuttyann.custommessage.api.CustomMessageAPI;
 import com.github.yuttyann.custommessage.command.BanCommand;
 import com.github.yuttyann.custommessage.command.CustomMessageCommand;
 import com.github.yuttyann.custommessage.command.MeCommand;
 import com.github.yuttyann.custommessage.command.RulesCommand;
 import com.github.yuttyann.custommessage.command.SayCommand;
 import com.github.yuttyann.custommessage.command.TellCommand;
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.command.TitleCommand;
+import com.github.yuttyann.custommessage.file.Config;
 import com.github.yuttyann.custommessage.listener.PlayerChatListener;
 import com.github.yuttyann.custommessage.listener.PlayerDeathListener;
 import com.github.yuttyann.custommessage.listener.PlayerJoinQuitListener;
 import com.github.yuttyann.custommessage.listener.PlayerKickListener;
 import com.github.yuttyann.custommessage.listener.PlayerTitleListener;
 import com.github.yuttyann.custommessage.listener.ServerListener;
+import com.github.yuttyann.custommessage.util.Utils;
 
 public class Main extends JavaPlugin {
 
@@ -52,13 +53,13 @@ public class Main extends JavaPlugin {
 	}
 
 	private void setUpConfig() {
-		if ((PlatformUtils.isLinux()) || (PlatformUtils.isMac())) {
-			new CustomMessageConfig(this, "utf-8");
-		} else if (PlatformUtils.isWindows()) {
-			if (Version.isVersion("1.9")) {
-				new CustomMessageConfig(this, "utf-8");
+		if ((Utils.isLinux()) || (Utils.isMac())) {
+			new Config(this, "utf-8");
+		} else if (Utils.isWindows()) {
+			if (Utils.isVersion("1.9")) {
+				new Config(this, "utf-8");
 			} else {
-				new CustomMessageConfig(this, "s-jis");
+				new Config(this, "s-jis");
 			}
 		}
 	}
@@ -80,7 +81,6 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
 		getServer().getPluginManager().registerEvents(new ServerListener(this), this);
 		getServer().getPluginManager().registerEvents(new Updater(this), this);
-		new CustomMessageAPI(this);
 	}
 
 	private void loadCommand() {
@@ -90,5 +90,6 @@ public class Main extends JavaPlugin {
 		commands.put("me", new MeCommand(this));
 		commands.put("say", new SayCommand(this));
 		commands.put("tell", new TellCommand(this));
+		commands.put("title", new TitleCommand(this));
 	}
 }

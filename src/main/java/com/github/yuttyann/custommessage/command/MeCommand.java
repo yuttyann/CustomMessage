@@ -8,7 +8,8 @@ import org.bukkit.command.CommandSender;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.util.Utils;
 
 public class MeCommand implements CommandExecutor {
 
@@ -28,21 +29,11 @@ public class MeCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "Usage: /me <action>");
 			return true;
 		}
-		String message = CustomMessageConfig.getString("Commands.Me");
+		String message = Config.getString("Commands.Me");
 		message = message.replace("%name", sender.getName());
-		message = message.replace("%message", stringBuilder(args, 0).replace("&", "§"));
+		message = message.replace("%message", Utils.stringBuilder(args, 0).replace("&", "§"));
 		message = message.replace("&", "§");
 		Bukkit.broadcastMessage(message);
 		return true;
-	}
-
-	private String stringBuilder(String[] args, Integer integer) {
-		StringBuilder builder = new StringBuilder();
-		for (int i = integer; i < args.length; i++) {
-			if (i > integer)
-				builder.append(" ");
-			builder.append(args[i]);
-		}
-		return builder.toString();
 	}
 }

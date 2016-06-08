@@ -6,22 +6,27 @@ Minecraftの様々なメッセージを変更できるプラグインです。
 # Commands
 /rules  
 /custommessage reload  
+/title <player> <title> <subtitle>  
+/title tab <player> <header> <footer>  
 
 # Permissions
-custommessage.rules  
-custommessage.reload  
+custommessage.command.rules  
+custommessage.command.reload  
+custommessage.command.title  
 
 # API  
 全バージョン対応:  
-CustomMessageAPI.getItemName(player, nullmessage);  
-プレイヤーが何を持っているのかをメッセージで表示したり、PlayerDeathEventなどで使えます。  
+CustomMessage.getAPI().getItemInHand(player);  
+CustomMessage.getAPI().getItemName(player, nullmessage);  
+getItemInHand説明：  
+CustomMessage.getAPI().getItemInHand(プレイヤー);  
 getItemName説明：  
-CustomMessageAPI.getItemName(プレイヤー, 何も持っていない場合のメッセージ);  
-9月28日追記： アイテム名を返しているだけなのでsendMessageやbroadcastMessageなどで表示させてください。  
+CustomMessage.getAPI().getItemName(プレイヤー, 何も持っていない場合のメッセージ);  
+
 1.8-1.9のみ対応 ※SpigotProtocolHackでも使用可能:  
-CustomMessageAPI.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);  
-CustomMessageAPI.sendTabTitle(player, header, footer);  
+CustomMessage.getAPI().sendFullTitle(player, fadeIn, stay, fadeOut, title, subtitle);  
+CustomMessage.getAPI().sendFullTabTitle(player, header, footer);  
 setTitle説明：  
-CustomMessageAPI.sendTitle(プレイヤー, 表示するまでの時間, 表示させている時間, 消えるまでの時間, タイトル, サブタイトル);  
+CustomMessage.getAPI().sendFullTitle(プレイヤー, 表示するまでの時間, 表示させている時間, 消えるまでの時間, タイトル, サブタイトル);  
 setTabTitle説明：  
-CustomMessageAPI.sendTabTitle(プレイヤー, Tabを押したときに上に表示されるメッセージ, Tabを押したときに下に表示されるメッセージ);  
+CustomMessage.getAPI().sendFullTabTitle(プレイヤー, Tabを押したときに上に表示されるメッセージ, Tabを押したときに下に表示されるメッセージ);  

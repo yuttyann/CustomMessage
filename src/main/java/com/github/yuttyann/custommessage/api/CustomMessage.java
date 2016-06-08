@@ -9,33 +9,30 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.github.yuttyann.custommessage.Main;
-import com.github.yuttyann.custommessage.Version;
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.file.Config;
 import com.github.yuttyann.custommessage.packet.versions.v1_7_R4;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R1;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R2;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R3;
 import com.github.yuttyann.custommessage.packet.versions.v1_9_R1;
 import com.github.yuttyann.custommessage.packet.versions.v1_9_R2;
+import com.github.yuttyann.custommessage.util.Utils;
 
-public class CustomMessageAPI {
+public class CustomMessage {
 
-	Main plugin;
-
-	public CustomMessageAPI(Main plugin) {
-		CustomMessageAPI.this.plugin = plugin;
+	public static CustomMessage getAPI() {
+		return new CustomMessage();
 	}
 
-	public static File getFile() {
-		return CustomMessageConfig.getFile();
+	public File getFile() {
+		return Config.getFile();
 	}
 
-	public static YamlConfiguration getConfig() {
-		return CustomMessageConfig.getConfig();
+	public YamlConfiguration getConfig() {
+		return Config.getConfig();
 	}
 
-	public static String getItemName(Player player, String nullmessage) {
+	public String getItemName(Player player, String nullmessage) {
 		if (player == null) {
 			return "";
 		}
@@ -50,20 +47,38 @@ public class CustomMessageAPI {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static ItemStack getItemInHand(Player player) {
-		if(Version.isVersion("1.9")) {
+	public ItemStack getItemInHand(Player player) {
+		if(Utils.isVersion("1.9")) {
 			return player.getInventory().getItemInMainHand();
 		} else {
 			return player.getInventory().getItemInHand();
 		}
 	}
 
-	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
-		Server server = Bukkit.getServer();
-		String packageName = server.getClass().getPackage().getName();
-		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
+	@Deprecated
+	public void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title) {
+		sendFullTitle(player, fadeIn, stay, fadeOut, title, "");
+	}
+
+	@Deprecated
+	public void sendSubTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String subtitle) {
+		sendFullTitle(player, fadeIn, stay, fadeOut, "", subtitle);
+	}
+
+	@Deprecated
+	public void sendHeader(Player player, String header) {
+		sendFullTabTitle(player, header, "");
+	}
+
+	@Deprecated
+	public void sendFooter(Player player, String footer) {
+		sendFullTabTitle(player, "", footer);
+	}
+
+	public void sendFullTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
+		String packageName = getPackage();
 		if (packageName.equalsIgnoreCase("v1_7_R4")) {
-			if (CustomMessageConfig.getBoolean("UseSpigotProtocolHack")) {
+			if (Config.getBoolean("UseSpigotProtocolHack")) {
 				v1_7_R4.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
 			}
 		} else if (packageName.equalsIgnoreCase("v1_8_R1")) {
@@ -79,12 +94,10 @@ public class CustomMessageAPI {
 		}
 	}
 
-	public static void sendTabTitle(Player player, String header, String footer) {
-		Server server = Bukkit.getServer();
-		String packageName = server.getClass().getPackage().getName();
-		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
+	public void sendFullTabTitle(Player player, String header, String footer) {
+		String packageName = getPackage();
 		if (packageName.equalsIgnoreCase("v1_7_R4")) {
-			if (CustomMessageConfig.getBoolean("UseSpigotProtocolHack")) {
+			if (Config.getBoolean("UseSpigotProtocolHack")) {
 				v1_7_R4.sendTabTitle(player, header, footer);
 			}
 		} else if (packageName.equalsIgnoreCase("v1_8_R1")) {
@@ -98,5 +111,12 @@ public class CustomMessageAPI {
 		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
 			v1_9_R2.sendTabTitle(player, header, footer);
 		}
+	}
+
+	private String getPackage() {
+		Server server = Bukkit.getServer();
+		String packageName = server.getClass().getPackage().getName();
+		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
+		return packageName;
 	}
 }

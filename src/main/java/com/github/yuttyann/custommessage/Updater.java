@@ -26,7 +26,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.file.Config;
 
 public class Updater implements Listener {
 
@@ -158,10 +158,10 @@ public class Updater implements Listener {
 	}
 
 	private void updateCheck() {
-		if(CustomMessageConfig.getBoolean("UpdateChecker")) {
+		if(Config.getBoolean("UpdateChecker")) {
 			if((!getVersion().equals(getCurrentVersion())) && (Double.parseDouble(getVersion()) > Double.parseDouble(getCurrentVersion()))) {
 				enable = true;
-				if(CustomMessageConfig.getBoolean("AutoDownload")) {
+				if(Config.getBoolean("AutoDownload")) {
 					download();
 				}
 			} else {

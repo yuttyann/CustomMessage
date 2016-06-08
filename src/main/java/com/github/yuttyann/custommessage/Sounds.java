@@ -6,7 +6,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.file.Config;
 
 public class Sounds {
 
@@ -17,7 +17,7 @@ public class Sounds {
 	}
 
 	public void playSound(final Player player, String sound, final String soundtype) {
-		String soundList = CustomMessageConfig.getString(sound);
+		String soundList = Config.getString(sound);
 		String[] soundFxList = soundList.replace(" ", "").split(",");
 		for (final String soundFx : soundFxList) {
 			final String[] args = soundFx.split("-");
@@ -34,7 +34,7 @@ public class Sounds {
 	}
 
 	private void soundType(Player player, String soundtype, String[] args) {
-		String type = CustomMessageConfig.getString(soundtype);
+		String type = Config.getString(soundtype);
 		switch (type) {
 		case "player":
 			player.playSound(player.getLocation(), Sound.valueOf(args[0].toUpperCase()), parseFloat(args[1]), parseFloat(args[2]));

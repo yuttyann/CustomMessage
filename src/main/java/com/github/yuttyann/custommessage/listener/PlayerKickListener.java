@@ -12,8 +12,8 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Sounds;
-import com.github.yuttyann.custommessage.TimeManager;
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.util.Utils;
 
 
 public class PlayerKickListener implements Listener {
@@ -27,68 +27,68 @@ public class PlayerKickListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerKick(PlayerKickEvent event) {
 		Player player = event.getPlayer();
-		if (CustomMessageConfig.getBoolean("PlayerKickMessage.Enable")) {
+		if (Config.getBoolean("PlayerKickMessage.Enable")) {
 			if (isBanned(player)) {
-				if (!CustomMessageConfig.getString("PlayerKickMessage.BanBroadcastMessage").equals("none")) {
-					String BanBroadcastMessage = CustomMessageConfig.getString("PlayerKickMessage.BanBroadcastMessage");
+				if (!Config.getString("PlayerKickMessage.BanBroadcastMessage").equals("none")) {
+					String BanBroadcastMessage = Config.getString("PlayerKickMessage.BanBroadcastMessage");
 					BanBroadcastMessage = BanBroadcastMessage.replace("%player", player.getName());
 					BanBroadcastMessage = BanBroadcastMessage.replace("%reason", event.getReason());
-					BanBroadcastMessage = BanBroadcastMessage.replace("%time", TimeManager.getTime());
+					BanBroadcastMessage = BanBroadcastMessage.replace("%time", Utils.getTime());
 					BanBroadcastMessage = BanBroadcastMessage.replace("&", "§");
 					Bukkit.broadcastMessage(BanBroadcastMessage);
-					if (!CustomMessageConfig.getString("Sounds.BanBroadcastSound").equals("none")) {
+					if (!Config.getString("Sounds.BanBroadcastSound").equals("none")) {
 						new Sounds(plugin).playSound(player, "Sounds.BanBroadcastSound", "SoundTypes.BanBroadcastSoundType");
 					}
 				}
-				if (!CustomMessageConfig.getString("PlayerKickMessage.BanMessage").equals("none")) {
-					String KickMessage = CustomMessageConfig.getString("PlayerKickMessage.BanMessage");
+				if (!Config.getString("PlayerKickMessage.BanMessage").equals("none")) {
+					String KickMessage = Config.getString("PlayerKickMessage.BanMessage");
 					KickMessage = KickMessage.replace("%player", player.getName());
 					KickMessage = KickMessage.replace("%reason", event.getReason());
 					KickMessage = KickMessage.replace("%line", "\n");
-					KickMessage = KickMessage.replace("%time", TimeManager.getTime());
+					KickMessage = KickMessage.replace("%time", Utils.getTime());
 					KickMessage = KickMessage.replace("&", "§");
 					event.setReason(KickMessage);
 				}
 			} else {
 				if(event.getReason().equalsIgnoreCase("You have been idle for too long!")) {
-					if (!CustomMessageConfig.getString("PlayerKickMessage.AFKBroadcastMessage").equals("none")) {
-						String AFKBroadcastMessage = CustomMessageConfig.getString("PlayerKickMessage.AFKBroadcastMessage");
+					if (!Config.getString("PlayerKickMessage.AFKBroadcastMessage").equals("none")) {
+						String AFKBroadcastMessage = Config.getString("PlayerKickMessage.AFKBroadcastMessage");
 						AFKBroadcastMessage = AFKBroadcastMessage.replace("%player", player.getName());
 						AFKBroadcastMessage = AFKBroadcastMessage.replace("%reason", event.getReason());
-						AFKBroadcastMessage = AFKBroadcastMessage.replace("%time", TimeManager.getTime());
+						AFKBroadcastMessage = AFKBroadcastMessage.replace("%time", Utils.getTime());
 						AFKBroadcastMessage = AFKBroadcastMessage.replace("&", "§");
 						Bukkit.broadcastMessage(AFKBroadcastMessage);
-						if (!CustomMessageConfig.getString("Sounds.BanBroadcastSound").equals("none")) {
+						if (!Config.getString("Sounds.BanBroadcastSound").equals("none")) {
 							new Sounds(plugin).playSound(player, "Sounds.AFKBroadcastSound", "SoundTypes.AFKBroadcastSoundType");
 						}
 					}
-					if (!CustomMessageConfig.getString("PlayerKickMessage.AFKMessage").equals("none")) {
-						String AFKMessage = CustomMessageConfig.getString("PlayerKickMessage.AFKMessage");
+					if (!Config.getString("PlayerKickMessage.AFKMessage").equals("none")) {
+						String AFKMessage = Config.getString("PlayerKickMessage.AFKMessage");
 						AFKMessage = AFKMessage.replace("%player", player.getName());
 						AFKMessage = AFKMessage.replace("%reason", event.getReason());
 						AFKMessage = AFKMessage.replace("%line", "\n");
-						AFKMessage = AFKMessage.replace("%time", TimeManager.getTime());
+						AFKMessage = AFKMessage.replace("%time", Utils.getTime());
 						AFKMessage = AFKMessage.replace("&", "§");
 						event.setReason(AFKMessage);
 					}
 				} else {
-					if (!CustomMessageConfig.getString("PlayerKickMessage.KickBroadcastMessage").equals("none")) {
-						String KickBroadcastMessage = CustomMessageConfig.getString("PlayerKickMessage.KickBroadcastMessage");
+					if (!Config.getString("PlayerKickMessage.KickBroadcastMessage").equals("none")) {
+						String KickBroadcastMessage = Config.getString("PlayerKickMessage.KickBroadcastMessage");
 						KickBroadcastMessage = KickBroadcastMessage.replace("%player", player.getName());
 						KickBroadcastMessage = KickBroadcastMessage.replace("%reason", event.getReason());
-						KickBroadcastMessage = KickBroadcastMessage.replace("%time", TimeManager.getTime());
+						KickBroadcastMessage = KickBroadcastMessage.replace("%time", Utils.getTime());
 						KickBroadcastMessage = KickBroadcastMessage.replace("&", "§");
 						Bukkit.broadcastMessage(KickBroadcastMessage);
-						if (!CustomMessageConfig.getString("Sounds.KickBroadcastSound").equals("none")) {
+						if (!Config.getString("Sounds.KickBroadcastSound").equals("none")) {
 							new Sounds(plugin).playSound(player, "Sounds.KickBroadcastSound", "SoundTypes.KickBroadcastSoundType");
 						}
 					}
-					if (!CustomMessageConfig.getString("PlayerKickMessage.KickMessage").equals("none")) {
-						String KickMessage = CustomMessageConfig.getString("PlayerKickMessage.KickMessage");
+					if (!Config.getString("PlayerKickMessage.KickMessage").equals("none")) {
+						String KickMessage = Config.getString("PlayerKickMessage.KickMessage");
 						KickMessage = KickMessage.replace("%player", player.getName());
 						KickMessage = KickMessage.replace("%reason", event.getReason());
 						KickMessage = KickMessage.replace("%line", "\n");
-						KickMessage = KickMessage.replace("%time", TimeManager.getTime());
+						KickMessage = KickMessage.replace("%time", Utils.getTime());
 						KickMessage = KickMessage.replace("&", "§");
 						event.setReason(KickMessage);
 					}
@@ -100,19 +100,19 @@ public class PlayerKickListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
-		if (CustomMessageConfig.getBoolean("PlayerLoginKickMessage.Enable")) {
+		if (Config.getBoolean("PlayerLoginKickMessage.Enable")) {
 			if(event.getResult() == Result.KICK_BANNED) {
-				String BanMessage = CustomMessageConfig.getString("PlayerLoginKickMessage.BanMessage");
+				String BanMessage = Config.getString("PlayerLoginKickMessage.BanMessage");
 				BanMessage = BanMessage.replace("%player", player.getName());
-				BanMessage = BanMessage.replace("%time", TimeManager.getTime());
+				BanMessage = BanMessage.replace("%time", Utils.getTime());
 				BanMessage = BanMessage.replace("%line", "\n");
 				BanMessage = BanMessage.replace("&", "§");
 				event.disallow(Result.KICK_BANNED, BanMessage);
 			}
 			if(event.getResult() == Result.KICK_WHITELIST) {
-				String WhiteListMessage = CustomMessageConfig.getString("PlayerLoginKickMessage.WhiteListMessage");
+				String WhiteListMessage = Config.getString("PlayerLoginKickMessage.WhiteListMessage");
 				WhiteListMessage = WhiteListMessage.replace("%player", player.getName());
-				WhiteListMessage = WhiteListMessage.replace("%time", TimeManager.getTime());
+				WhiteListMessage = WhiteListMessage.replace("%time", Utils.getTime());
 				WhiteListMessage = WhiteListMessage.replace("%line", "\n");
 				WhiteListMessage = WhiteListMessage.replace("&", "§");
 				event.disallow(Result.KICK_WHITELIST, WhiteListMessage);

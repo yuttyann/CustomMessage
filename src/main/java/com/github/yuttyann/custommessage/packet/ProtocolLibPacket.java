@@ -17,13 +17,12 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
 import com.github.yuttyann.custommessage.Main;
-import com.github.yuttyann.custommessage.TimeManager;
-import com.github.yuttyann.custommessage.Version;
-import com.github.yuttyann.custommessage.config.CustomMessageConfig;
+import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.util.Utils;
 
 public class ProtocolLibPacket {
 
-	Main plugin;
+	private Main plugin;
 
 	private final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
 
@@ -32,7 +31,7 @@ public class ProtocolLibPacket {
 	}
 
 	public void sendPlayerCountMessage() {
-		if (CustomMessageConfig.getBoolean("PlayerCountMessage.Enable")) {
+		if (Config.getBoolean("PlayerCountMessage.Enable")) {
 			manager.addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, Arrays.asList(new PacketType[] { PacketType.Status.Server.OUT_SERVER_INFO }), new ListenerOptions[] { ListenerOptions.ASYNC }) {
 				@Override
 				public void onPacketSending(PacketEvent event) {
@@ -45,12 +44,12 @@ public class ProtocolLibPacket {
 					Integer playerlength = getOnlinePlayers().size();
 					Integer maxplayer = Bukkit.getMaxPlayers();
 					String servername = Bukkit.getServerName();
-					for (String pcm : CustomMessageConfig.getStringList("PlayerCountMessage.Message")) {
+					for (String pcm : Config.getStringList("PlayerCountMessage.Message")) {
 						pcm = pcm.replace("%players", playerlength.toString());
 						pcm = pcm.replace("%maxplayers", maxplayer.toString());
 						pcm = pcm.replace("%servername", servername);
-						pcm = pcm.replace("%version", Version.getVersion());
-						pcm = pcm.replace("%time", TimeManager.getTime());
+						pcm = pcm.replace("%version", Utils.getVersion());
+						pcm = pcm.replace("%time", Utils.getTime());
 						pcm = pcm.replace("&", "§");
 						list.add(new WrappedGameProfile("1", pcm));
 					}
@@ -61,7 +60,7 @@ public class ProtocolLibPacket {
 	}
 
 	private boolean isNone() {
-		List<String> list = CustomMessageConfig.getStringList("PlayerCountMessage.Message");
+		List<String> list = Config.getStringList("PlayerCountMessage.Message");
 		if(list.get(0).equals("none") && list.size() == 1) {
 			return true;
 		}
@@ -69,10 +68,6 @@ public class ProtocolLibPacket {
 	}
 
 	private ArrayList<Player> getOnlinePlayers() {
-		ArrayList<Player> players = new ArrayList<Player>();
-		for(Player player : Bukkit.getOnlinePlayers()) {
-			players.add(player);
-		}
-		return players;
+		return new ArrayList<Player>(Bukkit.getOnlinePlayers());
 	}
 }
