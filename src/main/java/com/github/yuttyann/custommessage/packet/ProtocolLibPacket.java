@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -18,7 +17,9 @@ import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.util.TimeUtils;
 import com.github.yuttyann.custommessage.util.Utils;
+import com.github.yuttyann.custommessage.util.VersionUtils;
 
 public class ProtocolLibPacket {
 
@@ -41,15 +42,15 @@ public class ProtocolLibPacket {
 						return;
 					}
 					List<WrappedGameProfile> list = new ArrayList<WrappedGameProfile>();
-					Integer playerlength = getOnlinePlayers().size();
+					Integer playerlength = Utils.getOnlinePlayers().size();
 					Integer maxplayer = Bukkit.getMaxPlayers();
 					String servername = Bukkit.getServerName();
 					for (String pcm : Config.getStringList("PlayerCountMessage.Message")) {
 						pcm = pcm.replace("%players", playerlength.toString());
 						pcm = pcm.replace("%maxplayers", maxplayer.toString());
 						pcm = pcm.replace("%servername", servername);
-						pcm = pcm.replace("%version", Utils.getVersion());
-						pcm = pcm.replace("%time", Utils.getTime());
+						pcm = pcm.replace("%version", VersionUtils.getVersion());
+						pcm = pcm.replace("%time", TimeUtils.getTime());
 						pcm = pcm.replace("&", "§");
 						list.add(new WrappedGameProfile("1", pcm));
 					}
@@ -65,9 +66,5 @@ public class ProtocolLibPacket {
 			return true;
 		}
 		return false;
-	}
-
-	private ArrayList<Player> getOnlinePlayers() {
-		return new ArrayList<Player>(Bukkit.getOnlinePlayers());
 	}
 }

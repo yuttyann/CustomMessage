@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import com.github.yuttyann.custommessage.Main;
-import com.github.yuttyann.custommessage.util.Utils;
+import com.github.yuttyann.custommessage.util.VersionUtils;
 import com.google.common.base.Charsets;
 
 public class Config {
@@ -55,7 +55,7 @@ public class Config {
 		InputStream defConfigStream = plugin.getResource(filename);
 		if (defConfigStream != null) {
 			YamlConfiguration defConfig;
-			if(Utils.isVersion("1.9")) {
+			if(VersionUtils.isVersion("1.9")) {
 				defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8));
 			} else {
 				defConfig = YamlConfiguration.loadConfiguration(defConfigStream);

@@ -26,14 +26,17 @@ public class TitleCommand implements CommandExecutor {
 			return true;
 		}
 		if (args.length == 3) {
-			Player player = Utils.getPlayerExact(args[0]);
-			if (player == null) {
-				sender.sendMessage(ChatColor.RED + args[0] + " というプレイヤーは見つかりません。");
+			if (!args[0].equalsIgnoreCase("tab")) {
+				Player player = Utils.getPlayerExact(args[0]);
+				if (player == null) {
+					sender.sendMessage(ChatColor.RED + args[0] + " というプレイヤーは見つかりません。");
+					return true;
+				}
+				String title = args[1];
+				String subtitle = args[2];
+				CustomMessage.getAPI().sendFullTitle(player, 10, 40, 10, title, subtitle);
 				return true;
 			}
-			String title = args[1];
-			String subtitle = args[2];
-			CustomMessage.getAPI().sendFullTitle(player, 20, 20, 20, title, subtitle);
 		}
 		if (args.length == 4) {
 			if (args[0].equalsIgnoreCase("tab")) {
@@ -45,6 +48,7 @@ public class TitleCommand implements CommandExecutor {
 				String header = args[2];
 				String footer = args[3];
 				CustomMessage.getAPI().sendFullTabTitle(player, header, footer);
+				return true;
 			}
 		}
 		Utils.getCommandTemplate(sender);

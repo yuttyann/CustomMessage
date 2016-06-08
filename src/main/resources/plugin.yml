@@ -1,9 +1,9 @@
 name: CustomMessage
 main: com.github.yuttyann.custommessage.Main
 version: 6.0
+softdepend: [ProtocolLib]
 author: yuttyann44581
 website: http://file.yuttyann44581.net/
-softdepend: [ProtocolLib]
 
 commands:
   custommessage:
@@ -12,6 +12,11 @@ commands:
   rules:
     description: ルールコマンド
     usage: /<command> - ルールを表示します。
+  title:
+    description: タイトルコマンド
+    usage: |
+           /<command> <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。
+           /<command> tab <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。
   ban:
     description: Prevents the specified player from using this server
     usage: /<command> <player> [reason ...]
@@ -25,8 +30,3 @@ commands:
     description: Sends a private message to the givenplayer
     usage: /<command> <player> <message>
     aliases: [w, msg]
-  title:
-    description: タイトルコマンド
-    usage: |
-           /<command> <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。
-           /<command> tab <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。

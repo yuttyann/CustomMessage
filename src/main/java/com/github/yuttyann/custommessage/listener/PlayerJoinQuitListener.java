@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.file.Config;
-import com.github.yuttyann.custommessage.util.Utils;
+import com.github.yuttyann.custommessage.util.TimeUtils;
 
 public class PlayerJoinQuitListener implements Listener {
 
@@ -32,7 +32,7 @@ public class PlayerJoinQuitListener implements Listener {
 			if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
 				String PlayerJoinMessage = Config.getString("PlayerJoinQuitMessage.JoinMessage");
 				PlayerJoinMessage = PlayerJoinMessage.replace("%player", player.getDisplayName());
-				PlayerJoinMessage = PlayerJoinMessage.replace("%time", Utils.getTime());
+				PlayerJoinMessage = PlayerJoinMessage.replace("%time", TimeUtils.getTime());
 				PlayerJoinMessage = PlayerJoinMessage.replace("&", "§");
 				event.setJoinMessage(null);
 				broadcastMessage(PlayerJoinMessage);
@@ -44,7 +44,7 @@ public class PlayerJoinQuitListener implements Listener {
 			if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
 				String PlayerFirstJoinMessage = Config.getString("PlayerJoinQuitMessage.FirstJoinMssage");
 				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%player", player.getDisplayName());
-				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%time", Utils.getTime());
+				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%time", TimeUtils.getTime());
 				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("&", "§");
 				event.setJoinMessage(null);
 				broadcastMessage(PlayerFirstJoinMessage);
@@ -57,7 +57,7 @@ public class PlayerJoinQuitListener implements Listener {
 			List<String> loginmessages = Config.getStringList("PlayerLoginMessage.Message");
 			for (String message : loginmessages) {
 				message = message.replace("%player", player.getDisplayName());
-				message = message.replace("%time", Utils.getTime());
+				message = message.replace("%time", TimeUtils.getTime());
 				message = message.replace("&", "§");
 				player.sendMessage(message);
 			}
@@ -70,7 +70,7 @@ public class PlayerJoinQuitListener implements Listener {
 		if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
 			String PlayerQuitMessage = Config.getString("PlayerJoinQuitMessage.QuitMessage");
 			PlayerQuitMessage = PlayerQuitMessage.replace("%player", player.getDisplayName());
-			PlayerQuitMessage = PlayerQuitMessage.replace("%time", Utils.getTime());
+			PlayerQuitMessage = PlayerQuitMessage.replace("%time", TimeUtils.getTime());
 			PlayerQuitMessage = PlayerQuitMessage.replace("&", "§");
 			event.setQuitMessage(PlayerQuitMessage);
 		}

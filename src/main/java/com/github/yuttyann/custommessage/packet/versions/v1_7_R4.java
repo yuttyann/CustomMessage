@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.spigotmc.ProtocolInjector;
 
 import com.github.yuttyann.custommessage.Main;
-import com.github.yuttyann.custommessage.util.Utils;
+import com.github.yuttyann.custommessage.util.TimeUtils;
 
 public class v1_7_R4 {
 
@@ -27,10 +27,10 @@ public class v1_7_R4 {
 			subtitle = "";
 		}
 		title = title.replace("%player", player.getName());
-		title = title.replace("%time", Utils.getTime());
+		title = title.replace("%time", TimeUtils.getTime());
 		title = title.replace("&", "§");
 		subtitle = subtitle.replace("%player", player.getName());
-		subtitle = subtitle.replace("%time", Utils.getTime());
+		subtitle = subtitle.replace("%time", TimeUtils.getTime());
 		subtitle = subtitle.replace("&", "§");
 		IChatBaseComponent serializedTitle = ChatSerializer.a(convert(title));
 		IChatBaseComponent serializedSubTitle = ChatSerializer.a(convert(subtitle));
@@ -58,10 +58,10 @@ public class v1_7_R4 {
 			footer = "";
 		}
 		header = header.replace("%player", player.getName());
-		header = header.replace("%time", Utils.getTime());
+		header = header.replace("%time", TimeUtils.getTime());
 		header = header.replace("&", "§");
 		footer = footer.replace("%player", player.getName());
-		footer = footer.replace("%time", Utils.getTime());
+		footer = footer.replace("%time", TimeUtils.getTime());
 		footer = footer.replace("&", "§");
 		IChatBaseComponent header2 = ChatSerializer.a("{'color': 'white', 'text': '" + header + "'}");
 		IChatBaseComponent footer2 = ChatSerializer .a("{'color': 'white', 'text': '" + footer + "'}");

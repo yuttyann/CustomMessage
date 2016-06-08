@@ -10,7 +10,7 @@ import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.api.CustomMessage;
 import com.github.yuttyann.custommessage.file.Config;
-import com.github.yuttyann.custommessage.util.Utils;
+import com.github.yuttyann.custommessage.util.TimeUtils;
 
 public class PlayerDeathListener implements Listener {
 
@@ -33,7 +33,7 @@ public class PlayerDeathListener implements Listener {
 				PlayerKillMessage = PlayerKillMessage.replace("%deader", deader.getDisplayName());
 				PlayerKillMessage = PlayerKillMessage.replace("%killer", killer.getDisplayName());
 				PlayerKillMessage = PlayerKillMessage.replace("%weapon", api.getItemName(killer, NullMessage));
-				PlayerKillMessage = PlayerKillMessage.replace("%time", Utils.getTime());
+				PlayerKillMessage = PlayerKillMessage.replace("%time", TimeUtils.getTime());
 				PlayerKillMessage = PlayerKillMessage.replace("&", "§");
 				event.setDeathMessage(PlayerKillMessage);
 			}
@@ -45,7 +45,7 @@ public class PlayerDeathListener implements Listener {
 			if (Config.getBoolean("PlayerDeathMessage.Enable")) {
 				String PlayerDeathMessage = Config.getString("PlayerDeathMessage.Message");
 				PlayerDeathMessage = PlayerDeathMessage.replace("%deader", deader.getDisplayName());
-				PlayerDeathMessage = PlayerDeathMessage.replace("%time", Utils.getTime());
+				PlayerDeathMessage = PlayerDeathMessage.replace("%time", TimeUtils.getTime());
 				PlayerDeathMessage = PlayerDeathMessage.replace("&", "§");
 				event.setDeathMessage(PlayerDeathMessage);
 			}

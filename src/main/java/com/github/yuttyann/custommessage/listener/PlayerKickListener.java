@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.file.Config;
-import com.github.yuttyann.custommessage.util.Utils;
+import com.github.yuttyann.custommessage.util.TimeUtils;
 
 
 public class PlayerKickListener implements Listener {
@@ -33,7 +33,7 @@ public class PlayerKickListener implements Listener {
 					String BanBroadcastMessage = Config.getString("PlayerKickMessage.BanBroadcastMessage");
 					BanBroadcastMessage = BanBroadcastMessage.replace("%player", player.getName());
 					BanBroadcastMessage = BanBroadcastMessage.replace("%reason", event.getReason());
-					BanBroadcastMessage = BanBroadcastMessage.replace("%time", Utils.getTime());
+					BanBroadcastMessage = BanBroadcastMessage.replace("%time", TimeUtils.getTime());
 					BanBroadcastMessage = BanBroadcastMessage.replace("&", "§");
 					Bukkit.broadcastMessage(BanBroadcastMessage);
 					if (!Config.getString("Sounds.BanBroadcastSound").equals("none")) {
@@ -45,7 +45,7 @@ public class PlayerKickListener implements Listener {
 					KickMessage = KickMessage.replace("%player", player.getName());
 					KickMessage = KickMessage.replace("%reason", event.getReason());
 					KickMessage = KickMessage.replace("%line", "\n");
-					KickMessage = KickMessage.replace("%time", Utils.getTime());
+					KickMessage = KickMessage.replace("%time", TimeUtils.getTime());
 					KickMessage = KickMessage.replace("&", "§");
 					event.setReason(KickMessage);
 				}
@@ -55,7 +55,7 @@ public class PlayerKickListener implements Listener {
 						String AFKBroadcastMessage = Config.getString("PlayerKickMessage.AFKBroadcastMessage");
 						AFKBroadcastMessage = AFKBroadcastMessage.replace("%player", player.getName());
 						AFKBroadcastMessage = AFKBroadcastMessage.replace("%reason", event.getReason());
-						AFKBroadcastMessage = AFKBroadcastMessage.replace("%time", Utils.getTime());
+						AFKBroadcastMessage = AFKBroadcastMessage.replace("%time", TimeUtils.getTime());
 						AFKBroadcastMessage = AFKBroadcastMessage.replace("&", "§");
 						Bukkit.broadcastMessage(AFKBroadcastMessage);
 						if (!Config.getString("Sounds.BanBroadcastSound").equals("none")) {
@@ -67,7 +67,7 @@ public class PlayerKickListener implements Listener {
 						AFKMessage = AFKMessage.replace("%player", player.getName());
 						AFKMessage = AFKMessage.replace("%reason", event.getReason());
 						AFKMessage = AFKMessage.replace("%line", "\n");
-						AFKMessage = AFKMessage.replace("%time", Utils.getTime());
+						AFKMessage = AFKMessage.replace("%time", TimeUtils.getTime());
 						AFKMessage = AFKMessage.replace("&", "§");
 						event.setReason(AFKMessage);
 					}
@@ -76,7 +76,7 @@ public class PlayerKickListener implements Listener {
 						String KickBroadcastMessage = Config.getString("PlayerKickMessage.KickBroadcastMessage");
 						KickBroadcastMessage = KickBroadcastMessage.replace("%player", player.getName());
 						KickBroadcastMessage = KickBroadcastMessage.replace("%reason", event.getReason());
-						KickBroadcastMessage = KickBroadcastMessage.replace("%time", Utils.getTime());
+						KickBroadcastMessage = KickBroadcastMessage.replace("%time", TimeUtils.getTime());
 						KickBroadcastMessage = KickBroadcastMessage.replace("&", "§");
 						Bukkit.broadcastMessage(KickBroadcastMessage);
 						if (!Config.getString("Sounds.KickBroadcastSound").equals("none")) {
@@ -88,7 +88,7 @@ public class PlayerKickListener implements Listener {
 						KickMessage = KickMessage.replace("%player", player.getName());
 						KickMessage = KickMessage.replace("%reason", event.getReason());
 						KickMessage = KickMessage.replace("%line", "\n");
-						KickMessage = KickMessage.replace("%time", Utils.getTime());
+						KickMessage = KickMessage.replace("%time", TimeUtils.getTime());
 						KickMessage = KickMessage.replace("&", "§");
 						event.setReason(KickMessage);
 					}
@@ -104,7 +104,7 @@ public class PlayerKickListener implements Listener {
 			if(event.getResult() == Result.KICK_BANNED) {
 				String BanMessage = Config.getString("PlayerLoginKickMessage.BanMessage");
 				BanMessage = BanMessage.replace("%player", player.getName());
-				BanMessage = BanMessage.replace("%time", Utils.getTime());
+				BanMessage = BanMessage.replace("%time", TimeUtils.getTime());
 				BanMessage = BanMessage.replace("%line", "\n");
 				BanMessage = BanMessage.replace("&", "§");
 				event.disallow(Result.KICK_BANNED, BanMessage);
@@ -112,7 +112,7 @@ public class PlayerKickListener implements Listener {
 			if(event.getResult() == Result.KICK_WHITELIST) {
 				String WhiteListMessage = Config.getString("PlayerLoginKickMessage.WhiteListMessage");
 				WhiteListMessage = WhiteListMessage.replace("%player", player.getName());
-				WhiteListMessage = WhiteListMessage.replace("%time", Utils.getTime());
+				WhiteListMessage = WhiteListMessage.replace("%time", TimeUtils.getTime());
 				WhiteListMessage = WhiteListMessage.replace("%line", "\n");
 				WhiteListMessage = WhiteListMessage.replace("&", "§");
 				event.disallow(Result.KICK_WHITELIST, WhiteListMessage);

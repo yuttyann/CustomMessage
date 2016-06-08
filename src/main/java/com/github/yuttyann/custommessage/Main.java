@@ -23,7 +23,9 @@ import com.github.yuttyann.custommessage.listener.PlayerJoinQuitListener;
 import com.github.yuttyann.custommessage.listener.PlayerKickListener;
 import com.github.yuttyann.custommessage.listener.PlayerTitleListener;
 import com.github.yuttyann.custommessage.listener.ServerListener;
+import com.github.yuttyann.custommessage.util.PlatformUtils;
 import com.github.yuttyann.custommessage.util.Utils;
+import com.github.yuttyann.custommessage.util.VersionUtils;
 
 public class Main extends JavaPlugin {
 
@@ -53,10 +55,11 @@ public class Main extends JavaPlugin {
 	}
 
 	private void setUpConfig() {
-		if ((Utils.isLinux()) || (Utils.isMac())) {
+		new Utils();
+		if ((PlatformUtils.isLinux()) || (PlatformUtils.isMac())) {
 			new Config(this, "utf-8");
-		} else if (Utils.isWindows()) {
-			if (Utils.isVersion("1.9")) {
+		} else if (PlatformUtils.isWindows()) {
+			if (VersionUtils.isVersion("1.9")) {
 				new Config(this, "utf-8");
 			} else {
 				new Config(this, "s-jis");
