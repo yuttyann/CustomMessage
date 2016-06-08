@@ -23,7 +23,7 @@ CustomMessage.getAPI().getItemInHand(プレイヤー);
 getItemName説明：  
 CustomMessage.getAPI().getItemName(プレイヤー, 何も持っていない場合のメッセージ);  
 
-1.8-1.9のみ対応 ※SpigotProtocolHackでも使用可能:  
+1.8～のみ対応 ※SpigotProtocolHackでも使用可能:  
 CustomMessage.getAPI().sendFullTitle(player, fadeIn, stay, fadeOut, title, subtitle);  
 CustomMessage.getAPI().sendFullTabTitle(player, header, footer);  
 setTitle説明：  
