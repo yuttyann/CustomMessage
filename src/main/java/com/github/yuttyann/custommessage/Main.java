@@ -1,5 +1,6 @@
 package com.github.yuttyann.custommessage;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -29,23 +30,21 @@ import com.github.yuttyann.custommessage.util.VersionUtils;
 
 public class Main extends JavaPlugin {
 
-	public Boolean protocollib = null;
+	private PluginDescriptionFile yml = getDescription();
 	private Logger logger = Logger.getLogger("Minecraft");
 	private HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();
 
 	@Override
 	public void onEnable() {
-		setUpConfig();
+		setUpFile();
 		loadProtocolLib();
 		loadClass();
 		loadCommand();
-		PluginDescriptionFile yml = getDescription();
 		logger.info("[" + yml.getName() + "] v" + yml.getVersion() + " が有効になりました。");
 	}
 
 	@Override
 	public void onDisable() {
-		PluginDescriptionFile yml = getDescription();
 		logger.info("[" + yml.getName() + "] v" + yml.getVersion() + " が無効になりました。");
 	}
 
@@ -54,12 +53,21 @@ public class Main extends JavaPlugin {
 		return commands.get(command.getName()).onCommand(sender, command, label, args);
 	}
 
-	private void setUpConfig() {
-		new Utils();
+	private void setUpFile() {
+		File servericon = new File(getDataFolder(), "ServerIcon");
+		File downloads = new File(getDataFolder(), "Downloads");
+		if (!servericon.exists()) {
+			servericon.mkdir();
+			saveResource("ServerIcon/icon1.png", false);
+			saveResource("ServerIcon/icon2.png", false);
+		}
+		if (!downloads.exists()) {
+			downloads.mkdir();
+		}
 		if ((PlatformUtils.isLinux()) || (PlatformUtils.isMac())) {
 			new Config(this, "utf-8");
 		} else if (PlatformUtils.isWindows()) {
-			if (VersionUtils.isVersion("1.9")) {
+			if(VersionUtils.isVersion("1.9")) {
 				new Config(this, "utf-8");
 			} else {
 				new Config(this, "s-jis");
@@ -68,11 +76,8 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadProtocolLib() {
-		if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
-			protocollib = true;
-		} else {
+		if (!Utils.isPluginEnabled("ProtocolLib")) {
 			logger.severe("ProtocolLibが導入されていないため、PlayerCountMessageを無効化しました。");
-			protocollib = false;
 		}
 	}
 
