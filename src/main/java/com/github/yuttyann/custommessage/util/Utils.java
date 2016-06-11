@@ -3,12 +3,18 @@ package com.github.yuttyann.custommessage.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+
+import com.github.yuttyann.custommessage.file.Config;
 
 public class Utils {
 
@@ -20,6 +26,30 @@ public class Utils {
 	@SuppressWarnings("deprecation")
 	public static Player getPlayer(String name) {
 		return Bukkit.getPlayer(name);
+	}
+
+	public static Server getServer() {
+		return Bukkit.getServer();
+	}
+
+	public static Plugin getPlugin(String plugin) {
+		return Bukkit.getServer().getPluginManager().getPlugin(plugin);
+	}
+
+	public static Plugin[] getPlugins() {
+		return Bukkit.getServer().getPluginManager().getPlugins();
+	}
+
+	public static boolean isPluginEnabled(String plugin) {
+		return Bukkit.getServer().getPluginManager().isPluginEnabled(plugin);
+	}
+
+	public static Random getRandom() {
+		return new Random();
+	}
+
+	public static Set<String> getConfigSection(String str, boolean key) {
+		return Config.getConfigurationSection(str).getKeys(key);
 	}
 
 	public static String stringBuilder(String[] args, Integer integer) {

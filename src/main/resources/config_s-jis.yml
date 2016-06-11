@@ -1,11 +1,11 @@
-#CustomMessage v6.0 Config
+#CustomMessage v6.1 Config
 #CompliantVersion 1.7.2～1.9.4
 #ColorCodeList http://ess.khhq.net/mc/
 #SoundList http://www.yuttyann44581.net/uploads/SoundList/
 #OldSoundList http://www.yuttyann44581.net/uploads/OldSoundList/ 
 
 #SpigotProtocolHack1.7-1.8を使用しているか
-#ProtocolHackかわからない場合は1.7、1.8で接続できるか確認してください。
+#ProtocolHackかわからない場合は1.7、1.8の両方で接続できるか確認してください。
 #ProtocolHackを使用している場合は、trueと書いてください。
 # trueで有効 falseで無効
 #初期: false
@@ -241,7 +241,14 @@ TabTitle:
   Header: '&dテスト1'
   Footer: '&bテスト2'
 
+#サーバーアイコンの設定
+#アイコンはServerIconに保存してください。
+#ファイルに入れたアイコンをランダムで表示します。
+ServerIcon:
+  Enable: false
+
 #Motdの設定 
+#両方有効にしている場合はRandomMotdが優先されます。
 #&で色を指定できます。ColorCodeListのURL参照
 #%playersでサーバーにログインしている人数を取得します。
 #%maxplayersで最大接続人数を取得します。
@@ -250,6 +257,15 @@ TabTitle:
 #%timeでTimeに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: true
+RandomMotd:
+  Enable: false
+  Message:
+    test1:
+      - '&1ようこそマインクラフトサーバーへ'
+      - '&2バージョン%version &3現在サーバーで%players人が遊んでます'
+    test2:
+      - '&4ようこそマインクラフトサーバーへ'
+      - '&5バージョン%version &7現在サーバーで%players人が遊んでます'
 Motd:
   Enable: true
   Message:

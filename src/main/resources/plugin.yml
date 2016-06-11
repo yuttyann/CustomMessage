@@ -1,6 +1,6 @@
 name: CustomMessage
 main: com.github.yuttyann.custommessage.Main
-version: 6.0
+version: 6.1
 softdepend: [ProtocolLib]
 author: yuttyann44581
 website: http://file.yuttyann44581.net/

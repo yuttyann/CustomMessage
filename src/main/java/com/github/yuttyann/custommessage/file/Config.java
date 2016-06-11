@@ -24,16 +24,16 @@ public class Config {
 
 	static Main plugin;
 
-	private static String filename;
+	private static String fileName;
 	private static File configFile;
 	private static YamlConfiguration config;
 
 	public Config(Main plugin, String encode) {
 		Config.plugin = plugin;
-		Config.filename = "config_" + encode + ".yml";
-		Config.configFile = new File(plugin.getDataFolder(), filename);
+		Config.fileName = "config_" + encode + ".yml";
+		Config.configFile = new File(plugin.getDataFolder(), fileName);
 		if (!Config.configFile.exists()) {
-			plugin.saveResource(filename, false);
+			plugin.saveResource(fileName, false);
 		}
 		Config.config = YamlConfiguration.loadConfiguration(configFile);
 	}
@@ -49,10 +49,10 @@ public class Config {
 	@SuppressWarnings("deprecation")
 	public static void reloadConfig() {
 		if (!configFile.exists()) {
-			plugin.saveResource(filename, false);
+			plugin.saveResource(fileName, false);
 		}
 		config = YamlConfiguration.loadConfiguration(configFile);
-		InputStream defConfigStream = plugin.getResource(filename);
+		InputStream defConfigStream = plugin.getResource(fileName);
 		if (defConfigStream != null) {
 			YamlConfiguration defConfig;
 			if(VersionUtils.isVersion("1.9")) {
