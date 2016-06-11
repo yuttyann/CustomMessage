@@ -109,7 +109,7 @@ public class Updater implements Listener {
 				throw new Exception();
 			}
 			InputStream in = conn.getInputStream();
-			File file = new File(plugin.getDataFolder(), getPluginName() + " v"+ getVersion() + ".jar");
+			File file = new File(plugin.getDataFolder(), "Downloads/" + getPluginName() + " v"+ getVersion() + ".jar");
 			FileOutputStream out = new FileOutputStream(file, false);
 			byte[] b = new byte[4096];
 			int readByte = 0;
@@ -120,7 +120,7 @@ public class Updater implements Listener {
 			out.close();
 			sender.sendMessage(ChatColor.GOLD + prefix + " のダウンロードが終了しました。");
 			sender.sendMessage(ChatColor.GOLD + prefix + " ファイルサイズ: " + getSize(file.length()));
-			sender.sendMessage(ChatColor.GOLD + prefix + " 保存場所: plugins/" + getPluginName() + "/" + getPluginName() + " v"+ getVersion() + ".jar");
+			sender.sendMessage(ChatColor.GOLD + prefix + " 保存場所: plugins/" + getPluginName() + "/Downloads/" + getPluginName() + " v"+ getVersion() + ".jar");
 		} catch (FileNotFoundException e) {
 			sender.sendMessage(ChatColor.RED + "エラーが発生しました。ファイルが存在しません(FileNotFoundException)");
 			errorMessageTemplate();
