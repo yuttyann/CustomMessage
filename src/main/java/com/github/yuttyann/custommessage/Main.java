@@ -37,9 +37,11 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		setUpFile();
-		loadProtocolLib();
 		loadClass();
 		loadCommand();
+		if (!Utils.isPluginEnabled("ProtocolLib")) {
+			logger.severe("ProtocolLibが導入されていないため、PlayerCountMessageを無効化しました。");
+		}
 		logger.info("[" + yml.getName() + "] v" + yml.getVersion() + " が有効になりました。");
 	}
 
@@ -72,12 +74,6 @@ public class Main extends JavaPlugin {
 			} else {
 				new Config(this, "s-jis");
 			}
-		}
-	}
-
-	private void loadProtocolLib() {
-		if (!Utils.isPluginEnabled("ProtocolLib")) {
-			logger.severe("ProtocolLibが導入されていないため、PlayerCountMessageを無効化しました。");
 		}
 	}
 
