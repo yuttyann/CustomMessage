@@ -38,14 +38,9 @@ public class ServerListener implements Listener {
 		if (Config.getBoolean("RandomMotd.Enable")) {
 			motd = getRandomMotd();
 			motd = replaceMotd(motd, players, maxplayer, servername);
-			motd = motd.replace("&", "§");
 			event.setMotd(motd);
 		} else if (Config.getBoolean("Motd.Enable")) {
 			motd = getMotd();
-			motd = replaceMotd(motd, players, maxplayer, servername);
-			event.setMotd(motd);
-		} else {
-			motd = Utils.getServer().getMotd();
 			motd = replaceMotd(motd, players, maxplayer, servername);
 			event.setMotd(motd);
 		}
