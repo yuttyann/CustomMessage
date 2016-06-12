@@ -27,22 +27,29 @@ public class ServerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onServerListPing(ServerListPingEvent event) {
-		if (Config.getBoolean("FakeMaxPlayer.Enable")) {
-			int MaxPlayer = Config.getConfig().getInt("FakeMaxPlayer.MaxPlayer");
-			event.setMaxPlayers(MaxPlayer);
-		}
-		Integer players = event.getNumPlayers();
-		Integer maxplayer = Bukkit.getMaxPlayers();
-		String servername = Bukkit.getServerName();
-		String motd = null;
+		Integer OnlinePlayers = null;
+		Integer FakeMaxPlayer = null;
+		Integer MaxPlayer = null;
+		String ServerName = null;
+		String ServerMotd = null;
 		if (Config.getBoolean("RandomMotd.Enable")) {
-			motd = getRandomMotd();
-			motd = replaceMotd(motd, players, maxplayer, servername);
-			event.setMotd(motd);
+			ServerMotd = getRandomMotd();
+			OnlinePlayers = event.getNumPlayers();
+			MaxPlayer = Bukkit.getMaxPlayers();
+			ServerName = Bukkit.getServerName();
+			ServerMotd = replaceMotd(ServerMotd, OnlinePlayers, MaxPlayer, ServerName);
+			event.setMotd(ServerMotd);
 		} else if (Config.getBoolean("Motd.Enable")) {
-			motd = getMotd();
-			motd = replaceMotd(motd, players, maxplayer, servername);
-			event.setMotd(motd);
+			ServerMotd = getMotd();
+			OnlinePlayers = event.getNumPlayers();
+			MaxPlayer = Bukkit.getMaxPlayers();
+			ServerName = Bukkit.getServerName();
+			ServerMotd = replaceMotd(ServerMotd, OnlinePlayers, MaxPlayer, ServerName);
+			event.setMotd(ServerMotd);
+		}
+		if (Config.getBoolean("FakeMaxPlayer.Enable")) {
+			FakeMaxPlayer = Config.getConfig().getInt("FakeMaxPlayer.MaxPlayer");
+			event.setMaxPlayers(FakeMaxPlayer);
 		}
 		if (Config.getBoolean("ServerIcon.Enable")) {
 			try {
@@ -51,7 +58,9 @@ public class ServerListener implements Listener {
 				e.printStackTrace();
 			}
 		}
-		setPlayerCountMessage();
+		if (Utils.isPluginEnabled("ProtocolLib")) {
+			new ProtocolLibPacket(plugin).sendPlayerCountMessage();
+		}
 	}
 
 	private String getRandomMotd() {
@@ -84,16 +93,6 @@ public class ServerListener implements Listener {
 		return motd;
 	}
 
-	private String replaceMotd(String motd, Integer players, Integer maxplayer, String servername) {
-		motd = motd.replace("%players", players.toString());
-		motd = motd.replace("%maxplayers", maxplayer.toString());
-		motd = motd.replace("%servername", servername);
-		motd = motd.replace("%version", VersionUtils.getVersion());
-		motd = motd.replace("%time", TimeUtils.getTime());
-		motd = motd.replace("&", "§");
-		return motd;
-	}
-
 	private File getServerIcon() {
 		File[] icons = new File(plugin.getDataFolder(), "ServerIcon").listFiles();
 		int size = Utils.getRandom().nextInt(icons.length);
@@ -103,9 +102,13 @@ public class ServerListener implements Listener {
 		return null;
 	}
 
-	private void setPlayerCountMessage() {
-		if (Utils.isPluginEnabled("ProtocolLib")) {
-			new ProtocolLibPacket(plugin).sendPlayerCountMessage();
-		}
+	private String replaceMotd(String motd, Integer players, Integer maxplayer, String servername) {
+		motd = motd.replace("%players", players.toString());
+		motd = motd.replace("%maxplayers", maxplayer.toString());
+		motd = motd.replace("%servername", servername);
+		motd = motd.replace("%version", VersionUtils.getVersion());
+		motd = motd.replace("%time", TimeUtils.getTime());
+		motd = motd.replace("&", "§");
+		return motd;
 	}
 }
