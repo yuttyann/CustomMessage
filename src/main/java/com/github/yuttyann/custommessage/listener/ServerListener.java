@@ -64,13 +64,13 @@ public class ServerListener implements Listener {
 	}
 
 	private String getRandomMotd() {
-		List<String> arraylist = new ArrayList<String>(Utils.getConfigSection("RandomMotd.Message", false));
-		List<String> list = Config.getStringList("RandomMotd.Message." + arraylist.get(Utils.getRandom().nextInt(arraylist.size())));
+		List<String> messagelist = new ArrayList<String>(Utils.getConfigSection("RandomMotd.Message", false));
+		List<String> randomlist = Config.getStringList("RandomMotd.Message." + messagelist.get(Utils.getRandom().nextInt(messagelist.size())));
 		String motd = "";
-		if (list != null && list.size() >= 1 && list.size() <= 2) {
-			motd = list.get(0);
-			if (list.size() == 2) {
-				motd = motd + "\n" + list.get(1);
+		if (randomlist != null && randomlist.size() >= 1 && randomlist.size() <= 2) {
+			motd = randomlist.get(0);
+			if (randomlist.size() == 2) {
+				motd = motd + "\n" + randomlist.get(1);
 			}
 		}
 		return motd;
