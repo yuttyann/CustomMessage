@@ -1,7 +1,5 @@
 package com.github.yuttyann.custommessage.command;
 
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,10 +27,9 @@ public class RulesCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "パーミッションが無いため、実行できません。");
 			return true;
 		}
-		List<String> rules = Config.getStringList("Rules.Message");
-		for (String message : rules) {
-			message = message.replace("&", "§");
-			sender.sendMessage(message);
+		for (String rule : Config.getStringList("Rules.Message")) {
+			rule = rule.replace("&", "§");
+			sender.sendMessage(rule);
 		}
 		return true;
 	}

@@ -43,20 +43,20 @@ public class PlayerTitleListener implements Listener {
 
 	private void playerTitle(Player player) {
 		if (Config.getBoolean("Title.Enable")) {
-			int FadeIn = Config.getInt("TitleTime.FadeIn");
-			int Stay = Config.getInt("TitleTime.Stay");
-			int FadeOut = Config.getInt("TitleTime.FadeOut");
-			String TitleMessage = Config.getString("Title.TitleMessage");
-			String SubTitleMessage = Config.getString("Title.SubTitleMessage");
-			api.sendFullTitle(player, FadeIn, Stay, FadeOut, TitleMessage, SubTitleMessage);
+			int fadein = Config.getInt("TitleTime.FadeIn");
+			int stay = Config.getInt("TitleTime.Stay");
+			int fadeout = Config.getInt("TitleTime.FadeOut");
+			String titlemessage = Config.getString("Title.TitleMessage");
+			String subtitlemessage = Config.getString("Title.SubTitleMessage");
+			api.sendFullTitle(player, fadein, stay, fadeout, titlemessage, subtitlemessage);
 		}
 		if (Config.getBoolean("TabTitle.Enable")) {
-			String Header = Config.getString("TabTitle.Header");
-			String Footer = Config.getString("TabTitle.Footer");
-			if(Header.contains("%time") || Footer.contains("%time")) {
-				tabTitleTimerStart(player, Header, Footer);
+			String header = Config.getString("TabTitle.Header");
+			String footer = Config.getString("TabTitle.Footer");
+			if(header.contains("%time") || footer.contains("%time")) {
+				tabTitleTimerStart(player, header, footer);
 			} else {
-				api.sendFullTabTitle(player, Header, Footer);
+				api.sendFullTabTitle(player, header, footer);
 			}
 		}
 	}

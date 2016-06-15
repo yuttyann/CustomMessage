@@ -11,12 +11,9 @@ import net.minecraft.server.v1_9_R1.PlayerConnection;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.util.TimeUtils;
 
 public class v1_9_R1 {
-
-	Main plugin;
 
 	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
 		PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;

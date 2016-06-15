@@ -1,6 +1,5 @@
 package com.github.yuttyann.custommessage.listener;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -30,36 +29,29 @@ public class PlayerJoinQuitListener implements Listener {
 		Player player = event.getPlayer();
 		if (event.getPlayer().hasPlayedBefore()) {
 			if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
-				String PlayerJoinMessage = Config.getString("PlayerJoinQuitMessage.JoinMessage");
-				PlayerJoinMessage = PlayerJoinMessage.replace("%player", player.getDisplayName());
-				PlayerJoinMessage = PlayerJoinMessage.replace("%time", TimeUtils.getTime());
-				PlayerJoinMessage = PlayerJoinMessage.replace("&", "§");
+				String playerjoinmessage = Config.getString("PlayerJoinQuitMessage.JoinMessage");
+				playerjoinmessage = replaceJoinQuit(playerjoinmessage, player);
 				event.setJoinMessage(null);
-				broadcastMessage(PlayerJoinMessage);
+				broadcastMessage(playerjoinmessage);
 			}
 			if (!Config.getString("Sounds.JoinSound").equals("none")) {
 				new Sounds(plugin).playSound(player, "Sounds.JoinSound", "SoundTypes.JoinSoundType");
 			}
 		} else {
 			if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
-				String PlayerFirstJoinMessage = Config.getString("PlayerJoinQuitMessage.FirstJoinMssage");
-				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%player", player.getDisplayName());
-				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("%time", TimeUtils.getTime());
-				PlayerFirstJoinMessage = PlayerFirstJoinMessage.replace("&", "§");
+				String playerfirstjoinmessage = Config.getString("PlayerJoinQuitMessage.FirstJoinMssage");
+				playerfirstjoinmessage = replaceJoinQuit(playerfirstjoinmessage, player);
 				event.setJoinMessage(null);
-				broadcastMessage(PlayerFirstJoinMessage);
+				broadcastMessage(playerfirstjoinmessage);
 			}
 			if (!Config.getString("Sounds.FirstJoinSound").equals("none")) {
 				new Sounds(plugin).playSound(player, "Sounds.FirstJoinSound", "SoundTypes.FirstJoinSoundType");
 			}
 		}
 		if (Config.getBoolean("PlayerLoginMessage.Enable")) {
-			List<String> loginmessages = Config.getStringList("PlayerLoginMessage.Message");
-			for (String message : loginmessages) {
-				message = message.replace("%player", player.getDisplayName());
-				message = message.replace("%time", TimeUtils.getTime());
-				message = message.replace("&", "§");
-				player.sendMessage(message);
+			for (String playerloginmessage : Config.getStringList("PlayerLoginMessage.Message")) {
+				playerloginmessage = replaceJoinQuit(playerloginmessage, player);
+				player.sendMessage(playerloginmessage);
 			}
 		}
 	}
@@ -68,11 +60,11 @@ public class PlayerJoinQuitListener implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
-			String PlayerQuitMessage = Config.getString("PlayerJoinQuitMessage.QuitMessage");
-			PlayerQuitMessage = PlayerQuitMessage.replace("%player", player.getDisplayName());
-			PlayerQuitMessage = PlayerQuitMessage.replace("%time", TimeUtils.getTime());
-			PlayerQuitMessage = PlayerQuitMessage.replace("&", "§");
-			event.setQuitMessage(PlayerQuitMessage);
+			String playerquitmessage = Config.getString("PlayerJoinQuitMessage.QuitMessage");
+			playerquitmessage = playerquitmessage.replace("%player", player.getDisplayName());
+			playerquitmessage = playerquitmessage.replace("%time", TimeUtils.getTime());
+			playerquitmessage = playerquitmessage.replace("&", "§");
+			event.setQuitMessage(playerquitmessage);
 		}
 		if (!Config.getString("Sounds.QuitSound").equals("none")) {
 			new Sounds(plugin).playSound(player, "Sounds.QuitSound", "SoundTypes.QuitSoundType");
@@ -84,5 +76,12 @@ public class PlayerJoinQuitListener implements Listener {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.sendMessage(message);
 		}
+	}
+
+	private String replaceJoinQuit(String message, Player player) {
+		message = message.replace("%player", player.getDisplayName());
+		message = message.replace("%time", TimeUtils.getTime());
+		message = message.replace("&", "§");
+		return message;
 	}
 }

@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.packet.versions.v1_10_R1;
 import com.github.yuttyann.custommessage.packet.versions.v1_7_R4;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R1;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R2;
@@ -91,6 +92,8 @@ public class CustomMessage {
 			v1_9_R1.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
 		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
 			v1_9_R2.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
+		} else if (packageName.equalsIgnoreCase("v1_10_R1")) {
+			v1_10_R1.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
 		}
 	}
 
@@ -110,6 +113,8 @@ public class CustomMessage {
 			v1_9_R1.sendTabTitle(player, header, footer);
 		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
 			v1_9_R2.sendTabTitle(player, header, footer);
+		} else if (packageName.equalsIgnoreCase("v1_10_R1")) {
+			v1_10_R1.sendTabTitle(player, header, footer);
 		}
 	}
 

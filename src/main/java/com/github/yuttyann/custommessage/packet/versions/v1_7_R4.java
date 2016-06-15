@@ -8,12 +8,9 @@ import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.spigotmc.ProtocolInjector;
 
-import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.util.TimeUtils;
 
 public class v1_7_R4 {
-
-	Main plugin;
 
 	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
 		CraftPlayer craftPlayer = (CraftPlayer) player;

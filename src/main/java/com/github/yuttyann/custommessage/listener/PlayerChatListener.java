@@ -23,12 +23,12 @@ public class PlayerChatListener implements Listener {
 	public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		if (Config.getBoolean("ChatMessageFormat.Enable")) {
-			String PlayerChatMessage = Config.getString("ChatMessageFormat.Message");
-			PlayerChatMessage = PlayerChatMessage.replace("%player", player.getDisplayName());
-			PlayerChatMessage = PlayerChatMessage.replace("%chat", event.getMessage());
-			PlayerChatMessage = PlayerChatMessage.replace("%time", TimeUtils.getTime());
-			PlayerChatMessage = PlayerChatMessage.replace("&", "§");
-			event.setFormat(PlayerChatMessage);
+			String playerchatmessage = Config.getString("ChatMessageFormat.Message");
+			playerchatmessage = playerchatmessage.replace("%player", player.getDisplayName());
+			playerchatmessage = playerchatmessage.replace("%chat", event.getMessage());
+			playerchatmessage = playerchatmessage.replace("%time", TimeUtils.getTime());
+			playerchatmessage = playerchatmessage.replace("&", "§");
+			event.setFormat(playerchatmessage);
 		}
 		if (!Config.getString("Sounds.ChatSound").equals("none")) {
 			new Sounds(plugin).playSound(player, "Sounds.ChatSound", "SoundTypes.ChatSoundType");

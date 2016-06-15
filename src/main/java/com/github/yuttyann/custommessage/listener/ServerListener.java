@@ -27,29 +27,29 @@ public class ServerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onServerListPing(ServerListPingEvent event) {
-		Integer OnlinePlayers = null;
-		Integer FakeMaxPlayer = null;
-		Integer MaxPlayer = null;
-		String ServerName = null;
-		String ServerMotd = null;
+		Integer onlineplayers = null;
+		Integer fakemaxplayer = null;
+		Integer maxplayer = null;
+		String servername = null;
+		String servermotd = null;
 		if (Config.getBoolean("RandomMotd.Enable")) {
-			ServerMotd = getRandomMotd();
-			OnlinePlayers = event.getNumPlayers();
-			MaxPlayer = Bukkit.getMaxPlayers();
-			ServerName = Bukkit.getServerName();
-			ServerMotd = replaceMotd(ServerMotd, OnlinePlayers, MaxPlayer, ServerName);
-			event.setMotd(ServerMotd);
+			servermotd = getRandomMotd();
+			onlineplayers = event.getNumPlayers();
+			maxplayer = Bukkit.getMaxPlayers();
+			servername = Bukkit.getServerName();
+			servermotd = replaceMotd(servermotd, onlineplayers, maxplayer, servername);
+			event.setMotd(servermotd);
 		} else if (Config.getBoolean("Motd.Enable")) {
-			ServerMotd = getMotd();
-			OnlinePlayers = event.getNumPlayers();
-			MaxPlayer = Bukkit.getMaxPlayers();
-			ServerName = Bukkit.getServerName();
-			ServerMotd = replaceMotd(ServerMotd, OnlinePlayers, MaxPlayer, ServerName);
-			event.setMotd(ServerMotd);
+			servermotd = getMotd();
+			onlineplayers = event.getNumPlayers();
+			maxplayer = Bukkit.getMaxPlayers();
+			servername = Bukkit.getServerName();
+			servermotd = replaceMotd(servermotd, onlineplayers, maxplayer, servername);
+			event.setMotd(servermotd);
 		}
 		if (Config.getBoolean("FakeMaxPlayer.Enable")) {
-			FakeMaxPlayer = Config.getConfig().getInt("FakeMaxPlayer.MaxPlayer");
-			event.setMaxPlayers(FakeMaxPlayer);
+			fakemaxplayer = Config.getConfig().getInt("FakeMaxPlayer.MaxPlayer");
+			event.setMaxPlayers(fakemaxplayer);
 		}
 		if (Config.getBoolean("ServerIcon.Enable")) {
 			try {
@@ -64,13 +64,8 @@ public class ServerListener implements Listener {
 	}
 
 	private String getRandomMotd() {
-		ArrayList<String> arraylist = new ArrayList<String>();
-		for (String set : Utils.getConfigSection("RandomMotd.Message", false)) {
-			arraylist.add(set);
-		}
-		int size = Utils.getRandom().nextInt(arraylist.size());
-		String random = arraylist.get(size);
-		List<String> list = Config.getStringList("RandomMotd.Message." + random);
+		List<String> arraylist = new ArrayList<String>(Utils.getConfigSection("RandomMotd.Message", false));
+		List<String> list = Config.getStringList("RandomMotd.Message." + arraylist.get(Utils.getRandom().nextInt(arraylist.size())));
 		String motd = "";
 		if (list != null && list.size() >= 1 && list.size() <= 2) {
 			motd = list.get(0);
