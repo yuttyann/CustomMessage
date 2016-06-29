@@ -61,6 +61,9 @@ public class PlayerDeathListener implements Listener {
 					deathmessage = deathmessage.replace("%weapon", CustomMessage.getAPI().getWeaoonName(killer, nullstr));
 					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
 					deathmessage = deathmessage.replace("&", "§");
+					if (!Config.getString("Sounds.KillSound").equals("none")) {
+						new Sounds(plugin).playSound(killer, "Sounds.KillSound", "SoundTypes.KillSoundType");
+					}
 				} else if (isEntity(entity, "PIG_ZOMBIE")) {
 					deathmessage = Config.getString("DeathMessage.Messages.ZombiePigman");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
