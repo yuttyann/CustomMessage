@@ -17,7 +17,10 @@ import com.github.yuttyann.custommessage.packet.versions.v1_8_R2;
 import com.github.yuttyann.custommessage.packet.versions.v1_8_R3;
 import com.github.yuttyann.custommessage.packet.versions.v1_9_R1;
 import com.github.yuttyann.custommessage.packet.versions.v1_9_R2;
+import com.github.yuttyann.custommessage.util.Utils;
 import com.github.yuttyann.custommessage.util.VersionUtils;
+import com.github.yuttyann.kits.listener.ItemListener;
+import com.shampaggon.crackshot.CSUtility;
 
 public class CustomMessage {
 
@@ -33,18 +36,53 @@ public class CustomMessage {
 		return Config.getConfig();
 	}
 
-	public String getItemName(Player player, String nullmessage) {
+	@Deprecated
+	public String getItemName(Player player, String nullstr) {
 		if (player == null) {
 			return "";
 		}
-		ItemStack hand = getItemInHand(player);
-		if (hand == null || hand.getType() == Material.AIR) {
-			return nullmessage;
+		ItemStack item = getItemInHand(player);
+		if (item == null || item.getType() == Material.AIR) {
+			return nullstr;
 		}
-		if (!hand.hasItemMeta() || !hand.getItemMeta().hasDisplayName()) {
-			return hand.getType().toString();
+		if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) {
+			return item.getType().toString();
 		}
-		return hand.getItemMeta().getDisplayName();
+		return item.getItemMeta().getDisplayName();
+	}
+
+	public String getWeaoonName(Player player, String nullstr) {
+		if (player == null) {
+			return "";
+		}
+		ItemStack item = getItemInHand(player);
+		String displayname = item.getItemMeta().getDisplayName();
+		if (item == null || item.getType() == Material.AIR) {
+			return nullstr;
+		}
+		if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) {
+			return item.getType().toString();
+		}
+		if (Utils.isPluginEnabled("CrackShot") && getWeaponTitle(item) != null) {
+			String weaponname = "";
+			if (displayname.contains("▪ «")) {
+				weaponname = displayname.substring(displayname.indexOf("▪ «"), displayname.length());
+			} else if (displayname.contains("- «")) {
+				weaponname = displayname.substring(displayname.indexOf("- «"), displayname.length());
+			} else if (displayname.contains("▫ «")) {
+				weaponname = displayname.substring(displayname.indexOf("▫ «"), displayname.length());
+			} else if (displayname.contains("«")){
+				weaponname = displayname.substring(displayname.indexOf("«"), displayname.length());
+			}
+			return displayname.replace(weaponname, "");
+		}
+		return displayname;
+	}
+
+	public void giveKit(Player player, String kitname) {
+		if (Utils.isPluginEnabled("Kits")) {
+			ItemListener.give(player, kitname);
+		}
 	}
 
 	@SuppressWarnings("deprecation")
@@ -123,5 +161,12 @@ public class CustomMessage {
 		String packageName = server.getClass().getPackage().getName();
 		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
 		return packageName;
+	}
+
+	private String getWeaponTitle(ItemStack item) {
+		if (Utils.isPluginEnabled("CrackShot")) {
+			return new CSUtility().getWeaponTitle(item);
+		}
+		return null;
 	}
 }

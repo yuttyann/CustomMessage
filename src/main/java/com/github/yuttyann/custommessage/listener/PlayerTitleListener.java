@@ -17,13 +17,11 @@ import com.github.yuttyann.custommessage.file.Config;
 public class PlayerTitleListener implements Listener {
 
 	Main plugin;
-	CustomMessage api;
 
 	HashMap<String, BukkitRunnable> timers;
 
 	public PlayerTitleListener(Main plugin) {
 		this.plugin = plugin;
-		this.api = CustomMessage.getAPI();
 		this.timers = new HashMap<String, BukkitRunnable>();
 	}
 
@@ -48,7 +46,7 @@ public class PlayerTitleListener implements Listener {
 			int fadeout = Config.getInt("TitleTime.FadeOut");
 			String titlemessage = Config.getString("Title.TitleMessage");
 			String subtitlemessage = Config.getString("Title.SubTitleMessage");
-			api.sendFullTitle(player, fadein, stay, fadeout, titlemessage, subtitlemessage);
+			CustomMessage.getAPI().sendFullTitle(player, fadein, stay, fadeout, titlemessage, subtitlemessage);
 		}
 		if (Config.getBoolean("TabTitle.Enable")) {
 			String header = Config.getString("TabTitle.Header");
@@ -56,7 +54,7 @@ public class PlayerTitleListener implements Listener {
 			if(header.contains("%time") || footer.contains("%time")) {
 				tabTitleTimerStart(player, header, footer);
 			} else {
-				api.sendFullTabTitle(player, header, footer);
+				CustomMessage.getAPI().sendFullTabTitle(player, header, footer);
 			}
 		}
 	}
@@ -65,7 +63,7 @@ public class PlayerTitleListener implements Listener {
 		BukkitRunnable timer = new BukkitRunnable() {
 			@Override
 			public void run() {
-				api.sendFullTabTitle(player, Header, Footer);
+				CustomMessage.getAPI().sendFullTabTitle(player, Header, Footer);
 			}
 		};
 		timer.runTaskTimer(plugin, 0, 20);

@@ -95,6 +95,8 @@ public class Updater implements Listener {
 	}
 
 	private void download() {
+		InputStream input = null;
+		FileOutputStream output = null;
 		sender.sendMessage(ChatColor.LIGHT_PURPLE + "プラグインのダウンロードを開始しています...");
 		try {
 			String prefix = "[" + getPluginName() + " v"+ getVersion() + ".jar]";
@@ -108,16 +110,14 @@ public class Updater implements Listener {
 			if (httpStatusCode != HttpURLConnection.HTTP_OK) {
 				throw new Exception();
 			}
-			InputStream in = conn.getInputStream();
 			File file = new File(plugin.getDataFolder(), "Downloads/" + getPluginName() + " v"+ getVersion() + ".jar");
-			FileOutputStream out = new FileOutputStream(file, false);
+			input = conn.getInputStream();
+			output = new FileOutputStream(file, false);
 			byte[] b = new byte[4096];
 			int readByte = 0;
-			while (-1 != (readByte = in.read(b))) {
-				out.write(b, 0, readByte);
+			while (-1 != (readByte = input.read(b))) {
+				output.write(b, 0, readByte);
 			}
-			in.close();
-			out.close();
 			sender.sendMessage(ChatColor.GOLD + prefix + " のダウンロードが終了しました。");
 			sender.sendMessage(ChatColor.GOLD + prefix + " ファイルサイズ: " + getSize(file.length()));
 			sender.sendMessage(ChatColor.GOLD + prefix + " 保存場所: plugins/" + getPluginName() + "/Downloads/" + getPluginName() + " v"+ getVersion() + ".jar");
@@ -131,11 +131,27 @@ public class Updater implements Listener {
 			sender.sendMessage(ChatColor.RED + "エラーが発生しました。URLが不正または不明です(MalformedURLException)");
 			errorMessageTemplate();
 		} catch (IOException e) {
-			sender.sendMessage(ChatColor.RED + "エラーが発生しました。何らかの入出力処理が失敗しました(IOException)");
+			sender.sendMessage(ChatColor.RED + "エラーが発生しました。入出力処理が失敗しました(IOException)");
 			errorMessageTemplate();
-		} catch (Exception e) {
+		} catch(Exception e) {
 			sender.sendMessage(ChatColor.RED + "エラーが発生しました。何らかのエラーが発生しました(Exception)");
 			errorMessageTemplate();
+		} finally {
+			if (output != null) {
+				try {
+					output.flush();
+					output.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 

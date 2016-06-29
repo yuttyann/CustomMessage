@@ -27,9 +27,9 @@ public class RulesCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.RED + "パーミッションが無いため、実行できません。");
 			return true;
 		}
-		for (String rule : Config.getStringList("Rules.Message")) {
-			rule = rule.replace("&", "§");
-			sender.sendMessage(rule);
+		for (String message : Config.getStringList("Rules.Message")) {
+			message = message.replace("&", "§");
+			sender.sendMessage(message);
 		}
 		return true;
 	}

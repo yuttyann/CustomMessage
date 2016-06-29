@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Sounds;
+import com.github.yuttyann.custommessage.api.CustomMessage;
 import com.github.yuttyann.custommessage.file.Config;
 import com.github.yuttyann.custommessage.util.TimeUtils;
 
@@ -43,6 +44,10 @@ public class PlayerJoinQuitListener implements Listener {
 				playerfirstjoinmessage = replaceJoinQuit(playerfirstjoinmessage, player);
 				event.setJoinMessage(null);
 				broadcastMessage(playerfirstjoinmessage);
+			}
+			if (Config.getBoolean("FirstJoinItem.Enable")) {
+				String kitname = Config.getString("FirstJoinItem.KitName");
+				CustomMessage.getAPI().giveKit(player, kitname);
 			}
 			if (!Config.getString("Sounds.FirstJoinSound").equals("none")) {
 				new Sounds(plugin).playSound(player, "Sounds.FirstJoinSound", "SoundTypes.FirstJoinSoundType");

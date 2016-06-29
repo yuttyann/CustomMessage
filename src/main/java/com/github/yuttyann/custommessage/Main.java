@@ -30,12 +30,14 @@ import com.github.yuttyann.custommessage.util.VersionUtils;
 
 public class Main extends JavaPlugin {
 
-	private PluginDescriptionFile yml = getDescription();
-	private Logger logger = Logger.getLogger("Minecraft");
-	private HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();
+	private Logger logger;
+	private PluginDescriptionFile yml;
+	private HashMap<String, CommandExecutor> commands;
 
 	@Override
 	public void onEnable() {
+		logger = Logger.getLogger("Minecraft");
+		yml = getDescription();
 		setUpFile();
 		loadClass();
 		loadCommand();
@@ -88,6 +90,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadCommand() {
+		commands = new HashMap<String, CommandExecutor>();
 		commands.put("custommessage", new CustomMessageCommand(this));
 		commands.put("rules", new RulesCommand(this));
 		commands.put("ban", new BanCommand(this));

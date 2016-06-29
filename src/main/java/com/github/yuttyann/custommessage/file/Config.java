@@ -24,50 +24,46 @@ public class Config {
 
 	static Main plugin;
 
-	private static String fileName;
-	private static File configFile;
+	private static String filename;
+	private static File configfile;
 	private static YamlConfiguration config;
 
 	public Config(Main plugin, String encode) {
 		Config.plugin = plugin;
-		Config.fileName = "config_" + encode + ".yml";
-		Config.configFile = new File(plugin.getDataFolder(), fileName);
-		if (!Config.configFile.exists()) {
-			plugin.saveResource(fileName, false);
+		Config.filename = "config_" + encode + ".yml";
+		Config.configfile = new File(plugin.getDataFolder(), filename);
+		if (!Config.configfile.exists()) {
+			plugin.saveResource(filename, false);
 		}
-		Config.config = YamlConfiguration.loadConfiguration(configFile);
+		Config.config = YamlConfiguration.loadConfiguration(configfile);
+	}
+
+	public static void reloadConfig() {
+		config = YamlConfiguration.loadConfiguration(configfile);
+		InputStream defConfigStream = plugin.getResource(filename);
+		if (defConfigStream != null) {
+			YamlConfiguration defConfig;
+			if(VersionUtils.isVersion("1.9")) {
+				defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8));
+			} else {
+				defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
+			}
+			config.setDefaults(defConfig);
+		}
 	}
 
 	public static File getFile() {
-		return configFile;
+		return configfile;
 	}
 
 	public static YamlConfiguration getConfig() {
 		return config;
 	}
 
-	@SuppressWarnings("deprecation")
-	public static void reloadConfig() {
-		if (!configFile.exists()) {
-			plugin.saveResource(fileName, false);
-		}
-		config = YamlConfiguration.loadConfiguration(configFile);
-		InputStream defConfigStream = plugin.getResource(fileName);
-		if (defConfigStream != null) {
-			YamlConfiguration defConfig;
-			if(VersionUtils.isVersion("1.9")) {
-				defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8));
-			} else {
-				defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
-			}
-			config.setDefaults(defConfig);
-		}
-	}
-
 	public static void saveConfig() {
-		if (configFile.exists()) {
+		if (configfile.exists()) {
 			try {
-				config.save(configFile);
+				config.save(configfile);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

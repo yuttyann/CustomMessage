@@ -67,7 +67,7 @@ public class Utils {
 		try {
 			if (Bukkit.class.getMethod("getOnlinePlayers", new Class<?>[0]).getReturnType() == Collection.class) {
 				Collection<?> temp = ((Collection<?>)Bukkit.class.getMethod("getOnlinePlayers", new Class<?>[0]).invoke(null, new Object[0]));
-				return new ArrayList<Player>((Collection<? extends Player>)temp);
+				return new ArrayList<Player>((Collection<? extends Player>) temp);
 			} else {
 				Player[] temp = ((Player[])Bukkit.class.getMethod("getOnlinePlayers", new Class<?>[0]).invoke(null, new Object[0]));
 				ArrayList<Player> players = new ArrayList<Player>();
