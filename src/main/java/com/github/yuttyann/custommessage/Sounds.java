@@ -17,10 +17,10 @@ public class Sounds {
 	}
 
 	public void playSound(final Player player, String sound, final String soundtype) {
-		String soundList = Config.getString(sound);
-		String[] soundFxList = soundList.replace(" ", "").split(",");
-		for (final String soundFx : soundFxList) {
-			final String[] args = soundFx.split("-");
+		String soundlist = Config.getString(sound);
+		String[] soundfxList = soundlist.replace(" ", "").split(",");
+		for (final String soundfx : soundfxList) {
+			final String[] args = soundfx.split("-");
 			new BukkitRunnable() {
 				public void run() {
 					try {
