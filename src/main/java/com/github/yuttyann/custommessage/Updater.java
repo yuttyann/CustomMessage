@@ -88,7 +88,7 @@ public class Updater implements Listener {
 		} catch (MalformedURLException e) {
 			sender.sendMessage(ChatColor.RED + "エラーが発生しました。URLが不正または不明です(MalformedURLException)");
 			errorMessageTemplate();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			sender.sendMessage(ChatColor.RED + "エラーが発生しました。何らかのエラーが発生しました(Exception)");
 			errorMessageTemplate();
 		}
@@ -133,7 +133,7 @@ public class Updater implements Listener {
 		} catch (IOException e) {
 			sender.sendMessage(ChatColor.RED + "エラーが発生しました。入出力処理が失敗しました(IOException)");
 			errorMessageTemplate();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			sender.sendMessage(ChatColor.RED + "エラーが発生しました。何らかのエラーが発生しました(Exception)");
 			errorMessageTemplate();
 		} finally {
