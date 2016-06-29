@@ -17,11 +17,14 @@ public class VersionUtils {
 		if (version.length < 3) {
 			version = new String[]{version[0], version[1], "0"};
 		}
+		if (version[1].length() == 1) {
+			version[1] = "0" + version[1];
+		}
 		if (version[2].length() == 1) {
 			version[2] = "0" + version[2];
 		}
 		version[2] = "0" + version[2];
-		return parseInt(version[0]) * 10000 + parseInt(version[1]) * 1000 + parseInt(version[2]);
+		return parseInt(version[0]) * 100000 + parseInt(version[1]) * 1000 + parseInt(version[2]);
 	}
 
 	public static String getVersion() {
