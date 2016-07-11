@@ -11,6 +11,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.yuttyann.custommessage.command.BanCommand;
+import com.github.yuttyann.custommessage.command.CommandTemplate;
 import com.github.yuttyann.custommessage.command.CustomMessageCommand;
 import com.github.yuttyann.custommessage.command.MeCommand;
 import com.github.yuttyann.custommessage.command.RulesCommand;
@@ -59,14 +60,10 @@ public class Main extends JavaPlugin {
 
 	private void setUpFile() {
 		File servericon = new File(getDataFolder(), "ServerIcon");
-		File downloads = new File(getDataFolder(), "Downloads");
 		if (!servericon.exists()) {
 			servericon.mkdir();
 			saveResource("ServerIcon/icon1.png", false);
 			saveResource("ServerIcon/icon2.png", false);
-		}
-		if (!downloads.exists()) {
-			downloads.mkdir();
 		}
 		if ((PlatformUtils.isLinux()) || (PlatformUtils.isMac())) {
 			new Config(this, "utf-8");
@@ -80,6 +77,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadClass() {
+		new Sounds(this);
 		getServer().getPluginManager().registerEvents(new PlayerChatListener(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(this), this);
@@ -90,6 +88,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadCommand() {
+		setCommandTemplate();
 		commands = new HashMap<String, CommandExecutor>();
 		commands.put("custommessage", new CustomMessageCommand(this));
 		commands.put("rules", new RulesCommand(this));
@@ -98,5 +97,13 @@ public class Main extends JavaPlugin {
 		commands.put("say", new SayCommand(this));
 		commands.put("tell", new TellCommand(this));
 		commands.put("title", new TitleCommand(this));
+	}
+
+	private void setCommandTemplate() {
+		new CommandTemplate(this);
+		CommandTemplate.addCommand("/custommessage reload - Configの再読み込みをします。");
+		CommandTemplate.addCommand("/rules - ルールを表示します。");
+		CommandTemplate.addCommand("/title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。");
+		CommandTemplate.addCommand("/title tab <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。");
 	}
 }

@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.github.yuttyann.custommessage.Main;
+import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.file.Config;
 import com.github.yuttyann.custommessage.util.TimeUtils;
@@ -31,7 +32,10 @@ public class PlayerChatListener implements Listener {
 			event.setFormat(playerchatmessage);
 		}
 		if (!Config.getString("Sounds.ChatSound").equals("none")) {
-			new Sounds(plugin).playSound(player, "Sounds.ChatSound", "SoundTypes.ChatSoundType");
+			Sounds sound = Sounds.getSounds();
+			if (sound.soundAuthority(player, "SoundAuthoritys.ChatSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_CHAT)) {
+				sound.playSound(player, "Sounds.ChatSound", "SoundTypes.ChatSoundType");
+			}
 		}
 	}
 }

@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.file.Config;
-import com.github.yuttyann.custommessage.util.Utils;
 
 public class CustomMessageCommand implements CommandExecutor {
 
@@ -31,7 +30,7 @@ public class CustomMessageCommand implements CommandExecutor {
 				return true;
 			}
 		}
-		Utils.getCommandTemplate(sender);
+		CommandTemplate.sendCommandTemplate(sender);
 		return true;
 	}
 }

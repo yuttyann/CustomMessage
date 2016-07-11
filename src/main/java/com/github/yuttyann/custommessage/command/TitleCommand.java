@@ -51,7 +51,7 @@ public class TitleCommand implements CommandExecutor {
 				return true;
 			}
 		}
-		Utils.getCommandTemplate(sender);
+		CommandTemplate.sendCommandTemplate(sender);
 		return true;
 	}
 }

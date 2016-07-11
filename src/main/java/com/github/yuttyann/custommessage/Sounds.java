@@ -10,16 +10,16 @@ import com.github.yuttyann.custommessage.file.Config;
 
 public class Sounds {
 
-	Main plugin;
+	private static Main plugin;
 
 	public Sounds(Main plugin) {
-		this.plugin = plugin;
+		Sounds.plugin = plugin;
 	}
 
 	public void playSound(final Player player, String sound, final String soundtype) {
 		String soundlist = Config.getString(sound);
 		String[] soundfxList = soundlist.replace(" ", "").split(",");
-		for (final String soundfx : soundfxList) {
+		for (String soundfx : soundfxList) {
 			final String[] args = soundfx.split("-");
 			new BukkitRunnable() {
 				public void run() {
@@ -33,7 +33,7 @@ public class Sounds {
 		}
 	}
 
-	private void soundType(Player player, String soundtype, String[] args) {
+	public void soundType(Player player, String soundtype, String[] args) {
 		String type = Config.getString(soundtype);
 		switch (type) {
 		case "player":
@@ -49,11 +49,33 @@ public class Sounds {
 		}
 	}
 
+	public boolean soundAuthority(Player player, String soundauthority, Permission permission) {
+		String type = Config.getString(soundauthority);
+		switch (type) {
+		case "none":
+			return true;
+		case "operator":
+			if (player.isOp()) {
+				return true;
+			}
+		case "permission":
+			if (Permission.has(permission, player)) {
+				return true;
+			}
+		default:
+			return false;
+		}
+	}
+
 	private long parseLong(String str) {
 		return Long.parseLong(str);
 	}
 
-	private float parseFloat(String str) {
+	private Float parseFloat(String str) {
 		return Float.parseFloat(str);
+	}
+
+	public static Sounds getSounds() {
+		return new Sounds(plugin);
 	}
 }

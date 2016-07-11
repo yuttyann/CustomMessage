@@ -1,4 +1,4 @@
-﻿#CustomMessage v6.3 Config
+﻿#CustomMessage v6.4 Config
 #CompliantVersion 1.7.2～1.10
 #ColorCodeList http://ess.khhq.net/mc/
 #SoundList http://www.yuttyann44581.net/uploads/SoundList/
@@ -108,6 +108,21 @@ SoundTypes:
   BanBroadcastSoundType: player
   KickBroadcastSoundType: player
   AFKBroadcastSoundType: player
+
+#サウンド再生権限の設定
+#noneで権限無しで音を再生できます。
+#operatorでオペレーター権限を持っている人のみ音を再生できます。
+#permissionでパーミッション権限を持っている人のみ音を再生できます。
+SoundAuthoritys:
+  KillSoundAuthority: none
+  DeathSoundAuthority: none
+  FirstJoinSoundAuthority: none
+  JoinSoundAuthority: none
+  QuitSoundAuthority: none
+  ChatSoundAuthority: operator
+  BanBroadcastSoundAuthority: none
+  KickBroadcastSoundAuthority: none
+  AFKBroadcastSoundAuthority: none
 
 #死亡メッセージの設定
 #&で色を指定できます。ColorCodeListのURL参照

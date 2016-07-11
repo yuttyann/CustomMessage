@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 
 import com.github.yuttyann.custommessage.Main;
+import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.file.Config;
 import com.github.yuttyann.custommessage.util.TimeUtils;
@@ -27,6 +28,7 @@ public class PlayerKickListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerKick(PlayerKickEvent event) {
 		Player player = event.getPlayer();
+		Sounds sound = Sounds.getSounds();
 		if (Config.getBoolean("PlayerKickMessage.Enable")) {
 			if (isBanned(player)) {
 				if (!Config.getString("PlayerKickMessage.BanBroadcastMessage").equals("none")) {
@@ -34,7 +36,9 @@ public class PlayerKickListener implements Listener {
 					banbroadcastmessage = replaceKick(banbroadcastmessage, player, event);
 					Bukkit.broadcastMessage(banbroadcastmessage);
 					if (!Config.getString("Sounds.BanBroadcastSound").equals("none")) {
-						new Sounds(plugin).playSound(player, "Sounds.BanBroadcastSound", "SoundTypes.BanBroadcastSoundType");
+						if (sound.soundAuthority(player, "SoundAuthoritys.BanBroadcastSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_BAN)) {
+							sound.playSound(player, "Sounds.BanBroadcastSound", "SoundTypes.BanBroadcastSoundType");
+						}
 					}
 				}
 				if (!Config.getString("PlayerKickMessage.BanMessage").equals("none")) {
@@ -50,7 +54,9 @@ public class PlayerKickListener implements Listener {
 						afkbroadcastmessage = replaceKick(afkbroadcastmessage, player, event);
 						Bukkit.broadcastMessage(afkbroadcastmessage);
 						if (!Config.getString("Sounds.BanBroadcastSound").equals("none")) {
-							new Sounds(plugin).playSound(player, "Sounds.AFKBroadcastSound", "SoundTypes.AFKBroadcastSoundType");
+							if (sound.soundAuthority(player, "SoundAuthoritys.AFKBroadcastSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_AFK)) {
+								sound.playSound(player, "Sounds.AFKBroadcastSound", "SoundTypes.AFKBroadcastSoundType");
+							}
 						}
 					}
 					if (!Config.getString("PlayerKickMessage.AFKMessage").equals("none")) {
@@ -65,7 +71,9 @@ public class PlayerKickListener implements Listener {
 						kickbroadcastmessage = replaceKick(kickbroadcastmessage, player, event);
 						Bukkit.broadcastMessage(kickbroadcastmessage);
 						if (!Config.getString("Sounds.KickBroadcastSound").equals("none")) {
-							new Sounds(plugin).playSound(player, "Sounds.KickBroadcastSound", "SoundTypes.KickBroadcastSoundType");
+							if (sound.soundAuthority(player, "SoundAuthoritys.KickBroadcastSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_KICK)) {
+								sound.playSound(player, "Sounds.KickBroadcastSound", "SoundTypes.KickBroadcastSoundType");
+							}
 						}
 					}
 					if (!Config.getString("PlayerKickMessage.KickMessage").equals("none")) {

@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.github.yuttyann.custommessage.Main;
+import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.api.CustomMessage;
 import com.github.yuttyann.custommessage.file.Config;
@@ -28,6 +29,7 @@ public class PlayerJoinQuitListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
+		Sounds sound = Sounds.getSounds();
 		if (event.getPlayer().hasPlayedBefore()) {
 			if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
 				String playerjoinmessage = Config.getString("PlayerJoinQuitMessage.JoinMessage");
@@ -36,7 +38,9 @@ public class PlayerJoinQuitListener implements Listener {
 				broadcastMessage(playerjoinmessage);
 			}
 			if (!Config.getString("Sounds.JoinSound").equals("none")) {
-				new Sounds(plugin).playSound(player, "Sounds.JoinSound", "SoundTypes.JoinSoundType");
+				if (sound.soundAuthority(player, "SoundAuthoritys.JoinSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_JOIN)) {
+					sound.playSound(player, "Sounds.JoinSound", "SoundTypes.JoinSoundType");
+				}
 			}
 		} else {
 			if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
@@ -50,7 +54,9 @@ public class PlayerJoinQuitListener implements Listener {
 				CustomMessage.getAPI().giveKit(player, kitname);
 			}
 			if (!Config.getString("Sounds.FirstJoinSound").equals("none")) {
-				new Sounds(plugin).playSound(player, "Sounds.FirstJoinSound", "SoundTypes.FirstJoinSoundType");
+				if (sound.soundAuthority(player, "SoundAuthoritys.FirstJoinSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_FIRSTJOIN)) {
+					sound.playSound(player, "Sounds.FirstJoinSound", "SoundTypes.FirstJoinSoundType");
+				}
 			}
 		}
 		if (Config.getBoolean("PlayerLoginMessage.Enable")) {
@@ -64,6 +70,7 @@ public class PlayerJoinQuitListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
+		Sounds sound = Sounds.getSounds();
 		if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
 			String playerquitmessage = Config.getString("PlayerJoinQuitMessage.QuitMessage");
 			playerquitmessage = playerquitmessage.replace("%player", player.getDisplayName());
@@ -72,7 +79,9 @@ public class PlayerJoinQuitListener implements Listener {
 			event.setQuitMessage(playerquitmessage);
 		}
 		if (!Config.getString("Sounds.QuitSound").equals("none")) {
-			new Sounds(plugin).playSound(player, "Sounds.QuitSound", "SoundTypes.QuitSoundType");
+			if (sound.soundAuthority(player, "SoundAuthoritys.QuitAuthority", Permission.CUSTOMMESSAGE_SOUND_QUIT)) {
+				sound.playSound(player, "Sounds.QuitSound", "SoundTypes.QuitSoundType");
+			}
 		}
 	}
 

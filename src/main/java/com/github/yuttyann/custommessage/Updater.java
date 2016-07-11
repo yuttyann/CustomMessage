@@ -110,6 +110,10 @@ public class Updater implements Listener {
 			if (httpStatusCode != HttpURLConnection.HTTP_OK) {
 				throw new Exception();
 			}
+			File downloads = new File(plugin.getDataFolder(), "Downloads");
+			if (!downloads.exists()) {
+				downloads.mkdir();
+			}
 			File file = new File(plugin.getDataFolder(), "Downloads/" + getPluginName() + " v"+ getVersion() + ".jar");
 			input = conn.getInputStream();
 			output = new FileOutputStream(file, false);

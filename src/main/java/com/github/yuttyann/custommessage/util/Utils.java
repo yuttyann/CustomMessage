@@ -7,10 +7,8 @@ import java.util.Random;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -48,10 +46,6 @@ public class Utils {
 		return new Random();
 	}
 
-	public static Set<String> getConfigSection(String str, boolean key) {
-		return Config.getConfigurationSection(str).getKeys(key);
-	}
-
 	public static String stringBuilder(String[] args, Integer integer) {
 		StringBuilder builder = new StringBuilder();
 		for (int i = integer; i < args.length; i++) {
@@ -60,6 +54,10 @@ public class Utils {
 			builder.append(args[i]);
 		}
 		return builder.toString();
+	}
+
+	public static Set<String> getConfigSection(String str, boolean key) {
+		return Config.getConfigurationSection(str).getKeys(key);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -108,13 +106,5 @@ public class Utils {
 			ex.printStackTrace();
 		}
 		return new ArrayList<OfflinePlayer>();
-	}
-
-	public static void getCommandTemplate(CommandSender sender) {
-		sender.sendMessage(ChatColor.LIGHT_PURPLE + "=== CustomMessage Commands ===");
-		sender.sendMessage(ChatColor.AQUA + "/custommessage reload - Configの再読み込みをします。");
-		sender.sendMessage(ChatColor.AQUA + "/rules - ルールを表示します。");
-		sender.sendMessage(ChatColor.AQUA + "/title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。");
-		sender.sendMessage(ChatColor.AQUA + "/title tab <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。");
 	}
 }

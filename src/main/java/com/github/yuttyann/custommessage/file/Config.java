@@ -38,6 +38,7 @@ public class Config {
 		Config.config = YamlConfiguration.loadConfiguration(configfile);
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void reloadConfig() {
 		config = YamlConfiguration.loadConfiguration(configfile);
 		InputStream defConfigStream = plugin.getResource(filename);
@@ -46,7 +47,7 @@ public class Config {
 			if(VersionUtils.isVersion("1.9")) {
 				defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8));
 			} else {
-				defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
+				defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
 			}
 			config.setDefaults(defConfig);
 		}
