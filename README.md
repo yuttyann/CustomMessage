@@ -4,10 +4,10 @@ Minecraftの様々なメッセージを変更できるプラグインです。
 ライセンス: LGPLv3    
 
 # Commands
-/rules  
 /custommessage reload  
-/title [player] [title] [subtitle]  
-/title tab [player] [header] [footer]    
+/custommessage rules  
+/custommessage title [player] [title] [subtitle]  
+/custommessage tabtitle [player] [header] [footer]    
 
 # Permissions
 custommessage.command.rules  
