@@ -33,7 +33,7 @@ public class PlayerDeathListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onDeathMessage(PlayerDeathEvent event) {
+	public void onPlayerDeath(PlayerDeathEvent event) {
 		if (Config.getBoolean("DeathMessage.Enable")) {
 			DamageCause cause = event.getEntity().getLastDamageCause().getCause();
 			Player deader = event.getEntity();
