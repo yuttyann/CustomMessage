@@ -1,11 +1,13 @@
 package com.github.yuttyann.custommessage.command;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
 import com.github.yuttyann.custommessage.Main;
@@ -13,7 +15,7 @@ import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.file.Config;
 import com.github.yuttyann.custommessage.util.Utils;
 
-public class SayCommand implements CommandExecutor {
+public class SayCommand implements TabExecutor {
 
 	Main plugin;
 
@@ -47,5 +49,10 @@ public class SayCommand implements CommandExecutor {
 		} else {
 			return sender.getName();
 		}
+	}
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+		return null;
 	}
 }

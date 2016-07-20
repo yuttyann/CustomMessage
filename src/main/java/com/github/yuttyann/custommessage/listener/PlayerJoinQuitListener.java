@@ -14,9 +14,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
+import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.api.CustomMessage;
 import com.github.yuttyann.custommessage.file.Config;
-import com.github.yuttyann.custommessage.util.TimeUtils;
 
 public class PlayerJoinQuitListener implements Listener {
 
@@ -74,7 +74,7 @@ public class PlayerJoinQuitListener implements Listener {
 		if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
 			String playerquitmessage = Config.getString("PlayerJoinQuitMessage.QuitMessage");
 			playerquitmessage = playerquitmessage.replace("%player", player.getDisplayName());
-			playerquitmessage = playerquitmessage.replace("%time", TimeUtils.getTime());
+			playerquitmessage = playerquitmessage.replace("%time", TimeManager.getTimesofDay());
 			playerquitmessage = playerquitmessage.replace("&", "§");
 			event.setQuitMessage(playerquitmessage);
 		}
@@ -94,7 +94,7 @@ public class PlayerJoinQuitListener implements Listener {
 
 	private String replaceJoinQuit(String message, Player player) {
 		message = message.replace("%player", player.getDisplayName());
-		message = message.replace("%time", TimeUtils.getTime());
+		message = message.replace("%time", TimeManager.getTimesofDay());
 		message = message.replace("&", "§");
 		return message;
 	}

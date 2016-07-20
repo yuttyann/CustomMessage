@@ -1,17 +1,19 @@
 package com.github.yuttyann.custommessage.command;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.file.Config;
 import com.github.yuttyann.custommessage.util.Utils;
 
-public class MeCommand implements CommandExecutor {
+public class MeCommand implements TabExecutor {
 
 	Main plugin;
 
@@ -35,5 +37,10 @@ public class MeCommand implements CommandExecutor {
 		message = message.replace("&", "§");
 		Bukkit.broadcastMessage(message);
 		return true;
+	}
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+		return null;
 	}
 }

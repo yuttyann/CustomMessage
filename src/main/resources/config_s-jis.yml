@@ -1,4 +1,4 @@
-#CustomMessage v6.4 Config
+#CustomMessage v6.5 Config
 #CompliantVersion 1.7.2～1.10
 #ColorCodeList http://ess.khhq.net/mc/
 #SoundList http://www.yuttyann44581.net/uploads/SoundList/
@@ -39,16 +39,16 @@ Saturday: '土'
 #%secondで現在の秒を取得します。
 #%weekで現在の曜日を取得します。
 #%dayofyearで現在の年の何日目かを取得します。
-Time: "&e%year年%month月%day日%week曜日 %hour時%minute分%second秒"
+TimesofDay: '&e%year年%month月%day日%week曜日 %hour時%minute分%second秒'
 
 #プレイヤーカウントメッセージの設定
-#noneで接続中のプレイヤーIDが表示されなくなります。
 #&で色を指定できます。ColorCodeListのURL参照
+#noneで接続中のプレイヤーIDが表示されなくなります。
 #%playersでサーバーにログインしている人数を取得します。
 #%maxplayersで最大接続人数を取得します。
 #%servernameでサーバー名を取得します。
 #%versionでサーバーのバージョンを取得します。
-#%timeでTimeに設定した時刻を取得します。
+#%timeでTimesofDayに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 PlayerCountMessage:
@@ -130,7 +130,7 @@ SoundAuthoritys:
 #%deaderで殺害されたプレイヤーを取得します。
 #%killerで殺害したエンティティを取得します。(殺害メッセージのみ使用可能です。)
 #%weaponで殺害したプレイヤーの武器を取得します。(Playerのみ使用可能です。)
-#%timeでTimeに設定した時刻を取得します。
+#%timeでTimesofDayに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 DeathMessage:
@@ -175,9 +175,9 @@ DeathMessage:
     WitherSkeleton: '&c%deaderはウィザースケルトンに殺害されました。'
 
 #ログイン/ログアウトメッセージの設定
-#%playerでプレイヤーを取得します。
-#%timeでTimeに設定した時刻を取得します。
 #&で色を指定できます。ColorCodeListのURL参照
+#%playerでプレイヤーを取得します。
+#%timeでTimesofDayに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: true
 PlayerJoinQuitMessage:
@@ -197,7 +197,7 @@ FirstJoinItem:
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
 #%chatでプレイヤーのチャットを取得します。
-#%timeでTimeに設定した時刻を取得します。
+#%timeでTimesofDayに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 ChatMessageFormat:
@@ -205,13 +205,13 @@ ChatMessageFormat:
   Message: '<&e%player&f> %chat'
 
 #キックメッセージの設定
+#&で色を指定できます。ColorCodeListのURL参照
 #BroadcastMessageはサーバー全体に流れるメッセージです。
 #noneでメッセージの設定を無効化できます。
-#&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
 #%reasonで理由を取得できます。
 #%lineで改行することができます。(BroadcastMessage以外で使用可能)
-#%timeでTimeに設定した時刻を取得します。
+#%timeでTimesofDayに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 PlayerKickMessage:
@@ -227,7 +227,7 @@ PlayerKickMessage:
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
 #%lineで改行することができます。
-#%timeでTimeに設定した時刻を取得します。
+#%timeでTimesofDayに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: false
 PlayerLoginKickMessage:
@@ -236,10 +236,10 @@ PlayerLoginKickMessage:
   WhiteListMessage: 'ホワイトリストが有効になっているためログインできません。'
 
 #ログイン時のメッセージの設定
-#プレイヤーのログイン時ログインメッセージとは別にメッセージを表示できます。
 #&で色を指定できます。ColorCodeListのURL参照
+#プレイヤーのログイン時ログインメッセージとは別にメッセージを表示できます。
 #%playerでプレイヤーを取得します。
-#%timeでTimeに設定した時刻を取得します。
+#%timeでTimesofDayに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: true
 PlayerLoginMessage:
@@ -270,7 +270,7 @@ TitleTime:
 #タイトルメッセージの設定
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
-#%timeでTimeに設定した時刻を取得します。
+#%timeでTimesofDayに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: true
 Title:
@@ -281,7 +281,7 @@ Title:
 #タブタイトルの設定
 #&で色を指定できます。ColorCodeListのURL参照
 #%playerでプレイヤーを取得します。
-#%timeでTimeに設定した時刻を取得します。
+#%timeでTimesofDayに設定した時刻を取得します。
 #※メッセージに%timeが含まれているとタブタイトルが20tick毎に更新されます。
 # trueで有効 falseで無効
 #初期: true
@@ -303,7 +303,7 @@ ServerIcon:
 #%maxplayersで最大接続人数を取得します。
 #%servernameでサーバー名を取得します。
 #%versionでサーバーのバージョンを取得します。
-#%timeでTimeに設定した時刻を取得します。
+#%timeでTimesofDayに設定した時刻を取得します。
 # trueで有効 falseで無効
 #初期: true
 RandomMotd:

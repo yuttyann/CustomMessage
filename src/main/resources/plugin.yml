@@ -1,22 +1,18 @@
 name: CustomMessage
 main: com.github.yuttyann.custommessage.Main
-version: 6.4
+version: 6.5
 softdepend: [ProtocolLib, Kits, CrackShot]
 author: yuttyann44581
 website: http://file.yuttyann44581.net/
 
 commands:
   custommessage:
-    description: Config再読み込みコマンド
-    usage: /<command> reload - Configの再読み込みをします。
-  rules:
-    description: ルールコマンド
-    usage: /<command> - ルールを表示します。
-  title:
-    description: タイトルコマンド
+    description: カスタムメッセージコマンド
     usage: |
-           /<command> <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。
-           /<command> tab <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。
+           /<command> reload - Configの再読み込みをします。
+           /<command> rules - ルールを表示します。
+           /<command> title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。
+           /<command> tabtitle <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。
   ban:
     description: Prevents the specified player from using this server
     usage: /<command> <player> [reason ...]

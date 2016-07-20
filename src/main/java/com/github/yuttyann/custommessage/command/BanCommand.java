@@ -1,19 +1,22 @@
 package com.github.yuttyann.custommessage.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.util.Utils;
 
-public class BanCommand implements CommandExecutor {
+public class BanCommand implements TabExecutor {
 
 	Main plugin;
 
@@ -33,7 +36,7 @@ public class BanCommand implements CommandExecutor {
 		}
 		String reason = args.length > 0 ? StringUtils.join(args, ' ', 1, args.length) : null;
 		Bukkit.getBanList(BanList.Type.NAME).addBan(args[0], reason, null, sender.getName());
-		Player player = Utils.getPlayerExact(args[0]);
+		Player player = Utils.getOnlinePlayer(args[0]);
 		if (player != null) {
 			if (args.length >= 2) {
 				player.kickPlayer(Utils.stringBuilder(args, 1));
@@ -43,5 +46,21 @@ public class BanCommand implements CommandExecutor {
 		}
 		Command.broadcastCommandMessage(sender, "Banned player " + args[0]);
 		return true;
+	}
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+		if (args.length == 1) {
+			String prefix = args[0].toLowerCase();
+			ArrayList<String> commands = new ArrayList<String>();
+			for (Player player : Utils.getOnlinePlayers()) {
+				String name = player.getName();
+				if (name.startsWith(prefix)) {
+					commands.add(name);
+				}
+			}
+			return commands;
+		}
+		return null;
 	}
 }

@@ -18,7 +18,6 @@ import com.github.yuttyann.custommessage.packet.versions.v1_8_R3;
 import com.github.yuttyann.custommessage.packet.versions.v1_9_R1;
 import com.github.yuttyann.custommessage.packet.versions.v1_9_R2;
 import com.github.yuttyann.custommessage.util.Utils;
-import com.github.yuttyann.custommessage.util.VersionUtils;
 import com.github.yuttyann.kits.listener.ItemListener;
 import com.shampaggon.crackshot.CSUtility;
 
@@ -87,7 +86,7 @@ public class CustomMessage {
 
 	@SuppressWarnings("deprecation")
 	public ItemStack getItemInHand(Player player) {
-		if(VersionUtils.isVersion("1.9")) {
+		if(Utils.isUpperVersion("1.9")) {
 			return player.getInventory().getItemInMainHand();
 		} else {
 			return player.getInventory().getItemInHand();

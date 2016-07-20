@@ -13,8 +13,8 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
+import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.file.Config;
-import com.github.yuttyann.custommessage.util.TimeUtils;
 
 
 public class PlayerKickListener implements Listener {
@@ -110,7 +110,7 @@ public class PlayerKickListener implements Listener {
 
 	private String replaceLoginKick(String message, Player player, PlayerLoginEvent event) {
 		message = message.replace("%player", player.getName());
-		message = message.replace("%time", TimeUtils.getTime());
+		message = message.replace("%time", TimeManager.getTimesofDay());
 		message = message.replace("%line", "\n");
 		message = message.replace("&", "§");
 		return message;
@@ -119,7 +119,7 @@ public class PlayerKickListener implements Listener {
 	private String replaceKick(String message, Player player, PlayerKickEvent event) {
 		message = message.replace("%player", player.getName());
 		message = message.replace("%reason", event.getReason());
-		message = message.replace("%time", TimeUtils.getTime());
+		message = message.replace("%time", TimeManager.getTimesofDay());
 		message = message.replace("&", "§");
 		return message;
 	}

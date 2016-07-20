@@ -16,10 +16,9 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
 import com.github.yuttyann.custommessage.Main;
+import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.file.Config;
-import com.github.yuttyann.custommessage.util.TimeUtils;
 import com.github.yuttyann.custommessage.util.Utils;
-import com.github.yuttyann.custommessage.util.VersionUtils;
 
 public class ProtocolLibPacket {
 
@@ -49,8 +48,8 @@ public class ProtocolLibPacket {
 						pcm = pcm.replace("%players", playerlength.toString());
 						pcm = pcm.replace("%maxplayers", maxplayer.toString());
 						pcm = pcm.replace("%servername", servername);
-						pcm = pcm.replace("%version", VersionUtils.getVersion());
-						pcm = pcm.replace("%time", TimeUtils.getTime());
+						pcm = pcm.replace("%version", Utils.getVersion());
+						pcm = pcm.replace("%time", TimeManager.getTimesofDay());
 						pcm = pcm.replace("&", "§");
 						list.add(new WrappedGameProfile("1", pcm));
 					}

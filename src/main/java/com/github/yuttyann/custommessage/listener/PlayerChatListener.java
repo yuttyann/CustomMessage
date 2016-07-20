@@ -9,8 +9,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
+import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.file.Config;
-import com.github.yuttyann.custommessage.util.TimeUtils;
 
 public class PlayerChatListener implements Listener {
 
@@ -27,7 +27,7 @@ public class PlayerChatListener implements Listener {
 			String playerchatmessage = Config.getString("ChatMessageFormat.Message");
 			playerchatmessage = playerchatmessage.replace("%player", player.getDisplayName());
 			playerchatmessage = playerchatmessage.replace("%chat", event.getMessage());
-			playerchatmessage = playerchatmessage.replace("%time", TimeUtils.getTime());
+			playerchatmessage = playerchatmessage.replace("%time", TimeManager.getTimesofDay());
 			playerchatmessage = playerchatmessage.replace("&", "§");
 			event.setFormat(playerchatmessage);
 		}

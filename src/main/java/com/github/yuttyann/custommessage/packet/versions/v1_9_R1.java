@@ -11,7 +11,7 @@ import net.minecraft.server.v1_9_R1.PlayerConnection;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import com.github.yuttyann.custommessage.util.TimeUtils;
+import com.github.yuttyann.custommessage.TimeManager;
 
 public class v1_9_R1 {
 
@@ -21,7 +21,7 @@ public class v1_9_R1 {
 		connection.sendPacket(packetPlayOutTimes);
 		if (title != null) {
 			title = title.replace("%player", player.getName());
-			title = title.replace("%time", TimeUtils.getTime());
+			title = title.replace("%time", TimeManager.getTimesofDay());
 			title = title.replace("&", "§");
 			IChatBaseComponent titleMain = ChatSerializer.a("{\"text\": \"" + title + "\"}");
 			PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, titleMain);
@@ -29,7 +29,7 @@ public class v1_9_R1 {
 		}
 		if (subtitle != null) {
 			subtitle = subtitle.replace("%player", player.getName());
-			subtitle = subtitle.replace("%time", TimeUtils.getTime());
+			subtitle = subtitle.replace("%time", TimeManager.getTimesofDay());
 			subtitle = subtitle.replace("&", "§");
 			IChatBaseComponent titleSub = ChatSerializer.a("{\"text\": \"" + subtitle + "\"}");
 			PacketPlayOutTitle packetPlayOutSubTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, titleSub);
@@ -45,10 +45,10 @@ public class v1_9_R1 {
 			footer = "";
 		}
 		header = header.replace("%player", player.getName());
-		header = header.replace("%time", TimeUtils.getTime());
+		header = header.replace("%time", TimeManager.getTimesofDay());
 		header = header.replace("&", "§");
 		footer = footer.replace("%player", player.getName());
-		footer = footer.replace("%time", TimeUtils.getTime());
+		footer = footer.replace("%time", TimeManager.getTimesofDay());
 		footer = footer.replace("&", "§");
 		PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
 		IChatBaseComponent tabTitle = ChatSerializer.a("{\"text\": \"" + header + "\"}");

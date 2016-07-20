@@ -1,12 +1,12 @@
 package com.github.yuttyann.custommessage;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public enum Permission {
 	CUSTOMMESSAGE_COMMAND_RELOAD("custommessage.command.reload"),
 	CUSTOMMESSAGE_COMMAND_RULES("custommessage.command.rules"),
 	CUSTOMMESSAGE_COMMAND_TITLE("custommessage.command.title"),
+	CUSTOMMESSAGE_COMMAND_TABTITLE("custommessage.command.tabtitle"),
 	CUSTOMMESSAGE_SOUND_KILL("custommessage.sound.kill"),
 	CUSTOMMESSAGE_SOUND_DEATH("custommessage.sound.death"),
 	CUSTOMMESSAGE_SOUND_FIRSTJOIN("custommessage.sound.firstjoin"),
@@ -35,7 +35,7 @@ public enum Permission {
 		return sender.hasPermission(permission.getNode());
 	}
 
-	public static Boolean has(Permission permission, Player player) {
-		return player.hasPermission(permission.getNode());
+	public static Boolean has(String permission, CommandSender sender) {
+		return sender.hasPermission(permission);
 	}
 }

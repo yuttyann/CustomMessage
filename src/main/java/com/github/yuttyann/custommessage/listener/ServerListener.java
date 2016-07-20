@@ -11,11 +11,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
 import com.github.yuttyann.custommessage.Main;
+import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.file.Config;
 import com.github.yuttyann.custommessage.packet.ProtocolLibPacket;
-import com.github.yuttyann.custommessage.util.TimeUtils;
 import com.github.yuttyann.custommessage.util.Utils;
-import com.github.yuttyann.custommessage.util.VersionUtils;
 
 public class ServerListener implements Listener {
 
@@ -64,7 +63,7 @@ public class ServerListener implements Listener {
 	}
 
 	private String getRandomMotd() {
-		List<String> messagelist = new ArrayList<String>(Utils.getConfigSection("RandomMotd.Message", false));
+		List<String> messagelist = new ArrayList<String>(Utils.getConfigSection(Config.getConfig(), "RandomMotd.Message", false));
 		List<String> randomlist = Config.getStringList("RandomMotd.Message." + messagelist.get(Utils.getRandom().nextInt(messagelist.size())));
 		String motd = "";
 		if (randomlist != null && randomlist.size() >= 1 && randomlist.size() <= 2) {
@@ -101,8 +100,8 @@ public class ServerListener implements Listener {
 		motd = motd.replace("%players", players.toString());
 		motd = motd.replace("%maxplayers", maxplayer.toString());
 		motd = motd.replace("%servername", servername);
-		motd = motd.replace("%version", VersionUtils.getVersion());
-		motd = motd.replace("%time", TimeUtils.getTime());
+		motd = motd.replace("%version", Utils.getVersion());
+		motd = motd.replace("%time", TimeManager.getTimesofDay());
 		motd = motd.replace("&", "§");
 		return motd;
 	}

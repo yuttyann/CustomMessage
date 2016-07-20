@@ -17,12 +17,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import com.github.yuttyann.custommessage.Main;
-import com.github.yuttyann.custommessage.util.VersionUtils;
+import com.github.yuttyann.custommessage.util.Utils;
 import com.google.common.base.Charsets;
 
 public class Config {
 
-	static Main plugin;
+	private static Main plugin;
 
 	private static String filename;
 	private static File configfile;
@@ -44,7 +44,7 @@ public class Config {
 		InputStream defConfigStream = plugin.getResource(filename);
 		if (defConfigStream != null) {
 			YamlConfiguration defConfig;
-			if(VersionUtils.isVersion("1.9")) {
+			if(Utils.isUpperVersion("1.9")) {
 				defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8));
 			} else {
 				defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
@@ -62,12 +62,10 @@ public class Config {
 	}
 
 	public static void saveConfig() {
-		if (configfile.exists()) {
-			try {
-				config.save(configfile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			config.save(configfile);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

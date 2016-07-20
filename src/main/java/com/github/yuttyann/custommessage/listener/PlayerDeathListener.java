@@ -19,10 +19,10 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
+import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.api.CustomMessage;
 import com.github.yuttyann.custommessage.file.Config;
-import com.github.yuttyann.custommessage.util.TimeUtils;
-import com.github.yuttyann.custommessage.util.VersionUtils;
+import com.github.yuttyann.custommessage.util.Utils;
 
 public class PlayerDeathListener implements Listener {
 
@@ -50,7 +50,7 @@ public class PlayerDeathListener implements Listener {
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 					deathmessage = deathmessage.replace("%killer", killer.getDisplayName());
 					deathmessage = deathmessage.replace("%weapon", CustomMessage.getAPI().getWeaoonName(killer, nullstr));
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.KillSound").equals("none")) {
 						if (sound.soundAuthority(killer, "SoundAuthoritys.KillSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_KILL)) {
@@ -69,7 +69,7 @@ public class PlayerDeathListener implements Listener {
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 					deathmessage = deathmessage.replace("%killer", killer.getDisplayName());
 					deathmessage = deathmessage.replace("%weapon", CustomMessage.getAPI().getWeaoonName(killer, nullstr));
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.KillSound").equals("none")) {
 						if (sound.soundAuthority(killer, "SoundAuthoritys.KillSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_KILL)) {
@@ -84,10 +84,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "PIG_ZOMBIE")) {
 					deathmessage = Config.getString("DeathMessage.Messages.ZombiePigman");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -97,10 +97,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "ZOMBIE") && zombieType(entity, "HUSK")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Husk");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -110,10 +110,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "ZOMBIE") && !zombieType(entity, "HUSK")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Zombie");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -123,10 +123,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "SPIDER")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Spider");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -136,10 +136,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "SILVERFISH")) {
 					deathmessage = Config.getString("DeathMessage.Messages.SilverFish");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -149,10 +149,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "SLIME")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Slime");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -162,10 +162,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "MAGMA_CUBE")) {
 					deathmessage = Config.getString("DeathMessage.Messages.MagmaCube");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -175,10 +175,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "ENDERMITE")) {
 					deathmessage = Config.getString("DeathMessage.Messages.EnderMite");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -188,10 +188,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "ENDERMAN")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Enderman");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -201,10 +201,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "ENDER_DRAGON")) {
 					deathmessage = Config.getString("DeathMessage.Messages.EnderDragon");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -214,10 +214,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "CAVE_SPIDER")) {
 					deathmessage = Config.getString("DeathMessage.Messages.CaveSpider");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -227,10 +227,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "IRON_GOLEM")) {
 					deathmessage = Config.getString("DeathMessage.Messages.IronGolem");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -240,10 +240,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "WOLF")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Wolf");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -253,10 +253,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "POLAR_BEAR")) {
 					deathmessage = Config.getString("DeathMessage.Messages.PolarBear");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -266,10 +266,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "GIANT")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Giant");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -279,10 +279,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "GUARDIAN")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Guardian");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -292,10 +292,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "WITHER")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Wither");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -305,10 +305,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "BLAZE")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Blaze");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -318,10 +318,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "GHAST")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Ghast");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -331,10 +331,10 @@ public class PlayerDeathListener implements Listener {
 				} else if (isEntity(entity, "WITCH")) {
 					deathmessage = Config.getString("DeathMessage.Messages.Witch");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					if (VersionUtils.isVersion("1.8")) {
+					if (Utils.isUpperVersion("1.8")) {
 						deathmessage = deathmessage.replace("%killer", entity.getName());
 					}
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -355,7 +355,7 @@ public class PlayerDeathListener implements Listener {
 						deathmessage = Config.getString("DeathMessage.Messages.Skeleton");
 						deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 						deathmessage = deathmessage.replace("%killer", killer.getName());
-						deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+						deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 						deathmessage = deathmessage.replace("&", "§");
 						if (!Config.getString("Sounds.DeathSound").equals("none")) {
 							if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -366,10 +366,10 @@ public class PlayerDeathListener implements Listener {
 					if (isEntity(entity, "SKELETON") && skeletonType(entity, "WITHER")) {
 						deathmessage = Config.getString("DeathMessage.Messages.WitherSkeleton");
 						deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-						if (VersionUtils.isVersion("1.8")) {
+						if (Utils.isUpperVersion("1.8")) {
 							deathmessage = deathmessage.replace("%killer", killer.getName());
 						}
-						deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+						deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 						deathmessage = deathmessage.replace("&", "§");
 						if (!Config.getString("Sounds.DeathSound").equals("none")) {
 							if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -380,10 +380,10 @@ public class PlayerDeathListener implements Listener {
 					if (isEntity(entity, "SKELETON") && skeletonType(entity, "STRAY")) {
 						deathmessage = Config.getString("DeathMessage.Messages.Stray");
 						deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-						if (VersionUtils.isVersion("1.8")) {
+						if (Utils.isUpperVersion("1.8")) {
 							deathmessage = deathmessage.replace("%killer", killer.getName());
 						}
-						deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+						deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 						deathmessage = deathmessage.replace("&", "§");
 						if (!Config.getString("Sounds.DeathSound").equals("none")) {
 							if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -396,7 +396,7 @@ public class PlayerDeathListener implements Listener {
 				if (cause.equals(DamageCause.DROWNING)) {
 					deathmessage = Config.getString("DeathMessage.Messages.Drowning");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -406,7 +406,7 @@ public class PlayerDeathListener implements Listener {
 				} else if (cause.equals(DamageCause.FALL)) {
 					deathmessage = Config.getString("DeathMessage.Messages.Fall");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -416,7 +416,7 @@ public class PlayerDeathListener implements Listener {
 				} else if (cause.equals(DamageCause.VOID)) {
 					deathmessage = Config.getString("DeathMessage.Messages.Void");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -426,7 +426,7 @@ public class PlayerDeathListener implements Listener {
 				} else if (cause.equals(DamageCause.LAVA)) {
 					deathmessage = Config.getString("DeathMessage.Messages.Lava");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -436,7 +436,7 @@ public class PlayerDeathListener implements Listener {
 				} else if (cause.equals(DamageCause.MAGIC)) {
 					deathmessage = Config.getString("DeathMessage.Messages.Magic");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -446,7 +446,7 @@ public class PlayerDeathListener implements Listener {
 				} else if (cause.equals(DamageCause.SUFFOCATION)) {
 					deathmessage = Config.getString("DeathMessage.Messages.Suffocation");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -456,7 +456,7 @@ public class PlayerDeathListener implements Listener {
 				} else if (cause.equals(DamageCause.PROJECTILE)) {
 					deathmessage = Config.getString("DeathMessage.Messages.Projectile");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -466,7 +466,7 @@ public class PlayerDeathListener implements Listener {
 				} else if (cause.equals(DamageCause.STARVATION)) {
 					deathmessage = Config.getString("DeathMessage.Messages.Starvation");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -476,7 +476,7 @@ public class PlayerDeathListener implements Listener {
 				} else if (cause.equals(DamageCause.WITHER)) {
 					deathmessage = Config.getString("DeathMessage.Messages.Withered");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -486,7 +486,7 @@ public class PlayerDeathListener implements Listener {
 				} else if (cause.equals(DamageCause.FIRE) || cause.equals(DamageCause.FIRE_TICK)) {
 					deathmessage = Config.getString("DeathMessage.Messages.Fire");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
@@ -496,7 +496,7 @@ public class PlayerDeathListener implements Listener {
 				} else if (cause.equals(DamageCause.ENTITY_EXPLOSION) || cause.equals(DamageCause.BLOCK_EXPLOSION)) {
 					deathmessage = Config.getString("DeathMessage.Messages.Explosion");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
-					deathmessage = deathmessage.replace("%time", TimeUtils.getTime());
+					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 					if (!Config.getString("Sounds.DeathSound").equals("none")) {
 						if (sound.soundAuthority(deader, "SoundAuthoritys.DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {

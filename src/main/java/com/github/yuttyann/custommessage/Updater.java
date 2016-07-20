@@ -33,22 +33,22 @@ public class Updater implements Listener {
 	Main plugin;
 
 	private ConsoleCommandSender sender;
-	private PluginDescriptionFile yml;
+	private PluginDescriptionFile pluginyml;
 	private Boolean enable;
 	private Boolean error;
-	private String currentVersion;
+	private String currentversion;
 	private String content;
-	private String pluginName;
-	private String pluginURL;
+	private String pluginname;
+	private String pluginurl;
 	private String version;
 
 	public Updater(Main plugin) {
 		this.plugin = plugin;
 		this.enable = false;
 		this.error = false;
-		this.yml = plugin.getDescription();
-		this.currentVersion = yml.getVersion();
-		this.pluginName = yml.getName();
+		this.pluginyml = plugin.getDescription();
+		this.currentversion = pluginyml.getVersion();
+		this.pluginname = pluginyml.getName();
 		this.sender = Bukkit.getConsoleSender();
 		setUp();
 		updateCheck();
@@ -56,7 +56,7 @@ public class Updater implements Listener {
 	}
 
 	private String getCurrentVersion() {
-		return currentVersion;
+		return currentversion;
 	}
 
 	private String getContent() {
@@ -64,11 +64,11 @@ public class Updater implements Listener {
 	}
 
 	private String getPluginName() {
-		return pluginName;
+		return pluginname;
 	}
 
 	private String getPluginURL() {
-		return pluginURL;
+		return pluginurl;
 	}
 
 	private String getVersion() {
@@ -83,7 +83,7 @@ public class Updater implements Listener {
 			Node node = document.getElementsByTagName("p").item(0);
 			NodeList nodelist = node.getChildNodes();
 			version = nodelist.item(0).getTextContent().trim();
-			pluginURL = nodelist.item(2).getTextContent().trim();
+			pluginurl = nodelist.item(2).getTextContent().trim();
 			content = nodelist.item(4).getTextContent().trim();
 		} catch (MalformedURLException e) {
 			sender.sendMessage(ChatColor.RED + "エラーが発生しました。URLが不正または不明です(MalformedURLException)");

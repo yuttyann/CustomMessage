@@ -8,42 +8,60 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Server;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import com.github.yuttyann.custommessage.file.Config;
-
 public class Utils {
 
-	@SuppressWarnings("deprecation")
-	public static Player getPlayerExact(String name) {
-		return Bukkit.getPlayerExact(name);
+	public static boolean isLinux() {
+		return System.getProperty("os.name").toLowerCase().startsWith("linux");
 	}
 
-	@SuppressWarnings("deprecation")
-	public static Player getPlayer(String name) {
-		return Bukkit.getPlayer(name);
+	public static boolean isMac() {
+		return System.getProperty("os.name").toLowerCase().startsWith("mac");
 	}
 
-	public static Server getServer() {
-		return Bukkit.getServer();
-	}
-
-	public static Plugin getPlugin(String plugin) {
-		return Bukkit.getServer().getPluginManager().getPlugin(plugin);
-	}
-
-	public static Plugin[] getPlugins() {
-		return Bukkit.getServer().getPluginManager().getPlugins();
+	public static boolean isWindows() {
+		return System.getProperty("os.name").toLowerCase().startsWith("windows");
 	}
 
 	public static boolean isPluginEnabled(String plugin) {
 		return Bukkit.getServer().getPluginManager().isPluginEnabled(plugin);
 	}
 
+	public static boolean isUpperVersion(String targetversion) {
+		int version = versionInt(getVersion().split("\\."));
+		int target = versionInt(targetversion.split("\\."));
+		if (version >= target) {
+			return true;
+		}
+		return false;
+	}
+
+	private static int versionInt(String[] version) {
+		if (version.length < 3) {
+			version = new String[]{version[0], version[1], "0"};
+		}
+		if (version[1].length() == 1) {
+			version[1] = "0" + version[1];
+		}
+		if (version[2].length() == 1) {
+			version[2] = "0" + version[2];
+		}
+		version[2] = "0" + version[2];
+		return Integer.parseInt(version[0]) * 100000 + Integer.parseInt(version[1]) * 1000 + Integer.parseInt(version[2]);
+	}
+
 	public static Random getRandom() {
 		return new Random();
+	}
+
+	public static String getVersion() {
+		String version = Bukkit.getServer().getVersion();
+		version = version.split("\\(")[1];
+		version = version.substring(4, version.length() - 1);
+		return version;
 	}
 
 	public static String stringBuilder(String[] args, Integer integer) {
@@ -56,8 +74,39 @@ public class Utils {
 		return builder.toString();
 	}
 
-	public static Set<String> getConfigSection(String str, boolean key) {
-		return Config.getConfigurationSection(str).getKeys(key);
+	public static Set<String> getConfigSection(YamlConfiguration yaml, String path, boolean key) {
+		return yaml.getConfigurationSection(path).getKeys(key);
+	}
+
+	public static Plugin getPlugin(String plugin) {
+		return Bukkit.getServer().getPluginManager().getPlugin(plugin);
+	}
+
+	public static Plugin[] getPlugins() {
+		return Bukkit.getServer().getPluginManager().getPlugins();
+	}
+
+	@SuppressWarnings("deprecation")
+	public static Player getPlayer(String name) {
+		return Bukkit.getPlayer(name);
+	}
+
+	public static Player getOnlinePlayer(String name) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (player.getName().equals(name)) {
+				return player;
+			}
+		}
+		return null;
+	}
+
+	public static OfflinePlayer getOfflinePlayer(String name) {
+		for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+			if (player.getName().equals(name)) {
+				return player;
+			}
+		}
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
