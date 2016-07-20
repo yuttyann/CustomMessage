@@ -10,9 +10,9 @@ Minecraftの様々なメッセージを変更できるプラグインです。
 /custommessage tabtitle [player] [header] [footer]    
 
 # Permissions
-custommessage.command.rules  
 custommessage.command.reload  
-custommessage.command.title    
+custommessage.command.rules  custommessage.command.title  
+custommessage.command.tabtitle    
 
 # API
 全バージョン対応:  
