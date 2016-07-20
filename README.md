@@ -11,7 +11,8 @@ Minecraftの様々なメッセージを変更できるプラグインです。
 
 # Permissions
 custommessage.command.reload  
-custommessage.command.rules  custommessage.command.title  
+custommessage.command.rules  
+custommessage.command.title  
 custommessage.command.tabtitle    
 
 # API
@@ -27,4 +28,4 @@ CustomMessage.getAPI().sendFullTitle(player, fadeIn, stay, fadeOut, title, subti
 CustomMessage.getAPI().sendFullTabTitle(player, header, footer);  
 説明：  
 CustomMessage.getAPI().sendFullTitle(プレイヤー, 表示するまでの時間, 表示させている時間, 消えるまでの時間, タイトル, サブタイトル);  
-CustomMessage.getAPI().sendFullTabTitle(プレイヤー, Tabを押したときに上に表示されるメッセージ, Tabを押したときに下に表示されるメッセージ);  
+CustomMessage.getAPI().sendFullTabTitle(プレイヤー, Tabを押したときに上に表示されるメッセージ, Tabを押したときに下に表示されるメッセージ); 
