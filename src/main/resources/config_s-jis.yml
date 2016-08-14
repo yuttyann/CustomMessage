@@ -1,26 +1,31 @@
-#CustomMessage v6.5 Config
-#CompliantVersion 1.7.2～1.10
-#ColorCodeList http://ess.khhq.net/mc/
-#SoundList http://www.yuttyann44581.net/uploads/SoundList/
-#OldSoundList http://www.yuttyann44581.net/uploads/OldSoundList/ 
+# CustomMessage v6.6 Config
+# CompliantVersion 1.7.2～1.10
+# ColorCodeList http://ess.khhq.net/mc/
+# SoundList http://www.yuttyann44581.net/uploads/SoundList/
+# OldSoundList http://www.yuttyann44581.net/uploads/OldSoundList/
 
-#SpigotProtocolHack1.7-1.8を使用しているか
-#ProtocolHackかわからない場合は1.7、1.8の両方で接続できるか確認してください。
-#ProtocolHackを使用している場合は、trueと書いてください。
-# trueで有効 falseで無効
-#初期: false
+## === 全ての機能を無効 === ##
+# [true で有効 | false で無効]
+# 初期: false
+# APIだけを使用したい時に有効にしてください。 
+Disable_All_Functions: false
+
+## === SpigotProtocolHack1.7-1.8 === ##
+# [true で有効 | false で無効]
+# 初期: false
+#SpigotProtocolHack1.7-1.8を使用している場合は有効にしてください。
 UseSpigotProtocolHack: false
 
-#バージョンチェック、ダウンロード
-#このプラグインが最新バージョンかチェックします。
-#メッセージはOPにしか表示されません。
-# trueで有効 falseで無効
-#初期: true
+## === 自動アップデートの設定 === ##
+# [true で有効 | false で無効]
+# 初期: true
+# このプラグインが最新バージョンかチェックします。
+# メッセージはOPにしか表示されません。
 UpdateChecker: true
 AutoDownload: true
 
-#曜日の設定
-#ここに設定した曜日は%weekで使用されます。
+## === 曜日表記の設定 === ##
+# ここに設定した曜日は%weekで使用されます。
 Sunday: '日'
 Monday: '月'
 Tuesday: '火'
@@ -29,28 +34,28 @@ Thursday: '木'
 Friday: '金'
 Saturday: '土'
 
-#時刻の設定
-#&で色を指定できます。ColorCodeListのURL参照
-#%yearで現在の年を取得します。
-#%monthで現在の月を取得します。
-#%dayで現在の日にちを取得します。
-#%hourで現在の時を取得します。
-#%minuteで現在の分を取得します。
-#%secondで現在の秒を取得します。
-#%weekで現在の曜日を取得します。
-#%dayofyearで現在の年の何日目かを取得します。
+## === 時刻の設定 === ##
+# & でカラーコードを使用できます。
+# %year で現在の年を取得します。
+# %month で現在の月を取得します。
+# %day で現在の日にちを取得します。
+# %hour で現在の時を取得します。
+# %minute で現在の分を取得します。
+# %second で現在の秒を取得します。
+# %week で現在の曜日を取得します。
+# %dayofyear で現在の年の何日目かを取得します。
 TimesofDay: '&e%year年%month月%day日%week曜日 %hour時%minute分%second秒'
 
-#プレイヤーカウントメッセージの設定
-#&で色を指定できます。ColorCodeListのURL参照
-#noneで接続中のプレイヤーIDが表示されなくなります。
-#%playersでサーバーにログインしている人数を取得します。
-#%maxplayersで最大接続人数を取得します。
-#%servernameでサーバー名を取得します。
-#%versionでサーバーのバージョンを取得します。
-#%timeでTimesofDayに設定した時刻を取得します。
-# trueで有効 falseで無効
-#初期: false
+## === プレイヤーカウントメッセージの設定 === ##
+# [true で有効 | false で無効]
+# 初期: false
+# & でカラーコードを使用できます。
+# none でカーソルを合わせても接続中のプレイヤーIdが表示されなくなります。
+# %players でサーバーに接続している人数を取得します。
+# %maxplayers で最大接続人数を取得します。
+# %servername でサーバー名を取得します。
+# %version でサーバーのバージョンを取得します。
+# %time でTimesofDayに設定した時刻を取得します。
 PlayerCountMessage:
   Enable: false
   Message:
@@ -58,32 +63,32 @@ PlayerCountMessage:
   - '&cMinecraft2'
   - '&eMinecraft3'
 
-#接続人数表示変更の設定
-#接続人数の表示を変えてるだけなので実際に入れる人数は変わりません。
-# trueで有効 falseで無効
-#初期: true
+## === 最大接続人数の設定 === ##
+# [true で有効 | false で無効]
+# 初期: true
+# 最大接続人数の表示を変更しているだけなので、実際に入れる人数は変わりません。
 FakeMaxPlayer:
   Enable: true
   MaxPlayer: 999
 
-#コマンドメッセージの設定
-#&で色を指定できます。ColorCodeListのURL参照
-#%nameで名前を取得します。
-#%messageでメッセージを取得します。
-#%targetで指定したプレイヤーを取得します。(tell、tell_targetで使用可能)
+## === コマンドメッセージの設定 === ##
+# & でカラーコードを使用できます。
+# %sender でコマンド実行者を取得します。
+# %message でメッセージを取得します。
+# %target で指定したプレイヤーを取得します。(tell、tell_targetで使用可能)
 Commands:
-  Say: '&d[%name] %message'
-  Me: '* %name %message'
-  tell: '[%name->%target] %message'
-  tell_target: '&7%name whispers %message'
+  Say: '&d[%sender] %message'
+  Me: '* %sender %message'
+  tell: '[%sender->%target] %message'
+  tell_target: '&7%sender whispers %message'
 
-#サウンドの設定
-#1.8以前と1.9以降で(音の種類)が変わります。
-#1.9以降の場合はSoundListを参照してください。
-#1.8以前の場合はOldSoundListを参照してください。
-#(音の種類)-(音量)-(音の高さ)-(音が鳴る時間)
-#※音を追加したいときは設定の最後に,を入れてください。
-#noneで音の設定を無効化できます。
+## === サウンドの設定 === ##
+# 音を追加したいときは設定の最後に,を入れてください。
+# 1.8以前と1.9以降で(音の種類)が変わります。
+# 1.9以降の場合はSoundListを参照してください。
+# 1.8以前の場合はOldSoundListを参照してください。
+# (音の種類)-(音量)-(音の高さ)-(音が鳴る時間)
+# none で音を無効化できます。
 Sounds:
   KillSound: none
   DeathSound: none
@@ -95,9 +100,9 @@ Sounds:
   KickBroadcastSound: none
   AFKBroadcastSound: none
 
-#サウンドタイプの設定
-#playerでイベントを発生させたプレイヤーに音を再生します。
-#allplayersでログインしているプレイヤーに音を再生します。
+## === サウンドタイプの設定 === ##
+# player でイベントを発生させたプレイヤーに音を再生します。
+# allplayers で接続しているプレイヤー全員に音を再生します。
 SoundTypes:
   KillSoundType: player
   DeathSoundType: player
@@ -109,10 +114,10 @@ SoundTypes:
   KickBroadcastSoundType: player
   AFKBroadcastSoundType: player
 
-#サウンド再生権限の設定
-#noneで権限無しで音を再生できます。
-#operatorでオペレーター権限を持っている人のみ音を再生できます。
-#permissionでパーミッション権限を持っている人のみ音を再生できます。
+## === サウンド権限の設定 === ##
+# none で全てのプレイヤーに音を再生できます。
+# operator でオペレーター権限を持っている人のみに音を再生できます。
+# permission でパーミッション権限を持っている人のみに音を再生できます。
 SoundAuthoritys:
   KillSoundAuthority: none
   DeathSoundAuthority: none
@@ -124,15 +129,15 @@ SoundAuthoritys:
   KickBroadcastSoundAuthority: none
   AFKBroadcastSoundAuthority: none
 
-#死亡メッセージの設定
-#&で色を指定できます。ColorCodeListのURL参照
-#%killerのエンティティの名前を取得する機能はプレイヤー以外の場合1.8以降でないと機能しません。
-#%deaderで殺害されたプレイヤーを取得します。
-#%killerで殺害したエンティティを取得します。(殺害メッセージのみ使用可能です。)
-#%weaponで殺害したプレイヤーの武器を取得します。(Playerのみ使用可能です。)
-#%timeでTimesofDayに設定した時刻を取得します。
-# trueで有効 falseで無効
-#初期: false
+## === 死亡メッセージの設定 === ##
+# [true で有効 | false で無効]
+# 初期: false
+# & でカラーコードを使用できます。
+# %killer でエンティティの名前を取得します。
+# %deader で殺害されたプレイヤーを取得します。
+# %killer で殺害したエンティティを取得します。(殺害メッセージのみ使用可能です。)
+# %weapon で殺害したプレイヤーの武器を取得します。(Playerのみ使用可能です。)
+# %time でTimesofDayに設定した時刻を取得します。
 DeathMessage:
   Enable: false
   Weapon:
@@ -174,46 +179,59 @@ DeathMessage:
     Skeleton: '&c%deaderはスケルトンに殺害されました。'
     WitherSkeleton: '&c%deaderはウィザースケルトンに殺害されました。'
 
-#ログイン/ログアウトメッセージの設定
-#&で色を指定できます。ColorCodeListのURL参照
-#%playerでプレイヤーを取得します。
-#%timeでTimesofDayに設定した時刻を取得します。
-# trueで有効 falseで無効
-#初期: true
+## === ログイン、ログアウトメッセージの設定 === ##
+# [true で有効 | false で無効]
+# 初期: true
+# & でカラーコードを使用できます。
+# %player でプレイヤーを取得します。
+# %time でTimesofDayに設定した時刻を取得します。
 PlayerJoinQuitMessage:
   Enable: true
   FirstJoinMssage: '&e%playerさんが初めてサーバーに参加しました。'
   JoinMessage: '&e%playerさんがサーバーに参加しました。'
   QuitMessage: '&e%playerさんがサーバーから退出しました。'
 
-#ログインアイテム配布の設定
-#Kits導入時のみ動作します。
-#キット名を指定することでログイン時に配布されます。
+## === ログインメッセージの設定 === ##
+# [true で有効 | false で無効]
+# 初期: false
+# & でカラーコードを使用できます。
+# %player でプレイヤーを取得します。
+# %time でTimesofDayに設定した時刻を取得します。
+PlayerLoginMessage:
+  Enable: false
+  Message:
+  - 'アップデート情報: テストです。'
+
+## === 初ログインアイテム配布の設定 === ##
+# [true で有効 | false で無効]
+# 初期: false
+# Kits導入時のみ動作します。
+# キット名を指定することで初ログイン時に配布されます。
 FirstJoinItem:
   Enable: false
   KitName: Hunter
 
-#プレイヤーチャットの設定
-#&で色を指定できます。ColorCodeListのURL参照
-#%playerでプレイヤーを取得します。
-#%chatでプレイヤーのチャットを取得します。
-#%timeでTimesofDayに設定した時刻を取得します。
-# trueで有効 falseで無効
-#初期: false
+## === プレイヤーチャットの設定 === ##
+# [true で有効 | false で無効]
+# 初期: false
+# & でカラーコードを使用できます。
+# %player でプレイヤーを取得します。
+# %chat でプレイヤーのチャットを取得します。
+# %time でTimesofDayに設定した時刻を取得します。
 ChatMessageFormat:
   Enable: false
   Message: '<&e%player&f> %chat'
 
-#キックメッセージの設定
-#&で色を指定できます。ColorCodeListのURL参照
-#BroadcastMessageはサーバー全体に流れるメッセージです。
-#noneでメッセージの設定を無効化できます。
-#%playerでプレイヤーを取得します。
-#%reasonで理由を取得できます。
-#%lineで改行することができます。(BroadcastMessage以外で使用可能)
-#%timeでTimesofDayに設定した時刻を取得します。
-# trueで有効 falseで無効
-#初期: false
+## === キックメッセージの設定 === ##
+# [true で有効 | false で無効]
+# 初期: false
+# BroadcastMessageはサーバー全体に流れるメッセージです。
+# & でカラーコードを使用できます。
+# none でメッセージの設定を無効化できます。
+# %player でプレイヤーを取得します。
+# %reason で理由を取得できます。
+# %line で改行することができます。(BroadcastMessage以外で使用可能)
+# %time でTimesofDayに設定した時刻を取得します。
 PlayerKickMessage:
   Enable: false
   BanMessage: '&cあなたはBanされました。'
@@ -223,89 +241,79 @@ PlayerKickMessage:
   KickBroadcastMessage: '&c%playerさんがKickされました！'
   AFKBroadcastMessage: '&c%playerさんが放置していたためKickされました！'
 
-#ログインキックメッセージの設定
-#&で色を指定できます。ColorCodeListのURL参照
-#%playerでプレイヤーを取得します。
-#%lineで改行することができます。
-#%timeでTimesofDayに設定した時刻を取得します。
-# trueで有効 falseで無効
-#初期: false
+## === ログインキックメッセージの設定 === ##
+# [true で有効 | false で無効]
+# 初期: false
+# & でカラーコードを使用できます。
+# %player でプレイヤーを取得します。
+# %line で改行することができます。
+# %time でTimesofDayに設定した時刻を取得します。
 PlayerLoginKickMessage:
   Enable: false
   BanMessage: '&cBANされているためログインできません。'
   WhiteListMessage: 'ホワイトリストが有効になっているためログインできません。'
 
-#ログイン時のメッセージの設定
-#&で色を指定できます。ColorCodeListのURL参照
-#プレイヤーのログイン時ログインメッセージとは別にメッセージを表示できます。
-#%playerでプレイヤーを取得します。
-#%timeでTimesofDayに設定した時刻を取得します。
-# trueで有効 falseで無効
-#初期: true
-PlayerLoginMessage:
-  Enable: true
-  Message:
-  - 'アップデート情報: テストです。'
-
-#サーバールールの設定
-#&で色を指定できます。ColorCodeListのURL参照
-# trueで有効 falseで無効
-#初期: true
+## === サーバールールの設定 === ##
+# [true で有効 | false で無効]
+# 初期: false
+# & でカラーコードを使用できます。
 Rules:
-  Enable: true
+  Enable: false
   Message:
   - '&b---------&aサーバールール&b---------'
   - '&e楽しんでください'
   - '&e挨拶をしてください'
 
-#タイトルの表示時間などの設定
-#FadeIn：表示するまでの時間
-#Stay：表示させている時間
-#FadeOut：消えるまでの時間
+## === タイトルの表示時間などの設定 === ##
+# FadeIn 表示するまでの時間
+# Stay 表示している時間
+# FadeOut 消えるまでの時間
 TitleTime:
   FadeIn: 10
   Stay: 40
   FadeOut: 10
 
-#タイトルメッセージの設定
-#&で色を指定できます。ColorCodeListのURL参照
-#%playerでプレイヤーを取得します。
-#%timeでTimesofDayに設定した時刻を取得します。
-# trueで有効 falseで無効
-#初期: true
+## === タイトルメッセージの設定 === ##
+# [true で有効 | false で無効]
+# 初期: true
+# & でカラーコードを使用できます。
+# %player でプレイヤーを取得します。
+# %time でTimesofDayに設定した時刻を取得します。
 Title:
   Enable: true
   TitleMessage: '&aテスト1'
   SubTitleMessage: '&eテスト2'
 
-#タブタイトルの設定
-#&で色を指定できます。ColorCodeListのURL参照
-#%playerでプレイヤーを取得します。
-#%timeでTimesofDayに設定した時刻を取得します。
-#※メッセージに%timeが含まれているとタブタイトルが20tick毎に更新されます。
-# trueで有効 falseで無効
-#初期: true
+## === タブタイトルの設定 === ##
+# [true で有効 | false で無効]
+# 初期: true
+# タブタイトルに %time が含まれているとタイマーがスタートします。
+# & でカラーコードを使用できます。
+# %player でプレイヤーを取得します。
+# %time でTimesofDayに設定した時刻を取得します。
 TabTitle:
   Enable: true
   Header: '&dテスト1'
   Footer: '&bテスト2'
 
-#サーバーアイコンの設定
-#アイコンはServerIconに保存してください。
-#ファイルに入れたアイコンをランダムで表示します。
+## === サーバーアイコンの設定 === ##
+# [true で有効 | false で無効]
+# 初期: false
+# アイコンはServerIconに保存してください。
+# ファイルに入れたアイコンをランダムで表示します。
 ServerIcon:
   Enable: false
 
-#Motdの設定 
-#両方有効にしている場合はRandomMotdが優先されます。
-#&で色を指定できます。ColorCodeListのURL参照
-#%playersでサーバーにログインしている人数を取得します。
-#%maxplayersで最大接続人数を取得します。
-#%servernameでサーバー名を取得します。
-#%versionでサーバーのバージョンを取得します。
-#%timeでTimesofDayに設定した時刻を取得します。
-# trueで有効 falseで無効
-#初期: true
+## === Motdの設定 === ##
+# [true で有効 | false で無効]
+# 初期: true
+# 両方有効にしている場合はRandomMotdが優先されます。
+# & でカラーコードを使用できます。
+# %players でサーバーにログインしている人数を取得します。
+# %maxplayers で最大接続人数を取得します。
+# %servername でサーバー名を取得します。
+# %version でサーバーのバージョンを取得します。
+# %time でTimesofDayに設定した時刻を取得します。
 RandomMotd:
   Enable: false
   Message:

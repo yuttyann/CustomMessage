@@ -1,56 +1,61 @@
-#CustomMessage v6.5 Config
-#CompliantVersion 1.7.2`1.10
-#ColorCodeList http://ess.khhq.net/mc/
-#SoundList http://www.yuttyann44581.net/uploads/SoundList/
-#OldSoundList http://www.yuttyann44581.net/uploads/OldSoundList/ 
+ï»¿# CustomMessage v6.6 Config
+# CompliantVersion 1.7.2ï½1.10
+# ColorCodeList http://ess.khhq.net/mc/
+# SoundList http://www.yuttyann44581.net/uploads/SoundList/
+# OldSoundList http://www.yuttyann44581.net/uploads/OldSoundList/
 
-#SpigotProtocolHack1.7-1.8‚ğg—p‚µ‚Ä‚¢‚é‚©
-#ProtocolHack‚©‚í‚©‚ç‚È‚¢ê‡‚Í1.7A1.8‚Ì—¼•û‚ÅÚ‘±‚Å‚«‚é‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢B
-#ProtocolHack‚ğg—p‚µ‚Ä‚¢‚éê‡‚ÍAtrue‚Æ‘‚¢‚Ä‚­‚¾‚³‚¢B
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: false
+## === å…¨ã¦ã®æ©Ÿèƒ½ã‚’ç„¡åŠ¹ === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: false
+# APIã ã‘ã‚’ä½¿ç”¨ã—ãŸã„æ™‚ã«æœ‰åŠ¹ã«ã—ã¦ãã ã•ã„ã€‚ 
+Disable_All_Functions: false
+
+## === SpigotProtocolHack1.7-1.8 === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: false
+#SpigotProtocolHack1.7-1.8ã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹å ´åˆã¯æœ‰åŠ¹ã«ã—ã¦ãã ã•ã„ã€‚
 UseSpigotProtocolHack: false
 
-#ƒo[ƒWƒ‡ƒ“ƒ`ƒFƒbƒNAƒ_ƒEƒ“ƒ[ƒh
-#‚±‚Ìƒvƒ‰ƒOƒCƒ“‚ªÅVƒo[ƒWƒ‡ƒ“‚©ƒ`ƒFƒbƒN‚µ‚Ü‚·B
-#ƒƒbƒZ[ƒW‚ÍOP‚É‚µ‚©•\¦‚³‚ê‚Ü‚¹‚ñB
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: true
+## === è‡ªå‹•ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: true
+# ã“ã®ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ãŒæœ€æ–°ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‹ãƒã‚§ãƒƒã‚¯ã—ã¾ã™ã€‚
+# ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯OPã«ã—ã‹è¡¨ç¤ºã•ã‚Œã¾ã›ã‚“ã€‚
 UpdateChecker: true
 AutoDownload: true
 
-#—j“ú‚Ìİ’è
-#‚±‚±‚Éİ’è‚µ‚½—j“ú‚Í%week‚Åg—p‚³‚ê‚Ü‚·B
-Sunday: '“ú'
-Monday: 'Œ'
-Tuesday: '‰Î'
-Wednesday: '…'
-Thursday: '–Ø'
-Friday: '‹à'
-Saturday: '“y'
+## === æ›œæ—¥è¡¨è¨˜ã®è¨­å®š === ##
+# ã“ã“ã«è¨­å®šã—ãŸæ›œæ—¥ã¯%weekã§ä½¿ç”¨ã•ã‚Œã¾ã™ã€‚
+Sunday: 'æ—¥'
+Monday: 'æœˆ'
+Tuesday: 'ç«'
+Wednesday: 'æ°´'
+Thursday: 'æœ¨'
+Friday: 'é‡‘'
+Saturday: 'åœŸ'
 
-#‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#%year‚ÅŒ»İ‚Ì”N‚ğæ“¾‚µ‚Ü‚·B
-#%month‚ÅŒ»İ‚ÌŒ‚ğæ“¾‚µ‚Ü‚·B
-#%day‚ÅŒ»İ‚Ì“ú‚É‚¿‚ğæ“¾‚µ‚Ü‚·B
-#%hour‚ÅŒ»İ‚Ì‚ğæ“¾‚µ‚Ü‚·B
-#%minute‚ÅŒ»İ‚Ì•ª‚ğæ“¾‚µ‚Ü‚·B
-#%second‚ÅŒ»İ‚Ì•b‚ğæ“¾‚µ‚Ü‚·B
-#%week‚ÅŒ»İ‚Ì—j“ú‚ğæ“¾‚µ‚Ü‚·B
-#%dayofyear‚ÅŒ»İ‚Ì”N‚Ì‰½“ú–Ú‚©‚ğæ“¾‚µ‚Ü‚·B
-TimesofDay: '&e%year”N%monthŒ%day“ú%week—j“ú %hour%minute•ª%second•b'
+## === æ™‚åˆ»ã®è¨­å®š === ##
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# %year ã§ç¾åœ¨ã®å¹´ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %month ã§ç¾åœ¨ã®æœˆã‚’å–å¾—ã—ã¾ã™ã€‚
+# %day ã§ç¾åœ¨ã®æ—¥ã«ã¡ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %hour ã§ç¾åœ¨ã®æ™‚ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %minute ã§ç¾åœ¨ã®åˆ†ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %second ã§ç¾åœ¨ã®ç§’ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %week ã§ç¾åœ¨ã®æ›œæ—¥ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %dayofyear ã§ç¾åœ¨ã®å¹´ã®ä½•æ—¥ç›®ã‹ã‚’å–å¾—ã—ã¾ã™ã€‚
+TimesofDay: '&e%yearå¹´%monthæœˆ%dayæ—¥%weekæ›œæ—¥ %houræ™‚%minuteåˆ†%secondç§’'
 
-#ƒvƒŒƒCƒ„[ƒJƒEƒ“ƒgƒƒbƒZ[ƒW‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#none‚ÅÚ‘±’†‚ÌƒvƒŒƒCƒ„[ID‚ª•\¦‚³‚ê‚È‚­‚È‚è‚Ü‚·B
-#%players‚ÅƒT[ƒo[‚ÉƒƒOƒCƒ“‚µ‚Ä‚¢‚él”‚ğæ“¾‚µ‚Ü‚·B
-#%maxplayers‚ÅÅ‘åÚ‘±l”‚ğæ“¾‚µ‚Ü‚·B
-#%servername‚ÅƒT[ƒo[–¼‚ğæ“¾‚µ‚Ü‚·B
-#%version‚ÅƒT[ƒo[‚Ìƒo[ƒWƒ‡ƒ“‚ğæ“¾‚µ‚Ü‚·B
-#%time‚ÅTimesofDay‚Éİ’è‚µ‚½‚ğæ“¾‚µ‚Ü‚·B
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: false
+## === ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚«ã‚¦ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: false
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# none ã§ã‚«ãƒ¼ã‚½ãƒ«ã‚’åˆã‚ã›ã¦ã‚‚æ¥ç¶šä¸­ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼IdãŒè¡¨ç¤ºã•ã‚Œãªããªã‚Šã¾ã™ã€‚
+# %players ã§ã‚µãƒ¼ãƒãƒ¼ã«æ¥ç¶šã—ã¦ã„ã‚‹äººæ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %maxplayers ã§æœ€å¤§æ¥ç¶šäººæ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %servername ã§ã‚µãƒ¼ãƒãƒ¼åã‚’å–å¾—ã—ã¾ã™ã€‚
+# %version ã§ã‚µãƒ¼ãƒãƒ¼ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %time ã§TimesofDayã«è¨­å®šã—ãŸæ™‚åˆ»ã‚’å–å¾—ã—ã¾ã™ã€‚
 PlayerCountMessage:
   Enable: false
   Message:
@@ -58,32 +63,32 @@ PlayerCountMessage:
   - '&cMinecraft2'
   - '&eMinecraft3'
 
-#Ú‘±l”•\¦•ÏX‚Ìİ’è
-#Ú‘±l”‚Ì•\¦‚ğ•Ï‚¦‚Ä‚é‚¾‚¯‚È‚Ì‚ÅÀÛ‚É“ü‚ê‚él”‚Í•Ï‚í‚è‚Ü‚¹‚ñB
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: true
+## === æœ€å¤§æ¥ç¶šäººæ•°ã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: true
+# æœ€å¤§æ¥ç¶šäººæ•°ã®è¡¨ç¤ºã‚’å¤‰æ›´ã—ã¦ã„ã‚‹ã ã‘ãªã®ã§ã€å®Ÿéš›ã«å…¥ã‚Œã‚‹äººæ•°ã¯å¤‰ã‚ã‚Šã¾ã›ã‚“ã€‚
 FakeMaxPlayer:
   Enable: true
   MaxPlayer: 999
 
-#ƒRƒ}ƒ“ƒhƒƒbƒZ[ƒW‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#%name‚Å–¼‘O‚ğæ“¾‚µ‚Ü‚·B
-#%message‚ÅƒƒbƒZ[ƒW‚ğæ“¾‚µ‚Ü‚·B
-#%target‚Åw’è‚µ‚½ƒvƒŒƒCƒ„[‚ğæ“¾‚µ‚Ü‚·B(tellAtell_target‚Åg—p‰Â”\)
+## === ã‚³ãƒãƒ³ãƒ‰ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®š === ##
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# %sender ã§ã‚³ãƒãƒ³ãƒ‰å®Ÿè¡Œè€…ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %message ã§ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %target ã§æŒ‡å®šã—ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚(tellã€tell_targetã§ä½¿ç”¨å¯èƒ½)
 Commands:
-  Say: '&d[%name] %message'
-  Me: '* %name %message'
-  tell: '[%name->%target] %message'
-  tell_target: '&7%name whispers %message'
+  Say: '&d[%sender] %message'
+  Me: '* %sender %message'
+  tell: '[%sender->%target] %message'
+  tell_target: '&7%sender whispers %message'
 
-#ƒTƒEƒ“ƒh‚Ìİ’è
-#1.8ˆÈ‘O‚Æ1.9ˆÈ~‚Å(‰¹‚Ìí—Ş)‚ª•Ï‚í‚è‚Ü‚·B
-#1.9ˆÈ~‚Ìê‡‚ÍSoundList‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B
-#1.8ˆÈ‘O‚Ìê‡‚ÍOldSoundList‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B
-#(‰¹‚Ìí—Ş)-(‰¹—Ê)-(‰¹‚Ì‚‚³)-(‰¹‚ª–Â‚éŠÔ)
-#¦‰¹‚ğ’Ç‰Á‚µ‚½‚¢‚Æ‚«‚Íİ’è‚ÌÅŒã‚É,‚ğ“ü‚ê‚Ä‚­‚¾‚³‚¢B
-#none‚Å‰¹‚Ìİ’è‚ğ–³Œø‰»‚Å‚«‚Ü‚·B
+## === ã‚µã‚¦ãƒ³ãƒ‰ã®è¨­å®š === ##
+# éŸ³ã‚’è¿½åŠ ã—ãŸã„ã¨ãã¯è¨­å®šã®æœ€å¾Œã«,ã‚’å…¥ã‚Œã¦ãã ã•ã„ã€‚
+# 1.8ä»¥å‰ã¨1.9ä»¥é™ã§(éŸ³ã®ç¨®é¡)ãŒå¤‰ã‚ã‚Šã¾ã™ã€‚
+# 1.9ä»¥é™ã®å ´åˆã¯SoundListã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
+# 1.8ä»¥å‰ã®å ´åˆã¯OldSoundListã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
+# (éŸ³ã®ç¨®é¡)-(éŸ³é‡)-(éŸ³ã®é«˜ã•)-(éŸ³ãŒé³´ã‚‹æ™‚é–“)
+# none ã§éŸ³ã‚’ç„¡åŠ¹åŒ–ã§ãã¾ã™ã€‚
 Sounds:
   KillSound: none
   DeathSound: none
@@ -95,9 +100,9 @@ Sounds:
   KickBroadcastSound: none
   AFKBroadcastSound: none
 
-#ƒTƒEƒ“ƒhƒ^ƒCƒv‚Ìİ’è
-#player‚ÅƒCƒxƒ“ƒg‚ğ”­¶‚³‚¹‚½ƒvƒŒƒCƒ„[‚É‰¹‚ğÄ¶‚µ‚Ü‚·B
-#allplayers‚ÅƒƒOƒCƒ“‚µ‚Ä‚¢‚éƒvƒŒƒCƒ„[‚É‰¹‚ğÄ¶‚µ‚Ü‚·B
+## === ã‚µã‚¦ãƒ³ãƒ‰ã‚¿ã‚¤ãƒ—ã®è¨­å®š === ##
+# player ã§ã‚¤ãƒ™ãƒ³ãƒˆã‚’ç™ºç”Ÿã•ã›ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«éŸ³ã‚’å†ç”Ÿã—ã¾ã™ã€‚
+# allplayers ã§æ¥ç¶šã—ã¦ã„ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å…¨å“¡ã«éŸ³ã‚’å†ç”Ÿã—ã¾ã™ã€‚
 SoundTypes:
   KillSoundType: player
   DeathSoundType: player
@@ -109,10 +114,10 @@ SoundTypes:
   KickBroadcastSoundType: player
   AFKBroadcastSoundType: player
 
-#ƒTƒEƒ“ƒhÄ¶Œ ŒÀ‚Ìİ’è
-#none‚ÅŒ ŒÀ–³‚µ‚Å‰¹‚ğÄ¶‚Å‚«‚Ü‚·B
-#operator‚ÅƒIƒyƒŒ[ƒ^[Œ ŒÀ‚ğ‚Á‚Ä‚¢‚él‚Ì‚İ‰¹‚ğÄ¶‚Å‚«‚Ü‚·B
-#permission‚Åƒp[ƒ~ƒbƒVƒ‡ƒ“Œ ŒÀ‚ğ‚Á‚Ä‚¢‚él‚Ì‚İ‰¹‚ğÄ¶‚Å‚«‚Ü‚·B
+## === ã‚µã‚¦ãƒ³ãƒ‰æ¨©é™ã®è¨­å®š === ##
+# none ã§å…¨ã¦ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«éŸ³ã‚’å†ç”Ÿã§ãã¾ã™ã€‚
+# operator ã§ã‚ªãƒšãƒ¬ãƒ¼ã‚¿ãƒ¼æ¨©é™ã‚’æŒã£ã¦ã„ã‚‹äººã®ã¿ã«éŸ³ã‚’å†ç”Ÿã§ãã¾ã™ã€‚
+# permission ã§ãƒ‘ãƒ¼ãƒŸãƒƒã‚·ãƒ§ãƒ³æ¨©é™ã‚’æŒã£ã¦ã„ã‚‹äººã®ã¿ã«éŸ³ã‚’å†ç”Ÿã§ãã¾ã™ã€‚
 SoundAuthoritys:
   KillSoundAuthority: none
   DeathSoundAuthority: none
@@ -124,199 +129,202 @@ SoundAuthoritys:
   KickBroadcastSoundAuthority: none
   AFKBroadcastSoundAuthority: none
 
-#€–SƒƒbƒZ[ƒW‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#%killer‚ÌƒGƒ“ƒeƒBƒeƒB‚Ì–¼‘O‚ğæ“¾‚·‚é‹@”\‚ÍƒvƒŒƒCƒ„[ˆÈŠO‚Ìê‡1.8ˆÈ~‚Å‚È‚¢‚Æ‹@”\‚µ‚Ü‚¹‚ñB
-#%deader‚ÅEŠQ‚³‚ê‚½ƒvƒŒƒCƒ„[‚ğæ“¾‚µ‚Ü‚·B
-#%killer‚ÅEŠQ‚µ‚½ƒGƒ“ƒeƒBƒeƒB‚ğæ“¾‚µ‚Ü‚·B(EŠQƒƒbƒZ[ƒW‚Ì‚İg—p‰Â”\‚Å‚·B)
-#%weapon‚ÅEŠQ‚µ‚½ƒvƒŒƒCƒ„[‚Ì•Ší‚ğæ“¾‚µ‚Ü‚·B(Player‚Ì‚İg—p‰Â”\‚Å‚·B)
-#%time‚ÅTimesofDay‚Éİ’è‚µ‚½‚ğæ“¾‚µ‚Ü‚·B
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: false
+## === æ­»äº¡ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: false
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# %killer ã§ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã®åå‰ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %deader ã§æ®ºå®³ã•ã‚ŒãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %killer ã§æ®ºå®³ã—ãŸã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚’å–å¾—ã—ã¾ã™ã€‚(æ®ºå®³ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ã¿ä½¿ç”¨å¯èƒ½ã§ã™ã€‚)
+# %weapon ã§æ®ºå®³ã—ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ­¦å™¨ã‚’å–å¾—ã—ã¾ã™ã€‚(Playerã®ã¿ä½¿ç”¨å¯èƒ½ã§ã™ã€‚)
+# %time ã§TimesofDayã«è¨­å®šã—ãŸæ™‚åˆ»ã‚’å–å¾—ã—ã¾ã™ã€‚
 DeathMessage:
   Enable: false
   Weapon:
-    NullMessage: '‘fè'
+    NullMessage: 'ç´ æ‰‹'
   Messages:
-    Drowning: '&c%deader‚Í€–S‚µ‚Ü‚µ‚½B€ˆö: …'
-    Fire: '&c%deader‚Í€–S‚µ‚Ü‚µ‚½B€ˆö: ‰Š'
-    Fall: '&c%deader‚Í€–S‚µ‚Ü‚µ‚½B€ˆö: —‰º'
-    Void: '&c%deader‚Í€–S‚µ‚Ü‚µ‚½B€ˆö: “Ş—'
-    Lava: '&c%deader‚Í€–S‚µ‚Ü‚µ‚½B€ˆö: —nŠâ'
-    Magic: '&c%deader‚Í€–S‚µ‚Ü‚µ‚½B€ˆö: –‚–@'
-    Suffocation: '&c%deader‚Í€–S‚µ‚Ü‚µ‚½B€ˆö: ’‚‘§'
-    Projectile: '&c%deader‚Í€–S‚µ‚Ü‚µ‚½B€ˆö: ”ò‚Ñ“¹‹ï'
-    Starvation: '&c%deader‚Í€–S‚µ‚Ü‚µ‚½B€ˆö: ‹Q‰ì'
-    Withered: '&c%deader‚Í€–S‚µ‚Ü‚µ‚½B€ˆö: ƒEƒBƒU['
-    Explosion: '&c%deader‚Í€–S‚µ‚Ü‚µ‚½B€ˆö: ”š”­'
-    Player: '&c%deader‚Í%killer‚É%weapon‚ÅEŠQ‚³‚ê‚Ü‚µ‚½B'
-    ZombiePigman: '&c%deader‚Íƒ]ƒ“ƒrƒsƒbƒOƒ}ƒ“‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Zombie: '&c%deader‚Íƒ]ƒ“ƒr‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Husk: '&c%deader‚ÍƒnƒXƒN‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    CaveSpider: '&c%deader‚Í“´ŒAƒOƒ‚‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Spider: '&c%deader‚ÍƒNƒ‚‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    SilverFish: '&c%deader‚ÍƒVƒ‹ƒo[ƒtƒBƒbƒVƒ…‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Slime: '&c%deader‚ÍƒXƒ‰ƒCƒ€‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    MagmaCube: '&c%deader‚Íƒ}ƒOƒ}ƒLƒ…[ƒu‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    EnderMite: '&c%deader‚ÍƒGƒ“ƒ_[ƒ}ƒCƒg‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Enderman: '&c%deader‚ÍƒGƒ“ƒ_[ƒ}ƒ“‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    EnderDragon: '&c%deader‚ÍƒGƒ“ƒ_[ƒhƒ‰ƒSƒ“‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    IronGolem: '&c%deader‚ÍƒAƒCƒAƒ“ƒS[ƒŒƒ€‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Wolf: '&c%deader‚ÍƒIƒIƒJƒ~‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    PolarBear: '&c%deader‚ÍƒVƒƒNƒ}‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Giant: '&c%deader‚ÍƒWƒƒƒCƒAƒ“ƒg‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Guardian: '&c%deader‚ÍƒK[ƒfƒBƒAƒ“‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Wither: '&c%deader‚ÍƒEƒBƒU[‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Witch: '&c%deader‚ÍƒEƒBƒbƒ`‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Blaze: '&c%deader‚ÍƒuƒŒƒCƒY‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Ghast: '&c%deader‚ÍƒKƒXƒg‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Stray: '&c%deader‚ÍƒXƒgƒŒƒC‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    Skeleton: '&c%deader‚ÍƒXƒPƒ‹ƒgƒ“‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
-    WitherSkeleton: '&c%deader‚ÍƒEƒBƒU[ƒXƒPƒ‹ƒgƒ“‚ÉEŠQ‚³‚ê‚Ü‚µ‚½B'
+    Drowning: '&c%deaderã¯æ­»äº¡ã—ã¾ã—ãŸã€‚æ­»å› : æ°´'
+    Fire: '&c%deaderã¯æ­»äº¡ã—ã¾ã—ãŸã€‚æ­»å› : ç‚'
+    Fall: '&c%deaderã¯æ­»äº¡ã—ã¾ã—ãŸã€‚æ­»å› : è½ä¸‹'
+    Void: '&c%deaderã¯æ­»äº¡ã—ã¾ã—ãŸã€‚æ­»å› : å¥ˆè½'
+    Lava: '&c%deaderã¯æ­»äº¡ã—ã¾ã—ãŸã€‚æ­»å› : æº¶å²©'
+    Magic: '&c%deaderã¯æ­»äº¡ã—ã¾ã—ãŸã€‚æ­»å› : é­”æ³•'
+    Suffocation: '&c%deaderã¯æ­»äº¡ã—ã¾ã—ãŸã€‚æ­»å› : çª’æ¯'
+    Projectile: '&c%deaderã¯æ­»äº¡ã—ã¾ã—ãŸã€‚æ­»å› : é£›ã³é“å…·'
+    Starvation: '&c%deaderã¯æ­»äº¡ã—ã¾ã—ãŸã€‚æ­»å› : é£¢é¤“'
+    Withered: '&c%deaderã¯æ­»äº¡ã—ã¾ã—ãŸã€‚æ­»å› : ã‚¦ã‚£ã‚¶ãƒ¼'
+    Explosion: '&c%deaderã¯æ­»äº¡ã—ã¾ã—ãŸã€‚æ­»å› : çˆ†ç™º'
+    Player: '&c%deaderã¯%killerã«%weaponã§æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    ZombiePigman: '&c%deaderã¯ã‚¾ãƒ³ãƒ“ãƒ”ãƒƒã‚°ãƒãƒ³ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Zombie: '&c%deaderã¯ã‚¾ãƒ³ãƒ“ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Husk: '&c%deaderã¯ãƒã‚¹ã‚¯ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    CaveSpider: '&c%deaderã¯æ´çªŸã‚°ãƒ¢ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Spider: '&c%deaderã¯ã‚¯ãƒ¢ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    SilverFish: '&c%deaderã¯ã‚·ãƒ«ãƒãƒ¼ãƒ•ã‚£ãƒƒã‚·ãƒ¥ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Slime: '&c%deaderã¯ã‚¹ãƒ©ã‚¤ãƒ ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    MagmaCube: '&c%deaderã¯ãƒã‚°ãƒã‚­ãƒ¥ãƒ¼ãƒ–ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    EnderMite: '&c%deaderã¯ã‚¨ãƒ³ãƒ€ãƒ¼ãƒã‚¤ãƒˆã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Enderman: '&c%deaderã¯ã‚¨ãƒ³ãƒ€ãƒ¼ãƒãƒ³ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    EnderDragon: '&c%deaderã¯ã‚¨ãƒ³ãƒ€ãƒ¼ãƒ‰ãƒ©ã‚´ãƒ³ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    IronGolem: '&c%deaderã¯ã‚¢ã‚¤ã‚¢ãƒ³ã‚´ãƒ¼ãƒ¬ãƒ ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Wolf: '&c%deaderã¯ã‚ªã‚ªã‚«ãƒŸã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    PolarBear: '&c%deaderã¯ã‚·ãƒ­ã‚¯ãƒã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Giant: '&c%deaderã¯ã‚¸ãƒ£ã‚¤ã‚¢ãƒ³ãƒˆã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Guardian: '&c%deaderã¯ã‚¬ãƒ¼ãƒ‡ã‚£ã‚¢ãƒ³ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Wither: '&c%deaderã¯ã‚¦ã‚£ã‚¶ãƒ¼ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Witch: '&c%deaderã¯ã‚¦ã‚£ãƒƒãƒã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Blaze: '&c%deaderã¯ãƒ–ãƒ¬ã‚¤ã‚ºã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Ghast: '&c%deaderã¯ã‚¬ã‚¹ãƒˆã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Stray: '&c%deaderã¯ã‚¹ãƒˆãƒ¬ã‚¤ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    Skeleton: '&c%deaderã¯ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
+    WitherSkeleton: '&c%deaderã¯ã‚¦ã‚£ã‚¶ãƒ¼ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã«æ®ºå®³ã•ã‚Œã¾ã—ãŸã€‚'
 
-#ƒƒOƒCƒ“/ƒƒOƒAƒEƒgƒƒbƒZ[ƒW‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#%player‚ÅƒvƒŒƒCƒ„[‚ğæ“¾‚µ‚Ü‚·B
-#%time‚ÅTimesofDay‚Éİ’è‚µ‚½‚ğæ“¾‚µ‚Ü‚·B
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: true
+## === ãƒ­ã‚°ã‚¤ãƒ³ã€ãƒ­ã‚°ã‚¢ã‚¦ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: true
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# %player ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %time ã§TimesofDayã«è¨­å®šã—ãŸæ™‚åˆ»ã‚’å–å¾—ã—ã¾ã™ã€‚
 PlayerJoinQuitMessage:
   Enable: true
-  FirstJoinMssage: '&e%player‚³‚ñ‚ª‰‚ß‚ÄƒT[ƒo[‚ÉQ‰Á‚µ‚Ü‚µ‚½B'
-  JoinMessage: '&e%player‚³‚ñ‚ªƒT[ƒo[‚ÉQ‰Á‚µ‚Ü‚µ‚½B'
-  QuitMessage: '&e%player‚³‚ñ‚ªƒT[ƒo[‚©‚ç‘Şo‚µ‚Ü‚µ‚½B'
+  FirstJoinMssage: '&e%playerã•ã‚“ãŒåˆã‚ã¦ã‚µãƒ¼ãƒãƒ¼ã«å‚åŠ ã—ã¾ã—ãŸã€‚'
+  JoinMessage: '&e%playerã•ã‚“ãŒã‚µãƒ¼ãƒãƒ¼ã«å‚åŠ ã—ã¾ã—ãŸã€‚'
+  QuitMessage: '&e%playerã•ã‚“ãŒã‚µãƒ¼ãƒãƒ¼ã‹ã‚‰é€€å‡ºã—ã¾ã—ãŸã€‚'
 
-#ƒƒOƒCƒ“ƒAƒCƒeƒ€”z•z‚Ìİ’è
-#Kits“±“ü‚Ì‚İ“®ì‚µ‚Ü‚·B
-#ƒLƒbƒg–¼‚ğw’è‚·‚é‚±‚Æ‚ÅƒƒOƒCƒ“‚É”z•z‚³‚ê‚Ü‚·B
+## === ãƒ­ã‚°ã‚¤ãƒ³ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: false
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# %player ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %time ã§TimesofDayã«è¨­å®šã—ãŸæ™‚åˆ»ã‚’å–å¾—ã—ã¾ã™ã€‚
+PlayerLoginMessage:
+  Enable: false
+  Message:
+  - 'ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæƒ…å ±: ãƒ†ã‚¹ãƒˆã§ã™ã€‚'
+
+## === åˆãƒ­ã‚°ã‚¤ãƒ³ã‚¢ã‚¤ãƒ†ãƒ é…å¸ƒã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: false
+# Kitså°å…¥æ™‚ã®ã¿å‹•ä½œã—ã¾ã™ã€‚
+# ã‚­ãƒƒãƒˆåã‚’æŒ‡å®šã™ã‚‹ã“ã¨ã§åˆãƒ­ã‚°ã‚¤ãƒ³æ™‚ã«é…å¸ƒã•ã‚Œã¾ã™ã€‚
 FirstJoinItem:
   Enable: false
   KitName: Hunter
 
-#ƒvƒŒƒCƒ„[ƒ`ƒƒƒbƒg‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#%player‚ÅƒvƒŒƒCƒ„[‚ğæ“¾‚µ‚Ü‚·B
-#%chat‚ÅƒvƒŒƒCƒ„[‚Ìƒ`ƒƒƒbƒg‚ğæ“¾‚µ‚Ü‚·B
-#%time‚ÅTimesofDay‚Éİ’è‚µ‚½‚ğæ“¾‚µ‚Ü‚·B
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: false
+## === ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒãƒ£ãƒƒãƒˆã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: false
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# %player ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %chat ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ£ãƒƒãƒˆã‚’å–å¾—ã—ã¾ã™ã€‚
+# %time ã§TimesofDayã«è¨­å®šã—ãŸæ™‚åˆ»ã‚’å–å¾—ã—ã¾ã™ã€‚
 ChatMessageFormat:
   Enable: false
   Message: '<&e%player&f> %chat'
 
-#ƒLƒbƒNƒƒbƒZ[ƒW‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#BroadcastMessage‚ÍƒT[ƒo[‘S‘Ì‚É—¬‚ê‚éƒƒbƒZ[ƒW‚Å‚·B
-#none‚ÅƒƒbƒZ[ƒW‚Ìİ’è‚ğ–³Œø‰»‚Å‚«‚Ü‚·B
-#%player‚ÅƒvƒŒƒCƒ„[‚ğæ“¾‚µ‚Ü‚·B
-#%reason‚Å——R‚ğæ“¾‚Å‚«‚Ü‚·B
-#%line‚Å‰üs‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B(BroadcastMessageˆÈŠO‚Åg—p‰Â”\)
-#%time‚ÅTimesofDay‚Éİ’è‚µ‚½‚ğæ“¾‚µ‚Ü‚·B
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: false
+## === ã‚­ãƒƒã‚¯ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: false
+# BroadcastMessageã¯ã‚µãƒ¼ãƒãƒ¼å…¨ä½“ã«æµã‚Œã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã§ã™ã€‚
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# none ã§ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®šã‚’ç„¡åŠ¹åŒ–ã§ãã¾ã™ã€‚
+# %player ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %reason ã§ç†ç”±ã‚’å–å¾—ã§ãã¾ã™ã€‚
+# %line ã§æ”¹è¡Œã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚(BroadcastMessageä»¥å¤–ã§ä½¿ç”¨å¯èƒ½)
+# %time ã§TimesofDayã«è¨­å®šã—ãŸæ™‚åˆ»ã‚’å–å¾—ã—ã¾ã™ã€‚
 PlayerKickMessage:
   Enable: false
-  BanMessage: '&c‚ ‚È‚½‚ÍBan‚³‚ê‚Ü‚µ‚½B'
-  KickMessage: '&e‚ ‚È‚½‚ÍKick‚³‚ê‚Ü‚µ‚½B'
-  AFKMessage: '&c•ú’u‚µ‚Ä‚¢‚½‚½‚ßKick‚³‚ê‚Ü‚µ‚½I'
-  BanBroadcastMessage: '&c%player‚³‚ñ‚ªBan‚³‚ê‚Ü‚µ‚½I'
-  KickBroadcastMessage: '&c%player‚³‚ñ‚ªKick‚³‚ê‚Ü‚µ‚½I'
-  AFKBroadcastMessage: '&c%player‚³‚ñ‚ª•ú’u‚µ‚Ä‚¢‚½‚½‚ßKick‚³‚ê‚Ü‚µ‚½I'
+  BanMessage: '&cã‚ãªãŸã¯Banã•ã‚Œã¾ã—ãŸã€‚'
+  KickMessage: '&eã‚ãªãŸã¯Kickã•ã‚Œã¾ã—ãŸã€‚'
+  AFKMessage: '&cæ”¾ç½®ã—ã¦ã„ãŸãŸã‚Kickã•ã‚Œã¾ã—ãŸï¼'
+  BanBroadcastMessage: '&c%playerã•ã‚“ãŒBanã•ã‚Œã¾ã—ãŸï¼'
+  KickBroadcastMessage: '&c%playerã•ã‚“ãŒKickã•ã‚Œã¾ã—ãŸï¼'
+  AFKBroadcastMessage: '&c%playerã•ã‚“ãŒæ”¾ç½®ã—ã¦ã„ãŸãŸã‚Kickã•ã‚Œã¾ã—ãŸï¼'
 
-#ƒƒOƒCƒ“ƒLƒbƒNƒƒbƒZ[ƒW‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#%player‚ÅƒvƒŒƒCƒ„[‚ğæ“¾‚µ‚Ü‚·B
-#%line‚Å‰üs‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B
-#%time‚ÅTimesofDay‚Éİ’è‚µ‚½‚ğæ“¾‚µ‚Ü‚·B
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: false
+## === ãƒ­ã‚°ã‚¤ãƒ³ã‚­ãƒƒã‚¯ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: false
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# %player ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %line ã§æ”¹è¡Œã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚
+# %time ã§TimesofDayã«è¨­å®šã—ãŸæ™‚åˆ»ã‚’å–å¾—ã—ã¾ã™ã€‚
 PlayerLoginKickMessage:
   Enable: false
-  BanMessage: '&cBAN‚³‚ê‚Ä‚¢‚é‚½‚ßƒƒOƒCƒ“‚Å‚«‚Ü‚¹‚ñB'
-  WhiteListMessage: 'ƒzƒƒCƒgƒŠƒXƒg‚ª—LŒø‚É‚È‚Á‚Ä‚¢‚é‚½‚ßƒƒOƒCƒ“‚Å‚«‚Ü‚¹‚ñB'
+  BanMessage: '&cBANã•ã‚Œã¦ã„ã‚‹ãŸã‚ãƒ­ã‚°ã‚¤ãƒ³ã§ãã¾ã›ã‚“ã€‚'
+  WhiteListMessage: 'ãƒ›ãƒ¯ã‚¤ãƒˆãƒªã‚¹ãƒˆãŒæœ‰åŠ¹ã«ãªã£ã¦ã„ã‚‹ãŸã‚ãƒ­ã‚°ã‚¤ãƒ³ã§ãã¾ã›ã‚“ã€‚'
 
-#ƒƒOƒCƒ“‚ÌƒƒbƒZ[ƒW‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#ƒvƒŒƒCƒ„[‚ÌƒƒOƒCƒ“ƒƒOƒCƒ“ƒƒbƒZ[ƒW‚Æ‚Í•Ê‚ÉƒƒbƒZ[ƒW‚ğ•\¦‚Å‚«‚Ü‚·B
-#%player‚ÅƒvƒŒƒCƒ„[‚ğæ“¾‚µ‚Ü‚·B
-#%time‚ÅTimesofDay‚Éİ’è‚µ‚½‚ğæ“¾‚µ‚Ü‚·B
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: true
-PlayerLoginMessage:
-  Enable: true
-  Message:
-  - 'ƒAƒbƒvƒf[ƒgî•ñ: ƒeƒXƒg‚Å‚·B'
-
-#ƒT[ƒo[ƒ‹[ƒ‹‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: true
+## === ã‚µãƒ¼ãƒãƒ¼ãƒ«ãƒ¼ãƒ«ã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: false
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
 Rules:
-  Enable: true
+  Enable: false
   Message:
-  - '&b---------&aƒT[ƒo[ƒ‹[ƒ‹&b---------'
-  - '&eŠy‚µ‚ñ‚Å‚­‚¾‚³‚¢'
-  - '&eˆ¥A‚ğ‚µ‚Ä‚­‚¾‚³‚¢'
+  - '&b---------&aã‚µãƒ¼ãƒãƒ¼ãƒ«ãƒ¼ãƒ«&b---------'
+  - '&eæ¥½ã—ã‚“ã§ãã ã•ã„'
+  - '&eæŒ¨æ‹¶ã‚’ã—ã¦ãã ã•ã„'
 
-#ƒ^ƒCƒgƒ‹‚Ì•\¦ŠÔ‚È‚Ç‚Ìİ’è
-#FadeInF•\¦‚·‚é‚Ü‚Å‚ÌŠÔ
-#StayF•\¦‚³‚¹‚Ä‚¢‚éŠÔ
-#FadeOutFÁ‚¦‚é‚Ü‚Å‚ÌŠÔ
+## === ã‚¿ã‚¤ãƒˆãƒ«ã®è¡¨ç¤ºæ™‚é–“ãªã©ã®è¨­å®š === ##
+# FadeIn è¡¨ç¤ºã™ã‚‹ã¾ã§ã®æ™‚é–“
+# Stay è¡¨ç¤ºã—ã¦ã„ã‚‹æ™‚é–“
+# FadeOut æ¶ˆãˆã‚‹ã¾ã§ã®æ™‚é–“
 TitleTime:
   FadeIn: 10
   Stay: 40
   FadeOut: 10
 
-#ƒ^ƒCƒgƒ‹ƒƒbƒZ[ƒW‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#%player‚ÅƒvƒŒƒCƒ„[‚ğæ“¾‚µ‚Ü‚·B
-#%time‚ÅTimesofDay‚Éİ’è‚µ‚½‚ğæ“¾‚µ‚Ü‚·B
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: true
+## === ã‚¿ã‚¤ãƒˆãƒ«ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: true
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# %player ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %time ã§TimesofDayã«è¨­å®šã—ãŸæ™‚åˆ»ã‚’å–å¾—ã—ã¾ã™ã€‚
 Title:
   Enable: true
-  TitleMessage: '&aƒeƒXƒg1'
-  SubTitleMessage: '&eƒeƒXƒg2'
+  TitleMessage: '&aãƒ†ã‚¹ãƒˆ1'
+  SubTitleMessage: '&eãƒ†ã‚¹ãƒˆ2'
 
-#ƒ^ƒuƒ^ƒCƒgƒ‹‚Ìİ’è
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#%player‚ÅƒvƒŒƒCƒ„[‚ğæ“¾‚µ‚Ü‚·B
-#%time‚ÅTimesofDay‚Éİ’è‚µ‚½‚ğæ“¾‚µ‚Ü‚·B
-#¦ƒƒbƒZ[ƒW‚É%time‚ªŠÜ‚Ü‚ê‚Ä‚¢‚é‚Æƒ^ƒuƒ^ƒCƒgƒ‹‚ª20tick–ˆ‚ÉXV‚³‚ê‚Ü‚·B
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: true
+## === ã‚¿ãƒ–ã‚¿ã‚¤ãƒˆãƒ«ã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: true
+# ã‚¿ãƒ–ã‚¿ã‚¤ãƒˆãƒ«ã« %time ãŒå«ã¾ã‚Œã¦ã„ã‚‹ã¨ã‚¿ã‚¤ãƒãƒ¼ãŒã‚¹ã‚¿ãƒ¼ãƒˆã—ã¾ã™ã€‚
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# %player ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %time ã§TimesofDayã«è¨­å®šã—ãŸæ™‚åˆ»ã‚’å–å¾—ã—ã¾ã™ã€‚
 TabTitle:
   Enable: true
-  Header: '&dƒeƒXƒg1'
-  Footer: '&bƒeƒXƒg2'
+  Header: '&dãƒ†ã‚¹ãƒˆ1'
+  Footer: '&bãƒ†ã‚¹ãƒˆ2'
 
-#ƒT[ƒo[ƒAƒCƒRƒ“‚Ìİ’è
-#ƒAƒCƒRƒ“‚ÍServerIcon‚É•Û‘¶‚µ‚Ä‚­‚¾‚³‚¢B
-#ƒtƒ@ƒCƒ‹‚É“ü‚ê‚½ƒAƒCƒRƒ“‚ğƒ‰ƒ“ƒ_ƒ€‚Å•\¦‚µ‚Ü‚·B
+## === ã‚µãƒ¼ãƒãƒ¼ã‚¢ã‚¤ã‚³ãƒ³ã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: false
+# ã‚¢ã‚¤ã‚³ãƒ³ã¯ServerIconã«ä¿å­˜ã—ã¦ãã ã•ã„ã€‚
+# ãƒ•ã‚¡ã‚¤ãƒ«ã«å…¥ã‚ŒãŸã‚¢ã‚¤ã‚³ãƒ³ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã§è¡¨ç¤ºã—ã¾ã™ã€‚
 ServerIcon:
   Enable: false
 
-#Motd‚Ìİ’è 
-#—¼•û—LŒø‚É‚µ‚Ä‚¢‚éê‡‚ÍRandomMotd‚ª—Dæ‚³‚ê‚Ü‚·B
-#&‚ÅF‚ğw’è‚Å‚«‚Ü‚·BColorCodeList‚ÌURLQÆ
-#%players‚ÅƒT[ƒo[‚ÉƒƒOƒCƒ“‚µ‚Ä‚¢‚él”‚ğæ“¾‚µ‚Ü‚·B
-#%maxplayers‚ÅÅ‘åÚ‘±l”‚ğæ“¾‚µ‚Ü‚·B
-#%servername‚ÅƒT[ƒo[–¼‚ğæ“¾‚µ‚Ü‚·B
-#%version‚ÅƒT[ƒo[‚Ìƒo[ƒWƒ‡ƒ“‚ğæ“¾‚µ‚Ü‚·B
-#%time‚ÅTimesofDay‚Éİ’è‚µ‚½‚ğæ“¾‚µ‚Ü‚·B
-# true‚Å—LŒø false‚Å–³Œø
-#‰Šú: true
+## === Motdã®è¨­å®š === ##
+# [true ã§æœ‰åŠ¹ | false ã§ç„¡åŠ¹]
+# åˆæœŸ: true
+# ä¸¡æ–¹æœ‰åŠ¹ã«ã—ã¦ã„ã‚‹å ´åˆã¯RandomMotdãŒå„ªå…ˆã•ã‚Œã¾ã™ã€‚
+# & ã§ã‚«ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+# %players ã§ã‚µãƒ¼ãƒãƒ¼ã«ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã„ã‚‹äººæ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %maxplayers ã§æœ€å¤§æ¥ç¶šäººæ•°ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %servername ã§ã‚µãƒ¼ãƒãƒ¼åã‚’å–å¾—ã—ã¾ã™ã€‚
+# %version ã§ã‚µãƒ¼ãƒãƒ¼ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’å–å¾—ã—ã¾ã™ã€‚
+# %time ã§TimesofDayã«è¨­å®šã—ãŸæ™‚åˆ»ã‚’å–å¾—ã—ã¾ã™ã€‚
 RandomMotd:
   Enable: false
   Message:
     test1:
-      - '&1‚æ‚¤‚±‚»ƒ}ƒCƒ“ƒNƒ‰ƒtƒgƒT[ƒo[‚Ö'
-      - '&2ƒo[ƒWƒ‡ƒ“%version &3Œ»İƒT[ƒo[‚Å%playersl‚ª—V‚ñ‚Å‚Ü‚·'
+      - '&1ã‚ˆã†ã“ããƒã‚¤ãƒ³ã‚¯ãƒ©ãƒ•ãƒˆã‚µãƒ¼ãƒãƒ¼ã¸'
+      - '&2ãƒãƒ¼ã‚¸ãƒ§ãƒ³%version &3ç¾åœ¨ã‚µãƒ¼ãƒãƒ¼ã§%playersäººãŒéŠã‚“ã§ã¾ã™'
     test2:
-      - '&4‚æ‚¤‚±‚»ƒ}ƒCƒ“ƒNƒ‰ƒtƒgƒT[ƒo[‚Ö'
-      - '&5ƒo[ƒWƒ‡ƒ“%version &7Œ»İƒT[ƒo[‚Å%playersl‚ª—V‚ñ‚Å‚Ü‚·'
+      - '&4ã‚ˆã†ã“ããƒã‚¤ãƒ³ã‚¯ãƒ©ãƒ•ãƒˆã‚µãƒ¼ãƒãƒ¼ã¸'
+      - '&5ãƒãƒ¼ã‚¸ãƒ§ãƒ³%version &7ç¾åœ¨ã‚µãƒ¼ãƒãƒ¼ã§%playersäººãŒéŠã‚“ã§ã¾ã™'
 Motd:
   Enable: true
   Message:
-  - '&b‚æ‚¤‚±‚»ƒ}ƒCƒ“ƒNƒ‰ƒtƒgƒT[ƒo[‚Ö'
-  - '&dƒo[ƒWƒ‡ƒ“%version &6Œ»İƒT[ƒo[‚Å%playersl‚ª—V‚ñ‚Å‚Ü‚·'
+  - '&bã‚ˆã†ã“ããƒã‚¤ãƒ³ã‚¯ãƒ©ãƒ•ãƒˆã‚µãƒ¼ãƒãƒ¼ã¸'
+  - '&dãƒãƒ¼ã‚¸ãƒ§ãƒ³%version &6ç¾åœ¨ã‚µãƒ¼ãƒãƒ¼ã§%playersäººãŒéŠã‚“ã§ã¾ã™'
