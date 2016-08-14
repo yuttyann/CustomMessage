@@ -10,14 +10,8 @@ import com.github.yuttyann.custommessage.file.Config;
 
 public class Sounds {
 
-	private static Main plugin;
-
-	public Sounds(Main plugin) {
-		Sounds.plugin = plugin;
-	}
-
 	public void playSound(final Player player, String sound, final String soundtype) {
-		String soundlist = Config.getString(sound);
+		String soundlist = Config.getString(sound, "");
 		String[] soundfxList = soundlist.replace(" ", "").split(",");
 		for (String soundfx : soundfxList) {
 			final String[] args = soundfx.split("-");
@@ -29,12 +23,12 @@ public class Sounds {
 						Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "サウンドが存在しないか設定を間違えている可能性があります。");
 					}
 				}
-			}.runTaskLater(plugin, parseLong(args[3]));
+			}.runTaskLater(Main.instance, parseLong(args[3]));
 		}
 	}
 
 	public void soundType(Player player, String soundtype, String[] args) {
-		String type = Config.getString(soundtype);
+		String type = Config.getString(soundtype, "");
 		switch (type) {
 		case "player":
 			player.playSound(player.getLocation(), Sound.valueOf(args[0].toUpperCase()), parseFloat(args[1]), parseFloat(args[2]));
@@ -50,7 +44,7 @@ public class Sounds {
 	}
 
 	public boolean soundAuthority(Player player, String soundauthority, Permission permission) {
-		String type = Config.getString(soundauthority);
+		String type = Config.getString(soundauthority, "");
 		switch (type) {
 		case "none":
 			return true;
@@ -76,6 +70,6 @@ public class Sounds {
 	}
 
 	public static Sounds getSounds() {
-		return new Sounds(plugin);
+		return new Sounds();
 	}
 }
