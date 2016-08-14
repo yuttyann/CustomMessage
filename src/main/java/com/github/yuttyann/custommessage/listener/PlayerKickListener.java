@@ -105,8 +105,13 @@ public class PlayerKickListener implements Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private boolean isBanned(Player player) {
-		return Bukkit.getBanList(BanList.Type.NAME).isBanned(player.getName());
+		if (Utils.isUpperVersion("1.7.9")) {
+			return Bukkit.getBanList(BanList.Type.NAME).isBanned(player.getName());
+		} else {
+			return Bukkit.getOfflinePlayer(player.getName()).isBanned();
+		}
 	}
 
 	private String replaceLoginKick(String message, Player player, PlayerLoginEvent event) {
