@@ -36,10 +36,7 @@ public class CustomMessage {
 	}
 
 	@Deprecated
-	public String getItemName(Player player, String nullstr) {
-		if (player == null) {
-			return "";
-		}
+	public String old_getItemName(Player player, String nullstr) {
 		ItemStack item = getItemInHand(player);
 		if (item == null || item.getType() == Material.AIR) {
 			return nullstr;
@@ -50,10 +47,7 @@ public class CustomMessage {
 		return item.getItemMeta().getDisplayName();
 	}
 
-	public String getWeaoonName(Player player, String nullstr) {
-		if (player == null) {
-			return "";
-		}
+	public String getItemName(Player player, String nullstr) {
 		ItemStack item = getItemInHand(player);
 		String displayname = item.getItemMeta().getDisplayName();
 		if (item == null || item.getType() == Material.AIR) {
@@ -62,25 +56,29 @@ public class CustomMessage {
 		if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) {
 			return item.getType().toString();
 		}
-		if (Utils.isPluginEnabled("CrackShot") && getWeaponTitle(item) != null) {
+		if (getWeaponTitle(item) != null) {
 			String weaponname = "";
+			String index = "";
 			if (displayname.contains("▪ «")) {
-				weaponname = displayname.substring(displayname.indexOf("▪ «"), displayname.length());
-			} else if (displayname.contains("- «")) {
-				weaponname = displayname.substring(displayname.indexOf("- «"), displayname.length());
+				index = "▪ «";
 			} else if (displayname.contains("▫ «")) {
-				weaponname = displayname.substring(displayname.indexOf("▫ «"), displayname.length());
+				index = "▫ «";
+			} else if (displayname.contains("- «")) {
+				index = "- «";
 			} else if (displayname.contains("«")){
-				weaponname = displayname.substring(displayname.indexOf("«"), displayname.length());
+				index = "«";
 			}
+			weaponname = displayname.substring(displayname.indexOf(index), displayname.length());
 			return displayname.replace(weaponname, "");
 		}
 		return displayname;
 	}
 
-	public void giveKit(Player player, String kitname) {
+	public void giveKits(Player player, String kitname) {
 		if (Utils.isPluginEnabled("Kits")) {
 			ItemListener.give(player, kitname);
+		} else {
+
 		}
 	}
 
@@ -155,7 +153,7 @@ public class CustomMessage {
 		}
 	}
 
-	private String getPackage() {
+	public String getPackage() {
 		Server server = Bukkit.getServer();
 		String packageName = server.getClass().getPackage().getName();
 		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
