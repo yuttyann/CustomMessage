@@ -28,6 +28,7 @@ import com.github.yuttyann.custommessage.util.Utils;
 
 public class Main extends JavaPlugin {
 
+	public static Main instance;
 	private Logger logger;
 	private PluginDescriptionFile pluginyml;
 	private HashMap<String, TabExecutor> commands;
@@ -37,7 +38,11 @@ public class Main extends JavaPlugin {
 		setUpFile();
 		loadClass();
 		loadCommand();
+		instance = this;
 		logger = Logger.getLogger("Minecraft");
+		if (Config.getBoolean("Disable_All_Functions")) {
+			logger.info("APIモードで起動します。");
+		}
 		if (!Utils.isPluginEnabled("ProtocolLib")) {
 			logger.severe("ProtocolLibが導入されていないため、PlayerCountMessageを無効化しました。");
 		}
@@ -75,11 +80,15 @@ public class Main extends JavaPlugin {
 			} else {
 				new Config(this, "s-jis");
 			}
+		} else {
+			new Config(this, "utf-8");
 		}
 	}
 
 	private void loadClass() {
-		new Sounds(this);
+		if (Config.getBoolean("Disable_All_Functions")) {
+			return;
+		}
 		getServer().getPluginManager().registerEvents(new PlayerChatListener(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(this), this);
@@ -90,6 +99,9 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadCommand() {
+		if (Config.getBoolean("Disable_All_Functions")) {
+			return;
+		}
 		setCommandTemplate();
 		commands = new HashMap<String, TabExecutor>();
 		commands.put("custommessage", new CustomMessageCommand(this));
@@ -102,7 +114,9 @@ public class Main extends JavaPlugin {
 	private void setCommandTemplate() {
 		new CommandTemplate(this);
 		CommandTemplate.addCommand("/custommessage reload - Configの再読み込みをします。");
-		CommandTemplate.addCommand("/custommessage rules - ルールを表示します。");
+		if (Config.getBoolean("Rules.Enable")) {
+			CommandTemplate.addCommand("/custommessage rules - ルールを表示します。");
+		}
 		CommandTemplate.addCommand("/custommessage title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。");
 		CommandTemplate.addCommand("/custommessage tabtitle <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。");
 	}
