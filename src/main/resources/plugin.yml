@@ -1,18 +1,19 @@
 name: CustomMessage
 main: com.github.yuttyann.custommessage.Main
-version: 6.5
+version: 6.6
 softdepend: [ProtocolLib, Kits, CrackShot]
 author: yuttyann44581
 website: http://file.yuttyann44581.net/
 
 commands:
   custommessage:
-    description: カスタムメッセージコマンド
+    description: CustomMessage コンフィグ、タイトル 関係コマンド
     usage: |
            /<command> reload - Configの再読み込みをします。
            /<command> rules - ルールを表示します。
            /<command> title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。
            /<command> tabtitle <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。
+    aliases: [cmg]
   ban:
     description: Prevents the specified player from using this server
     usage: /<command> <player> [reason ...]

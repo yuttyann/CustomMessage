@@ -22,17 +22,11 @@ import com.github.yuttyann.custommessage.util.Utils;
 
 public class ProtocolLibPacket {
 
-	private Main plugin;
+	private static final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
 
-	private final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
-
-	public ProtocolLibPacket(Main plugin) {
-		this.plugin = plugin;
-	}
-
-	public void sendPlayerCountMessage() {
+	public static void sendPlayerCountMessage() {
 		if (Config.getBoolean("PlayerCountMessage.Enable")) {
-			manager.addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, Arrays.asList(new PacketType[] { PacketType.Status.Server.OUT_SERVER_INFO }), new ListenerOptions[] { ListenerOptions.ASYNC }) {
+			manager.addPacketListener(new PacketAdapter(Main.instance, ListenerPriority.NORMAL, Arrays.asList(new PacketType[]{ PacketType.Status.Server.OUT_SERVER_INFO }), new ListenerOptions[]{ ListenerOptions.ASYNC }) {
 				@Override
 				public void onPacketSending(PacketEvent event) {
 					WrappedServerPing ping = event.getPacket().getServerPings().read(0);
@@ -59,7 +53,7 @@ public class ProtocolLibPacket {
 		}
 	}
 
-	private boolean isNone() {
+	private static boolean isNone() {
 		List<String> list = Config.getStringList("PlayerCountMessage.Message");
 		if(list.get(0).equals("none") && list.size() == 1) {
 			return true;

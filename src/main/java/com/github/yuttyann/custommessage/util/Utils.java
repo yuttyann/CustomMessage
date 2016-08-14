@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -57,6 +58,10 @@ public class Utils {
 		return new Random();
 	}
 
+	public static String getLineFeedCode() {
+		return "\n";
+	}
+
 	public static String getVersion() {
 		String version = Bukkit.getServer().getVersion();
 		version = version.split("\\(")[1];
@@ -67,11 +72,52 @@ public class Utils {
 	public static String stringBuilder(String[] args, Integer integer) {
 		StringBuilder builder = new StringBuilder();
 		for (int i = integer; i < args.length; i++) {
-			if (i > integer)
+			if (i > integer) {
 				builder.append(" ");
+			}
 			builder.append(args[i]);
 		}
 		return builder.toString();
+	}
+
+	public static String getName(UUID uuid) {
+		String name = null;
+		Player online = getOnlinePlayer(uuid);
+		if (online != null) {
+			name = online.getName();
+		}
+		OfflinePlayer offline = getOfflinePlayer(uuid);
+		if (offline != null) {
+			name = offline.getName();
+		}
+		return name;
+	}
+
+	public static UUID getUniqueId(String name) {
+		UUID id = null;
+		Player online = getOnlinePlayer(name);
+		if (online != null) {
+			id = online.getUniqueId();
+		}
+		OfflinePlayer offline = getOfflinePlayer(name);
+		if (offline != null) {
+			id = offline.getPlayer().getUniqueId();
+		}
+		return id;
+	}
+
+	public static UUID getUniqueId(Player player) {
+		UUID id = null;
+		String name = player.getName();
+		Player online = getOnlinePlayer(name);
+		if (online != null) {
+			id = online.getUniqueId();
+		}
+		OfflinePlayer offline = getOfflinePlayer(name);
+		if (offline != null) {
+			id = offline.getPlayer().getUniqueId();
+		}
+		return id;
 	}
 
 	public static Set<String> getConfigSection(YamlConfiguration yaml, String path, boolean key) {
@@ -100,9 +146,27 @@ public class Utils {
 		return null;
 	}
 
+	public static Player getOnlinePlayer(UUID uuid) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (player.getUniqueId().equals(uuid)) {
+				return player;
+			}
+		}
+		return null;
+	}
+
 	public static OfflinePlayer getOfflinePlayer(String name) {
 		for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
 			if (player.getName().equals(name)) {
+				return player;
+			}
+		}
+		return null;
+	}
+
+	public static OfflinePlayer getOfflinePlayer(UUID uuid) {
+		for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+			if (player.getPlayer().getUniqueId().equals(uuid)) {
 				return player;
 			}
 		}

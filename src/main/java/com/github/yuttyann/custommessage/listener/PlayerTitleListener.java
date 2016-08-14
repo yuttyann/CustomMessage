@@ -63,7 +63,9 @@ public class PlayerTitleListener implements Listener {
 		BukkitRunnable timer = new BukkitRunnable() {
 			@Override
 			public void run() {
-				CustomMessage.getAPI().sendFullTabTitle(player, Header, Footer);
+				if (player != null) {
+					CustomMessage.getAPI().sendFullTabTitle(player, Header, Footer);
+				}
 			}
 		};
 		timer.runTaskTimer(plugin, 0, 20);

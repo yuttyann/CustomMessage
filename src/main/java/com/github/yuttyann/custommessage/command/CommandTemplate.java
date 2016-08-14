@@ -22,6 +22,10 @@ public class CommandTemplate {
 		return commandtemplate;
 	}
 
+	public static void clear() {
+		commandtemplate.clear();
+	}
+
 	public static void addCommand(String command) {
 		commandtemplate.add(command);
 	}

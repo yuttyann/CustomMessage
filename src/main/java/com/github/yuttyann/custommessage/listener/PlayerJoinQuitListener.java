@@ -51,7 +51,7 @@ public class PlayerJoinQuitListener implements Listener {
 			}
 			if (Config.getBoolean("FirstJoinItem.Enable")) {
 				String kitname = Config.getString("FirstJoinItem.KitName");
-				CustomMessage.getAPI().giveKit(player, kitname);
+				CustomMessage.getAPI().giveKits(player, kitname);
 			}
 			if (!Config.getString("Sounds.FirstJoinSound").equals("none")) {
 				if (sound.soundAuthority(player, "SoundAuthoritys.FirstJoinSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_FIRSTJOIN)) {

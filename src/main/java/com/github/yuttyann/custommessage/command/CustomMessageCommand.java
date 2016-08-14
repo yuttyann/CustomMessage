@@ -32,12 +32,25 @@ public class CustomMessageCommand implements TabExecutor {
 					return true;
 				}
 				Config.reloadConfig();
+				CommandTemplate.clear();
+				if (Config.getBoolean("Rules.Enable")) {
+					CommandTemplate.clear();
+					CommandTemplate.addCommand("/custommessage reload - Configの再読み込みをします。");
+					CommandTemplate.addCommand("/custommessage rules - ルールを表示します。");
+					CommandTemplate.addCommand("/custommessage title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。");
+					CommandTemplate.addCommand("/custommessage tabtitle <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。");
+				} else {
+					CommandTemplate.clear();
+					CommandTemplate.addCommand("/custommessage reload - Configの再読み込みをします。");
+					CommandTemplate.addCommand("/custommessage title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。");
+					CommandTemplate.addCommand("/custommessage tabtitle <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。");
+				}
 				sender.sendMessage(ChatColor.GREEN + "Configの再読み込みが完了しました。");
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("rules")) {
 				if (!Config.getBoolean("Rules.Enable")) {
-					Command.broadcastCommandMessage(sender, "Unknown command. Type \"/help\" for help.");
+					CommandTemplate.sendCommandTemplate(sender);
 					return true;
 				}
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_RULES, sender)) {
@@ -99,19 +112,6 @@ public class CustomMessageCommand implements TabExecutor {
 				}
 			}
 			return commands;
-		}
-		if (args.length == 2) {
-			if (args[0].equalsIgnoreCase("title") || args[0].equalsIgnoreCase("tabtitle")) {
-				String prefix = args[1].toLowerCase();
-				ArrayList<String> commands = new ArrayList<String>();
-				for (Player player : Utils.getOnlinePlayers()) {
-					String name = player.getName();
-					if (name.startsWith(prefix)) {
-						commands.add(name);
-					}
-				}
-				return commands;
-			}
 		}
 		return null;
 	}

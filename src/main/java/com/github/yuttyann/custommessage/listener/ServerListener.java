@@ -58,7 +58,7 @@ public class ServerListener implements Listener {
 			}
 		}
 		if (Utils.isPluginEnabled("ProtocolLib")) {
-			new ProtocolLibPacket(plugin).sendPlayerCountMessage();
+			ProtocolLibPacket.sendPlayerCountMessage();
 		}
 	}
 
@@ -69,7 +69,7 @@ public class ServerListener implements Listener {
 		if (randomlist != null && randomlist.size() >= 1 && randomlist.size() <= 2) {
 			motd = randomlist.get(0);
 			if (randomlist.size() == 2) {
-				motd = motd + "\n" + randomlist.get(1);
+				motd = motd + Utils.getLineFeedCode() + randomlist.get(1);
 			}
 		}
 		return motd;
@@ -81,7 +81,7 @@ public class ServerListener implements Listener {
 		if (list != null && list.size() >= 1 && list.size() <= 2) {
 			motd = list.get(0);
 			if (list.size() == 2) {
-				motd = motd + "\n" + list.get(1);
+				motd = motd + Utils.getLineFeedCode() + list.get(1);
 			}
 		}
 		return motd;

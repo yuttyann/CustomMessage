@@ -15,6 +15,7 @@ import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.util.Utils;
 
 
 public class PlayerKickListener implements Listener {
@@ -43,7 +44,7 @@ public class PlayerKickListener implements Listener {
 				}
 				if (!Config.getString("PlayerKickMessage.BanMessage").equals("none")) {
 					String banmessage = Config.getString("PlayerKickMessage.BanMessage");
-					banmessage = banmessage.replace("%line", "\n");
+					banmessage = banmessage.replace("%line", Utils.getLineFeedCode());
 					banmessage = replaceKick(banmessage, player, event);
 					event.setReason(banmessage);
 				}
@@ -61,7 +62,7 @@ public class PlayerKickListener implements Listener {
 					}
 					if (!Config.getString("PlayerKickMessage.AFKMessage").equals("none")) {
 						String afkmessage = Config.getString("PlayerKickMessage.AFKMessage");
-						afkmessage = afkmessage.replace("%line", "\n");
+						afkmessage = afkmessage.replace("%line", Utils.getLineFeedCode());
 						afkmessage = replaceKick(afkmessage, player, event);
 						event.setReason(afkmessage);
 					}
@@ -78,7 +79,7 @@ public class PlayerKickListener implements Listener {
 					}
 					if (!Config.getString("PlayerKickMessage.KickMessage").equals("none")) {
 						String kickmessage = Config.getString("PlayerKickMessage.KickMessage");
-						kickmessage = kickmessage.replace("%line", "\n");
+						kickmessage = kickmessage.replace("%line", Utils.getLineFeedCode());
 						kickmessage = replaceKick(kickmessage, player, event);
 						event.setReason(kickmessage);
 					}
@@ -111,7 +112,7 @@ public class PlayerKickListener implements Listener {
 	private String replaceLoginKick(String message, Player player, PlayerLoginEvent event) {
 		message = message.replace("%player", player.getName());
 		message = message.replace("%time", TimeManager.getTimesofDay());
-		message = message.replace("%line", "\n");
+		message = message.replace("%line", Utils.getLineFeedCode());
 		message = message.replace("&", "§");
 		return message;
 	}
