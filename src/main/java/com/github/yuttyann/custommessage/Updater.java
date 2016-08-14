@@ -63,6 +63,10 @@ public class Updater implements Listener {
 		return content;
 	}
 
+	private String getFileName() {
+		return getPluginName() + " v"+ getVersion();
+	}
+
 	private String getPluginName() {
 		return pluginname;
 	}
@@ -99,7 +103,8 @@ public class Updater implements Listener {
 		FileOutputStream output = null;
 		sender.sendMessage(ChatColor.LIGHT_PURPLE + "プラグインのダウンロードを開始しています...");
 		try {
-			String prefix = "[" + getPluginName() + " v"+ getVersion() + ".jar]";
+			String filename = getFileName();
+			String prefix = "[" + filename + ".jar]";
 			URL url = new URL(getPluginURL());
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setAllowUserInteraction(false);
@@ -114,7 +119,7 @@ public class Updater implements Listener {
 			if (!downloads.exists()) {
 				downloads.mkdir();
 			}
-			File file = new File(plugin.getDataFolder(), "Downloads/" + getPluginName() + " v"+ getVersion() + ".jar");
+			File file = new File(plugin.getDataFolder(), "Downloads/" + filename + ".jar");
 			input = conn.getInputStream();
 			output = new FileOutputStream(file, false);
 			byte[] b = new byte[4096];
@@ -124,7 +129,7 @@ public class Updater implements Listener {
 			}
 			sender.sendMessage(ChatColor.GOLD + prefix + " のダウンロードが終了しました。");
 			sender.sendMessage(ChatColor.GOLD + prefix + " ファイルサイズ: " + getSize(file.length()));
-			sender.sendMessage(ChatColor.GOLD + prefix + " 保存場所: plugins/" + getPluginName() + "/Downloads/" + getPluginName() + " v"+ getVersion() + ".jar");
+			sender.sendMessage(ChatColor.GOLD + prefix + " 保存場所: plugins/" + getPluginName() + "/Downloads/" + filename + ".jar");
 		} catch (FileNotFoundException e) {
 			sender.sendMessage(ChatColor.RED + "エラーが発生しました。ファイルが存在しません(FileNotFoundException)");
 			errorMessageTemplate();
