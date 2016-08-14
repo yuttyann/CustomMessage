@@ -101,21 +101,15 @@ public class Utils {
 		}
 		OfflinePlayer offline = getOfflinePlayer(name);
 		if (offline != null) {
-			id = offline.getPlayer().getUniqueId();
-		}
-		return id;
-	}
-
-	public static UUID getUniqueId(Player player) {
-		UUID id = null;
-		String name = player.getName();
-		Player online = getOnlinePlayer(name);
-		if (online != null) {
-			id = online.getUniqueId();
-		}
-		OfflinePlayer offline = getOfflinePlayer(name);
-		if (offline != null) {
-			id = offline.getPlayer().getUniqueId();
+			if (Utils.isUpperVersion("1.7.9")) {
+				id = offline.getUniqueId();
+			} else {
+				try {
+					id = UUIDFetcher.getUUIDOf(name);
+				} catch (Exception e) {
+					return id;
+				}
+			}
 		}
 		return id;
 	}
@@ -165,9 +159,20 @@ public class Utils {
 	}
 
 	public static OfflinePlayer getOfflinePlayer(UUID uuid) {
+		boolean version1_7 = Utils.isUpperVersion("1.7.9");
 		for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-			if (player.getPlayer().getUniqueId().equals(uuid)) {
-				return player;
+			if (version1_7) {
+				if (player.getUniqueId().equals(uuid)) {
+					return player;
+				}
+			} else {
+				try {
+					if (UUIDFetcher.getUUIDOf(player.getName()).equals(uuid)) {
+						return player;
+					}
+				} catch (Exception e) {
+					continue;
+				}
 			}
 		}
 		return null;
@@ -182,17 +187,17 @@ public class Utils {
 			} else {
 				Player[] temp = ((Player[])Bukkit.class.getMethod("getOnlinePlayers", new Class<?>[0]).invoke(null, new Object[0]));
 				ArrayList<Player> players = new ArrayList<Player>();
-				for ( Player t : temp ) {
+				for (Player t : temp) {
 					players.add(t);
 				}
 				return players;
 			}
-		} catch (NoSuchMethodException ex) {
-			ex.printStackTrace();
-		} catch (InvocationTargetException ex) {
-			ex.printStackTrace();
-		} catch (IllegalAccessException ex) {
-			ex.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
 		return new ArrayList<Player>();
 	}
@@ -211,12 +216,12 @@ public class Utils {
 				}
 				return players;
 			}
-		} catch (NoSuchMethodException ex) {
-			ex.printStackTrace();
-		} catch (InvocationTargetException ex) {
-			ex.printStackTrace();
-		} catch (IllegalAccessException ex) {
-			ex.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
 		return new ArrayList<OfflinePlayer>();
 	}
