@@ -469,8 +469,9 @@ public class PlayerDeathListener implements Listener {
 		if (Utils.isUpperVersion("1.8")) {
 			return entity.getName();
 		}
-		if (entity.getCustomName() != null) {
-			return entity.getCustomName();
+		LivingEntity livingentity = (LivingEntity) entity;
+		if (livingentity.getCustomName() != null) {
+			return livingentity.getCustomName();
 		}
 		return entity.getType().toString();
 	}
