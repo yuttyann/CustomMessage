@@ -23,6 +23,7 @@ public class BanCommand implements TabExecutor {
 		this.plugin = plugin;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!Permission.has(Permission.BUKKIT_COMMAND_BAN_PLAYER, sender)) {
@@ -34,7 +35,11 @@ public class BanCommand implements TabExecutor {
 			return true;
 		}
 		String reason = args.length > 0 ? StringUtils.join(args, ' ', 1, args.length) : null;
-		Bukkit.getBanList(BanList.Type.NAME).addBan(args[0], reason, null, sender.getName());
+		if (Utils.isUpperVersion("1.7.9")) {
+			Bukkit.getBanList(BanList.Type.NAME).addBan(args[0], reason, null, sender.getName());
+		} else {
+			Bukkit.getOfflinePlayer(args[0]).setBanned(true);
+		}
 		Player player = Utils.getOnlinePlayer(args[0]);
 		if (player != null) {
 			if (args.length >= 2) {
