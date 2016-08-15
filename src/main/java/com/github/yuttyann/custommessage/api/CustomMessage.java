@@ -36,8 +36,8 @@ public class CustomMessage {
 	}
 
 	@Deprecated
-	public String old_getItemName(Player player, String nullstr) {
-		ItemStack item = getItemInHand(player);
+	public String getItemName_Old(Player player, String nullstr) {
+		ItemStack item = Utils.getItemInHand(player);
 		if (item == null || item.getType() == Material.AIR) {
 			return nullstr;
 		}
@@ -48,7 +48,7 @@ public class CustomMessage {
 	}
 
 	public String getItemName(Player player, String nullstr) {
-		ItemStack item = getItemInHand(player);
+		ItemStack item = Utils.getItemInHand(player);
 		String displayname = item.getItemMeta().getDisplayName();
 		if (item == null || item.getType() == Material.AIR) {
 			return nullstr;
@@ -74,20 +74,23 @@ public class CustomMessage {
 		return displayname;
 	}
 
+	public String getWeaponTitle(ItemStack item) {
+		if (Utils.isPluginEnabled("CrackShot")) {
+			return new CSUtility().getWeaponTitle(item);
+		}
+		return null;
+	}
+
+	public String getPackage() {
+		Server server = Bukkit.getServer();
+		String packageName = server.getClass().getPackage().getName();
+		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
+		return packageName;
+	}
+
 	public void giveKits(Player player, String kitname) {
 		if (Utils.isPluginEnabled("Kits")) {
 			ItemListener.give(player, kitname);
-		} else {
-
-		}
-	}
-
-	@SuppressWarnings("deprecation")
-	public ItemStack getItemInHand(Player player) {
-		if(Utils.isUpperVersion("1.9")) {
-			return player.getInventory().getItemInMainHand();
-		} else {
-			return player.getInventory().getItemInHand();
 		}
 	}
 
@@ -151,19 +154,5 @@ public class CustomMessage {
 		} else if (packageName.equalsIgnoreCase("v1_10_R1")) {
 			v1_10_R1.sendTabTitle(player, header, footer);
 		}
-	}
-
-	public String getPackage() {
-		Server server = Bukkit.getServer();
-		String packageName = server.getClass().getPackage().getName();
-		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
-		return packageName;
-	}
-
-	private String getWeaponTitle(ItemStack item) {
-		if (Utils.isPluginEnabled("CrackShot")) {
-			return new CSUtility().getWeaponTitle(item);
-		}
-		return null;
 	}
 }
