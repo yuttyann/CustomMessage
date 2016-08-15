@@ -36,7 +36,7 @@ public enum Permission {
 	}
 
 	public static Boolean has(Permission permission, CommandSender sender) {
-		return sender.hasPermission(permission.getNode());
+		return sender.hasPermission(getPermission(permission));
 	}
 
 	public static Boolean has(String permission, CommandSender sender) {
