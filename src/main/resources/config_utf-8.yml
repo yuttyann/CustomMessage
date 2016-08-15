@@ -116,8 +116,8 @@ SoundTypes:
 
 ## === サウンド権限の設定 === ##
 # none で全てのプレイヤーに音を再生できます。
-# operator でオペレーター権限を持っている人のみに音を再生できます。
-# permission でパーミッション権限を持っている人のみに音を再生できます。
+# operator でオペレーター権限を持っている人のみ音を再生できます。
+# permission でパーミッション権限を持っている人のみ音を再生できます。
 SoundAuthoritys:
   KillSoundAuthority: none
   DeathSoundAuthority: none
@@ -202,7 +202,7 @@ PlayerLoginMessage:
   Message:
   - 'アップデート情報: テストです。'
 
-## === 初ログインアイテム配布の設定 === ##
+## === アイテム配布の設定 === ##
 # [true で有効 | false で無効]
 # 初期: false
 # Kits導入時のみ動作します。
@@ -211,16 +211,16 @@ FirstJoinItem:
   Enable: false
   KitName: Hunter
 
-## === プレイヤーチャットの設定 === ##
+## === チャットの設定 === ##
 # [true で有効 | false で無効]
 # 初期: false
 # & でカラーコードを使用できます。
 # %player でプレイヤーを取得します。
-# %chat でプレイヤーのチャットを取得します。
+# %message でプレイヤーのチャットを取得します。
 # %time でTimesofDayに設定した時刻を取得します。
 ChatMessageFormat:
   Enable: false
-  Message: '<&e%player&f> %chat'
+  Message: '<&e%player&f> %message'
 
 ## === キックメッセージの設定 === ##
 # [true で有効 | false で無効]
