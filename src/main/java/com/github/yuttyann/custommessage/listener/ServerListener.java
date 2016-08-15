@@ -66,7 +66,7 @@ public class ServerListener implements Listener {
 		List<String> messagelist = new ArrayList<String>(Utils.getConfigSection(Config.getConfig(), "RandomMotd.Message", false));
 		List<String> randomlist = Config.getStringList("RandomMotd.Message." + messagelist.get(Utils.getRandom().nextInt(messagelist.size())));
 		String motd = "";
-		if (randomlist != null && randomlist.size() >= 1 && randomlist.size() <= 2) {
+		if (randomlist != null && randomlist.size() > 0 && randomlist.size() < 3) {
 			motd = randomlist.get(0);
 			if (randomlist.size() == 2) {
 				motd = motd + Utils.getLineFeedCode() + randomlist.get(1);
@@ -78,7 +78,7 @@ public class ServerListener implements Listener {
 	private String getMotd() {
 		List<String> list = Config.getStringList("Motd.Message");
 		String motd = "";
-		if (list != null && list.size() >= 1 && list.size() <= 2) {
+		if (list != null && list.size() > 0 && list.size() < 3) {
 			motd = list.get(0);
 			if (list.size() == 2) {
 				motd = motd + Utils.getLineFeedCode() + list.get(1);
