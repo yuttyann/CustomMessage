@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 public class Utils {
@@ -112,6 +113,15 @@ public class Utils {
 			}
 		}
 		return id;
+	}
+
+	@SuppressWarnings("deprecation")
+	public static ItemStack getItemInHand(Player player) {
+		if(Utils.isUpperVersion("1.9")) {
+			return player.getInventory().getItemInMainHand();
+		} else {
+			return player.getInventory().getItemInHand();
+		}
 	}
 
 	public static Set<String> getConfigSection(YamlConfiguration yaml, String path, boolean key) {
