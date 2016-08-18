@@ -49,13 +49,13 @@ public class CustomMessage {
 
 	public String getItemName(Player player, String nullstr) {
 		ItemStack item = Utils.getItemInHand(player);
-		String displayname = item.getItemMeta().getDisplayName();
 		if (item == null || item.getType() == Material.AIR) {
 			return nullstr;
 		}
 		if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) {
 			return item.getType().toString();
 		}
+		String displayname = item.getItemMeta().getDisplayName();
 		if (getWeaponTitle(item) != null) {
 			String weaponname = "";
 			String index = "";
