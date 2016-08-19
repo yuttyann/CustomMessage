@@ -1,4 +1,5 @@
-#API解説不完全版(詳しくはCustomMessage.javaをどうぞ)  全バージョン対応:  
+#API解説不完全版(詳しくは[CustomMessage.java](https://goo.gl/gqwULk "")をどうぞ)
+全バージョン対応:  
 ItemStack CustomMessage.getAPI().getItemInHand(player);  
 String CustomMessage.getAPI().getItemName(player, nullmessage);    
 getItemInHand説明：  
