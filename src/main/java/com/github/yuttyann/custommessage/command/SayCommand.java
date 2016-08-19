@@ -18,9 +18,11 @@ import com.github.yuttyann.custommessage.util.Utils;
 public class SayCommand implements TabExecutor {
 
 	Main plugin;
+	Boolean apimode;
 
-	public SayCommand(Main plugin) {
+	public SayCommand(Main plugin, Boolean apimode) {
 		this.plugin = plugin;
+		this.apimode = apimode;
 	}
 
 	@Override
@@ -33,8 +35,13 @@ public class SayCommand implements TabExecutor {
 			sender.sendMessage(ChatColor.RED + "Usage: /say <message ...>");
 			return true;
 		}
-		String message = Config.getString("Commands.Say");
-		message = message.replace("%name", getName(sender));
+		String message;
+		if (apimode) {
+			message = "&d[%sender] %message";
+		} else {
+			message = Config.getString("Commands.Say");
+		}
+		message = message.replace("%sender", getName(sender));
 		message = message.replace("%message", Utils.stringBuilder(args, 0).replace("&", "§"));
 		message = message.replace("&", "§");
 		Bukkit.broadcastMessage(message);

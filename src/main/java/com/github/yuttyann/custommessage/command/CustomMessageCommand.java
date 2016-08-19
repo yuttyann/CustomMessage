@@ -18,13 +18,19 @@ import com.github.yuttyann.custommessage.util.Utils;
 public class CustomMessageCommand implements TabExecutor {
 
 	Main plugin;
+	Boolean apimode;
 
-	public CustomMessageCommand(Main plugin) {
+	public CustomMessageCommand(Main plugin, Boolean apimode) {
 		this.plugin = plugin;
+		this.apimode = apimode;
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (apimode) {
+			sender.sendMessage("Unknown command. Type \"/help\" for help.");
+			return true;
+		}
 		if (args.length == 1) {
 			if (args[0].equalsIgnoreCase("reload")) {
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_RELOAD, sender)) {

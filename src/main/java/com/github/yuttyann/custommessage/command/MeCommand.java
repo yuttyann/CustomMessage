@@ -16,9 +16,11 @@ import com.github.yuttyann.custommessage.util.Utils;
 public class MeCommand implements TabExecutor {
 
 	Main plugin;
+	Boolean apimode;
 
-	public MeCommand(Main plugin) {
+	public MeCommand(Main plugin, Boolean apimode) {
 		this.plugin = plugin;
+		this.apimode = apimode;
 	}
 
 	@Override
@@ -31,8 +33,13 @@ public class MeCommand implements TabExecutor {
 			sender.sendMessage(ChatColor.RED + "Usage: /me <action>");
 			return true;
 		}
-		String message = Config.getString("Commands.Me");
-		message = message.replace("%name", sender.getName());
+		String message;
+		if (apimode) {
+			message = "* %sender %message";
+		} else {
+			message = Config.getString("Commands.Me");;
+		}
+		message = message.replace("%sender", sender.getName());
 		message = message.replace("%message", Utils.stringBuilder(args, 0).replace("&", "§"));
 		message = message.replace("&", "§");
 		Bukkit.broadcastMessage(message);

@@ -16,9 +16,11 @@ import com.github.yuttyann.custommessage.util.Utils;
 public class TellCommand implements TabExecutor {
 
 	Main plugin;
+	Boolean apimode;
 
-	public TellCommand(Main plugin) {
+	public TellCommand(Main plugin, Boolean apimode) {
 		this.plugin = plugin;
+		this.apimode = apimode;
 	}
 
 	@Override
@@ -36,14 +38,21 @@ public class TellCommand implements TabExecutor {
 			sender.sendMessage("There's no player by that name online.");
 		} else {
 			String stringBuilder = Utils.stringBuilder(args, 1);
-			String tell = Config.getString("Commands.tell");
-			String tell_target = Config.getString("Commands.tell_target");
+			String tell;
+			String tell_target;
+			if (apimode) {
+				tell = "[%sender->%target] %message";
+				tell_target = "&7%sender whispers %message";
+			} else {
+				tell = Config.getString("Commands.tell");
+				tell_target = Config.getString("Commands.tell_target");
+			}
 			tell = tell.replace("%target", player.getName());
-			tell = tell.replace("%name", sender.getName());
+			tell = tell.replace("%sender", sender.getName());
 			tell = tell.replace("%message", stringBuilder);
 			tell = tell.replace("&", "§");
 			tell_target = tell_target.replace("%target", player.getName());
-			tell_target = tell_target.replace("%name", sender.getName());
+			tell_target = tell_target.replace("%sender", sender.getName());
 			tell_target = tell_target.replace("%message", stringBuilder);
 			tell_target = tell_target.replace("&", "§");
 			sender.sendMessage(tell);
