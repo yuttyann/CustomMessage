@@ -22,7 +22,7 @@ public class PlayerTitleListener implements Listener {
 
 	public PlayerTitleListener(Main plugin) {
 		this.plugin = plugin;
-		this.timers = new HashMap<String, BukkitRunnable>();
+		timers = new HashMap<String, BukkitRunnable>();
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
