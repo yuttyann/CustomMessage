@@ -102,7 +102,7 @@ public class Utils {
 		}
 		OfflinePlayer offline = getOfflinePlayer(name);
 		if (offline != null) {
-			if (Utils.isUpperVersion("1.7.9")) {
+			if (isUpperVersion("1.7.9")) {
 				id = offline.getUniqueId();
 			} else {
 				try {
@@ -117,7 +117,7 @@ public class Utils {
 
 	@SuppressWarnings("deprecation")
 	public static ItemStack getItemInHand(Player player) {
-		if(Utils.isUpperVersion("1.9")) {
+		if(isUpperVersion("1.9")) {
 			return player.getInventory().getItemInMainHand();
 		} else {
 			return player.getInventory().getItemInHand();
@@ -169,19 +169,15 @@ public class Utils {
 	}
 
 	public static OfflinePlayer getOfflinePlayer(UUID uuid) {
-		boolean version1_7 = Utils.isUpperVersion("1.7.9");
+		boolean isUpperVersion_1_7_9 = isUpperVersion("1.7.9");
 		for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-			if (version1_7) {
+			if (isUpperVersion_1_7_9) {
 				if (player.getUniqueId().equals(uuid)) {
 					return player;
 				}
 			} else {
-				try {
-					if (UUIDFetcher.getUUIDOf(player.getName()).equals(uuid)) {
-						return player;
-					}
-				} catch (Exception e) {
-					continue;
+				if (getUniqueId(player.getName()).equals(uuid)) {
+					return player;
 				}
 			}
 		}
