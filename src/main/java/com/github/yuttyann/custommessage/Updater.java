@@ -33,6 +33,7 @@ import com.github.yuttyann.custommessage.file.Config;
 public class Updater implements Listener {
 
 	Main plugin;
+	private static Updater updater;
 
 	private ConsoleCommandSender sender;
 	private PluginDescriptionFile pluginyml;
@@ -47,51 +48,56 @@ public class Updater implements Listener {
 
 	public Updater(Main plugin) {
 		this.plugin = plugin;
-		this.enable = false;
-		this.error = false;
-		this.pluginyml = plugin.getDescription();
-		this.currentversion = pluginyml.getVersion();
-		this.pluginname = pluginyml.getName();
-		this.siteurl = "http://versionview.yuttyann44581.net/" + getPluginName() + "/";
-		this.sender = Bukkit.getConsoleSender();
+		updater = this;
+		enable = false;
+		error = false;
+		pluginyml = plugin.getDescription();
+		currentversion = pluginyml.getVersion();
+		pluginname = pluginyml.getName();
+		siteurl = "http://versionview.yuttyann44581.net/" + getPluginName() + "/";
+		sender = Bukkit.getConsoleSender();
 		setUp();
 		updateCheck();
 		sendCheckMessage(null, true);
 	}
 
-	private Boolean getEnable() {
+	public static Updater getUpdater() {
+		return updater;
+	}
+
+	public Boolean getEnable() {
 		return enable;
 	}
 
-	private Boolean getError() {
+	public Boolean getError() {
 		return error;
 	}
 
-	private String getCurrentVersion() {
+	public String getCurrentVersion() {
 		return currentversion;
 	}
 
-	private String getContent() {
+	public String getContent() {
 		return content;
 	}
 
-	private String getFileName() {
+	public String getFileName() {
 		return getPluginName() + " v" + getVersion() + ".jar";
 	}
 
-	private String getPluginName() {
+	public String getPluginName() {
 		return pluginname;
 	}
 
-	private String getPluginURL() {
+	public String getPluginURL() {
 		return pluginurl;
 	}
 
-	private String getSiteURL() {
+	public String getSiteURL() {
 		return siteurl;
 	}
 
-	private String getVersion() {
+	public String getVersion() {
 		return version;
 	}
 
@@ -115,12 +121,12 @@ public class Updater implements Listener {
 			sender.sendMessage(ChatColor.RED + "重大な構成エラーが発生しました。(ParserConfigurationException)");
 			errorMessageTemplate();
 		} catch (SAXException e) {
-			sender.sendMessage(ChatColor.RED + "SAXエラーが発生しました。(SAXException)");
+			sender.sendMessage(ChatColor.RED + "エラーが発生しました。(SAXException)");
 			errorMessageTemplate();
 		}
 	}
 
-	private void download() {
+	private void fileDownload() {
 		String filename = null;
 		File file = null;
 		InputStream input = null;
@@ -182,7 +188,7 @@ public class Updater implements Listener {
 				}
 			}
 			String prefix = "[" + filename + "]";
-			sender.sendMessage(ChatColor.GOLD + prefix + " のダウンロードが終了しました。");
+			sender.sendMessage(ChatColor.GOLD + prefix + " ダウンロードが終了しました。");
 			sender.sendMessage(ChatColor.GOLD + prefix + " ファイルサイズ: " + getSize(file.length()));
 			sender.sendMessage(ChatColor.GOLD + prefix + " 保存場所: plugins/" + getPluginName() + "/Downloads/" + filename);
 		}
@@ -208,10 +214,10 @@ public class Updater implements Listener {
 
 	private void updateCheck() {
 		if(Config.getBoolean("UpdateChecker")) {
-			if((!getVersion().equals(getCurrentVersion())) && (Double.parseDouble(getVersion()) > Double.parseDouble(getCurrentVersion()))) {
+			if(Double.parseDouble(getVersion()) > Double.parseDouble(getCurrentVersion())) {
 				enable = true;
 				if(Config.getBoolean("AutoDownload")) {
-					download();
+					fileDownload();
 				}
 			} else {
 				enable = false;
