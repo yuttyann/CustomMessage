@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.PluginDescriptionFile;
 
 import com.github.yuttyann.custommessage.Main;
+import com.github.yuttyann.custommessage.Updater;
 
 public class CommandTemplate {
 
-	private static PluginDescriptionFile pluginfile;
+	private static String pluginname;
 	private static ArrayList<String> commandtemplate;
 
 	public CommandTemplate(Main plugin) {
-		pluginfile = plugin.getDescription();
+		pluginname = Updater.getUpdater().getPluginName();
 		commandtemplate = new ArrayList<String>();
 	}
 
@@ -39,7 +39,7 @@ public class CommandTemplate {
 	}
 
 	public static void sendCommandTemplate(CommandSender sender) {
-		sender.sendMessage(ChatColor.LIGHT_PURPLE + "=== " + pluginfile.getName() + " Commands ===");
+		sender.sendMessage(ChatColor.LIGHT_PURPLE + "=== " + pluginname + " Commands ===");
 		for (String commands : commandtemplate) {
 			sender.sendMessage(ChatColor.AQUA + commands);
 		}
