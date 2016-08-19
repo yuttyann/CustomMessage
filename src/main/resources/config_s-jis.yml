@@ -4,7 +4,7 @@
 # SoundList http://www.yuttyann44581.net/uploads/SoundList/
 # OldSoundList http://www.yuttyann44581.net/uploads/OldSoundList/
 
-## === 全ての機能を無効 === ##
+## === APIモード === ##
 # [true で有効 | false で無効]
 # 初期: false
 # APIだけを使用したい時に有効にしてください。 
