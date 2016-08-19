@@ -43,7 +43,7 @@ public class BanCommand implements TabExecutor {
 		Player player = Utils.getOnlinePlayer(args[0]);
 		if (player != null) {
 			if (args.length >= 2) {
-				player.kickPlayer(Utils.stringBuilder(args, 1));
+				player.kickPlayer(reason.replace("&", "§"));
 			} else {
 				player.kickPlayer("Banned by admin.");
 			}
