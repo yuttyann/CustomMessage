@@ -29,6 +29,7 @@ import com.github.yuttyann.custommessage.util.Utils;
 public class Main extends JavaPlugin {
 
 	public static Main instance;
+	private Boolean apimode;
 	private Logger logger;
 	private PluginDescriptionFile pluginyml;
 	private HashMap<String, TabExecutor> commands;
@@ -36,14 +37,18 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		setUpFile();
-		loadClass();
-		loadCommand();
 		instance = this;
+		apimode = false;
 		logger = Logger.getLogger("Minecraft");
 		if (Config.getBoolean("Disable_All_Functions")) {
 			logger.info("APIモードで起動します。");
+			apimode = true;
+			getServer().getPluginManager().registerEvents(new Updater(this), this);
+		} else {
+			loadClass();
 		}
-		if (!Utils.isPluginEnabled("ProtocolLib")) {
+		loadCommand();
+		if (!Utils.isPluginEnabled("ProtocolLib") && !apimode) {
 			logger.severe("ProtocolLibが導入されていないため、PlayerCountMessageを無効化しました。");
 		}
 		pluginyml = getDescription();
@@ -86,9 +91,6 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadClass() {
-		if (Config.getBoolean("Disable_All_Functions")) {
-			return;
-		}
 		getServer().getPluginManager().registerEvents(new PlayerChatListener(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(this), this);
@@ -99,16 +101,13 @@ public class Main extends JavaPlugin {
 	}
 
 	private void loadCommand() {
-		if (Config.getBoolean("Disable_All_Functions")) {
-			return;
-		}
 		setCommandTemplate();
 		commands = new HashMap<String, TabExecutor>();
-		commands.put("custommessage", new CustomMessageCommand(this));
+		commands.put("custommessage", new CustomMessageCommand(this, apimode));
 		commands.put("ban", new BanCommand(this));
-		commands.put("me", new MeCommand(this));
-		commands.put("say", new SayCommand(this));
-		commands.put("tell", new TellCommand(this));
+		commands.put("me", new MeCommand(this, apimode));
+		commands.put("say", new SayCommand(this, apimode));
+		commands.put("tell", new TellCommand(this, apimode));
 	}
 
 	private void setCommandTemplate() {
