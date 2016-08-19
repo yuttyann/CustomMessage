@@ -1,12 +1,6 @@
 #API解説不完全版(詳しくは[CustomMessage.java](https://goo.gl/gqwULk "")をどうぞ)
 全バージョン対応:  
-ItemStack CustomMessage.getAPI().getItemInHand(player);  
 String CustomMessage.getAPI().getItemName(player, nullmessage);    
-
-getItemInHand説明：  
-1.9からgetItemInHandが非推奨になり取得方法が変わったため作りました。  
-1.7～1.10まで正常に動作しているのを確認しています。  
-CustomMessage.getAPI().getItemInHand(プレイヤー);    
 
 getItemName説明：  
 アイテム名を取得するために作りました。  
