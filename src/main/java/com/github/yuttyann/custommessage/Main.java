@@ -36,10 +36,10 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		setUpFile();
 		instance = this;
 		apimode = false;
 		logger = Logger.getLogger("Minecraft");
+		setUpFile();
 		if (Config.getBoolean("Disable_All_Functions")) {
 			logger.info("APIモードで起動します。");
 			apimode = true;
