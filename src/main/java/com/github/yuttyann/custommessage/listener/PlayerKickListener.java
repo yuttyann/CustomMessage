@@ -107,7 +107,7 @@ public class PlayerKickListener implements Listener {
 
 	@SuppressWarnings("deprecation")
 	private boolean isBanned(Player player) {
-		if (Utils.isUpperVersion("1.7.9")) {
+		if (Utils.isUpperVersion("1.7.5")) {
 			return Bukkit.getBanList(BanList.Type.NAME).isBanned(player.getName());
 		} else {
 			return Bukkit.getOfflinePlayer(player.getName()).isBanned();
