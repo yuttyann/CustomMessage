@@ -33,8 +33,8 @@ import com.github.yuttyann.custommessage.file.Config;
 public class Updater implements Listener {
 
 	Main plugin;
-	private static Updater updater;
 
+	private static Updater updater;
 	private ConsoleCommandSender sender;
 	private PluginDescriptionFile pluginyml;
 	private Boolean enable;
