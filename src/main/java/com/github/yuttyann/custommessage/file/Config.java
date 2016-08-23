@@ -30,16 +30,16 @@ public class Config {
 
 	public Config(Main plugin, String encode) {
 		Config.plugin = plugin;
-		Config.filename = "config_" + encode + ".yml";
-		Config.configfile = new File(plugin.getDataFolder(), filename);
-		if (!Config.configfile.exists()) {
+		filename = "config_" + encode + ".yml";
+		configfile = new File(plugin.getDataFolder(), filename);
+		if (!configfile.exists()) {
 			plugin.saveResource(filename, false);
 		}
-		Config.config = YamlConfiguration.loadConfiguration(configfile);
+		config = YamlConfiguration.loadConfiguration(configfile);
 	}
 
 	@SuppressWarnings("deprecation")
-	public static void reloadConfig() {
+	public static void reload() {
 		config = YamlConfiguration.loadConfiguration(configfile);
 		InputStream defConfigStream = plugin.getResource(filename);
 		if (defConfigStream != null) {
@@ -61,7 +61,7 @@ public class Config {
 		return config;
 	}
 
-	public static void saveConfig() {
+	public static void save() {
 		try {
 			config.save(configfile);
 		} catch (IOException e) {
