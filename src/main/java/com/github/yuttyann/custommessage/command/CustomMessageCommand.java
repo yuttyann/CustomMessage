@@ -37,7 +37,7 @@ public class CustomMessageCommand implements TabExecutor {
 					sender.sendMessage(ChatColor.RED + "パーミッションが無いため、実行できません。");
 					return true;
 				}
-				Config.reloadConfig();
+				Config.reload();
 				CommandTemplate.clear();
 				if (Config.getBoolean("Rules.Enable")) {
 					CommandTemplate.clear();
