@@ -102,7 +102,7 @@ public class Utils {
 		}
 		OfflinePlayer offline = getOfflinePlayer(name);
 		if (offline != null) {
-			if (isUpperVersion("1.7.9")) {
+			if (isUpperVersion("1.7.5")) {
 				id = offline.getUniqueId();
 			} else {
 				try {
@@ -169,9 +169,9 @@ public class Utils {
 	}
 
 	public static OfflinePlayer getOfflinePlayer(UUID uuid) {
-		boolean isUpperVersion_1_7_9 = isUpperVersion("1.7.9");
+		boolean isUpperVersion_v1_7_5 = isUpperVersion("1.7.5");
 		for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-			if (isUpperVersion_1_7_9) {
+			if (isUpperVersion_v1_7_5) {
 				if (player.getUniqueId().equals(uuid)) {
 					return player;
 				}
