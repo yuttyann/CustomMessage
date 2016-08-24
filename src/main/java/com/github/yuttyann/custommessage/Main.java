@@ -77,14 +77,8 @@ public class Main extends JavaPlugin {
 			saveResource("ServerIcon/icon1.png", false);
 			saveResource("ServerIcon/icon2.png", false);
 		}
-		if (Utils.isLinux() || Utils.isMac()) {
-			new Config(this, "utf-8");
-		} else if (Utils.isWindows()) {
-			if(Utils.isUpperVersion("1.9")) {
-				new Config(this, "utf-8");
-			} else {
-				new Config(this, "s-jis");
-			}
+		if (Utils.isWindows() && !Utils.isUpperVersion("1.9")) {
+			new Config(this, "s-jis");
 		} else {
 			new Config(this, "utf-8");
 		}
