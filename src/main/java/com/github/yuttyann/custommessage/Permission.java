@@ -13,6 +13,7 @@ public enum Permission {
 	CUSTOMMESSAGE_SOUND_JOIN("custommessage.sound.join"),
 	CUSTOMMESSAGE_SOUND_QUIT("custommessage.sound.quit"),
 	CUSTOMMESSAGE_SOUND_CHAT("custommessage.sound.chat"),
+	CUSTOMMESSAGE_SOUND_COMMAND("custommessage.sound.command"),
 	CUSTOMMESSAGE_SOUND_BAN("custommessage.sound.ban"),
 	CUSTOMMESSAGE_SOUND_KICK("custommessage.sound.kick"),
 	CUSTOMMESSAGE_SOUND_AFK("custommessage.sound.afk"),
