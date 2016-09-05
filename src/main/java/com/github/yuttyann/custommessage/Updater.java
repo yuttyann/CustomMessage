@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,6 +30,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.util.TextUtils;
 
 public class Updater implements Listener {
 
@@ -43,6 +45,7 @@ public class Updater implements Listener {
 	private String content;
 	private String pluginname;
 	private String pluginurl;
+	private String historyurl;
 	private String siteurl;
 	private String version;
 
@@ -81,7 +84,7 @@ public class Updater implements Listener {
 		return content;
 	}
 
-	public String getFileName() {
+	public String getPluginFileName() {
 		return getPluginName() + " v" + getVersion() + ".jar";
 	}
 
@@ -91,6 +94,10 @@ public class Updater implements Listener {
 
 	public String getPluginURL() {
 		return pluginurl;
+	}
+
+	public String getHistoryURL() {
+		return historyurl;
 	}
 
 	public String getSiteURL() {
@@ -111,30 +118,71 @@ public class Updater implements Listener {
 			version = nodelist.item(0).getTextContent().trim();
 			pluginurl = nodelist.item(2).getTextContent().trim();
 			content = nodelist.item(4).getTextContent().trim();
+			historyurl = nodelist.item(6).getTextContent().trim();
 		} catch (MalformedURLException e) {
-			sender.sendMessage(ChatColor.RED + "URLが不正または不明です。(MalformedURLException)");
+			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (IOException e) {
-			sender.sendMessage(ChatColor.RED + "入出力処理が失敗しました。(IOException)");
+			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (ParserConfigurationException e) {
-			sender.sendMessage(ChatColor.RED + "重大な構成エラーが発生しました。(ParserConfigurationException)");
+			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (SAXException e) {
-			sender.sendMessage(ChatColor.RED + "エラーが発生しました。(SAXException)");
+			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		}
 	}
 
-	private void fileDownload() {
-		String filename = null;
-		File file = null;
+	private void updateCheck() {
+		if(Config.getBoolean("UpdateChecker")) {
+			if(Double.parseDouble(getVersion()) > Double.parseDouble(getCurrentVersion())) {
+				enable = true;
+				boolean first = false;
+				File file = new File(plugin.getDataFolder(), "更新履歴.txt");
+				ArrayList<String> list = new ArrayList<String>();
+				if (file.exists()) {
+					list = TextUtils.getTextList(file);
+				}
+				if(Config.getBoolean("AutoDownload")) {
+					sender.sendMessage(ChatColor.LIGHT_PURPLE + "プラグインのダウンロードを開始しています...");
+					if (!file.exists()) {
+						first = true;
+					}
+					fileDownload(getHistoryURL(), file, false);
+					fileDownload(getPluginURL(), new File(plugin.getDataFolder(), "Downloads/" + getPluginFileName()), true);
+				}
+				if (Config.getBoolean("OpenTextFile") && !getError()) {
+					openTextFile(list, first);
+				}
+			} else {
+				enable = false;
+			}
+		}
+	}
+
+	private void openTextFile(ArrayList<String> list, boolean first) {
+		File file = new File(plugin.getDataFolder(), "更新履歴.txt");
+		if (!first) {
+			if (list.equals(TextUtils.getTextList(getHistoryURL()))) {
+				return;
+			}
+		}
+		String soft = Config.getString("SoftName");
+		try {
+			Runtime runtime = Runtime.getRuntime();
+			runtime.exec(soft + " " + file.getPath());
+		} catch (Exception e) {
+			sender.sendMessage(ChatColor.RED + soft + " というソフトは存在しません。");
+			errorMessageTemplate();
+		}
+	}
+
+	private void fileDownload(String url, File file, boolean message) {
 		InputStream input = null;
 		FileOutputStream output = null;
-		sender.sendMessage(ChatColor.LIGHT_PURPLE + "プラグインのダウンロードを開始しています...");
 		try {
-			URL url = new URL(getPluginURL());
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 			conn.setAllowUserInteraction(false);
 			conn.setInstanceFollowRedirects(true);
 			conn.setRequestMethod("GET");
@@ -147,8 +195,6 @@ public class Updater implements Listener {
 			if (!downloads.exists()) {
 				downloads.mkdir();
 			}
-			filename = getFileName();
-			file = new File(plugin.getDataFolder(), "Downloads/" + filename);
 			input = conn.getInputStream();
 			output = new FileOutputStream(file, false);
 			byte[] b = new byte[4096];
@@ -157,19 +203,19 @@ public class Updater implements Listener {
 				output.write(b, 0, readByte);
 			}
 		} catch (FileNotFoundException e) {
-			sender.sendMessage(ChatColor.RED + "ファイルが存在しません。(FileNotFoundException)");
+			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (ProtocolException e) {
-			sender.sendMessage(ChatColor.RED + "使用しているプロトコルでエラーが発生または不正です。(ProtocolException)");
+			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (MalformedURLException e) {
-			sender.sendMessage(ChatColor.RED + "URLが不正または不明です。(MalformedURLException)");
+			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (IOException e) {
-			sender.sendMessage(ChatColor.RED + "入出力処理が失敗しました。(IOException)");
+			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (Exception e) {
-			sender.sendMessage(ChatColor.RED + "エラーが発生しました。(Exception)");
+			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} finally {
 			if (output != null) {
@@ -187,10 +233,12 @@ public class Updater implements Listener {
 					e.printStackTrace();
 				}
 			}
-			String prefix = "[" + filename + "]";
-			sender.sendMessage(ChatColor.GOLD + prefix + " ダウンロードが終了しました。");
-			sender.sendMessage(ChatColor.GOLD + prefix + " ファイルサイズ: " + getSize(file.length()));
-			sender.sendMessage(ChatColor.GOLD + prefix + " 保存場所: plugins/" + getPluginName() + "/Downloads/" + filename);
+			if (message && !getError()) {
+				String prefix = "[" + file.getName() + "]";
+				sender.sendMessage(ChatColor.GOLD + prefix + " ダウンロードが終了しました。");
+				sender.sendMessage(ChatColor.GOLD + prefix + " ファイルサイズ: " + getSize(file.length()));
+				sender.sendMessage(ChatColor.GOLD + prefix + " 保存場所: " + file.getPath());
+			}
 		}
 	}
 
@@ -209,19 +257,6 @@ public class Updater implements Listener {
 			BigDecimal bi = new BigDecimal(String.valueOf(dsize));
 			double value = bi.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
 			return value + " MB";
-		}
-	}
-
-	private void updateCheck() {
-		if(Config.getBoolean("UpdateChecker")) {
-			if(Double.parseDouble(getVersion()) > Double.parseDouble(getCurrentVersion())) {
-				enable = true;
-				if(Config.getBoolean("AutoDownload")) {
-					fileDownload();
-				}
-			} else {
-				enable = false;
-			}
 		}
 	}
 
@@ -247,11 +282,11 @@ public class Updater implements Listener {
 			sender.sendMessage(ChatColor.RED + "バージョン: v" + getVersion());
 			sender.sendMessage(ChatColor.RED + "取得ページ: " + getSiteURL());
 			sender.sendMessage(ChatColor.RED + "連絡用ページ: http://file.yuttyann44581.net/contact/");
-			sender.sendMessage(ChatColor.RED + "時間が経っても解決しない場合は、製作者に連絡してください。");
+			sender.sendMessage(ChatColor.RED + "解決しない場合は、製作者に連絡してください。");
 		}
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler(priority = EventPriority.HIGH)
 	private void onPlayerJoin(PlayerJoinEvent event) {
 		sendCheckMessage(event.getPlayer(), false);
 	}
