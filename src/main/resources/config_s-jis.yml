@@ -1,5 +1,5 @@
-# CustomMessage v6.6 Config
-# CompliantVersion 1.7.2～1.10
+# CustomMessage v6.7 Config
+# CompliantVersion 1.7.2～1.10.2
 # ColorCodeList http://ess.khhq.net/mc/
 # SoundList http://www.yuttyann44581.net/uploads/SoundList/
 # OldSoundList http://www.yuttyann44581.net/uploads/OldSoundList/
@@ -23,6 +23,12 @@ UseSpigotProtocolHack: false
 # メッセージはOPにしか表示されません。
 UpdateChecker: true
 AutoDownload: true
+OpenTextFile: true
+
+## === メモ帳の設定 === ##
+# メモ帳のソフト名を指定します。
+# Windowsならnotepadなどです。
+SoftName: notepad
 
 ## === 曜日表記の設定 === ##
 # ここに設定した曜日は%weekで使用されます。
@@ -96,6 +102,7 @@ Sounds:
   JoinSound: none
   QuitSound: none
   ChatSound: CHICKEN_EGG_POP-1-1-0
+  CommandSound: none
   BanBroadcastSound: none
   KickBroadcastSound: none
   AFKBroadcastSound: none
@@ -110,6 +117,7 @@ SoundTypes:
   JoinSoundType: player
   QuitSoundType: player
   ChatSoundType: allplayers
+  CommandSoundType: player
   BanBroadcastSoundType: player
   KickBroadcastSoundType: player
   AFKBroadcastSoundType: player
@@ -125,6 +133,7 @@ SoundAuthoritys:
   JoinSoundAuthority: none
   QuitSoundAuthority: none
   ChatSoundAuthority: operator
+  CommandSoundAuthority: none
   BanBroadcastSoundAuthority: none
   KickBroadcastSoundAuthority: none
   AFKBroadcastSoundAuthority: none
