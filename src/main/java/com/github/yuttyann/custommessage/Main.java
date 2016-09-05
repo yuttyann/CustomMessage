@@ -18,6 +18,7 @@ import com.github.yuttyann.custommessage.command.MeCommand;
 import com.github.yuttyann.custommessage.command.SayCommand;
 import com.github.yuttyann.custommessage.command.TellCommand;
 import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.listener.CommandListener;
 import com.github.yuttyann.custommessage.listener.PlayerChatListener;
 import com.github.yuttyann.custommessage.listener.PlayerDeathListener;
 import com.github.yuttyann.custommessage.listener.PlayerJoinQuitListener;
@@ -90,6 +91,7 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerKickListener(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
+		getServer().getPluginManager().registerEvents(new CommandListener(this), this);
 		getServer().getPluginManager().registerEvents(new ServerListener(this), this);
 		getServer().getPluginManager().registerEvents(new Updater(this), this);
 	}
