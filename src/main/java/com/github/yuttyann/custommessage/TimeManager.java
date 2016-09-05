@@ -11,38 +11,36 @@ public class TimeManager {
 		Config.getString("Thursday"), Config.getString("Friday"), Config.getString("Saturday")
 	};
 
-	final private static Calendar calendar = Calendar.getInstance();
-
 	public static Integer getYear() {
-		return calendar.get(Calendar.YEAR);
+		return Calendar.getInstance().get(Calendar.YEAR);
 	}
 
 	public static Integer getMonth() {
-		return calendar.get(Calendar.MONTH) + 1;
+		return Calendar.getInstance().get(Calendar.MONTH) + 1;
 	}
 
 	public static Integer getDay() {
-		return calendar.get(Calendar.DATE);
+		return Calendar.getInstance().get(Calendar.DATE);
 	}
 
 	public static Integer getHour_Of_Day() {
-		return calendar.get(Calendar.HOUR_OF_DAY);
+		return Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 	}
 
 	public static Integer getMinute() {
-		return calendar.get(Calendar.MINUTE);
+		return Calendar.getInstance().get(Calendar.MINUTE);
 	}
 
 	public static Integer getSecond() {
-		return calendar.get(Calendar.SECOND);
+		return Calendar.getInstance().get(Calendar.SECOND);
 	}
 
 	public static Integer getDay_Of_Week() {
-		return calendar.get(Calendar.DAY_OF_WEEK) - 1;
+		return Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1;
 	}
 
 	public static Integer getDay_Of_Year() {
-		return calendar.get(Calendar.DAY_OF_YEAR);
+		return Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
 	}
 
 	public static String getTimesofDay() {
