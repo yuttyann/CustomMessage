@@ -6,6 +6,7 @@ import net.minecraft.server.v1_10_R1.IChatBaseComponent;
 import net.minecraft.server.v1_10_R1.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_10_R1.PacketPlayOutPlayerListHeaderFooter;
 import net.minecraft.server.v1_10_R1.PacketPlayOutTitle;
+import net.minecraft.server.v1_10_R1.PacketPlayOutTitle.EnumTitleAction;
 import net.minecraft.server.v1_10_R1.PlayerConnection;
 
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
@@ -15,16 +16,16 @@ import com.github.yuttyann.custommessage.TimeManager;
 
 public class v1_10_R1 {
 
-	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
+	public static void sendTitle(Player player, Integer fadein, Integer stay, Integer fadeout, String title, String subtitle) {
 		PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
-		PacketPlayOutTitle packetPlayOutTimes = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TIMES, null, fadeIn, stay, fadeOut);
+		PacketPlayOutTitle packetPlayOutTimes = new PacketPlayOutTitle(EnumTitleAction.TIMES, null, fadein, stay, fadeout);
 		connection.sendPacket(packetPlayOutTimes);
 		if (title != null) {
 			title = title.replace("%player", player.getName());
 			title = title.replace("%time", TimeManager.getTimesofDay());
 			title = title.replace("&", "§");
 			IChatBaseComponent titleMain = ChatSerializer.a("{\"text\": \"" + title + "\"}");
-			PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, titleMain);
+			PacketPlayOutTitle packetPlayOutTitle = new PacketPlayOutTitle(EnumTitleAction.TITLE, titleMain);
 			connection.sendPacket(packetPlayOutTitle);
 		}
 		if (subtitle != null) {
@@ -32,7 +33,7 @@ public class v1_10_R1 {
 			subtitle = subtitle.replace("%time", TimeManager.getTimesofDay());
 			subtitle = subtitle.replace("&", "§");
 			IChatBaseComponent titleSub = ChatSerializer.a("{\"text\": \"" + subtitle + "\"}");
-			PacketPlayOutTitle packetPlayOutSubTitle = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, titleSub);
+			PacketPlayOutTitle packetPlayOutSubTitle = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, titleSub);
 			connection.sendPacket(packetPlayOutSubTitle);
 		}
 	}

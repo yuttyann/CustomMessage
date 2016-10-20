@@ -6,13 +6,15 @@ import net.minecraft.server.v1_7_R4.PlayerConnection;
 
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.spigotmc.ProtocolInjector;
+import org.spigotmc.ProtocolInjector.PacketTabHeader;
+import org.spigotmc.ProtocolInjector.PacketTitle;
+import org.spigotmc.ProtocolInjector.PacketTitle.Action;
 
 import com.github.yuttyann.custommessage.TimeManager;
 
 public class v1_7_R4 {
 
-	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
+	public static void sendTitle(Player player, Integer fadein, Integer stay, Integer fadeout, String title, String subtitle) {
 		CraftPlayer craftPlayer = (CraftPlayer) player;
 		if (craftPlayer.getHandle().playerConnection.networkManager.getVersion() != 47) {
 			return;
@@ -33,12 +35,12 @@ public class v1_7_R4 {
 		IChatBaseComponent serializedSubTitle = ChatSerializer.a(convert(subtitle));
 		IChatBaseComponent title2 = serializedTitle;
 		IChatBaseComponent subtitle2 = serializedSubTitle;
-		craftPlayer.getHandle().playerConnection.sendPacket(new ProtocolInjector.PacketTitle(ProtocolInjector.PacketTitle.Action.TIMES, fadeIn, stay, fadeOut));
+		craftPlayer.getHandle().playerConnection.sendPacket(new PacketTitle(Action.TIMES, fadein, stay, fadeout));
 		if (title != null) {
-			craftPlayer.getHandle().playerConnection.sendPacket(new ProtocolInjector.PacketTitle(ProtocolInjector.PacketTitle.Action.TITLE, title2));
+			craftPlayer.getHandle().playerConnection.sendPacket(new PacketTitle(Action.TITLE, title2));
 		}
 		if (subtitle != null) {
-			craftPlayer.getHandle().playerConnection.sendPacket(new ProtocolInjector.PacketTitle(ProtocolInjector.PacketTitle.Action.SUBTITLE, subtitle2));
+			craftPlayer.getHandle().playerConnection.sendPacket(new PacketTitle(Action.SUBTITLE, subtitle2));
 		}
 	}
 
@@ -61,8 +63,8 @@ public class v1_7_R4 {
 		footer = footer.replace("%time", TimeManager.getTimesofDay());
 		footer = footer.replace("&", "§");
 		IChatBaseComponent header2 = ChatSerializer.a("{'color': 'white', 'text': '" + header + "'}");
-		IChatBaseComponent footer2 = ChatSerializer .a("{'color': 'white', 'text': '" + footer + "'}");
-		connection.sendPacket(new ProtocolInjector.PacketTabHeader(header2, footer2));
+		IChatBaseComponent footer2 = ChatSerializer.a("{'color': 'white', 'text': '" + footer + "'}");
+		connection.sendPacket(new PacketTabHeader(header2, footer2));
 	}
 
 	private static String convert(String text) {

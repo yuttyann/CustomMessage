@@ -16,9 +16,9 @@ import com.github.yuttyann.custommessage.TimeManager;
 
 public class v1_8_R1 {
 
-	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
+	public static void sendTitle(Player player, Integer fadein, Integer stay, Integer fadeout, String title, String subtitle) {
 		PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
-		PacketPlayOutTitle packetPlayOutTimes = new PacketPlayOutTitle(EnumTitleAction.TIMES, null, fadeIn, stay, fadeOut);
+		PacketPlayOutTitle packetPlayOutTimes = new PacketPlayOutTitle(EnumTitleAction.TIMES, null, fadein, stay, fadeout);
 		connection.sendPacket(packetPlayOutTimes);
 		if (title != null) {
 			title = title.replace("%player", player.getName());
