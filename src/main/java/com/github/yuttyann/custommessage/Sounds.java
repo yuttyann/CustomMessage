@@ -1,7 +1,6 @@
 package com.github.yuttyann.custommessage;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -26,7 +25,7 @@ public class Sounds {
 						soundType(player, soundtype, args);
 					} catch (IllegalArgumentException e) {
 						ConsoleCommandSender sender = Bukkit.getConsoleSender();
-						sender.sendMessage(ChatColor.RED + "サウンドエラー: " + args[0].toUpperCase() + "-" + args[1] + "-" + args[2]);
+						sender.sendMessage("§cサウンドエラー: " + args[0].toUpperCase() + "-" + args[1] + "-" + args[2]);
 					}
 				}
 			}.runTaskLater(Main.instance, parseLong(args[3]));
