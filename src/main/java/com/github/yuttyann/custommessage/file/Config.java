@@ -4,17 +4,28 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.util.Vector;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.util.Utils;
@@ -24,24 +35,60 @@ public class Config {
 
 	private static Main plugin;
 
-	private static String filename;
+	private static String filename_encode;
 	private static File configfile;
 	private static YamlConfiguration config;
 
-	public Config(Main plugin, String encode) {
+	public Config(Main plugin, String filename, String encode, PluginDescriptionFile pluginyml) {
 		Config.plugin = plugin;
-		filename = "config_" + encode + ".yml";
-		configfile = new File(plugin.getDataFolder(), filename);
+		filename_encode = filename + "_" + encode + ".yml";
+		configfile = new File(plugin.getDataFolder(), filename_encode);
 		if (!configfile.exists()) {
-			plugin.saveResource(filename, false);
+			File data = plugin.getDataFolder();
+			if (!data.exists()) {
+				data.mkdirs();
+			}
+			String siteurl = getSiteURL(filename, pluginyml.getName(), pluginyml.getVersion());
+			String fileurl = getDownloadURL(siteurl, encode.equals("s-jis"));
+			Utils.fileDownload(fileurl, configfile);
 		}
 		config = YamlConfiguration.loadConfiguration(configfile);
+	}
+
+	public String getSiteURL(String filename, String name, String version) {
+		String url = "http://dyml.yuttyann44581.net/";
+		url = url + name.toLowerCase() + "-v" + version.replace(".", "-") + "-" + filename;
+		return url;
+	}
+
+	private String getDownloadURL(String siteurl, boolean encode) {
+		try {
+			URL url = new URL(siteurl);
+			InputStream input = url.openConnection().getInputStream();
+			Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
+			Node node = document.getElementsByTagName("p").item(0);
+			NodeList nodelist = node.getChildNodes();
+			if (encode) {
+				return nodelist.item(0).getTextContent().trim();
+			} else {
+				return nodelist.item(2).getTextContent().trim();
+			}
+		} catch (MalformedURLException e) {
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+		} catch (IOException e) {
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+		} catch (ParserConfigurationException e) {
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+		} catch (SAXException e) {
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+		}
+		return null;
 	}
 
 	@SuppressWarnings("deprecation")
 	public static void reload() {
 		config = YamlConfiguration.loadConfiguration(configfile);
-		InputStream defConfigStream = plugin.getResource(filename);
+		InputStream defConfigStream = plugin.getResource(filename_encode);
 		if (defConfigStream != null) {
 			YamlConfiguration defConfig;
 			if(Utils.isUpperVersion("1.9")) {
