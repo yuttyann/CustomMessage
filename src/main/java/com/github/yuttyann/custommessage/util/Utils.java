@@ -1,6 +1,15 @@
 package com.github.yuttyann.custommessage.util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
@@ -15,6 +24,55 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 public class Utils {
+
+	public static void fileDownload(String url, File file) {
+		InputStream input = null;
+		FileOutputStream output = null;
+		try {
+			HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+			conn.setAllowUserInteraction(false);
+			conn.setInstanceFollowRedirects(true);
+			conn.setRequestMethod("GET");
+			conn.connect();
+			int httpStatusCode = conn.getResponseCode();
+			if (httpStatusCode != HttpURLConnection.HTTP_OK) {
+				throw new Exception();
+			}
+			input = conn.getInputStream();
+			output = new FileOutputStream(file, false);
+			byte[] b = new byte[4096];
+			int readByte = 0;
+			while (-1 != (readByte = input.read(b))) {
+				output.write(b, 0, readByte);
+			}
+		} catch (FileNotFoundException e) {
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+		} catch (ProtocolException e) {
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+		} catch (MalformedURLException e) {
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+		} catch (IOException e) {
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+		} catch (Exception e) {
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+		} finally {
+			if (output != null) {
+				try {
+					output.flush();
+					output.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	public static boolean isLinux() {
 		return System.getProperty("os.name").toLowerCase().startsWith("linux");
