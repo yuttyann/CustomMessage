@@ -1,6 +1,6 @@
 name: CustomMessage
 main: com.github.yuttyann.custommessage.Main
-version: 6.7
+version: 6.8
 softdepend: [ProtocolLib, Kits, CrackShot]
 author: yuttyann44581
 website: http://file.yuttyann44581.net/
