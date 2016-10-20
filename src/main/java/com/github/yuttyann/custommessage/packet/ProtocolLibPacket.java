@@ -25,32 +25,33 @@ public class ProtocolLibPacket {
 	private static final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
 
 	public static void sendPlayerCountMessage() {
-		if (Config.getBoolean("PlayerCountMessage.Enable")) {
-			manager.addPacketListener(new PacketAdapter(Main.instance, ListenerPriority.NORMAL, Arrays.asList(new PacketType[]{ PacketType.Status.Server.OUT_SERVER_INFO }), new ListenerOptions[]{ ListenerOptions.ASYNC }) {
-				@Override
-				public void onPacketSending(PacketEvent event) {
-					WrappedServerPing ping = event.getPacket().getServerPings().read(0);
-					if (isNone()) {
-						ping.setPlayers(null);
-						return;
-					}
-					List<WrappedGameProfile> list = new ArrayList<WrappedGameProfile>();
-					Integer playerlength = Utils.getOnlinePlayers().size();
-					Integer maxplayer = Bukkit.getMaxPlayers();
-					String servername = Bukkit.getServerName();
-					for (String pcm : Config.getStringList("PlayerCountMessage.Message")) {
-						pcm = pcm.replace("%players", playerlength.toString());
-						pcm = pcm.replace("%maxplayers", maxplayer.toString());
-						pcm = pcm.replace("%servername", servername);
-						pcm = pcm.replace("%version", Utils.getVersion());
-						pcm = pcm.replace("%time", TimeManager.getTimesofDay());
-						pcm = pcm.replace("&", "§");
-						list.add(new WrappedGameProfile("1", pcm));
-					}
-					ping.setPlayers(list);
-				}
-			});
+		if (!Config.getBoolean("PlayerCountMessage.Enable")) {
+			return;
 		}
+		manager.addPacketListener(new PacketAdapter(Main.instance, ListenerPriority.HIGH, Arrays.asList(new PacketType[]{ PacketType.Status.Server.OUT_SERVER_INFO }), new ListenerOptions[]{ ListenerOptions.ASYNC }) {
+			@Override
+			public void onPacketSending(PacketEvent event) {
+				WrappedServerPing ping = event.getPacket().getServerPings().read(0);
+				if (isNone()) {
+					ping.setPlayers(null);
+					return;
+				}
+				List<WrappedGameProfile> list = new ArrayList<WrappedGameProfile>();
+				Integer playerlength = Utils.getOnlinePlayers().size();
+				Integer maxplayer = Bukkit.getMaxPlayers();
+				String servername = Bukkit.getServerName();
+				for (String pcm : Config.getStringList("PlayerCountMessage.Message")) {
+					pcm = pcm.replace("%players", playerlength.toString());
+					pcm = pcm.replace("%maxplayers", maxplayer.toString());
+					pcm = pcm.replace("%servername", servername);
+					pcm = pcm.replace("%version", Utils.getVersion());
+					pcm = pcm.replace("%time", TimeManager.getTimesofDay());
+					pcm = pcm.replace("&", "§");
+					list.add(new WrappedGameProfile("1", pcm));
+				}
+				ping.setPlayers(list);
+			}
+		});
 	}
 
 	private static boolean isNone() {
