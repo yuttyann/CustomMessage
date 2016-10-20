@@ -52,7 +52,6 @@ public class Main extends JavaPlugin {
 		if (!Utils.isPluginEnabled("ProtocolLib") && !apimode) {
 			logger.severe("ProtocolLibが導入されていないため、PlayerCountMessageを無効化しました。");
 		}
-		pluginyml = getDescription();
 		logger.info("[" + pluginyml.getName() + "] v" + pluginyml.getVersion() + " が有効になりました。");
 	}
 
@@ -78,11 +77,14 @@ public class Main extends JavaPlugin {
 			saveResource("ServerIcon/icon1.png", false);
 			saveResource("ServerIcon/icon2.png", false);
 		}
+		pluginyml = getDescription();
+		String encode;
 		if (Utils.isWindows() && !Utils.isUpperVersion("1.9")) {
-			new Config(this, "s-jis");
+			encode = "s-jis";
 		} else {
-			new Config(this, "utf-8");
+			encode = "utf-8";
 		}
+		new Config(this, "config", encode, pluginyml);
 	}
 
 	private void loadClass() {
