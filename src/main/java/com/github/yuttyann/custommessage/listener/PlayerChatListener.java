@@ -31,10 +31,10 @@ public class PlayerChatListener implements Listener {
 			playerchatmessage = playerchatmessage.replace("&", "§");
 			event.setFormat(playerchatmessage);
 		}
-		if (!Config.getString("Sounds.ChatSound").equals("none")) {
+		if (!Config.getString("Sounds.PlayerChatEvent_ChatSound").equals("none")) {
 			Sounds sound = Sounds.getSounds();
-			if (sound.soundAuthority(player, "SoundAuthoritys.ChatSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_CHAT)) {
-				sound.playSound(player, "Sounds.ChatSound", "SoundTypes.ChatSoundType");
+			if (sound.soundAuthority(player, "SoundAuthoritys.PlayerChatEvent_ChatSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_CHAT)) {
+				sound.playSound(player, "Sounds.PlayerChatEvent_ChatSound", "SoundTypes.PlayerChatEvent_ChatSoundType");
 			}
 		}
 	}

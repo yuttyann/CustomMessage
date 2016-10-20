@@ -37,25 +37,25 @@ public class PlayerJoinQuitListener implements Listener {
 				event.setJoinMessage(null);
 				broadcastMessage(playerjoinmessage);
 			}
-			if (!Config.getString("Sounds.JoinSound").equals("none")) {
-				if (sound.soundAuthority(player, "SoundAuthoritys.JoinSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_JOIN)) {
-					sound.playSound(player, "Sounds.JoinSound", "SoundTypes.JoinSoundType");
+			if (!Config.getString("Sounds.PlayerJoinEvent_JoinSound").equals("none")) {
+				if (sound.soundAuthority(player, "SoundAuthoritys.PlayerJoinEvent_JoinSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_JOIN)) {
+					sound.playSound(player, "Sounds.PlayerJoinEvent_JoinSound", "SoundTypes.PlayerJoinEvent_JoinSoundType");
 				}
 			}
 		} else {
+			if (Config.getBoolean("FirstJoinItem.Enable")) {
+				String kitname = Config.getString("FirstJoinItem.KitName");
+				CustomMessage.getAPI().giveKits(player, kitname);
+			}
 			if (Config.getBoolean("PlayerJoinQuitMessage.Enable")) {
 				String playerfirstjoinmessage = Config.getString("PlayerJoinQuitMessage.FirstJoinMssage");
 				playerfirstjoinmessage = replaceJoinQuit(playerfirstjoinmessage, player);
 				event.setJoinMessage(null);
 				broadcastMessage(playerfirstjoinmessage);
 			}
-			if (Config.getBoolean("FirstJoinItem.Enable")) {
-				String kitname = Config.getString("FirstJoinItem.KitName");
-				CustomMessage.getAPI().giveKits(player, kitname);
-			}
-			if (!Config.getString("Sounds.FirstJoinSound").equals("none")) {
-				if (sound.soundAuthority(player, "SoundAuthoritys.FirstJoinSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_FIRSTJOIN)) {
-					sound.playSound(player, "Sounds.FirstJoinSound", "SoundTypes.FirstJoinSoundType");
+			if (!Config.getString("Sounds.PlayerJoinEvent_FirstSound").equals("none")) {
+				if (sound.soundAuthority(player, "SoundAuthoritys.PlayerJoinEvent_FirstSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_FIRSTJOIN)) {
+					sound.playSound(player, "Sounds.PlayerJoinEvent_FirstSound", "SoundTypes.PlayerJoinEvent_FirstSoundType");
 				}
 			}
 		}
@@ -78,9 +78,9 @@ public class PlayerJoinQuitListener implements Listener {
 			playerquitmessage = playerquitmessage.replace("&", "§");
 			event.setQuitMessage(playerquitmessage);
 		}
-		if (!Config.getString("Sounds.QuitSound").equals("none")) {
-			if (sound.soundAuthority(player, "SoundAuthoritys.QuitAuthority", Permission.CUSTOMMESSAGE_SOUND_QUIT)) {
-				sound.playSound(player, "Sounds.QuitSound", "SoundTypes.QuitSoundType");
+		if (!Config.getString("Sounds.PlayerQuitEvent_QuitSound").equals("none")) {
+			if (sound.soundAuthority(player, "SoundAuthoritys.PlayerQuitEvent_QuitSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_QUIT)) {
+				sound.playSound(player, "Sounds.PlayerQuitEvent_QuitSound", "SoundTypes.PlayerQuitEvent_QuitSoundType");
 			}
 		}
 	}

@@ -30,58 +30,57 @@ public class PlayerKickListener implements Listener {
 	public void onPlayerKick(PlayerKickEvent event) {
 		Player player = event.getPlayer();
 		Sounds sound = Sounds.getSounds();
-		if (Config.getBoolean("PlayerKickMessage.Enable")) {
-			if (isBanned(player)) {
-				if (!Config.getString("PlayerKickMessage.BanBroadcastMessage").equals("none")) {
-					String banbroadcastmessage = Config.getString("PlayerKickMessage.BanBroadcastMessage");
-					banbroadcastmessage = replaceKick(banbroadcastmessage, player, event);
-					Bukkit.broadcastMessage(banbroadcastmessage);
-					if (!Config.getString("Sounds.BanBroadcastSound").equals("none")) {
-						if (sound.soundAuthority(player, "SoundAuthoritys.BanBroadcastSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_BAN)) {
-							sound.playSound(player, "Sounds.BanBroadcastSound", "SoundTypes.BanBroadcastSoundType");
-						}
-					}
+		boolean enable = Config.getBoolean("PlayerKickMessage.Enable");
+		if (isBanned(player)) {
+			if (enable && !Config.getString("PlayerKickMessage.BanBroadcastMessage").equals("none")) {
+				String banbroadcastmessage = Config.getString("PlayerKickMessage.BanBroadcastMessage");
+				banbroadcastmessage = replaceKick(banbroadcastmessage, player, event);
+				Bukkit.broadcastMessage(banbroadcastmessage);
+			}
+			if (enable && !Config.getString("PlayerKickMessage.BanMessage").equals("none")) {
+				String banmessage = Config.getString("PlayerKickMessage.BanMessage");
+				banmessage = banmessage.replace("%line", Utils.getLineFeedCode());
+				banmessage = replaceKick(banmessage, player, event);
+				event.setReason(banmessage);
+			}
+			if (!Config.getString("Sounds.PlayerKickEvent_BanSound").equals("none")) {
+				if (sound.soundAuthority(player, "SoundAuthoritys.PlayerKickEvent_BanSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_BAN)) {
+					sound.playSound(player, "Sounds.PlayerKickEvent_BanSound", "SoundTypes.PlayerKickEvent_BanSoundType");
 				}
-				if (!Config.getString("PlayerKickMessage.BanMessage").equals("none")) {
-					String banmessage = Config.getString("PlayerKickMessage.BanMessage");
-					banmessage = banmessage.replace("%line", Utils.getLineFeedCode());
-					banmessage = replaceKick(banmessage, player, event);
-					event.setReason(banmessage);
+			}
+		} else {
+			if(event.getReason().equals("You have been idle for too long!")) {
+				if (enable && !Config.getString("PlayerKickMessage.AFKBroadcastMessage").equals("none")) {
+					String afkbroadcastmessage = Config.getString("PlayerKickMessage.AFKBroadcastMessage");
+					afkbroadcastmessage = replaceKick(afkbroadcastmessage, player, event);
+					Bukkit.broadcastMessage(afkbroadcastmessage);
+				}
+				if (enable && !Config.getString("PlayerKickMessage.AFKMessage").equals("none")) {
+					String afkmessage = Config.getString("PlayerKickMessage.AFKMessage");
+					afkmessage = afkmessage.replace("%line", Utils.getLineFeedCode());
+					afkmessage = replaceKick(afkmessage, player, event);
+					event.setReason(afkmessage);
+				}
+				if (!Config.getString("Sounds.PlayerKickEvent_AFKSound").equals("none")) {
+					if (sound.soundAuthority(player, "SoundAuthoritys.PlayerKickEvent_AFKSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_BAN)) {
+						sound.playSound(player, "Sounds.PlayerKickEvent_AFKSound", "SoundTypes.PlayerKickEvent_AFKSoundType");
+					}
 				}
 			} else {
-				if(event.getReason().equalsIgnoreCase("You have been idle for too long!")) {
-					if (!Config.getString("PlayerKickMessage.AFKBroadcastMessage").equals("none")) {
-						String afkbroadcastmessage = Config.getString("PlayerKickMessage.AFKBroadcastMessage");
-						afkbroadcastmessage = replaceKick(afkbroadcastmessage, player, event);
-						Bukkit.broadcastMessage(afkbroadcastmessage);
-						if (!Config.getString("Sounds.BanBroadcastSound").equals("none")) {
-							if (sound.soundAuthority(player, "SoundAuthoritys.AFKBroadcastSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_AFK)) {
-								sound.playSound(player, "Sounds.AFKBroadcastSound", "SoundTypes.AFKBroadcastSoundType");
-							}
-						}
-					}
-					if (!Config.getString("PlayerKickMessage.AFKMessage").equals("none")) {
-						String afkmessage = Config.getString("PlayerKickMessage.AFKMessage");
-						afkmessage = afkmessage.replace("%line", Utils.getLineFeedCode());
-						afkmessage = replaceKick(afkmessage, player, event);
-						event.setReason(afkmessage);
-					}
-				} else {
-					if (!Config.getString("PlayerKickMessage.KickBroadcastMessage").equals("none")) {
-						String kickbroadcastmessage = Config.getString("PlayerKickMessage.KickBroadcastMessage");
-						kickbroadcastmessage = replaceKick(kickbroadcastmessage, player, event);
-						Bukkit.broadcastMessage(kickbroadcastmessage);
-						if (!Config.getString("Sounds.KickBroadcastSound").equals("none")) {
-							if (sound.soundAuthority(player, "SoundAuthoritys.KickBroadcastSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_KICK)) {
-								sound.playSound(player, "Sounds.KickBroadcastSound", "SoundTypes.KickBroadcastSoundType");
-							}
-						}
-					}
-					if (!Config.getString("PlayerKickMessage.KickMessage").equals("none")) {
-						String kickmessage = Config.getString("PlayerKickMessage.KickMessage");
-						kickmessage = kickmessage.replace("%line", Utils.getLineFeedCode());
-						kickmessage = replaceKick(kickmessage, player, event);
-						event.setReason(kickmessage);
+				if (enable && !Config.getString("PlayerKickMessage.KickBroadcastMessage").equals("none")) {
+					String kickbroadcastmessage = Config.getString("PlayerKickMessage.KickBroadcastMessage");
+					kickbroadcastmessage = replaceKick(kickbroadcastmessage, player, event);
+					Bukkit.broadcastMessage(kickbroadcastmessage);
+				}
+				if (enable && !Config.getString("PlayerKickMessage.KickMessage").equals("none")) {
+					String kickmessage = Config.getString("PlayerKickMessage.KickMessage");
+					kickmessage = kickmessage.replace("%line", Utils.getLineFeedCode());
+					kickmessage = replaceKick(kickmessage, player, event);
+					event.setReason(kickmessage);
+				}
+				if (!Config.getString("Sounds.PlayerKickEvent_KickSound").equals("none")) {
+					if (sound.soundAuthority(player, "SoundAuthoritys.PlayerKickEvent_KickSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_BAN)) {
+						sound.playSound(player, "Sounds.PlayerKickEvent_KickSound", "SoundTypes.PlayerKickEvent_KickSoundType");
 					}
 				}
 			}
@@ -90,18 +89,19 @@ public class PlayerKickListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerLogin(PlayerLoginEvent event) {
+		if (!Config.getBoolean("PlayerLoginKickMessage.Enable")) {
+			return;
+		}
 		Player player = event.getPlayer();
-		if (Config.getBoolean("PlayerLoginKickMessage.Enable")) {
-			if(event.getResult() == Result.KICK_BANNED) {
-				String banmessage = Config.getString("PlayerLoginKickMessage.BanMessage");
-				banmessage = replaceLoginKick(banmessage, player, event);
-				event.disallow(Result.KICK_BANNED, banmessage);
-			}
-			if(event.getResult() == Result.KICK_WHITELIST) {
-				String whitelistmessage = Config.getString("PlayerLoginKickMessage.WhiteListMessage");
-				whitelistmessage = replaceLoginKick(whitelistmessage, player, event);
-				event.disallow(Result.KICK_WHITELIST, whitelistmessage);
-			}
+		if(event.getResult() == Result.KICK_BANNED) {
+			String banmessage = Config.getString("PlayerLoginKickMessage.BanMessage");
+			banmessage = replaceLoginKick(banmessage, player, event);
+			event.disallow(Result.KICK_BANNED, banmessage);
+		}
+		if(event.getResult() == Result.KICK_WHITELIST) {
+			String whitelistmessage = Config.getString("PlayerLoginKickMessage.WhiteListMessage");
+			whitelistmessage = replaceLoginKick(whitelistmessage, player, event);
+			event.disallow(Result.KICK_WHITELIST, whitelistmessage);
 		}
 	}
 

@@ -22,10 +22,10 @@ public class CommandListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
-		if (!Config.getString("Sounds.CommandSound").equals("none")) {
+		if (!Config.getString("Sounds.PlayerCommandEvent_CommandSound").equals("none")) {
 			Sounds sound = Sounds.getSounds();
-			if (sound.soundAuthority(player, "SoundAuthoritys.CommandSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_COMMAND)) {
-				sound.playSound(player, "Sounds.ChatSound", "SoundTypes.CommandSoundType");
+			if (sound.soundAuthority(player, "SoundAuthoritys.PlayerCommandEvent_CommandSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_COMMAND)) {
+				sound.playSound(player, "Sounds.PlayerCommandEvent_CommandSound", "SoundTypes.PlayerCommandEvent_CommandSoundType");
 			}
 		}
 	}
