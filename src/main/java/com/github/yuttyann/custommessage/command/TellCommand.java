@@ -2,7 +2,6 @@ package com.github.yuttyann.custommessage.command;
 
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -26,11 +25,11 @@ public class TellCommand implements TabExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!Permission.has(Permission.BUKKIT_COMMAND_TELL, sender)) {
-			sender.sendMessage(ChatColor.RED + "I'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.");
+			sender.sendMessage("§cI'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.");
 			return true;
 		}
 		if (args.length < 2) {
-			sender.sendMessage(ChatColor.RED + "Usage: /tell <player> <message>");
+			sender.sendMessage("§cUsage: /tell <player> <message>");
 			return true;
 		}
 		Player player = Utils.getOnlinePlayer(args[0]);
