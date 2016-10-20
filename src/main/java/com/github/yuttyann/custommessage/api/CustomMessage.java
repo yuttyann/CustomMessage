@@ -95,13 +95,13 @@ public class CustomMessage {
 	}
 
 	@Deprecated
-	public void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title) {
-		sendFullTitle(player, fadeIn, stay, fadeOut, title, "");
+	public void sendTitle(Player player, Integer fadein, Integer stay, Integer fadeout, String title) {
+		sendFullTitle(player, fadein, stay, fadeout, title, "");
 	}
 
 	@Deprecated
-	public void sendSubTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String subtitle) {
-		sendFullTitle(player, fadeIn, stay, fadeOut, "", subtitle);
+	public void sendSubTitle(Player player, Integer fadein, Integer stay, Integer fadeout, String subtitle) {
+		sendFullTitle(player, fadein, stay, fadeout, "", subtitle);
 	}
 
 	@Deprecated
@@ -114,24 +114,24 @@ public class CustomMessage {
 		sendFullTabTitle(player, "", footer);
 	}
 
-	public void sendFullTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {
+	public void sendFullTitle(Player player, Integer fadein, Integer stay, Integer fadeout, String title, String subtitle) {
 		String packageName = getPackage();
 		if (packageName.equalsIgnoreCase("v1_7_R4")) {
 			if (Config.getBoolean("UseSpigotProtocolHack")) {
-				v1_7_R4.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
+				v1_7_R4.sendTitle(player, fadein, stay, fadeout, title, subtitle);
 			}
 		} else if (packageName.equalsIgnoreCase("v1_8_R1")) {
-			v1_8_R1.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
+			v1_8_R1.sendTitle(player, fadein, stay, fadeout, title, subtitle);
 		} else if (packageName.equalsIgnoreCase("v1_8_R2")) {
-			v1_8_R2.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
+			v1_8_R2.sendTitle(player, fadein, stay, fadeout, title, subtitle);
 		} else if (packageName.equalsIgnoreCase("v1_8_R3")) {
-			v1_8_R3.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
+			v1_8_R3.sendTitle(player, fadein, stay, fadeout, title, subtitle);
 		} else if (packageName.equalsIgnoreCase("v1_9_R1")) {
-			v1_9_R1.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
+			v1_9_R1.sendTitle(player, fadein, stay, fadeout, title, subtitle);
 		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
-			v1_9_R2.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
+			v1_9_R2.sendTitle(player, fadein, stay, fadeout, title, subtitle);
 		} else if (packageName.equalsIgnoreCase("v1_10_R1")) {
-			v1_10_R1.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
+			v1_10_R1.sendTitle(player, fadein, stay, fadeout, title, subtitle);
 		}
 	}
 
