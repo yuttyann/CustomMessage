@@ -12,7 +12,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 
 public class TextUtils {
 
@@ -27,9 +26,9 @@ public class TextUtils {
 				list.add(line);
 			}
 		} catch (FileNotFoundException e) {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
 		} catch (IOException e) {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
 		} finally {
 			if (buReader != null) {
 				try {
@@ -57,9 +56,9 @@ public class TextUtils {
 				list.add(line);
 			}
 		} catch (MalformedURLException e) {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
 		} catch (IOException e) {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
 		} finally {
 			if (buReader != null) {
 				try {
