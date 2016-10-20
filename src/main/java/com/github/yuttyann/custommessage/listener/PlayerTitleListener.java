@@ -1,6 +1,7 @@
 package com.github.yuttyann.custommessage.listener;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,11 +19,11 @@ public class PlayerTitleListener implements Listener {
 
 	Main plugin;
 
-	HashMap<String, BukkitRunnable> timers;
+	HashMap<UUID, BukkitRunnable> timers;
 
 	public PlayerTitleListener(Main plugin) {
 		this.plugin = plugin;
-		timers = new HashMap<String, BukkitRunnable>();
+		timers = new HashMap<UUID, BukkitRunnable>();
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -34,8 +35,8 @@ public class PlayerTitleListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		if(timers.containsKey(player.getName())) {
-			tabTitleTimerStop(player);
+		if(timers.containsKey(player.getUniqueId())) {
+			tabTitleTimerReset(player);
 		}
 	}
 
@@ -59,21 +60,21 @@ public class PlayerTitleListener implements Listener {
 		}
 	}
 
-	private void tabTitleTimerStart(final Player player, final String Header, final String Footer) {
+	private void tabTitleTimerStart(final Player player, final String header, final String footer) {
 		BukkitRunnable timer = new BukkitRunnable() {
 			@Override
 			public void run() {
 				if (player != null) {
-					CustomMessage.getAPI().sendFullTabTitle(player, Header, Footer);
+					CustomMessage.getAPI().sendFullTabTitle(player, header, footer);
 				}
 			}
 		};
 		timer.runTaskTimer(plugin, 0, 20);
-		timers.put(player.getName(), timer);
+		timers.put(player.getUniqueId(), timer);
 	}
 
-	private void tabTitleTimerStop(Player player) {
-		timers.get(player.getName()).cancel();
-		timers.remove(player.getName());
+	private void tabTitleTimerReset(Player player) {
+		timers.get(player.getUniqueId()).cancel();
+		timers.remove(player.getUniqueId());
 	}
 }
