@@ -34,7 +34,7 @@ public class CustomMessageCommand implements TabExecutor {
 		if (args.length == 1) {
 			if (args[0].equalsIgnoreCase("reload")) {
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_RELOAD, sender)) {
-					sender.sendMessage(ChatColor.RED + "パーミッションが無いため、実行できません。");
+					sender.sendMessage("§cパーミッションが無いため、実行できません。");
 					return true;
 				}
 				Config.reload();
@@ -60,7 +60,7 @@ public class CustomMessageCommand implements TabExecutor {
 					return true;
 				}
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_RULES, sender)) {
-					sender.sendMessage(ChatColor.RED + "パーミッションが無いため、実行できません。");
+					sender.sendMessage("§cパーミッションが無いため、実行できません。");
 					return true;
 				}
 				for (String message : Config.getStringList("Rules.Message")) {
@@ -74,12 +74,12 @@ public class CustomMessageCommand implements TabExecutor {
 			Player player;
 			if (args[0].equalsIgnoreCase("title")) {
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_TITLE, sender)) {
-					sender.sendMessage(ChatColor.RED + "パーミッションが無いため、実行できません。");
+					sender.sendMessage("§cパーミッションが無いため、実行できません。");
 					return true;
 				}
 				player = Utils.getOnlinePlayer(args[1]);
 				if (player == null) {
-					sender.sendMessage(ChatColor.RED + args[1] + " というプレイヤーは見つかりません。");
+					sender.sendMessage("§c指定されたプレイヤーが見つかりません。");
 					return true;
 				}
 				String title = args[2].replace("%blank", " ");
@@ -89,12 +89,12 @@ public class CustomMessageCommand implements TabExecutor {
 			}
 			if (args[0].equalsIgnoreCase("tabtitle")) {
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_TABTITLE, sender)) {
-					sender.sendMessage(ChatColor.RED + "パーミッションが無いため、実行できません。");
+					sender.sendMessage("§cパーミッションが無いため、実行できません。");
 					return true;
 				}
 				player = Utils.getOnlinePlayer(args[1]);
 				if (player == null) {
-					sender.sendMessage(ChatColor.RED + args[1] + " というプレイヤーは見つかりません。");
+					sender.sendMessage("§c指定されたプレイヤーが見つかりません。");
 					return true;
 				}
 				String header = args[2].replace("%blank", " ");

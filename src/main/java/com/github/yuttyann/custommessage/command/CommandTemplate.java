@@ -39,9 +39,9 @@ public class CommandTemplate {
 	}
 
 	public static void sendCommandTemplate(CommandSender sender) {
-		sender.sendMessage(ChatColor.LIGHT_PURPLE + "=== " + pluginname + " Commands ===");
+		sender.sendMessage(ChatColor.LIGHT_PURPLE + "==== " + pluginname + " Commands ====");
 		for (String commands : commandtemplate) {
-			sender.sendMessage(ChatColor.AQUA + commands);
+			sender.sendMessage("§b" + commands);
 		}
 	}
 }
