@@ -1,5 +1,6 @@
 package com.github.yuttyann.custommessage;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,7 +17,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -120,16 +120,16 @@ public class Updater implements Listener {
 			content = nodelist.item(4).getTextContent().trim();
 			historyurl = nodelist.item(6).getTextContent().trim();
 		} catch (MalformedURLException e) {
-			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			sender.sendMessage("§cエラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (IOException e) {
-			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			sender.sendMessage("§cエラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (ParserConfigurationException e) {
-			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			sender.sendMessage("§cエラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (SAXException e) {
-			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			sender.sendMessage("§cエラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		}
 	}
@@ -145,7 +145,7 @@ public class Updater implements Listener {
 					list = TextUtils.getTextList(file);
 				}
 				if(Config.getBoolean("AutoDownload")) {
-					sender.sendMessage(ChatColor.LIGHT_PURPLE + "プラグインのダウンロードを開始しています...");
+					sender.sendMessage("§dプラグインのダウンロードを開始しています...");
 					if (!file.exists()) {
 						first = true;
 					}
@@ -168,13 +168,11 @@ public class Updater implements Listener {
 				return;
 			}
 		}
-		String soft = Config.getString("SoftName");
+		Desktop desktop = Desktop.getDesktop();
 		try {
-			Runtime runtime = Runtime.getRuntime();
-			runtime.exec(soft + " " + file.getPath());
-		} catch (Exception e) {
-			sender.sendMessage(ChatColor.RED + soft + " というソフトは存在しません。");
-			errorMessageTemplate();
+			desktop.open(new File(file.getPath()));
+		} catch (IOException e) {
+			sender.sendMessage("§cエラー[テキストエディタの起動に失敗しました。]");
 		}
 	}
 
@@ -203,19 +201,19 @@ public class Updater implements Listener {
 				output.write(b, 0, readByte);
 			}
 		} catch (FileNotFoundException e) {
-			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			sender.sendMessage("§cエラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (ProtocolException e) {
-			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			sender.sendMessage("§cエラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (MalformedURLException e) {
-			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			sender.sendMessage("§cエラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (IOException e) {
-			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			sender.sendMessage("§cエラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} catch (Exception e) {
-			sender.sendMessage(ChatColor.RED + "エラー[" + e.toString() + "]");
+			sender.sendMessage("§cエラー[" + e.toString() + "]");
 			errorMessageTemplate();
 		} finally {
 			if (output != null) {
@@ -235,9 +233,9 @@ public class Updater implements Listener {
 			}
 			if (message && !getError()) {
 				String prefix = "[" + file.getName() + "]";
-				sender.sendMessage(ChatColor.GOLD + prefix + " ダウンロードが終了しました。");
-				sender.sendMessage(ChatColor.GOLD + prefix + " ファイルサイズ: " + getSize(file.length()));
-				sender.sendMessage(ChatColor.GOLD + prefix + " 保存場所: " + file.getPath());
+				sender.sendMessage("§6" + prefix + " ダウンロードが終了しました。");
+				sender.sendMessage("§6" + prefix + " ファイルサイズ: " + getSize(file.length()));
+				sender.sendMessage("§6" + prefix + " 保存場所: " + file.getPath().replace("\\", "/"));
 			}
 		}
 	}
@@ -263,14 +261,14 @@ public class Updater implements Listener {
 	private void sendCheckMessage(Player player, boolean console) {
 		if(getEnable() && !getError() && getPluginURL() != null) {
 			if (console) {
-				sender.sendMessage(ChatColor.GREEN + "最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
-				sender.sendMessage(ChatColor.GREEN + "アップデート内容: " + getContent());
+				sender.sendMessage("§a最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
+				sender.sendMessage("§aアップデート内容: " + getContent());
 			} else {
 				if(!player.isOp()) {
 					return;
 				}
-				player.sendMessage(ChatColor.GREEN + "最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
-				player.sendMessage(ChatColor.GREEN + "アップデート内容: " + getContent());
+				player.sendMessage("§a最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
+				player.sendMessage("§aアップデート内容: " + getContent());
 			}
 		}
 	}
@@ -278,11 +276,11 @@ public class Updater implements Listener {
 	private void errorMessageTemplate() {
 		if(!getError()) {
 			error = true;
-			sender.sendMessage(ChatColor.RED + "プラグイン名: " + getPluginName());
-			sender.sendMessage(ChatColor.RED + "バージョン: v" + getVersion());
-			sender.sendMessage(ChatColor.RED + "取得ページ: " + getSiteURL());
-			sender.sendMessage(ChatColor.RED + "連絡用ページ: http://file.yuttyann44581.net/contact/");
-			sender.sendMessage(ChatColor.RED + "解決しない場合は、製作者に連絡してください。");
+			sender.sendMessage("§cプラグイン名: " + getPluginName());
+			sender.sendMessage("§cバージョン: v" + getVersion());
+			sender.sendMessage("§c取得ページ: " + getSiteURL());
+			sender.sendMessage("§c連絡用ページ: http://file.yuttyann44581.net/contact/");
+			sender.sendMessage("§c解決しない場合は、製作者に連絡してください。");
 		}
 	}
 
