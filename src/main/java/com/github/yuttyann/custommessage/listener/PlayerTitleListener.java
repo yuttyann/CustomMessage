@@ -29,7 +29,7 @@ public class PlayerTitleListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		playerTitle(player);
+		sendTitle(player);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -40,7 +40,7 @@ public class PlayerTitleListener implements Listener {
 		}
 	}
 
-	private void playerTitle(Player player) {
+	private void sendTitle(Player player) {
 		if (Config.getBoolean("Title.Enable")) {
 			int fadein = Config.getInt("TitleTime.FadeIn");
 			int stay = Config.getInt("TitleTime.Stay");
