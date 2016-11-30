@@ -17,7 +17,7 @@ import com.github.yuttyann.custommessage.util.Utils;
 public class SayCommand implements TabExecutor {
 
 	Main plugin;
-	Boolean apimode;
+	boolean apimode;
 
 	public SayCommand(Main plugin, Boolean apimode) {
 		this.plugin = plugin;
