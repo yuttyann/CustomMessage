@@ -18,7 +18,7 @@ import com.github.yuttyann.custommessage.util.Utils;
 public class CustomMessageCommand implements TabExecutor {
 
 	Main plugin;
-	Boolean apimode;
+	boolean apimode;
 
 	public CustomMessageCommand(Main plugin, Boolean apimode) {
 		this.plugin = plugin;
@@ -54,11 +54,7 @@ public class CustomMessageCommand implements TabExecutor {
 				sender.sendMessage(ChatColor.GREEN + "Configの再読み込みが完了しました。");
 				return true;
 			}
-			if (args[0].equalsIgnoreCase("rules")) {
-				if (!Config.getBoolean("Rules.Enable")) {
-					CommandTemplate.sendCommandTemplate(sender);
-					return true;
-				}
+			if (args[0].equalsIgnoreCase("rules") && Config.getBoolean("Rules.Enable")) {
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_RULES, sender)) {
 					sender.sendMessage("§cパーミッションが無いため、実行できません。");
 					return true;
@@ -78,7 +74,7 @@ public class CustomMessageCommand implements TabExecutor {
 					return true;
 				}
 				player = Utils.getOnlinePlayer(args[1]);
-				if (player == null) {
+				if (player == null || !((Player) sender).canSee(player)) {
 					sender.sendMessage("§c指定されたプレイヤーが見つかりません。");
 					return true;
 				}
@@ -93,7 +89,7 @@ public class CustomMessageCommand implements TabExecutor {
 					return true;
 				}
 				player = Utils.getOnlinePlayer(args[1]);
-				if (player == null) {
+				if (player == null || !((Player) sender).canSee(player)) {
 					sender.sendMessage("§c指定されたプレイヤーが見つかりません。");
 					return true;
 				}
