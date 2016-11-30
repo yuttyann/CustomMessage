@@ -30,7 +30,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.github.yuttyann.custommessage.file.Config;
-import com.github.yuttyann.custommessage.util.TextUtils;
+import com.github.yuttyann.custommessage.util.Utils;
 
 public class Updater implements Listener {
 
@@ -120,16 +120,16 @@ public class Updater implements Listener {
 			content = nodelist.item(4).getTextContent().trim();
 			historyurl = nodelist.item(6).getTextContent().trim();
 		} catch (MalformedURLException e) {
-			sender.sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 			errorMessageTemplate();
 		} catch (IOException e) {
-			sender.sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 			errorMessageTemplate();
 		} catch (ParserConfigurationException e) {
-			sender.sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 			errorMessageTemplate();
 		} catch (SAXException e) {
-			sender.sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 			errorMessageTemplate();
 		}
 	}
@@ -142,7 +142,7 @@ public class Updater implements Listener {
 				File file = new File(plugin.getDataFolder(), "更新履歴.txt");
 				ArrayList<String> list = new ArrayList<String>();
 				if (file.exists()) {
-					list = TextUtils.getTextList(file);
+					list = Utils.getTextList(file);
 				}
 				if(Config.getBoolean("AutoDownload")) {
 					sender.sendMessage("§dプラグインのダウンロードを開始しています...");
@@ -164,7 +164,7 @@ public class Updater implements Listener {
 	private void openTextFile(ArrayList<String> list, boolean first) {
 		File file = new File(plugin.getDataFolder(), "更新履歴.txt");
 		if (!first) {
-			if (list.equals(TextUtils.getTextList(getHistoryURL()))) {
+			if (list.equals(Utils.getTextList(getHistoryURL()))) {
 				return;
 			}
 		}
@@ -172,7 +172,7 @@ public class Updater implements Listener {
 		try {
 			desktop.open(new File(file.getPath()));
 		} catch (IOException e) {
-			sender.sendMessage("§cエラー[テキストエディタの起動に失敗しました。]");
+			e.printStackTrace();
 		}
 	}
 
@@ -187,7 +187,8 @@ public class Updater implements Listener {
 			conn.connect();
 			int httpStatusCode = conn.getResponseCode();
 			if (httpStatusCode != HttpURLConnection.HTTP_OK) {
-				throw new Exception();
+				conn.disconnect();
+				return;
 			}
 			File downloads = new File(plugin.getDataFolder(), "Downloads");
 			if (!downloads.exists()) {
@@ -201,19 +202,16 @@ public class Updater implements Listener {
 				output.write(b, 0, readByte);
 			}
 		} catch (FileNotFoundException e) {
-			sender.sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 			errorMessageTemplate();
 		} catch (ProtocolException e) {
-			sender.sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 			errorMessageTemplate();
 		} catch (MalformedURLException e) {
-			sender.sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 			errorMessageTemplate();
 		} catch (IOException e) {
-			sender.sendMessage("§cエラー[" + e.toString() + "]");
-			errorMessageTemplate();
-		} catch (Exception e) {
-			sender.sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 			errorMessageTemplate();
 		} finally {
 			if (output != null) {

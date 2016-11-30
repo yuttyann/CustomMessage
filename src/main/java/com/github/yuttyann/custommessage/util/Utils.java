@@ -1,10 +1,13 @@
 package com.github.yuttyann.custommessage.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -36,7 +39,8 @@ public class Utils {
 			conn.connect();
 			int httpStatusCode = conn.getResponseCode();
 			if (httpStatusCode != HttpURLConnection.HTTP_OK) {
-				throw new Exception();
+				conn.disconnect();
+				return;
 			}
 			input = conn.getInputStream();
 			output = new FileOutputStream(file, false);
@@ -46,15 +50,13 @@ public class Utils {
 				output.write(b, 0, readByte);
 			}
 		} catch (FileNotFoundException e) {
-			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 		} catch (ProtocolException e) {
-			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 		} catch (MalformedURLException e) {
-			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 		} catch (IOException e) {
-			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
-		} catch (Exception e) {
-			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 		} finally {
 			if (output != null) {
 				try {
@@ -164,9 +166,9 @@ public class Utils {
 				id = offline.getUniqueId();
 			} else {
 				try {
-					id = UUIDFetcher.getUUIDOf(name);
+					id = UUIDFetcher.getUniqueId(name);
 				} catch (Exception e) {
-					return id;
+					return null;
 				}
 			}
 		}
@@ -240,6 +242,76 @@ public class Utils {
 			}
 		}
 		return null;
+	}
+
+	public static ArrayList<String> getTextList(File file) {
+		ArrayList<String> list = null;
+		BufferedReader buReader = null;
+		try {
+			buReader = new BufferedReader(new FileReader(file));
+			list = new ArrayList<String>();
+			String line;
+			while ((line = buReader.readLine()) != null) {
+				list.add(line);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (buReader != null) {
+				try {
+					buReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+
+	public static ArrayList<String> getTextList(String url) {
+		ArrayList<String> list = null;
+		InputStream input = null;
+		InputStreamReader inReader = null;
+		BufferedReader buReader = null;
+		try {
+			input = new URL(url).openStream();
+			inReader = new InputStreamReader(input);
+			buReader = new BufferedReader(inReader);
+			list = new ArrayList<String>();
+			String line;
+			while ((line = buReader.readLine()) != null) {
+				list.add(line);
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (buReader != null) {
+				try {
+					buReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (inReader != null) {
+				try {
+					inReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
 	}
 
 	@SuppressWarnings("unchecked")

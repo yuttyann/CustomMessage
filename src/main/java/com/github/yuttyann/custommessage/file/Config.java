@@ -13,7 +13,6 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
@@ -68,19 +67,21 @@ public class Config {
 			Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
 			Node node = document.getElementsByTagName("p").item(0);
 			NodeList nodelist = node.getChildNodes();
+			int item;
 			if (encode) {
-				return nodelist.item(0).getTextContent().trim();
+				item = 0;
 			} else {
-				return nodelist.item(2).getTextContent().trim();
+				item = 2;
 			}
+			return nodelist.item(item).getTextContent().trim();
 		} catch (MalformedURLException e) {
-			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 		} catch (IOException e) {
-			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
-			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 		} catch (SAXException e) {
-			Bukkit.getConsoleSender().sendMessage("§cエラー[" + e.toString() + "]");
+			e.printStackTrace();
 		}
 		return null;
 	}
