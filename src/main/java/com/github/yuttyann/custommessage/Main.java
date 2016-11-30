@@ -30,7 +30,7 @@ import com.github.yuttyann.custommessage.util.Utils;
 public class Main extends JavaPlugin {
 
 	public static Main instance;
-	private Boolean apimode;
+	private boolean apimode;
 	private Logger logger;
 	private PluginDescriptionFile pluginyml;
 	private HashMap<String, TabExecutor> commands;
@@ -44,10 +44,8 @@ public class Main extends JavaPlugin {
 		if (Config.getBoolean("Disable_All_Functions")) {
 			logger.info("APIモードで起動します。");
 			apimode = true;
-			getServer().getPluginManager().registerEvents(new Updater(this), this);
-		} else {
-			loadClass();
 		}
+		loadClass(!apimode);
 		loadCommand();
 		if (!Utils.isPluginEnabled("ProtocolLib") && !apimode) {
 			logger.severe("ProtocolLibが導入されていないため、PlayerCountMessageを無効化しました。");
@@ -87,14 +85,16 @@ public class Main extends JavaPlugin {
 		new Config(this, "config", encode, pluginyml);
 	}
 
-	private void loadClass() {
-		getServer().getPluginManager().registerEvents(new PlayerChatListener(this), this);
-		getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
-		getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(this), this);
-		getServer().getPluginManager().registerEvents(new PlayerKickListener(this), this);
-		getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
-		getServer().getPluginManager().registerEvents(new CommandListener(this), this);
-		getServer().getPluginManager().registerEvents(new ServerListener(this), this);
+	private void loadClass(boolean load) {
+		if (load) {
+			getServer().getPluginManager().registerEvents(new PlayerChatListener(this), this);
+			getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
+			getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(this), this);
+			getServer().getPluginManager().registerEvents(new PlayerKickListener(this), this);
+			getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
+			getServer().getPluginManager().registerEvents(new CommandListener(this), this);
+			getServer().getPluginManager().registerEvents(new ServerListener(this), this);
+		}
 		getServer().getPluginManager().registerEvents(new Updater(this), this);
 	}
 
