@@ -15,7 +15,7 @@ import com.github.yuttyann.custommessage.util.Utils;
 public class MeCommand implements TabExecutor {
 
 	Main plugin;
-	Boolean apimode;
+	boolean apimode;
 
 	public MeCommand(Main plugin, Boolean apimode) {
 		this.plugin = plugin;
