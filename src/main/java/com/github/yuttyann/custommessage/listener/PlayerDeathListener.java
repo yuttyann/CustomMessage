@@ -1,12 +1,14 @@
 package com.github.yuttyann.custommessage.listener;
 
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Skeleton.SkeletonType;
+import org.bukkit.entity.Snowball;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
@@ -15,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.projectiles.ProjectileSource;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
@@ -24,6 +27,7 @@ import com.github.yuttyann.custommessage.api.CustomMessage;
 import com.github.yuttyann.custommessage.file.Config;
 import com.github.yuttyann.custommessage.util.Utils;
 
+@SuppressWarnings("deprecation")
 public class PlayerDeathListener implements Listener {
 
 	Main plugin;
@@ -37,12 +41,12 @@ public class PlayerDeathListener implements Listener {
 		Player deader = event.getEntity();
 		Sounds sound = Sounds.getSounds();
 		String deathmessage = "";
+		boolean isUpperVersion_v1_11 = Utils.isUpperVersion("1.11");
 		if (deader.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
 			EntityDamageByEntityEvent lastcause =  (EntityDamageByEntityEvent) deader.getLastDamageCause();
 			Entity entity = lastcause.getDamager();
-			if (deader instanceof Player && entity instanceof Arrow && ((Arrow) lastcause.getDamager()).getShooter() instanceof Player) {
-				Arrow arrow = (Arrow) lastcause.getDamager();
-				Player killer = (Player) arrow.getShooter();
+			if (isShot(entity) && deader instanceof Player && getShooter(entity) instanceof Player) {
+				Player killer = (Player) getShooter(entity);
 				String nullstr = Config.getString("DeathMessage.Weapon.NullMessage");
 				deathmessage = Config.getString("DeathMessage.Messages.Player");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
@@ -75,13 +79,15 @@ public class PlayerDeathListener implements Listener {
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
-			} else if (isEntity(entity, "ZOMBIE") && zombieType(entity, "HUSK")) {
+			} else if ((isUpperVersion_v1_11 && isEntity(entity, "HUSK"))
+				|| (!isUpperVersion_v1_11 && isEntity(entity, "ZOMBIE") && zombieType(entity, "HUSK"))) {
 				deathmessage = Config.getString("DeathMessage.Messages.Husk");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
-			} else if (isEntity(entity, "ZOMBIE") && !zombieType(entity, "HUSK")) {
+			} else if ((isUpperVersion_v1_11 && isEntity(entity, "ZOMBIE"))
+				|| (!isUpperVersion_v1_11 && isEntity(entity, "ZOMBIE") && !zombieType(entity, "HUSK"))) {
 				deathmessage = Config.getString("DeathMessage.Messages.Zombie");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
@@ -189,7 +195,7 @@ public class PlayerDeathListener implements Listener {
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
-			} else if ((lastcause.getCause().equals(DamageCause.ENTITY_EXPLOSION) || lastcause.getCause().equals(DamageCause.BLOCK_EXPLOSION))) {
+			} else if (lastcause.getCause().equals(DamageCause.ENTITY_EXPLOSION) || lastcause.getCause().equals(DamageCause.BLOCK_EXPLOSION)) {
 				deathmessage = Config.getString("DeathMessage.Messages.Explosion");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
@@ -204,21 +210,24 @@ public class PlayerDeathListener implements Listener {
 				} else {
 					killer = entity;
 				}
-				if (isEntity(entity, "SKELETON") && skeletonType(entity, "NORMAL")) {
+				if ((isUpperVersion_v1_11 && isEntity(entity, "SKELETON"))
+					|| (!isUpperVersion_v1_11 && isEntity(entity, "SKELETON") && skeletonType(entity, "NORMAL"))) {
 					deathmessage = Config.getString("DeathMessage.Messages.Skeleton");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 					deathmessage = deathmessage.replace("%killer", getEntityName(killer));
 					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 				}
-				if (isEntity(entity, "SKELETON") && skeletonType(entity, "WITHER")) {
+				if ((isUpperVersion_v1_11 && isEntity(entity, "WITHER_SKELETON"))
+					||(!isUpperVersion_v1_11 && isEntity(entity, "SKELETON") && skeletonType(entity, "WITHER"))) {
 					deathmessage = Config.getString("DeathMessage.Messages.WitherSkeleton");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 					deathmessage = deathmessage.replace("%killer", getEntityName(killer));
 					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 				}
-				if (isEntity(entity, "SKELETON") && skeletonType(entity, "STRAY")) {
+				if ((isUpperVersion_v1_11 && isEntity(entity, "STRAY"))
+					|| (!isUpperVersion_v1_11 && isEntity(entity, "SKELETON") && skeletonType(entity, "STRAY"))) {
 					deathmessage = Config.getString("DeathMessage.Messages.Stray");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 					deathmessage = deathmessage.replace("%killer", getEntityName(killer));
@@ -295,6 +304,22 @@ public class PlayerDeathListener implements Listener {
 		}
 	}
 
+	private boolean isShot(Entity entity) {
+		return entity instanceof Arrow || entity instanceof Snowball || entity instanceof Egg;
+	}
+
+	private ProjectileSource getShooter(Entity entity) {
+		ProjectileSource projectile = null;
+		if (entity instanceof Arrow) {
+			projectile = ((Arrow) entity).getShooter();
+		} else if (entity instanceof Snowball) {
+			projectile = ((Snowball) entity).getShooter();
+		} else if (entity instanceof Egg) {
+			projectile = ((Egg) entity).getShooter();
+		}
+		return projectile;
+	}
+
 	private String getEntityName(Entity entity) {
 		if (Utils.isUpperVersion("1.8")) {
 			return entity.getName();
@@ -313,12 +338,10 @@ public class PlayerDeathListener implements Listener {
 			if (entity.getType().equals(type)) {
 				return true;
 			}
-		} catch(Exception e) {
-		}
+		} catch(Exception e) {}
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
 	private boolean skeletonType(Entity entity, String typename) {
 		SkeletonType type = null;
 		try {
@@ -327,12 +350,10 @@ public class PlayerDeathListener implements Listener {
 			if (skeleton.getSkeletonType().equals(type)) {
 				return true;
 			}
-		} catch(Exception e) {
-		}
+		} catch(Exception e) {}
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
 	private boolean zombieType(Entity entity, String typename) {
 		Profession type = null;
 		try {
@@ -341,8 +362,7 @@ public class PlayerDeathListener implements Listener {
 			if (zombie.getVillagerProfession().equals(type)) {
 				return true;
 			}
-		} catch(Exception e) {
-		}
+		} catch(Exception e) {}
 		return false;
 	}
 }
