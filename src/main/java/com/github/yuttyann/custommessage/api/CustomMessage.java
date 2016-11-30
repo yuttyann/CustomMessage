@@ -57,7 +57,6 @@ public class CustomMessage {
 		}
 		String displayname = item.getItemMeta().getDisplayName();
 		if (getWeaponTitle(item) != null) {
-			String weaponname = "";
 			String index = "";
 			if (displayname.contains("▪ «")) {
 				index = "▪ «";
@@ -68,8 +67,7 @@ public class CustomMessage {
 			} else if (displayname.contains("«")){
 				index = "«";
 			}
-			weaponname = displayname.substring(displayname.indexOf(index), displayname.length());
-			return displayname.replace(weaponname, "");
+			return displayname.substring(0, displayname.lastIndexOf(index)).trim();
 		}
 		return displayname;
 	}
