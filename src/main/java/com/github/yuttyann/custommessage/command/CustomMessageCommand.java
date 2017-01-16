@@ -3,7 +3,6 @@ package com.github.yuttyann.custommessage.command;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -12,7 +11,9 @@ import org.bukkit.entity.Player;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.api.CustomMessage;
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.command.template.CommandHelp;
+import com.github.yuttyann.custommessage.file.Files;
+import com.github.yuttyann.custommessage.file.Yaml;
 import com.github.yuttyann.custommessage.util.Utils;
 
 public class CustomMessageCommand implements TabExecutor {
@@ -20,13 +21,20 @@ public class CustomMessageCommand implements TabExecutor {
 	Main plugin;
 	boolean apimode;
 
-	public CustomMessageCommand(Main plugin, Boolean apimode) {
+	public CustomMessageCommand(Main plugin, boolean apimode) {
 		this.plugin = plugin;
 		this.apimode = apimode;
+		CommandHelp help = new CommandHelp();
+			help.put("custommessage",
+			help.getView().setAll("reload - コンフィグの再読み込みを行います。", Permission.CUSTOMMESSAGE_COMMAND_RELOAD, true),
+			help.getView().setAll("rules - ルールを表示します。", Permission.CUSTOMMESSAGE_COMMAND_RULES, true),
+			help.getView().setAll("title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。", Permission.CUSTOMMESSAGE_COMMAND_TITLE, true),
+			help.getView().setAll("tabtitle <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。", Permission.CUSTOMMESSAGE_COMMAND_TABTITLE, true)
+		);
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (apimode) {
 			sender.sendMessage("Unknown command. Type \"/help\" for help.");
 			return true;
@@ -34,32 +42,20 @@ public class CustomMessageCommand implements TabExecutor {
 		if (args.length == 1) {
 			if (args[0].equalsIgnoreCase("reload")) {
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_RELOAD, sender)) {
-					sender.sendMessage("§cパーミッションが無いため、実行できません。");
+					Utils.sendPluginMessage(sender, "§cパーミッションが無いため、実行できません。");
 					return true;
 				}
-				Config.reload();
-				CommandTemplate.clear();
-				if (Config.getBoolean("Rules.Enable")) {
-					CommandTemplate.clear();
-					CommandTemplate.addCommand("/custommessage reload - Configの再読み込みをします。");
-					CommandTemplate.addCommand("/custommessage rules - ルールを表示します。");
-					CommandTemplate.addCommand("/custommessage title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。");
-					CommandTemplate.addCommand("/custommessage tabtitle <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。");
-				} else {
-					CommandTemplate.clear();
-					CommandTemplate.addCommand("/custommessage reload - Configの再読み込みをします。");
-					CommandTemplate.addCommand("/custommessage title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。");
-					CommandTemplate.addCommand("/custommessage tabtitle <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。");
-				}
-				sender.sendMessage(ChatColor.GREEN + "Configの再読み込みが完了しました。");
+				Files.reload();
+				Utils.sendPluginMessage(sender, "§a全てのファイルの再読み込みが完了しました。");
 				return true;
 			}
-			if (args[0].equalsIgnoreCase("rules") && Config.getBoolean("Rules.Enable")) {
+			Yaml config = Files.getConfig();
+			if (args[0].equalsIgnoreCase("rules") && config.getBoolean("Rules.Enable")) {
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_RULES, sender)) {
-					sender.sendMessage("§cパーミッションが無いため、実行できません。");
+					Utils.sendPluginMessage(sender, "§cパーミッションが無いため、実行できません。");
 					return true;
 				}
-				for (String message : Config.getStringList("Rules.Message")) {
+				for (String message : config.getStringList("Rules.Message")) {
 					message = message.replace("&", "§");
 					sender.sendMessage(message);
 				}
@@ -70,12 +66,12 @@ public class CustomMessageCommand implements TabExecutor {
 			Player player;
 			if (args[0].equalsIgnoreCase("title")) {
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_TITLE, sender)) {
-					sender.sendMessage("§cパーミッションが無いため、実行できません。");
+					Utils.sendPluginMessage(sender, "§cパーミッションが無いため、実行できません。");
 					return true;
 				}
 				player = Utils.getOnlinePlayer(args[1]);
 				if (player == null || !((Player) sender).canSee(player)) {
-					sender.sendMessage("§c指定されたプレイヤーが見つかりません。");
+					Utils.sendPluginMessage(sender, "§c指定されたプレイヤーが見つかりません。");
 					return true;
 				}
 				String title = args[2].replace("%blank", " ");
@@ -85,12 +81,12 @@ public class CustomMessageCommand implements TabExecutor {
 			}
 			if (args[0].equalsIgnoreCase("tabtitle")) {
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_TABTITLE, sender)) {
-					sender.sendMessage("§cパーミッションが無いため、実行できません。");
+					Utils.sendPluginMessage(sender, "§cパーミッションが無いため、実行できません。");
 					return true;
 				}
 				player = Utils.getOnlinePlayer(args[1]);
 				if (player == null || !((Player) sender).canSee(player)) {
-					sender.sendMessage("§c指定されたプレイヤーが見つかりません。");
+					Utils.sendPluginMessage(sender, "§c指定されたプレイヤーが見つかりません。");
 					return true;
 				}
 				String header = args[2].replace("%blank", " ");
@@ -99,7 +95,8 @@ public class CustomMessageCommand implements TabExecutor {
 				return true;
 			}
 		}
-		CommandTemplate.sendCommandTemplate(sender);
+		label = label.equalsIgnoreCase("custommessage") ? label : "custommessage";
+		CommandHelp.sendHelpMessage(sender, command);;
 		return true;
 	}
 

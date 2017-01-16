@@ -13,7 +13,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.api.CustomMessage;
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.file.Files;
+import com.github.yuttyann.custommessage.file.Yaml;
 
 public class PlayerTitleListener implements Listener {
 
@@ -41,17 +42,18 @@ public class PlayerTitleListener implements Listener {
 	}
 
 	private void sendTitle(Player player) {
-		if (Config.getBoolean("Title.Enable")) {
-			int fadein = Config.getInt("TitleTime.FadeIn");
-			int stay = Config.getInt("TitleTime.Stay");
-			int fadeout = Config.getInt("TitleTime.FadeOut");
-			String titlemessage = Config.getString("Title.TitleMessage");
-			String subtitlemessage = Config.getString("Title.SubTitleMessage");
+		Yaml config = Files.getConfig();
+		if (config.getBoolean("Title.Enable")) {
+			int fadein = config.getInt("TitleTime.FadeIn");
+			int stay = config.getInt("TitleTime.Stay");
+			int fadeout = config.getInt("TitleTime.FadeOut");
+			String titlemessage = config.getString("Title.TitleMessage");
+			String subtitlemessage = config.getString("Title.SubTitleMessage");
 			CustomMessage.getAPI().sendFullTitle(player, fadein, stay, fadeout, titlemessage, subtitlemessage);
 		}
-		if (Config.getBoolean("TabTitle.Enable")) {
-			String header = Config.getString("TabTitle.Header");
-			String footer = Config.getString("TabTitle.Footer");
+		if (config.getBoolean("TabTitle.Enable")) {
+			String header = config.getString("TabTitle.Header");
+			String footer = config.getString("TabTitle.Footer");
 			if(header.contains("%time") || footer.contains("%time")) {
 				tabTitleTimerStart(player, header, footer);
 			} else {

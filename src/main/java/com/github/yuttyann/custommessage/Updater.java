@@ -1,172 +1,179 @@
 package com.github.yuttyann.custommessage;
 
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.bukkit.Bukkit;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.file.FileDownload;
+import com.github.yuttyann.custommessage.file.Files;
+import com.github.yuttyann.custommessage.file.PluginYaml;
+import com.github.yuttyann.custommessage.file.Yaml;
 import com.github.yuttyann.custommessage.util.Utils;
 
-public class Updater implements Listener {
+public class Updater extends FileDownload implements Listener {
 
-	Main plugin;
-
-	private static Updater updater;
-	private ConsoleCommandSender sender;
-	private PluginDescriptionFile pluginyml;
-	private Boolean enable;
-	private Boolean error;
-	private String currentversion;
-	private String content;
-	private String pluginname;
-	private String pluginurl;
-	private String historyurl;
-	private String siteurl;
+	private String pluginName;
+	private String pluginVersion;
 	private String version;
+	private String download;
+	private String changelog;
+	private String[] details;
+	private boolean isEnable;
+	private boolean isError;
 
 	public Updater(Main plugin) {
-		this.plugin = plugin;
-		updater = this;
-		enable = false;
-		error = false;
-		pluginyml = plugin.getDescription();
-		currentversion = pluginyml.getVersion();
-		pluginname = pluginyml.getName();
-		siteurl = "http://versionview.yuttyann44581.net/" + getPluginName() + "/";
-		sender = Bukkit.getConsoleSender();
-		setUp();
+		setup();
 		updateCheck();
-		sendCheckMessage(null, true);
-	}
-
-	public static Updater getUpdater() {
-		return updater;
-	}
-
-	public Boolean getEnable() {
-		return enable;
-	}
-
-	public Boolean getError() {
-		return error;
-	}
-
-	public String getCurrentVersion() {
-		return currentversion;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public String getPluginFileName() {
-		return getPluginName() + " v" + getVersion() + ".jar";
 	}
 
 	public String getPluginName() {
-		return pluginname;
+		return pluginName;
 	}
 
-	public String getPluginURL() {
-		return pluginurl;
-	}
-
-	public String getHistoryURL() {
-		return historyurl;
-	}
-
-	public String getSiteURL() {
-		return siteurl;
+	public String getPluginVersion() {
+		return pluginVersion;
 	}
 
 	public String getVersion() {
 		return version;
 	}
 
-	private void setUp() {
-		try {
-			URL url = new URL(getSiteURL());
-			InputStream input = url.openConnection().getInputStream();
-			Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(input);
-			Node node = document.getElementsByTagName("p").item(0);
-			NodeList nodelist = node.getChildNodes();
-			version = nodelist.item(0).getTextContent().trim();
-			pluginurl = nodelist.item(2).getTextContent().trim();
-			content = nodelist.item(4).getTextContent().trim();
-			historyurl = nodelist.item(6).getTextContent().trim();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			errorMessageTemplate();
-		} catch (IOException e) {
-			e.printStackTrace();
-			errorMessageTemplate();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-			errorMessageTemplate();
-		} catch (SAXException e) {
-			e.printStackTrace();
-			errorMessageTemplate();
+	public String getDownloadURL() {
+		return download;
+	}
+
+	public String getChangeLogURL() {
+		return changelog;
+	}
+
+	public String[] getDetails() {
+		return details;
+	}
+
+	public boolean isEnable() {
+		return isEnable;
+	}
+
+	public boolean isError() {
+		return isError;
+	}
+
+	private void setup() {
+		isEnable = false;
+		isError = false;
+		pluginName = PluginYaml.getName();
+		pluginVersion = PluginYaml.getVersion();
+		Document document = getDocument(getPluginName());
+		Element root = document.getDocumentElement();
+		NodeList rootChildren = root.getChildNodes();
+		for(int i = 0, l = rootChildren.getLength(); i < l; i++) {
+			Node node = rootChildren.item(i);
+			if (node.getNodeType() != Node.ELEMENT_NODE) {
+				continue;
+			}
+			Element element = (Element) node;
+			if (!element.getNodeName().equals("update")) {
+				continue;
+			}
+			version = element.getAttribute("version");
+			NodeList updateChildren = node.getChildNodes();
+			for (int j = 0, l2 = updateChildren.getLength(); j < l2; j++) {
+				Node updateNode = updateChildren.item(j);
+				if (updateNode.getNodeType() != Node.ELEMENT_NODE) {
+					continue;
+				}
+				if (updateNode.getNodeName().equals("download")) {
+					download = ((Element) updateNode).getAttribute("url");
+				}
+				if (updateNode.getNodeName().equals("changelog")) {
+					changelog = ((Element) updateNode).getAttribute("url");
+				}
+				if (updateNode.getNodeName().equals("details")) {
+					NodeList detailsChildren = updateNode.getChildNodes();
+					for(int k = 0, n = 0, l3 = detailsChildren.getLength(); k < l3; k++) {
+						Node detailsNode = detailsChildren.item(k);
+						if (detailsNode.getNodeType() != Node.ELEMENT_NODE) {
+							continue;
+						}
+						if (details == null) {
+							details = new String[l3];
+						}
+						details[n] = ((Element) detailsNode).getAttribute("info");
+						n++;
+					}
+				}
+			}
 		}
 	}
 
 	private void updateCheck() {
-		if(Config.getBoolean("UpdateChecker")) {
-			if(Double.parseDouble(getVersion()) > Double.parseDouble(getCurrentVersion())) {
-				enable = true;
-				boolean first = false;
-				File file = new File(plugin.getDataFolder(), "更新履歴.txt");
-				ArrayList<String> list = new ArrayList<String>();
-				if (file.exists()) {
-					list = Utils.getTextList(file);
+		Yaml config = Files.getConfig();
+		if(config.getBoolean("UpdateChecker") && Utils.versionInt(getVersion().split("\\.")) > Utils.versionInt(getPluginVersion().split("\\."))) {
+			isEnable = true;
+			boolean first = false;
+			File data = Main.instance.getDataFolder();
+			File changelogFile = new File(data, "更新履歴.txt");
+			ArrayList<String> changelog = new ArrayList<String>();
+			if (changelogFile.exists()) {
+				changelog = getTextList(changelogFile);
+			}
+			sendCheckMessage(Bukkit.getConsoleSender());
+			if(config.getBoolean("AutoDownload")) {
+				Utils.sendPluginMessage("§6最新のプラグインをダウンロードしています...");
+				if (!changelogFile.exists()) {
+					first = true;
 				}
-				if(Config.getBoolean("AutoDownload")) {
-					sender.sendMessage("§dプラグインのダウンロードを開始しています...");
-					if (!file.exists()) {
-						first = true;
+				File downloadFile = null;
+				try {
+					downloadFile = new File(data, "Downloads");
+					if (!downloadFile.exists()) {
+						downloadFile.mkdir();
 					}
-					fileDownload(getHistoryURL(), file, false);
-					fileDownload(getPluginURL(), new File(plugin.getDataFolder(), "Downloads/" + getPluginFileName()), true);
+					downloadFile = new File(data, "Downloads/" + getPluginName() + " v" + getVersion() + ".jar");
+					fileDownload(getChangeLogURL(), changelogFile);
+					fileDownload(getDownloadURL(), downloadFile);
+				} catch (IOException e) {
+					e.printStackTrace();
+					sendErrorMessage();
+				} finally {
+					if (!isError()) {
+						String prefix = "§6[" + downloadFile.getName() + "]";
+						Utils.sendPluginMessage(prefix + " ダウンロードが終了しました。");
+						Utils.sendPluginMessage(prefix + " ファイルサイズ: " + getSize(downloadFile.length()));
+						Utils.sendPluginMessage(prefix + " ファイルパス: " + downloadFile.getPath().replace("\\", "/"));
+					}
 				}
-				if (Config.getBoolean("OpenTextFile") && !getError()) {
-					openTextFile(list, first);
-				}
-			} else {
-				enable = false;
+			}
+			if (config.getBoolean("OpenTextFile") && !isError()) {
+				openTextFile(changelogFile, changelog, first);
 			}
 		}
 	}
 
-	private void openTextFile(ArrayList<String> list, boolean first) {
-		File file = new File(plugin.getDataFolder(), "更新履歴.txt");
-		if (!first) {
-			if (list.equals(Utils.getTextList(getHistoryURL()))) {
-				return;
-			}
+	private void openTextFile(File file, ArrayList<String> changelog, boolean first) {
+		if (!first && changelog.equals(getTextList(getChangeLogURL()))) {
+			return;
 		}
 		Desktop desktop = Desktop.getDesktop();
 		try {
@@ -176,48 +183,70 @@ public class Updater implements Listener {
 		}
 	}
 
-	private void fileDownload(String url, File file, boolean message) {
-		InputStream input = null;
-		FileOutputStream output = null;
+	private ArrayList<String> getTextList(File file) {
+		FileReader fileReader = null;
+		BufferedReader buReader = null;
 		try {
-			HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-			conn.setAllowUserInteraction(false);
-			conn.setInstanceFollowRedirects(true);
-			conn.setRequestMethod("GET");
-			conn.connect();
-			int httpStatusCode = conn.getResponseCode();
-			if (httpStatusCode != HttpURLConnection.HTTP_OK) {
-				conn.disconnect();
-				return;
+			fileReader = new FileReader(file);
+			buReader = new BufferedReader(fileReader);
+			ArrayList<String> list = new ArrayList<String>();
+			String line;
+			while ((line = buReader.readLine()) != null) {
+				list.add(line);
 			}
-			File downloads = new File(plugin.getDataFolder(), "Downloads");
-			if (!downloads.exists()) {
-				downloads.mkdir();
-			}
-			input = conn.getInputStream();
-			output = new FileOutputStream(file, false);
-			byte[] b = new byte[4096];
-			int readByte = 0;
-			while (-1 != (readByte = input.read(b))) {
-				output.write(b, 0, readByte);
-			}
+			return list;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			errorMessageTemplate();
-		} catch (ProtocolException e) {
-			e.printStackTrace();
-			errorMessageTemplate();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			errorMessageTemplate();
 		} catch (IOException e) {
 			e.printStackTrace();
-			errorMessageTemplate();
 		} finally {
-			if (output != null) {
+			if (buReader != null) {
 				try {
-					output.flush();
-					output.close();
+					buReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (fileReader != null) {
+				try {
+					fileReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return new ArrayList<String>();
+	}
+
+	private ArrayList<String> getTextList(String url) {
+		InputStream input = null;
+		InputStreamReader inReader = null;
+		BufferedReader buReader = null;
+		try {
+			input = new URL(url).openStream();
+			inReader = new InputStreamReader(input);
+			buReader = new BufferedReader(inReader);
+			String line;
+			ArrayList<String> list = new ArrayList<String>();
+			while ((line = buReader.readLine()) != null) {
+				list.add(line);
+			}
+			return list;
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (buReader != null) {
+				try {
+					buReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (inReader != null) {
+				try {
+					inReader.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -229,61 +258,63 @@ public class Updater implements Listener {
 					e.printStackTrace();
 				}
 			}
-			if (message && !getError()) {
-				String prefix = "[" + file.getName() + "]";
-				sender.sendMessage("§6" + prefix + " ダウンロードが終了しました。");
-				sender.sendMessage("§6" + prefix + " ファイルサイズ: " + getSize(file.length()));
-				sender.sendMessage("§6" + prefix + " 保存場所: " + file.getPath().replace("\\", "/"));
-			}
 		}
+		return new ArrayList<String>();
 	}
 
 	private String getSize(long size) {
 		if (1024 > size) {
 			return size + " Byte";
 		} else if (1024 * 1024 > size) {
-			double dsize = size;
-			dsize = dsize / 1024;
-			BigDecimal bi = new BigDecimal(String.valueOf(dsize));
-			double value = bi.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+			double dsize = size / 1024;
+			BigDecimal decimal = new BigDecimal(dsize);
+			double value = decimal.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
 			return value + " KB";
 		} else {
-			double dsize = size;
-			dsize = dsize / 1024 / 1024;
-			BigDecimal bi = new BigDecimal(String.valueOf(dsize));
-			double value = bi.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+			double dsize = size / 1024 / 1024;
+			BigDecimal decimal = new BigDecimal(dsize);
+			double value = decimal.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
 			return value + " MB";
 		}
 	}
 
-	private void sendCheckMessage(Player player, boolean console) {
-		if(getEnable() && !getError() && getPluginURL() != null) {
-			if (console) {
-				sender.sendMessage("§a最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
-				sender.sendMessage("§aアップデート内容: " + getContent());
-			} else {
-				if(!player.isOp()) {
-					return;
-				}
-				player.sendMessage("§a最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
-				player.sendMessage("§aアップデート内容: " + getContent());
-			}
+	private void sendErrorMessage() {
+		if(!isError()) {
+			isError = true;
+			Utils.sendPluginMessage("§cプラグイン名: " + getPluginName());
+			Utils.sendPluginMessage("§cバージョン: v" + getVersion());
+			Utils.sendPluginMessage("§c取得ファイル: http://xml.yuttyann44581.net/uploads//" + getPluginName() + ".xml/");
+			Utils.sendPluginMessage("§c連絡用ページ: http://file.yuttyann44581.net/contact/");
+			Utils.sendPluginMessage("§c解決しない場合は、製作者に連絡してください。");
 		}
 	}
 
-	private void errorMessageTemplate() {
-		if(!getError()) {
-			error = true;
-			sender.sendMessage("§cプラグイン名: " + getPluginName());
-			sender.sendMessage("§cバージョン: v" + getVersion());
-			sender.sendMessage("§c取得ページ: " + getSiteURL());
-			sender.sendMessage("§c連絡用ページ: http://file.yuttyann44581.net/contact/");
-			sender.sendMessage("§c解決しない場合は、製作者に連絡してください。");
+	private void sendCheckMessage(CommandSender sender) {
+		if(isEnable() && !isError()) {
+			if (sender instanceof Player && sender.isOp()) {
+				Utils.sendPluginMessage(sender, "§b最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
+				Utils.sendPluginMessage(sender, "§bプラグイン名: " + getPluginName());
+				Utils.sendPluginMessage(sender, "§b☆アップデート内容☆");
+				for (String content : getDetails()) {
+					if (content != null) {
+						Utils.sendPluginMessage(sender, "§b- " + content);
+					}
+				}
+			} else {
+				Utils.sendPluginMessage("§b最新のバージョンが存在します。v" + getVersion() + "にアップデートしてください。");
+				Utils.sendPluginMessage("§bプラグイン名: " + getPluginName());
+				Utils.sendPluginMessage("§b☆アップデート内容☆");
+				for (String content : getDetails()) {
+					if (content != null) {
+						Utils.sendPluginMessage("§b- " + content);
+					}
+				}
+			}
 		}
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
 	private void onPlayerJoin(PlayerJoinEvent event) {
-		sendCheckMessage(event.getPlayer(), false);
+		sendCheckMessage(event.getPlayer());
 	}
 }

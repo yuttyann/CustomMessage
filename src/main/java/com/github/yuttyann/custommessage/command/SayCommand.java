@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.file.Files;
 import com.github.yuttyann.custommessage.util.Utils;
 
 public class SayCommand implements TabExecutor {
@@ -19,13 +19,13 @@ public class SayCommand implements TabExecutor {
 	Main plugin;
 	boolean apimode;
 
-	public SayCommand(Main plugin, Boolean apimode) {
+	public SayCommand(Main plugin, boolean apimode) {
 		this.plugin = plugin;
 		this.apimode = apimode;
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!Permission.has(Permission.BUKKIT_COMMAND_SAY, sender)) {
 			sender.sendMessage("§cI'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.");
 			return true;
@@ -38,7 +38,7 @@ public class SayCommand implements TabExecutor {
 		if (apimode) {
 			message = "&d[%sender] %message";
 		} else {
-			message = Config.getString("Commands.Say");
+			message = Files.getConfig().getString("Commands.Say");
 		}
 		message = message.replace("%sender", getName(sender));
 		message = message.replace("%message", Utils.stringBuilder(args, 0).replace("&", "§"));

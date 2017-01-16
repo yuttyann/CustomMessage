@@ -2,21 +2,13 @@ package com.github.yuttyann.custommessage.api;
 
 import java.io.File;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.github.yuttyann.custommessage.file.Config;
-import com.github.yuttyann.custommessage.packet.versions.v1_10_R1;
-import com.github.yuttyann.custommessage.packet.versions.v1_7_R4;
-import com.github.yuttyann.custommessage.packet.versions.v1_8_R1;
-import com.github.yuttyann.custommessage.packet.versions.v1_8_R2;
-import com.github.yuttyann.custommessage.packet.versions.v1_8_R3;
-import com.github.yuttyann.custommessage.packet.versions.v1_9_R1;
-import com.github.yuttyann.custommessage.packet.versions.v1_9_R2;
+import com.github.yuttyann.custommessage.file.Files;
+import com.github.yuttyann.custommessage.packet.TitleReflection;
 import com.github.yuttyann.custommessage.util.Utils;
 import com.github.yuttyann.kits.listener.ItemListener;
 import com.shampaggon.crackshot.CSUtility;
@@ -28,11 +20,11 @@ public class CustomMessage {
 	}
 
 	public File getFile() {
-		return Config.getFile();
+		return Files.getConfig().getFile();
 	}
 
 	public YamlConfiguration getConfig() {
-		return Config.getConfig();
+		return Files.getConfig().getYamlConfiguration();
 	}
 
 	@Deprecated
@@ -57,17 +49,17 @@ public class CustomMessage {
 		}
 		String displayname = item.getItemMeta().getDisplayName();
 		if (getWeaponTitle(item) != null) {
-			String index = "";
+			int lastIndex = displayname.length();
 			if (displayname.contains("▪ «")) {
-				index = "▪ «";
+				lastIndex = displayname.lastIndexOf("▪ «");
 			} else if (displayname.contains("▫ «")) {
-				index = "▫ «";
+				lastIndex = displayname.lastIndexOf("▫ «");
 			} else if (displayname.contains("- «")) {
-				index = "- «";
+				lastIndex = displayname.lastIndexOf("- «");
 			} else if (displayname.contains("«")){
-				index = "«";
+				lastIndex = displayname.lastIndexOf("«");
 			}
-			return displayname.substring(0, displayname.lastIndexOf(index)).trim();
+			return displayname.substring(0, lastIndex).trim();
 		}
 		return displayname;
 	}
@@ -77,13 +69,6 @@ public class CustomMessage {
 			return new CSUtility().getWeaponTitle(item);
 		}
 		return null;
-	}
-
-	public String getPackage() {
-		Server server = Bukkit.getServer();
-		String packageName = server.getClass().getPackage().getName();
-		packageName = packageName.substring(packageName.lastIndexOf('.') + 1);
-		return packageName;
 	}
 
 	public void giveKits(Player player, String kitname) {
@@ -113,44 +98,10 @@ public class CustomMessage {
 	}
 
 	public void sendFullTitle(Player player, Integer fadein, Integer stay, Integer fadeout, String title, String subtitle) {
-		String packageName = getPackage();
-		if (packageName.equalsIgnoreCase("v1_7_R4")) {
-			if (Config.getBoolean("UseSpigotProtocolHack")) {
-				v1_7_R4.sendTitle(player, fadein, stay, fadeout, title, subtitle);
-			}
-		} else if (packageName.equalsIgnoreCase("v1_8_R1")) {
-			v1_8_R1.sendTitle(player, fadein, stay, fadeout, title, subtitle);
-		} else if (packageName.equalsIgnoreCase("v1_8_R2")) {
-			v1_8_R2.sendTitle(player, fadein, stay, fadeout, title, subtitle);
-		} else if (packageName.equalsIgnoreCase("v1_8_R3")) {
-			v1_8_R3.sendTitle(player, fadein, stay, fadeout, title, subtitle);
-		} else if (packageName.equalsIgnoreCase("v1_9_R1")) {
-			v1_9_R1.sendTitle(player, fadein, stay, fadeout, title, subtitle);
-		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
-			v1_9_R2.sendTitle(player, fadein, stay, fadeout, title, subtitle);
-		} else if (packageName.equalsIgnoreCase("v1_10_R1")) {
-			v1_10_R1.sendTitle(player, fadein, stay, fadeout, title, subtitle);
-		}
+		TitleReflection.sendTitle(player, fadein, stay, fadeout, title, subtitle);
 	}
 
 	public void sendFullTabTitle(Player player, String header, String footer) {
-		String packageName = getPackage();
-		if (packageName.equalsIgnoreCase("v1_7_R4")) {
-			if (Config.getBoolean("UseSpigotProtocolHack")) {
-				v1_7_R4.sendTabTitle(player, header, footer);
-			}
-		} else if (packageName.equalsIgnoreCase("v1_8_R1")) {
-			v1_8_R1.sendTabTitle(player, header, footer);
-		} else if (packageName.equalsIgnoreCase("v1_8_R2")) {
-			v1_8_R2.sendTabTitle(player, header, footer);
-		} else if (packageName.equalsIgnoreCase("v1_8_R3")) {
-			v1_8_R3.sendTabTitle(player, header, footer);
-		} else if (packageName.equalsIgnoreCase("v1_9_R1")) {
-			v1_9_R1.sendTabTitle(player, header, footer);
-		} else if (packageName.equalsIgnoreCase("v1_9_R2")) {
-			v1_9_R2.sendTabTitle(player, header, footer);
-		} else if (packageName.equalsIgnoreCase("v1_10_R1")) {
-			v1_10_R1.sendTabTitle(player, header, footer);
-		}
+		TitleReflection.sendTabTitle(player, header, footer);
 	}
 }

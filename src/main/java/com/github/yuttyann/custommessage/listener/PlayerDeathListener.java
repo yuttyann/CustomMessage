@@ -24,7 +24,9 @@ import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.api.CustomMessage;
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.file.Files;
+import com.github.yuttyann.custommessage.file.Yaml;
+import com.github.yuttyann.custommessage.util.BlockLocation;
 import com.github.yuttyann.custommessage.util.Utils;
 
 @SuppressWarnings("deprecation")
@@ -41,163 +43,236 @@ public class PlayerDeathListener implements Listener {
 		Player deader = event.getEntity();
 		Sounds sound = Sounds.getSounds();
 		String deathmessage = "";
-		boolean isUpperVersion_v1_11 = Utils.isUpperVersion("1.11");
+		Yaml config = Files.getConfig();
+		BlockLocation deaderLocation = BlockLocation.fromLocation(deader.getLocation());
 		if (deader.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
+			boolean isUpperVersion_v1_11 = Utils.isUpperVersion(Utils.getVersion(), "1.11");
 			EntityDamageByEntityEvent lastcause =  (EntityDamageByEntityEvent) deader.getLastDamageCause();
 			Entity entity = lastcause.getDamager();
+			BlockLocation killerLocation = BlockLocation.fromLocation(entity.getLocation());
 			if (isShot(entity) && deader instanceof Player && getShooter(entity) instanceof Player) {
 				Player killer = (Player) getShooter(entity);
-				String nullstr = Config.getString("DeathMessage.Weapon.NullMessage");
-				deathmessage = Config.getString("DeathMessage.Messages.Player");
+				String nullstr = config.getString("DeathMessage.Weapon.NullMessage");
+				killerLocation = BlockLocation.fromLocation(killer.getLocation());
+				deathmessage = config.getString("DeathMessage.Messages.Player");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", killer.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%weapon", CustomMessage.getAPI().getItemName(killer, nullstr));
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
-				if (!Config.getString("Sounds.PlayerDeathEvent_KillSound").equals("none")) {
+				if (!config.getString("Sounds.PlayerDeathEvent_KillSound").equals("none")) {
 					if (sound.soundAuthority(killer, "SoundAuthoritys.PlayerDeathEvent_KillSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_KILL)) {
 						sound.playSound(killer, "Sounds.PlayerDeathEvent_KillSound", "SoundTypes.PlayerDeathEvent_KillSoundType");
 					}
 				}
 			} else if (deader instanceof Player && entity instanceof Player) {
 				Player killer = event.getEntity().getKiller();
-				String nullstr = Config.getString("DeathMessage.Weapon.NullMessage");
-				deathmessage = Config.getString("DeathMessage.Messages.Player");
+				String nullstr = config.getString("DeathMessage.Weapon.NullMessage");
+				killerLocation = BlockLocation.fromLocation(killer.getLocation());
+				deathmessage = config.getString("DeathMessage.Messages.Player");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", killer.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%weapon", CustomMessage.getAPI().getItemName(killer, nullstr));
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
-				if (!Config.getString("Sounds.PlayerDeathEvent_KillSound").equals("none")) {
+				if (!config.getString("Sounds.PlayerDeathEvent_KillSound").equals("none")) {
 					if (sound.soundAuthority(killer, "SoundAuthoritys.PlayerDeathEvent_KillSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_KILL)) {
 						sound.playSound(killer, "Sounds.PlayerDeathEvent_KillSound", "SoundTypes.PlayerDeathEvent_KillSoundType");
 					}
 				}
 			} else if (isEntity(entity, "PIG_ZOMBIE")) {
-				deathmessage = Config.getString("DeathMessage.Messages.ZombiePigman");
+				deathmessage = config.getString("DeathMessage.Messages.ZombiePigman");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if ((isUpperVersion_v1_11 && isEntity(entity, "HUSK"))
 				|| (!isUpperVersion_v1_11 && isEntity(entity, "ZOMBIE") && zombieType(entity, "HUSK"))) {
-				deathmessage = Config.getString("DeathMessage.Messages.Husk");
+				deathmessage = config.getString("DeathMessage.Messages.Husk");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if ((isUpperVersion_v1_11 && isEntity(entity, "ZOMBIE"))
 				|| (!isUpperVersion_v1_11 && isEntity(entity, "ZOMBIE") && !zombieType(entity, "HUSK"))) {
-				deathmessage = Config.getString("DeathMessage.Messages.Zombie");
+				deathmessage = config.getString("DeathMessage.Messages.Zombie");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "SPIDER")) {
-				deathmessage = Config.getString("DeathMessage.Messages.Spider");
+				deathmessage = config.getString("DeathMessage.Messages.Spider");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "SILVERFISH")) {
-				deathmessage = Config.getString("DeathMessage.Messages.SilverFish");
+				deathmessage = config.getString("DeathMessage.Messages.SilverFish");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "SLIME")) {
-				deathmessage = Config.getString("DeathMessage.Messages.Slime");
+				deathmessage = config.getString("DeathMessage.Messages.Slime");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "MAGMA_CUBE")) {
-				deathmessage = Config.getString("DeathMessage.Messages.MagmaCube");
+				deathmessage = config.getString("DeathMessage.Messages.MagmaCube");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "ENDERMITE")) {
-				deathmessage = Config.getString("DeathMessage.Messages.EnderMite");
+				deathmessage = config.getString("DeathMessage.Messages.EnderMite");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "ENDERMAN")) {
-				deathmessage = Config.getString("DeathMessage.Messages.Enderman");
+				deathmessage = config.getString("DeathMessage.Messages.Enderman");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "ENDER_DRAGON")) {
-				deathmessage = Config.getString("DeathMessage.Messages.EnderDragon");
+				deathmessage = config.getString("DeathMessage.Messages.EnderDragon");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "CAVE_SPIDER")) {
-				deathmessage = Config.getString("DeathMessage.Messages.CaveSpider");
+				deathmessage = config.getString("DeathMessage.Messages.CaveSpider");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "IRON_GOLEM")) {
-				deathmessage = Config.getString("DeathMessage.Messages.IronGolem");
+				deathmessage = config.getString("DeathMessage.Messages.IronGolem");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "WOLF")) {
-				deathmessage = Config.getString("DeathMessage.Messages.Wolf");
+				deathmessage = config.getString("DeathMessage.Messages.Wolf");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "POLAR_BEAR")) {
-				deathmessage = Config.getString("DeathMessage.Messages.PolarBear");
+				deathmessage = config.getString("DeathMessage.Messages.PolarBear");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "GIANT")) {
-				deathmessage = Config.getString("DeathMessage.Messages.Giant");
+				deathmessage = config.getString("DeathMessage.Messages.Giant");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "GUARDIAN")) {
-				deathmessage = Config.getString("DeathMessage.Messages.Guardian");
+				deathmessage = config.getString("DeathMessage.Messages.Guardian");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "WITHER")) {
-				deathmessage = Config.getString("DeathMessage.Messages.Wither");
+				deathmessage = config.getString("DeathMessage.Messages.Wither");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "BLAZE")) {
-				deathmessage = Config.getString("DeathMessage.Messages.Blaze");
+				deathmessage = config.getString("DeathMessage.Messages.Blaze");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "GHAST")) {
-				deathmessage = Config.getString("DeathMessage.Messages.Ghast");
+				deathmessage = config.getString("DeathMessage.Messages.Ghast");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (isEntity(entity, "WITCH")) {
-				deathmessage = Config.getString("DeathMessage.Messages.Witch");
+				deathmessage = config.getString("DeathMessage.Messages.Witch");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 				deathmessage = deathmessage.replace("%killer", getEntityName(entity));
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (lastcause.getCause().equals(DamageCause.ENTITY_EXPLOSION) || lastcause.getCause().equals(DamageCause.BLOCK_EXPLOSION)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Explosion");
+				deathmessage = config.getString("DeathMessage.Messages.Explosion");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else {
@@ -212,25 +287,37 @@ public class PlayerDeathListener implements Listener {
 				}
 				if ((isUpperVersion_v1_11 && isEntity(entity, "SKELETON"))
 					|| (!isUpperVersion_v1_11 && isEntity(entity, "SKELETON") && skeletonType(entity, "NORMAL"))) {
-					deathmessage = Config.getString("DeathMessage.Messages.Skeleton");
+					killerLocation = BlockLocation.fromLocation(killer.getLocation());
+					deathmessage = config.getString("DeathMessage.Messages.Skeleton");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 					deathmessage = deathmessage.replace("%killer", getEntityName(killer));
+					deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+					deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+					deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 				}
 				if ((isUpperVersion_v1_11 && isEntity(entity, "WITHER_SKELETON"))
 					||(!isUpperVersion_v1_11 && isEntity(entity, "SKELETON") && skeletonType(entity, "WITHER"))) {
-					deathmessage = Config.getString("DeathMessage.Messages.WitherSkeleton");
+					killerLocation = BlockLocation.fromLocation(killer.getLocation());
+					deathmessage = config.getString("DeathMessage.Messages.WitherSkeleton");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 					deathmessage = deathmessage.replace("%killer", getEntityName(killer));
+					deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+					deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+					deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 				}
 				if ((isUpperVersion_v1_11 && isEntity(entity, "STRAY"))
 					|| (!isUpperVersion_v1_11 && isEntity(entity, "SKELETON") && skeletonType(entity, "STRAY"))) {
-					deathmessage = Config.getString("DeathMessage.Messages.Stray");
+					killerLocation = BlockLocation.fromLocation(killer.getLocation());
+					deathmessage = config.getString("DeathMessage.Messages.Stray");
 					deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
 					deathmessage = deathmessage.replace("%killer", getEntityName(killer));
+					deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+					deathmessage = deathmessage.replace("%killercoords", killerLocation.getCoords());
+					deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 					deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 					deathmessage = deathmessage.replace("&", "§");
 				}
@@ -238,68 +325,90 @@ public class PlayerDeathListener implements Listener {
 		} else {
 			DamageCause cause = deader.getLastDamageCause().getCause();
 			if (cause.equals(DamageCause.DROWNING)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Drowning");
+				deathmessage = config.getString("DeathMessage.Messages.Drowning");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (cause.equals(DamageCause.FALL)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Fall");
+				deathmessage = config.getString("DeathMessage.Messages.Fall");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (cause.equals(DamageCause.VOID)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Void");
+				deathmessage = config.getString("DeathMessage.Messages.Void");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (cause.equals(DamageCause.LAVA)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Lava");
+				deathmessage = config.getString("DeathMessage.Messages.Lava");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (cause.equals(DamageCause.MAGIC)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Magic");
+				deathmessage = config.getString("DeathMessage.Messages.Magic");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (cause.equals(DamageCause.SUFFOCATION)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Suffocation");
+				deathmessage = config.getString("DeathMessage.Messages.Suffocation");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (cause.equals(DamageCause.PROJECTILE)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Projectile");
+				deathmessage = config.getString("DeathMessage.Messages.Projectile");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (cause.equals(DamageCause.STARVATION)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Starvation");
+				deathmessage = config.getString("DeathMessage.Messages.Starvation");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (cause.equals(DamageCause.WITHER)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Withered");
+				deathmessage = config.getString("DeathMessage.Messages.Withered");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (cause.equals(DamageCause.FIRE) || cause.equals(DamageCause.FIRE_TICK)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Fire");
+				deathmessage = config.getString("DeathMessage.Messages.Fire");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			} else if (cause.equals(DamageCause.ENTITY_EXPLOSION) || cause.equals(DamageCause.BLOCK_EXPLOSION)) {
-				deathmessage = Config.getString("DeathMessage.Messages.Explosion");
+				deathmessage = config.getString("DeathMessage.Messages.Explosion");
 				deathmessage = deathmessage.replace("%deader", deader.getDisplayName());
+				deathmessage = deathmessage.replace("%deadercoords", deaderLocation.getCoords());
+				deathmessage = deathmessage.replace("%world", deaderLocation.getWorld().getName());
 				deathmessage = deathmessage.replace("%time", TimeManager.getTimesofDay());
 				deathmessage = deathmessage.replace("&", "§");
 			}
 		}
-		if (!Config.getString("Sounds.PlayerDeathEvent_DeathSound").equals("none")) {
+		if (!config.getString("Sounds.PlayerDeathEvent_DeathSound").equals("none")) {
 			if (sound.soundAuthority(deader, "SoundAuthoritys.PlayerDeathEvent_DeathSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_DEATH)) {
 				sound.playSound(deader, "Sounds.PlayerDeathEvent_DeathSound", "SoundTypes.PlayerDeathEvent_DeathSoundType");
 			}
 		}
-		if (Config.getBoolean("DeathMessage.Enable")) {
+		if (config.getBoolean("DeathMessage.Enable")) {
 			event.setDeathMessage(deathmessage);
 		}
 	}
@@ -321,7 +430,7 @@ public class PlayerDeathListener implements Listener {
 	}
 
 	private String getEntityName(Entity entity) {
-		if (Utils.isUpperVersion("1.8")) {
+		if (Utils.isUpperVersion_v18()) {
 			return entity.getName();
 		}
 		LivingEntity livingentity = (LivingEntity) entity;

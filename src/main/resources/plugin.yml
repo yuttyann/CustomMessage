@@ -1,15 +1,15 @@
 name: CustomMessage
 main: com.github.yuttyann.custommessage.Main
-version: 6.9
+version: 7.0
 softdepend: [ProtocolLib, Kits, CrackShot]
 author: yuttyann44581
 website: http://file.yuttyann44581.net/
 
 commands:
   custommessage:
-    description: CustomMessage コンフィグ、タイトル 関係コマンド
+    description: ルール、タイトル 関係コマンド
     usage: |
-           /<command> reload - Configの再読み込みをします。
+           /<command> reload - コンフィグの再読み込みを行います。
            /<command> rules - ルールを表示します。
            /<command> title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。
            /<command> tabtitle <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。

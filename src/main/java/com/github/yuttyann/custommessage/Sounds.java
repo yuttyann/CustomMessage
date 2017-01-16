@@ -6,7 +6,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.file.Files;
 
 public class Sounds {
 
@@ -15,7 +15,7 @@ public class Sounds {
 	}
 
 	public void playSound(final Player player, String sound, final String soundtype) {
-		String soundlist = Config.getString(sound);
+		String soundlist = Files.getConfig().getString(sound);
 		String[] soundfxList = soundlist.replace(" ", "").split(",");
 		for (String soundfx : soundfxList) {
 			final String[] args = soundfx.split("-");
@@ -33,7 +33,7 @@ public class Sounds {
 	}
 
 	public void soundType(Player player, String soundtype, String[] args) {
-		String type = Config.getString(soundtype);
+		String type = Files.getConfig().getString(soundtype);
 		if (type.toLowerCase().equals("player")) {
 			player.playSound(player.getLocation(), Sound.valueOf(args[0].toUpperCase()), parseFloat(args[1]), parseFloat(args[2]));
 		} else if (type.toLowerCase().equals("allplayers")) {
@@ -44,7 +44,7 @@ public class Sounds {
 	}
 
 	public boolean soundAuthority(Player player, String soundauthority, Permission permission) {
-		String type = Config.getString(soundauthority);
+		String type = Files.getConfig().getString(soundauthority);
 		if (type.toLowerCase().equals("none")) {
 			return true;
 		} else if (type.toLowerCase().equals("operator") && player.isOp()) {

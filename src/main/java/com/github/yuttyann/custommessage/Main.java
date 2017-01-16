@@ -8,16 +8,17 @@ import java.util.logging.Logger;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.yuttyann.custommessage.command.BanCommand;
-import com.github.yuttyann.custommessage.command.CommandTemplate;
 import com.github.yuttyann.custommessage.command.CustomMessageCommand;
 import com.github.yuttyann.custommessage.command.MeCommand;
 import com.github.yuttyann.custommessage.command.SayCommand;
 import com.github.yuttyann.custommessage.command.TellCommand;
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.command.template.CommandView;
+import com.github.yuttyann.custommessage.file.Files;
+import com.github.yuttyann.custommessage.file.Yaml;
 import com.github.yuttyann.custommessage.listener.CommandListener;
 import com.github.yuttyann.custommessage.listener.PlayerChatListener;
 import com.github.yuttyann.custommessage.listener.PlayerDeathListener;
@@ -32,16 +33,17 @@ public class Main extends JavaPlugin {
 	public static Main instance;
 	private boolean apimode;
 	private Logger logger;
-	private PluginDescriptionFile pluginyml;
+	private String encode;
 	private HashMap<String, TabExecutor> commands;
+	private HashMap<String, List<CommandView>> commandhelp;
 
 	@Override
 	public void onEnable() {
 		instance = this;
 		apimode = false;
 		logger = Logger.getLogger("Minecraft");
-		setUpFile();
-		if (Config.getBoolean("Disable_All_Functions")) {
+		setupFile();
+		if (Files.getConfig().getBoolean("Disable_All_Functions")) {
 			logger.info("APIモードで起動します。");
 			apimode = true;
 		}
@@ -50,12 +52,6 @@ public class Main extends JavaPlugin {
 		if (!Utils.isPluginEnabled("ProtocolLib") && !apimode) {
 			logger.severe("ProtocolLibが導入されていないため、PlayerCountMessageを無効化しました。");
 		}
-		logger.info("[" + pluginyml.getName() + "] v" + pluginyml.getVersion() + " が有効になりました。");
-	}
-
-	@Override
-	public void onDisable() {
-		logger.info("[" + pluginyml.getName() + "] v" + pluginyml.getVersion() + " が無効になりました。");
 	}
 
 	@Override
@@ -68,53 +64,52 @@ public class Main extends JavaPlugin {
 		return commands.get(command.getName()).onTabComplete(sender, command, label, args);
 	}
 
-	private void setUpFile() {
+	public HashMap<String, List<CommandView>> getCommandHelp() {
+		return commandhelp;
+	}
+
+	public String getEncode() {
+		return encode;
+	}
+
+	private void setupFile() {
 		File servericon = new File(getDataFolder(), "ServerIcon");
 		if (!servericon.exists()) {
 			servericon.mkdir();
 			saveResource("ServerIcon/icon1.png", false);
 			saveResource("ServerIcon/icon2.png", false);
 		}
-		pluginyml = getDescription();
-		String encode;
-		if (Utils.isWindows() && !Utils.isUpperVersion("1.9")) {
+		if (Utils.isWindows() && !Utils.isUpperVersion_v19()) {
 			encode = "s-jis";
 		} else {
 			encode = "utf-8";
 		}
-		new Config(this, "config", encode, pluginyml);
+		String[] args = {"config"};
+		Yaml.create(getDataFolder(), new StringBuilder(), encode, args);
+		Files.reload();
 	}
 
 	private void loadClass(boolean load) {
+		PluginManager manager = getServer().getPluginManager();
 		if (load) {
-			getServer().getPluginManager().registerEvents(new PlayerChatListener(this), this);
-			getServer().getPluginManager().registerEvents(new PlayerDeathListener(this), this);
-			getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(this), this);
-			getServer().getPluginManager().registerEvents(new PlayerKickListener(this), this);
-			getServer().getPluginManager().registerEvents(new PlayerTitleListener(this), this);
-			getServer().getPluginManager().registerEvents(new CommandListener(this), this);
-			getServer().getPluginManager().registerEvents(new ServerListener(this), this);
+			manager.registerEvents(new PlayerChatListener(this), this);
+			manager.registerEvents(new PlayerDeathListener(this), this);
+			manager.registerEvents(new PlayerJoinQuitListener(this), this);
+			manager.registerEvents(new PlayerKickListener(this), this);
+			manager.registerEvents(new PlayerTitleListener(this), this);
+			manager.registerEvents(new CommandListener(this), this);
+			manager.registerEvents(new ServerListener(this), this);
 		}
-		getServer().getPluginManager().registerEvents(new Updater(this), this);
+		manager.registerEvents(new Updater(this), this);
 	}
 
 	private void loadCommand() {
-		setCommandTemplate();
+		commandhelp = new HashMap<String, List<CommandView>>();
 		commands = new HashMap<String, TabExecutor>();
 		commands.put("custommessage", new CustomMessageCommand(this, apimode));
 		commands.put("ban", new BanCommand(this));
 		commands.put("me", new MeCommand(this, apimode));
 		commands.put("say", new SayCommand(this, apimode));
 		commands.put("tell", new TellCommand(this, apimode));
-	}
-
-	private void setCommandTemplate() {
-		new CommandTemplate(this);
-		CommandTemplate.addCommand("/custommessage reload - Configの再読み込みをします。");
-		if (Config.getBoolean("Rules.Enable")) {
-			CommandTemplate.addCommand("/custommessage rules - ルールを表示します。");
-		}
-		CommandTemplate.addCommand("/custommessage title <player> <title> <subtitle> - 指定したプレイヤーにタイトルを表示します。");
-		CommandTemplate.addCommand("/custommessage tabtitle <player> <header> <footer> - 指定したプレイヤーにタブタイトルを表示します。");
 	}
 }

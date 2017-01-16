@@ -2,14 +2,10 @@ package com.github.yuttyann.custommessage;
 
 import java.util.Calendar;
 
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.file.Files;
+import com.github.yuttyann.custommessage.file.Yaml;
 
 public class TimeManager {
-
-	private static String[] week_name = {
-		Config.getString("Sunday"), Config.getString("Monday"), Config.getString("Tuesday"), Config.getString("Wednesday"),
-		Config.getString("Thursday"), Config.getString("Friday"), Config.getString("Saturday")
-	};
 
 	public static Integer getYear() {
 		return Calendar.getInstance().get(Calendar.YEAR);
@@ -44,7 +40,12 @@ public class TimeManager {
 	}
 
 	public static String getTimesofDay() {
-		String timesofday = Config.getString("TimesofDay");
+		Yaml config = Files.getConfig();
+		String[] week_name = {
+			config.getString("Sunday"), config.getString("Monday"), config.getString("Tuesday"), config.getString("Wednesday"),
+			config.getString("Thursday"), config.getString("Friday"), config.getString("Saturday")
+		};
+		String timesofday = config.getString("TimesofDay");
 		timesofday = timesofday.replace("%year", getYear().toString());
 		timesofday = timesofday.replace("%month", getMonth().toString());
 		timesofday = timesofday.replace("%day", getDay().toString());

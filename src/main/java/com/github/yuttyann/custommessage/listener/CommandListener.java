@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.file.Files;
 
 public class CommandListener implements Listener {
 
@@ -22,7 +22,7 @@ public class CommandListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
-		if (!Config.getString("Sounds.PlayerCommandEvent_CommandSound").equals("none")) {
+		if (!Files.getConfig().getString("Sounds.PlayerCommandEvent_CommandSound").equals("none")) {
 			Sounds sound = Sounds.getSounds();
 			if (sound.soundAuthority(player, "SoundAuthoritys.PlayerCommandEvent_CommandSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_COMMAND)) {
 				sound.playSound(player, "Sounds.PlayerCommandEvent_CommandSound", "SoundTypes.PlayerCommandEvent_CommandSoundType");

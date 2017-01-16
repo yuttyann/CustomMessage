@@ -5,40 +5,102 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLConnection;
 
+/**
+ * @author ゆっちゃん
+ * Web上のJsonを取得するクラス
+ */
 public class WebJson {
 
 	private String url;
 
+	/**
+	 * コンストラクタ
+	 * @param url
+	 */
 	public WebJson(String url) {
-		this.url = url;
+		if (isURL(url)) {
+			this.url = url;
+		}
 	}
 
-	public String getJsonToString() {
-		StringBuilder builder = null;
-		HttpURLConnection connection = null;
-		InputStream input = null;
-		InputStreamReader stream = null;
-		BufferedReader reader = null;
+	/**
+	 * 文字列がURLなのか確認する
+	 * @param url WebサイトのURL
+	 * @return 文字列がURLかどうか
+	 */
+	public boolean isURL(String url) {
+		return url.startsWith("http://") || url.startsWith("https://");
+	}
+
+	/**
+	 * URLを取得する
+	 * @return WebサイトのURL
+	 */
+	public URL getURL() {
 		try {
-			builder = new StringBuilder();
-			connection = (HttpURLConnection) new URL(url).openConnection();
-			connection.setRequestMethod("GET");
-			connection.setInstanceFollowRedirects(false);
-			connection.connect();
-			input = connection.getInputStream();
-			stream = new InputStreamReader(input);
-			reader = new BufferedReader(stream);
+			return new URL(url);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * JsonMapを取得する
+	 * @return JsonMap
+	 */
+	public JsonMap getJsonMap() {
+		return new JsonMap(toString());
+	}
+
+	/**
+	 * 文字列を取得する
+	 * @return Jsonの文字列
+	 */
+	@Override
+	public String toString() {
+		String json = null;
+		InputStream input = null;
+		InputStreamReader inReader = null;
+		BufferedReader buReader = null;
+		try {
+			URLConnection urlconn = getURL().openConnection();
+			HttpURLConnection httpconn = (HttpURLConnection) urlconn;
+			httpconn.setRequestMethod("GET");
+			httpconn.setInstanceFollowRedirects(false);
+			httpconn.connect();
+			input = httpconn.getInputStream();
+			inReader = new InputStreamReader(input);
+			buReader = new BufferedReader(inReader);
 			String line;
-			while ((line = reader.readLine()) != null) {
+			StringBuilder builder = new StringBuilder();
+			while ((line = buReader.readLine()) != null) {
 				builder.append(line);
 			}
-		} catch (Exception e) {
-			System.out.println("Jsonの取得に失敗しました。");
+			return json = builder.toString();
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		} finally {
-			if (connection != null) {
-				connection.disconnect();
+			if (buReader != null) {
+				try {
+					buReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (inReader != null) {
+				try {
+					inReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			if (input != null) {
 				try {
@@ -47,25 +109,7 @@ public class WebJson {
 					e.printStackTrace();
 				}
 			}
-			if (stream != null) {
-				try {
-					stream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 		}
-		return builder.toString();
-	}
-
-	public String getURL() {
-		return url;
+		return json;
 	}
 }

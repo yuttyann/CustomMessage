@@ -10,7 +10,8 @@ import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.file.Files;
+import com.github.yuttyann.custommessage.file.Yaml;
 
 public class PlayerChatListener implements Listener {
 
@@ -23,15 +24,16 @@ public class PlayerChatListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
-		if (Config.getBoolean("ChatMessageFormat.Enable")) {
-			String playerchatmessage = Config.getString("ChatMessageFormat.Message");
+		Yaml config = Files.getConfig();
+		if (config.getBoolean("ChatMessageFormat.Enable")) {
+			String playerchatmessage = config.getString("ChatMessageFormat.Message");
 			playerchatmessage = playerchatmessage.replace("%player", player.getDisplayName());
 			playerchatmessage = playerchatmessage.replace("%chat", event.getMessage());
 			playerchatmessage = playerchatmessage.replace("%time", TimeManager.getTimesofDay());
 			playerchatmessage = playerchatmessage.replace("&", "§");
 			event.setFormat(playerchatmessage);
 		}
-		if (!Config.getString("Sounds.PlayerChatEvent_ChatSound").equals("none")) {
+		if (!config.getString("Sounds.PlayerChatEvent_ChatSound").equals("none")) {
 			Sounds sound = Sounds.getSounds();
 			if (sound.soundAuthority(player, "SoundAuthoritys.PlayerChatEvent_ChatSoundAuthority", Permission.CUSTOMMESSAGE_SOUND_CHAT)) {
 				sound.playSound(player, "Sounds.PlayerChatEvent_ChatSound", "SoundTypes.PlayerChatEvent_ChatSoundType");

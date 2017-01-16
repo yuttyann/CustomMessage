@@ -9,7 +9,8 @@ import org.bukkit.entity.Player;
 
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.file.Files;
+import com.github.yuttyann.custommessage.file.Yaml;
 import com.github.yuttyann.custommessage.util.Utils;
 
 public class TellCommand implements TabExecutor {
@@ -17,13 +18,13 @@ public class TellCommand implements TabExecutor {
 	Main plugin;
 	boolean apimode;
 
-	public TellCommand(Main plugin, Boolean apimode) {
+	public TellCommand(Main plugin, boolean apimode) {
 		this.plugin = plugin;
 		this.apimode = apimode;
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!Permission.has(Permission.BUKKIT_COMMAND_TELL, sender)) {
 			sender.sendMessage("§cI'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.");
 			return true;
@@ -43,8 +44,9 @@ public class TellCommand implements TabExecutor {
 				tell = "[%sender->%target] %message";
 				tell_target = "&7%sender whispers %message";
 			} else {
-				tell = Config.getString("Commands.tell");
-				tell_target = Config.getString("Commands.tell_target");
+				Yaml config = Files.getConfig();
+				tell = config.getString("Commands.tell");
+				tell_target = config.getString("Commands.tell_target");
 			}
 			tell = tell.replace("%target", player.getName());
 			tell = tell.replace("%sender", sender.getName());

@@ -17,7 +17,8 @@ import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.TimeManager;
-import com.github.yuttyann.custommessage.file.Config;
+import com.github.yuttyann.custommessage.file.Files;
+import com.github.yuttyann.custommessage.file.Yaml;
 import com.github.yuttyann.custommessage.util.Utils;
 
 public class ProtocolLibPacket {
@@ -25,7 +26,8 @@ public class ProtocolLibPacket {
 	private static final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
 
 	public static void sendPlayerCountMessage() {
-		if (!Config.getBoolean("PlayerCountMessage.Enable")) {
+		final Yaml config = Files.getConfig();
+		if (!config.getBoolean("PlayerCountMessage.Enable")) {
 			return;
 		}
 		manager.addPacketListener(new PacketAdapter(Main.instance, ListenerPriority.HIGH, Arrays.asList(new PacketType[]{ PacketType.Status.Server.OUT_SERVER_INFO }), new ListenerOptions[]{ ListenerOptions.ASYNC }) {
@@ -40,7 +42,7 @@ public class ProtocolLibPacket {
 				Integer playerlength = Utils.getOnlinePlayers().size();
 				Integer maxplayer = Bukkit.getMaxPlayers();
 				String servername = Bukkit.getServerName();
-				for (String pcm : Config.getStringList("PlayerCountMessage.Message")) {
+				for (String pcm : config.getStringList("PlayerCountMessage.Message")) {
 					pcm = pcm.replace("%players", playerlength.toString());
 					pcm = pcm.replace("%maxplayers", maxplayer.toString());
 					pcm = pcm.replace("%servername", servername);
@@ -55,7 +57,7 @@ public class ProtocolLibPacket {
 	}
 
 	private static boolean isNone() {
-		List<String> list = Config.getStringList("PlayerCountMessage.Message");
+		List<String> list = Files.getConfig().getStringList("PlayerCountMessage.Message");
 		if(list.get(0).equals("none") && list.size() == 1) {
 			return true;
 		}
