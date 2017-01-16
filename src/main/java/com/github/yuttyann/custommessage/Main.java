@@ -16,7 +16,7 @@ import com.github.yuttyann.custommessage.command.CustomMessageCommand;
 import com.github.yuttyann.custommessage.command.MeCommand;
 import com.github.yuttyann.custommessage.command.SayCommand;
 import com.github.yuttyann.custommessage.command.TellCommand;
-import com.github.yuttyann.custommessage.command.template.CommandView;
+import com.github.yuttyann.custommessage.command.help.CommandView;
 import com.github.yuttyann.custommessage.file.Files;
 import com.github.yuttyann.custommessage.file.Yaml;
 import com.github.yuttyann.custommessage.listener.CommandListener;
@@ -92,13 +92,13 @@ public class Main extends JavaPlugin {
 	private void loadClass(boolean load) {
 		PluginManager manager = getServer().getPluginManager();
 		if (load) {
-			manager.registerEvents(new PlayerChatListener(this), this);
-			manager.registerEvents(new PlayerDeathListener(this), this);
-			manager.registerEvents(new PlayerJoinQuitListener(this), this);
-			manager.registerEvents(new PlayerKickListener(this), this);
-			manager.registerEvents(new PlayerTitleListener(this), this);
-			manager.registerEvents(new CommandListener(this), this);
-			manager.registerEvents(new ServerListener(this), this);
+			manager.registerEvents(new PlayerChatListener(), this);
+			manager.registerEvents(new PlayerDeathListener(), this);
+			manager.registerEvents(new PlayerJoinQuitListener(), this);
+			manager.registerEvents(new PlayerKickListener(), this);
+			manager.registerEvents(new PlayerTitleListener(), this);
+			manager.registerEvents(new CommandListener(), this);
+			manager.registerEvents(new ServerListener(), this);
 		}
 		manager.registerEvents(new Updater(this), this);
 	}
@@ -106,7 +106,7 @@ public class Main extends JavaPlugin {
 	private void loadCommand() {
 		commandhelp = new HashMap<String, List<CommandView>>();
 		commands = new HashMap<String, TabExecutor>();
-		commands.put("custommessage", new CustomMessageCommand(this, apimode));
+		commands.put("custommessage", new CustomMessageCommand(apimode));
 		commands.put("ban", new BanCommand(this));
 		commands.put("me", new MeCommand(this, apimode));
 		commands.put("say", new SayCommand(this, apimode));

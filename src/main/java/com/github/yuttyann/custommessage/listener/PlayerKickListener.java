@@ -10,7 +10,6 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 
-import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
@@ -20,12 +19,6 @@ import com.github.yuttyann.custommessage.util.Utils;
 
 
 public class PlayerKickListener implements Listener {
-
-	Main plugin;
-
-	public PlayerKickListener(Main plugin) {
-		this.plugin = plugin;
-	}
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerKick(PlayerKickEvent event) {

@@ -11,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
@@ -20,12 +19,6 @@ import com.github.yuttyann.custommessage.file.Files;
 import com.github.yuttyann.custommessage.file.Yaml;
 
 public class PlayerJoinQuitListener implements Listener {
-
-	Main plugin;
-
-	public PlayerJoinQuitListener(Main plugin) {
-		this.plugin = plugin;
-	}
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerJoin(PlayerJoinEvent event) {

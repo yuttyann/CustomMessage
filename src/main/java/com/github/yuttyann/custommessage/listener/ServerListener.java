@@ -20,12 +20,6 @@ import com.github.yuttyann.custommessage.util.Utils;
 
 public class ServerListener implements Listener {
 
-	Main plugin;
-
-	public ServerListener(Main plugin) {
-		this.plugin = plugin;
-	}
-
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onServerListPing(ServerListPingEvent event) {
 		Integer onlineplayers = null;
@@ -92,7 +86,7 @@ public class ServerListener implements Listener {
 	}
 
 	private File getServerIcon() {
-		File[] icons = new File(plugin.getDataFolder(), "ServerIcon").listFiles();
+		File[] icons = new File(Main.instance.getDataFolder(), "ServerIcon").listFiles();
 		int size = new Random().nextInt(icons.length);
 		if (icons.length > 0) {
 			return icons[size];

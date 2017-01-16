@@ -19,7 +19,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
-import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
@@ -31,12 +30,6 @@ import com.github.yuttyann.custommessage.util.Utils;
 
 @SuppressWarnings("deprecation")
 public class PlayerDeathListener implements Listener {
-
-	Main plugin;
-
-	public PlayerDeathListener(Main plugin) {
-		this.plugin = plugin;
-	}
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerDeath(PlayerDeathEvent event) {

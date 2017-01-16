@@ -8,21 +8,18 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.api.CustomMessage;
-import com.github.yuttyann.custommessage.command.template.CommandHelp;
+import com.github.yuttyann.custommessage.command.help.CommandHelp;
 import com.github.yuttyann.custommessage.file.Files;
 import com.github.yuttyann.custommessage.file.Yaml;
 import com.github.yuttyann.custommessage.util.Utils;
 
 public class CustomMessageCommand implements TabExecutor {
 
-	Main plugin;
 	boolean apimode;
 
-	public CustomMessageCommand(Main plugin, boolean apimode) {
-		this.plugin = plugin;
+	public CustomMessageCommand(boolean apimode) {
 		this.apimode = apimode;
 		CommandHelp help = new CommandHelp();
 			help.put("custommessage",

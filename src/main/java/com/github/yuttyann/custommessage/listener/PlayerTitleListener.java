@@ -18,12 +18,9 @@ import com.github.yuttyann.custommessage.file.Yaml;
 
 public class PlayerTitleListener implements Listener {
 
-	Main plugin;
-
 	HashMap<UUID, BukkitRunnable> timers;
 
-	public PlayerTitleListener(Main plugin) {
-		this.plugin = plugin;
+	public PlayerTitleListener() {
 		timers = new HashMap<UUID, BukkitRunnable>();
 	}
 
@@ -71,7 +68,7 @@ public class PlayerTitleListener implements Listener {
 				}
 			}
 		};
-		timer.runTaskTimer(plugin, 0, 20);
+		timer.runTaskTimer(Main.instance, 0, 20);
 		timers.put(player.getUniqueId(), timer);
 	}
 

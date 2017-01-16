@@ -6,7 +6,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
@@ -14,12 +13,6 @@ import com.github.yuttyann.custommessage.file.Files;
 import com.github.yuttyann.custommessage.file.Yaml;
 
 public class PlayerChatListener implements Listener {
-
-	Main plugin;
-
-	public PlayerChatListener(Main plugin) {
-		this.plugin = plugin;
-	}
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
