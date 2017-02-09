@@ -16,7 +16,7 @@ import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.api.CustomMessage;
 import com.github.yuttyann.custommessage.file.Files;
-import com.github.yuttyann.custommessage.file.Yaml;
+import com.github.yuttyann.custommessage.file.YamlConfig;
 
 public class PlayerJoinQuitListener implements Listener {
 
@@ -24,7 +24,7 @@ public class PlayerJoinQuitListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		Sounds sound = Sounds.getSounds();
-		Yaml config = Files.getConfig();
+		YamlConfig config = Files.getConfig();
 		if (event.getPlayer().hasPlayedBefore()) {
 			if (config.getBoolean("PlayerJoinQuitMessage.Enable")) {
 				String playerjoinmessage = config.getString("PlayerJoinQuitMessage.JoinMessage");
@@ -66,7 +66,7 @@ public class PlayerJoinQuitListener implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		Sounds sound = Sounds.getSounds();
-		Yaml config = Files.getConfig();
+		YamlConfig config = Files.getConfig();
 		if (config.getBoolean("PlayerJoinQuitMessage.Enable")) {
 			String playerquitmessage = config.getString("PlayerJoinQuitMessage.QuitMessage");
 			playerquitmessage = playerquitmessage.replace("%player", player.getDisplayName());

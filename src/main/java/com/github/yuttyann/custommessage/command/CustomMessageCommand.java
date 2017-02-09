@@ -12,7 +12,7 @@ import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.api.CustomMessage;
 import com.github.yuttyann.custommessage.command.help.CommandHelp;
 import com.github.yuttyann.custommessage.file.Files;
-import com.github.yuttyann.custommessage.file.Yaml;
+import com.github.yuttyann.custommessage.file.YamlConfig;
 import com.github.yuttyann.custommessage.util.Utils;
 
 public class CustomMessageCommand implements TabExecutor {
@@ -46,7 +46,7 @@ public class CustomMessageCommand implements TabExecutor {
 				Utils.sendPluginMessage(sender, "§a全てのファイルの再読み込みが完了しました。");
 				return true;
 			}
-			Yaml config = Files.getConfig();
+			YamlConfig config = Files.getConfig();
 			if (args[0].equalsIgnoreCase("rules") && config.getBoolean("Rules.Enable")) {
 				if (!Permission.has(Permission.CUSTOMMESSAGE_COMMAND_RULES, sender)) {
 					Utils.sendPluginMessage(sender, "§cパーミッションが無いため、実行できません。");

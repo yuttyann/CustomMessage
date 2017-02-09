@@ -14,7 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.api.CustomMessage;
 import com.github.yuttyann.custommessage.file.Files;
-import com.github.yuttyann.custommessage.file.Yaml;
+import com.github.yuttyann.custommessage.file.YamlConfig;
 
 public class PlayerTitleListener implements Listener {
 
@@ -39,7 +39,7 @@ public class PlayerTitleListener implements Listener {
 	}
 
 	private void sendTitle(Player player) {
-		Yaml config = Files.getConfig();
+		YamlConfig config = Files.getConfig();
 		if (config.getBoolean("Title.Enable")) {
 			int fadein = config.getInt("TitleTime.FadeIn");
 			int stay = config.getInt("TitleTime.Stay");

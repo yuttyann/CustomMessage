@@ -10,7 +10,8 @@ import org.bukkit.entity.Player;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.file.Files;
-import com.github.yuttyann.custommessage.file.Yaml;
+import com.github.yuttyann.custommessage.file.YamlConfig;
+import com.github.yuttyann.custommessage.util.StringUtils;
 import com.github.yuttyann.custommessage.util.Utils;
 
 public class TellCommand implements TabExecutor {
@@ -37,14 +38,14 @@ public class TellCommand implements TabExecutor {
 		if (player == null || (sender instanceof Player && !((Player) sender).canSee(player))) {
 			sender.sendMessage("There's no player by that name online.");
 		} else {
-			String stringBuilder = Utils.stringBuilder(args, 1);
+			String stringBuilder = StringUtils.createString(args, 1);
 			String tell;
 			String tell_target;
 			if (apimode) {
 				tell = "[%sender->%target] %message";
 				tell_target = "&7%sender whispers %message";
 			} else {
-				Yaml config = Files.getConfig();
+				YamlConfig config = Files.getConfig();
 				tell = config.getString("Commands.tell");
 				tell_target = config.getString("Commands.tell_target");
 			}

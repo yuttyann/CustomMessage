@@ -10,7 +10,7 @@ import org.bukkit.command.TabExecutor;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.file.Files;
-import com.github.yuttyann.custommessage.util.Utils;
+import com.github.yuttyann.custommessage.util.StringUtils;
 
 public class MeCommand implements TabExecutor {
 
@@ -39,7 +39,7 @@ public class MeCommand implements TabExecutor {
 			message = Files.getConfig().getString("Commands.Me");;
 		}
 		message = message.replace("%sender", sender.getName());
-		message = message.replace("%message", Utils.stringBuilder(args, 0).replace("&", "§"));
+		message = message.replace("%message", StringUtils.createString(args, 0).replace("&", "§"));
 		message = message.replace("&", "§");
 		Bukkit.broadcastMessage(message);
 		return true;

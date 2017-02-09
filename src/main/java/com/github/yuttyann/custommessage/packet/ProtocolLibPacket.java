@@ -18,7 +18,7 @@ import com.comphenix.protocol.wrappers.WrappedServerPing;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.file.Files;
-import com.github.yuttyann.custommessage.file.Yaml;
+import com.github.yuttyann.custommessage.file.YamlConfig;
 import com.github.yuttyann.custommessage.util.Utils;
 
 public class ProtocolLibPacket {
@@ -26,11 +26,11 @@ public class ProtocolLibPacket {
 	private static final ProtocolManager manager = ProtocolLibrary.getProtocolManager();
 
 	public static void sendPlayerCountMessage() {
-		final Yaml config = Files.getConfig();
+		final YamlConfig config = Files.getConfig();
 		if (!config.getBoolean("PlayerCountMessage.Enable")) {
 			return;
 		}
-		manager.addPacketListener(new PacketAdapter(Main.instance, ListenerPriority.HIGH, Arrays.asList(new PacketType[]{ PacketType.Status.Server.OUT_SERVER_INFO }), new ListenerOptions[]{ ListenerOptions.ASYNC }) {
+		manager.addPacketListener(new PacketAdapter(Main.instance, ListenerPriority.HIGH, Arrays.asList(new PacketType[]{ PacketType.Status.Server.OUT_SERVER_INFO }), ListenerOptions.ASYNC) {
 			@Override
 			public void onPacketSending(PacketEvent event) {
 				WrappedServerPing ping = event.getPacket().getServerPings().read(0);

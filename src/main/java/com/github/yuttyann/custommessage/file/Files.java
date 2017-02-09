@@ -1,16 +1,15 @@
 package com.github.yuttyann.custommessage.file;
 
-
 public class Files {
 
 	private static Files instance;
-	private Yaml config;
+	private YamlConfig config;
 
 	public Files() {
-		this.config = new Yaml("config");
+		this.config = YamlConfig.load("config.yml");
 	}
 
-	public static Yaml getConfig() {
+	public static YamlConfig getConfig() {
 		return instance.config;
 	}
 

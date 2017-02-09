@@ -14,7 +14,7 @@ import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.file.Files;
-import com.github.yuttyann.custommessage.file.Yaml;
+import com.github.yuttyann.custommessage.file.YamlConfig;
 import com.github.yuttyann.custommessage.util.Utils;
 
 
@@ -24,7 +24,7 @@ public class PlayerKickListener implements Listener {
 	public void onPlayerKick(PlayerKickEvent event) {
 		Player player = event.getPlayer();
 		Sounds sound = Sounds.getSounds();
-		Yaml config = Files.getConfig();
+		YamlConfig config = Files.getConfig();
 		boolean enable = config.getBoolean("PlayerKickMessage.Enable");
 		if (isBanned(player)) {
 			if (enable && !config.getString("PlayerKickMessage.BanBroadcastMessage").equals("none")) {
@@ -84,7 +84,7 @@ public class PlayerKickListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerLogin(PlayerLoginEvent event) {
-		Yaml config = Files.getConfig();
+		YamlConfig config = Files.getConfig();
 		if (!config.getBoolean("PlayerLoginKickMessage.Enable")) {
 			return;
 		}
@@ -103,7 +103,7 @@ public class PlayerKickListener implements Listener {
 
 	@SuppressWarnings("deprecation")
 	private boolean isBanned(Player player) {
-		if (Utils.isUpperVersion_v175()) {
+		if (Utils.isCB175orLater()) {
 			return Bukkit.getBanList(BanList.Type.NAME).isBanned(player.getName());
 		} else {
 			return Bukkit.getOfflinePlayer(player.getName()).isBanned();

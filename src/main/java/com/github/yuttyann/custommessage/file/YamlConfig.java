@@ -1,163 +1,84 @@
 package com.github.yuttyann.custommessage.file;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.Color;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.NumberConversions;
 import org.bukkit.util.Vector;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import com.github.yuttyann.custommessage.Main;
+import com.github.yuttyann.custommessage.util.FileUtils;
 import com.github.yuttyann.custommessage.util.Utils;
-import com.google.common.base.Charsets;
 
-public class Yaml extends FileDownload {
+public class YamlConfig {
 
 	private String fileName;
 	private File file;
 	private YamlConfiguration yaml;
 
-	public Yaml(String fileName) {
-		this(fileName, true);
+	public static YamlConfig load(String pathName) {
+		return load(pathName, true);
 	}
 
-	public Yaml(String fileName, boolean isDownload) {
-		File data = Main.instance.getDataFolder();
-		String encode = Main.instance.getEncode();
-		file = new File(data, this.fileName = fileName + "_" + encode + ".yml");
-		if (isDownload && !file.exists()) {
-			if (!data.exists()) {
-				data.mkdirs();
-			}
-			String[] args = {fileName};
-			create(data, new StringBuilder(), encode, args);
-		}
-		yaml = YamlConfiguration.loadConfiguration(file);
+	public static YamlConfig load(File file) {
+		return load(file, true);
 	}
 
-	public static void create(File data, StringBuilder builder, String encode, String[] args) {
-		long start = 0;
-		long end = 0;
-		boolean isError = false;
-		boolean isMessage = false;
-		File file = null;
-		String fileName = null;
-		Long[] fileTimes = null;
-		String[] fileNames = null;
-		Document document = getDocument(PluginYaml.getName());
-		for (int i = 0, n = 0, l = args.length; i < l; i++) {
-			builder.append(args[i]).append("_").append(encode).append(".yml");
-			if (!(file = new File(data, fileName = builder.toString())).exists()) {
-				if (!isMessage) {
-					isMessage = true;
-					Utils.sendPluginMessage("§a生成されていないファイルが見つかりました。");
-					Utils.sendPluginMessage("§aファイルを生成しています...");
-				}
-				try {
-					start = System.currentTimeMillis();
-					if (!data.exists()) {
-						data.mkdir();
-					}
-					yamlDownload(file, document);
-					end = System.currentTimeMillis();
-					if (fileTimes == null && fileNames == null) {
-						fileTimes = new Long[l];
-						fileNames = new String[l];
-					}
-					fileTimes[n] = end - start;
-					fileNames[n] = fileName;
-					n++;
-				} catch (IOException e) {
-					isError = true;
-					e.printStackTrace();
-					Utils.sendPluginMessage("§cファイルの生成に失敗しました。");
-				}
-			}
-			builder.setLength(0);
-			if (i == (l - 1) && !isError && isMessage) {
-				for (int i2 = 0; i2 < n; i2++) {
-					builder.append(fileNames[i2]).append("(").append(fileTimes[i2]).append("ms)");
-					if(i2 != (n - 1)) {
-						builder.append(", ");
-					}
-				}
-				Utils.sendPluginMessage("§aファイルの生成が終了しました。");
-				if (l > 1) {
-					Utils.sendPluginMessage("§a生成ファイル一覧: [" + builder.toString() + "]");
-				} else {
-					Utils.sendPluginMessage("§a生成ファイル: [" + builder.toString() + "]");
-				}
-			}
-		}
+	public static YamlConfig load(String pathName, boolean fileCreate) {
+		return load(new File(Main.instance.getDataFolder(), pathName), fileCreate);
 	}
 
-	private static void yamlDownload(File file, Document document) throws IOException {
-		Element root = document.getDocumentElement();
-		NodeList rootChildren = root.getChildNodes();
-		for(int i = 0, l = rootChildren.getLength(); i < l; i++) {
-			Node node = rootChildren.item(i);
-			if (node.getNodeType() != Node.ELEMENT_NODE) {
-				continue;
-			}
-			Element element = (Element) node;
-			if (!element.getNodeName().equals("files")) {
-				continue;
-			}
-			NodeList filesChildren = node.getChildNodes();
-			for (int j = 0, l2 = filesChildren.getLength(); j < l2; j++) {
-				Node filesNode = filesChildren.item(j);
-				if (filesNode.getNodeType() != Node.ELEMENT_NODE) {
-					continue;
-				}
-				String version = ((Element) filesNode).getAttribute("version");
-				if (!PluginYaml.getVersion().equals(version)) {
-					continue;
-				}
-				NodeList yamlChildren = filesNode.getChildNodes();
-				for(int k = 0, l3 = yamlChildren.getLength(); k < l3; k++) {
-					Node yamlNode = yamlChildren.item(k);
-					if (yamlNode.getNodeType() != Node.ELEMENT_NODE) {
-						continue;
-					}
-					if (!file.getName().equals(yamlNode.getNodeName())) {
-						continue;
-					}
-					fileDownload(((Element) yamlNode).getAttribute("url"), file);
-				}
-			}
+	public static YamlConfig load(File file, boolean fileCreate) {
+		Validate.notNull(file, "File cannot be null");
+		YamlConfig config = new YamlConfig();
+		if (fileCreate && !file.getPath().startsWith("plugins\\" + PluginYaml.getName())) {
+			fileCreate = !fileCreate;
 		}
-	}
-
-	@SuppressWarnings("deprecation")
-	public void reload() {
-		yaml = YamlConfiguration.loadConfiguration(file);
-		InputStream defConfigStream = Main.instance.getResource(fileName);
-		if (defConfigStream != null) {
-			YamlConfiguration defConfig;
-			if(Utils.isUpperVersion_v19()) {
-				defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8));
-			} else {
-				defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
-			}
-			yaml.setDefaults(defConfig);
+		config.file = file;
+		config.fileName = file.getName();
+		if (fileCreate && !file.exists()) {
+			FileUtils.copyFileFromJar(Main.instance.getJarFile(), file, config.fileName);
 		}
+		try {
+			config.yaml = new YamlConfiguration();
+			config.yaml.load(file);
+		} catch (FileNotFoundException e) {
+		} catch (InvalidConfigurationException e) {
+			FileUtils.fileEncode(file);
+			config.yaml = YamlConfiguration.loadConfiguration(file);
+		} catch (IOException e) {}
+		return config;
 	}
 
 	public File getFile() {
 		return file;
+	}
+
+	public boolean exists() {
+		return file.exists();
+	}
+
+	public File getJarFile() {
+		return Main.instance.getJarFile();
+	}
+
+	public File getDataFolder() {
+		return Main.instance.getDataFolder();
 	}
 
 	public String getFileName() {
@@ -268,6 +189,16 @@ public class Yaml extends FileDownload {
 		return yaml.get(path, def);
 	}
 
+	public UUID getUUID(String path) {
+		Object def = getDefault(path);
+		return getUUID(path, def != null ? Utils.fromString(def.toString()) : null);
+	}
+
+	public UUID getUUID(String path, UUID def) {
+		Object val = get(path, def);
+		return val != null ? Utils.fromString(val.toString()) : def;
+	}
+
 	public Color getColor(String path) {
 		return yaml.getColor(path);
 	}
@@ -312,6 +243,11 @@ public class Yaml extends FileDownload {
 		return yaml.isString(path);
 	}
 
+	public boolean isUUID(String path) {
+		Object val = get(path);
+		return Utils.isUUID(val.toString());
+	}
+
 	public boolean isColor(String path) {
 		return yaml.isColor(path);
 	}
@@ -344,6 +280,11 @@ public class Yaml extends FileDownload {
 		return yaml.isDouble(path);
 	}
 
+	public boolean isFloat(String path) {
+		Object val = get(path);
+		return val instanceof Float;
+	}
+
 	public boolean isLong(String path) {
 		return yaml.isLong(path);
 	}
@@ -372,6 +313,16 @@ public class Yaml extends FileDownload {
 		return yaml.getDouble(path, def);
 	}
 
+	public float getFloat(String path) {
+		Object def = getDefault(path);
+		return getFloat(path, def instanceof Number ? NumberConversions.toFloat(def) : 0.0F);
+	}
+
+	public float getFloat(String path, float def) {
+		Object val = get(path, def);
+		return val instanceof Number ? NumberConversions.toFloat(val) : def;
+	}
+
 	public long getLong(String path) {
 		return yaml.getLong(path);
 	}
@@ -380,12 +331,16 @@ public class Yaml extends FileDownload {
 		return yaml.getLong(path, def);
 	}
 
-	public Map<String, Object> getValues(boolean deep) {
-		return yaml.getValues(deep);
-	}
-
 	public Set<String> getKeys(boolean deep) {
 		return yaml.getKeys(deep);
+	}
+
+	public Set<String> getKeys(String path, boolean deep) {
+		return yaml.getConfigurationSection(path).getKeys(deep);
+	}
+
+	public Map<String, Object> getValues(boolean deep) {
+		return yaml.getValues(deep);
 	}
 
 	public List<?> getList(String path) {
@@ -402,6 +357,20 @@ public class Yaml extends FileDownload {
 
 	public List<String> getStringList(String path) {
 		return yaml.getStringList(path);
+	}
+
+	public List<UUID> getUUIDList(String path) {
+		List<?> list = getList(path);
+		if (list == null) {
+			return new ArrayList<UUID>(0);
+		}
+		List<UUID> result = new ArrayList<UUID>();
+		for (Object object : list) {
+			if (object instanceof String || isPrimitiveWrapper(object)) {
+				result.add(Utils.fromString(String.valueOf(object)));
+			}
+		}
+		return result;
 	}
 
 	public List<Boolean> getBooleanList(String path) {
@@ -434,5 +403,19 @@ public class Yaml extends FileDownload {
 
 	public List<Byte> getByteList(String path) {
 		return yaml.getByteList(path);
+	}
+
+	private Object getDefault(String path) {
+		Validate.notNull(path, "Path cannot be null");
+		Configuration root = getRoot();
+		Configuration defaults = root == null ? null : root.getDefaults();
+		return defaults == null ? null : defaults.get(MemorySection.createPath(yaml, path));
+	}
+
+	private boolean isPrimitiveWrapper(Object input) {
+		return input instanceof Integer || input instanceof Boolean
+				|| input instanceof Character || input instanceof Byte
+				|| input instanceof Short || input instanceof Double
+				|| input instanceof Long || input instanceof Float;
 	}
 }

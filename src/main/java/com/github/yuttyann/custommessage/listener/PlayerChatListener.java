@@ -10,14 +10,14 @@ import com.github.yuttyann.custommessage.Permission;
 import com.github.yuttyann.custommessage.Sounds;
 import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.file.Files;
-import com.github.yuttyann.custommessage.file.Yaml;
+import com.github.yuttyann.custommessage.file.YamlConfig;
 
 public class PlayerChatListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
-		Yaml config = Files.getConfig();
+		YamlConfig config = Files.getConfig();
 		if (config.getBoolean("ChatMessageFormat.Enable")) {
 			String playerchatmessage = config.getString("ChatMessageFormat.Message");
 			playerchatmessage = playerchatmessage.replace("%player", player.getDisplayName());

@@ -1,105 +1,97 @@
 package com.github.yuttyann.custommessage.util;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.github.yuttyann.custommessage.file.Files;
 import com.github.yuttyann.custommessage.file.PluginYaml;
 
 public class Utils {
 
+	private static final String REGEX_H = "[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}";
+	private static final String REGEX_NH = "[0-9a-f]{8}[0-9a-f]{4}[1-5][0-9a-f]{3}[89ab][0-9a-f]{3}[0-9a-f]{12}";
+
+	private static String serverVersion;
+	private static Boolean isWindows;
+	private static Boolean isCB175orLaterCache;
+	private static Boolean isCB178orLaterCache;
+	private static Boolean isCB18orLaterCache;
+	private static Boolean isCB19orLaterCache;
+
 	public static boolean isWindows() {
-		return System.getProperty("os.name").toLowerCase().startsWith("windows");
+		if (isWindows == null) {
+			isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
+		}
+		return isWindows;
 	}
 
 	public static boolean isPluginEnabled(String plugin) {
 		return Bukkit.getServer().getPluginManager().isPluginEnabled(plugin);
 	}
 
-	private static Boolean isUpperVersion_v175;
-	private static Boolean isUpperVersion_v18;
-	private static Boolean isUpperVersion_v19;
-	private static Boolean isUpperVersion_v111;
-
-	public static boolean isUpperVersion_v175() {
-		if (isUpperVersion_v175 == null) {
-			isUpperVersion_v175 = isUpperVersion(getVersion(), "1.7.5");
+	public static boolean isCB175orLater() {
+		if (isCB175orLaterCache == null) {
+			isCB175orLaterCache = isUpperVersion(getVersion(), "1.7.5");
 		}
-		return isUpperVersion_v175;
+		return isCB175orLaterCache;
 	}
 
-	public static boolean isUpperVersion_v18() {
-		if (isUpperVersion_v18 == null) {
-			isUpperVersion_v18 = isUpperVersion(getVersion(), "1.8");
+	public static boolean isCB178orLater() {
+		if (isCB178orLaterCache == null) {
+			isCB178orLaterCache = isUpperVersion(getVersion(), "1.7.8");
 		}
-		return isUpperVersion_v18;
+		return isCB178orLaterCache;
 	}
 
-	public static boolean isUpperVersion_v19() {
-		if (isUpperVersion_v19 == null) {
-			isUpperVersion_v19 = isUpperVersion(getVersion(), "1.9");
+	public static boolean isCB18orLater() {
+		if (isCB18orLaterCache == null) {
+			isCB18orLaterCache = isUpperVersion(getVersion(), "1.8");
 		}
-		return isUpperVersion_v19;
+		return isCB18orLaterCache;
 	}
 
-	public static boolean isUpperVersion_v111() {
-		if (isUpperVersion_v111 == null) {
-			isUpperVersion_v111 = isUpperVersion(getVersion(), "1.11");
+	public static boolean isCB19orLater() {
+		if (isCB19orLaterCache == null) {
+			isCB19orLaterCache = isUpperVersion(getVersion(), "1.9");
 		}
-		return isUpperVersion_v111;
+		return isCB19orLaterCache;
 	}
 
 	public static boolean isUpperVersion(String version, String target) {
-		return versionInt(version.split("\\.")) >= versionInt(target.split("\\."));
+		return getVersionInt(version) >= getVersionInt(target);
 	}
 
-	public static int versionInt(String[] versions) {
-		if (versions.length < 3) {
-			versions = new String[]{versions[0], versions[1], "0"};
+	public static int getVersionInt(String version) {
+		String[] array = StringUtils.split(version, ".");
+		int result = (Integer.parseInt(array[0]) * 100000) + (Integer.parseInt(array[1]) * 1000);
+		if (array.length == 3) {
+			result += Integer.parseInt(array[2]);
 		}
-		if (versions[1].length() == 1) {
-			versions[1] = "0" + versions[1];
-		}
-		if (versions[2].length() == 1) {
-			versions[2] = "0" + versions[2];
-		}
-		versions[2] = "0" + versions[2];
-		return Integer.parseInt(versions[0]) * 100000 + Integer.parseInt(versions[1]) * 1000 + Integer.parseInt(versions[2]);
+		return result;
 	}
 
 	public static String getVersion() {
-		String version = Bukkit.getServer().getVersion();
-		version = version.split("\\(")[1];
-		version = version.substring(4, version.length() - 1);
-		return version;
+		if (serverVersion == null) {
+			String version = Bukkit.getBukkitVersion();
+			serverVersion = version.substring(0, version.indexOf("-"));
+		}
+		return serverVersion;
 	}
 
 	public static void sendPluginMessage(Object msg) {
-		if (msg == null) {
-			return;
-		}
-		String message = msg.toString();
-		String prefix = "[" + PluginYaml.getName() + "] ";
-		if (message.contains("\\n")) {
-			String[] newLine = message.split("\\\\n");
-			ConsoleCommandSender sender = Bukkit.getConsoleSender();
-			for(int i = 0, l = newLine.length ; i < l ; i++) {
-				sender.sendMessage(prefix + newLine[i]);
-			}
-		} else {
-			Bukkit.getConsoleSender().sendMessage(prefix + message);
-		}
+		sendPluginMessage(Bukkit.getConsoleSender(), msg);
 	}
 
 	public static void sendPluginMessage(CommandSender sender, Object msg) {
@@ -107,38 +99,32 @@ public class Utils {
 			return;
 		}
 		String message = msg.toString();
-		String colorCode = "";
-		for (ChatColor color : ChatColor.values()) {
-			if (message.startsWith(color.toString())) {
-				colorCode = color.toString();
-				break;
+		String color = "";
+		if (sender instanceof Player) {
+			for (ChatColor ccolor : ChatColor.values()) {
+				if (message.startsWith(ccolor.toString())) {
+					color = ccolor.toString();
+					break;
+				}
 			}
 		}
-		String prefix = "[" + PluginYaml.getName() + "] ";
+		String prefix = "";
+		if (Files.getConfig().getBoolean("MessagePrefix")) {
+			prefix = "[" + PluginYaml.getName() + "] ";
+		}
 		if (message.contains("\\n")) {
-			String[] newLine = message.split("\\\\n");
+			String[] newLine = StringUtils.split(message, "\n");
 			for(int i = 0, l = newLine.length ; i < l ; i++) {
-				sender.sendMessage(colorCode + prefix + newLine[i]);
+				sender.sendMessage(color + prefix + newLine[i]);
 			}
 		} else {
-			sender.sendMessage(colorCode + prefix + message);
+			sender.sendMessage(color + prefix + message);
 		}
-	}
-
-	public static String stringBuilder(String[] args, Integer integer) {
-		StringBuilder builder = new StringBuilder();
-		for (int i = integer; i < args.length; i++) {
-			if (i > integer) {
-				builder.append(" ");
-			}
-			builder.append(args[i]);
-		}
-		return builder.toString();
 	}
 
 	@SuppressWarnings("deprecation")
 	public static ItemStack getItemInHand(Player player) {
-		if(isUpperVersion_v19()) {
+		if(isCB19orLater()) {
 			return player.getInventory().getItemInMainHand();
 		} else {
 			return player.getInventory().getItemInHand();
@@ -184,52 +170,31 @@ public class Utils {
 		return null;
 	}
 
-	private static final String REGEX_H = "[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}";
-	private static final String REGEX_NH = "[0-9a-f]{8}[0-9a-f]{4}[1-5][0-9a-f]{3}[89ab][0-9a-f]{3}[0-9a-f]{12}";
-
 	public static boolean isUUID(String uuid) {
 		return uuid.matches(REGEX_H) || uuid.matches(REGEX_NH);
 	}
 
 	public static UUID fromString(String uuid) {
-		if (uuid.matches(REGEX_NH)) {
-			return UUID.fromString(uuid.substring(0, 8) + "-" + uuid.substring(8, 12) + "-" + uuid.substring(12, 16) + "-" + uuid.substring(16, 20) + "-" + uuid.substring(20, 32));
-		}
-		return UUID.fromString(uuid);
-	}
-
-	public static ArrayList<Player> getOnlinePlayers() {
 		try {
-			return getOnlinePlayers_Method();
-		} catch (Exception e) {
-			ArrayList<Player> players = new ArrayList<Player>();
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				players.add(player);
+			if (uuid.matches(REGEX_NH)) {
+				return UUID.fromString(uuid.substring(0, 8) + "-" + uuid.substring(8, 12) + "-" + uuid.substring(12, 16) + "-" + uuid.substring(16, 20) + "-" + uuid.substring(20, 32));
 			}
-			return players;
+			return UUID.fromString(uuid);
+		} catch (Exception e) {
+			return null;
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	private static ArrayList<Player> getOnlinePlayers_Method() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-		try {
-			if (Bukkit.class.getMethod("getOnlinePlayers", new Class<?>[0]).getReturnType() == Collection.class) {
-				Collection<?> temp = ((Collection<?>) Bukkit.class.getMethod("getOnlinePlayers", new Class<?>[0]).invoke(null, new Object[0]));
-				return new ArrayList<Player>((Collection<? extends Player>) temp);
-			} else {
-				Player[] temp = ((Player[]) Bukkit.class.getMethod("getOnlinePlayers", new Class<?>[0]).invoke(null, new Object[0]));
-				ArrayList<Player> players = new ArrayList<Player>();
-				for (Player t : temp) {
-					players.add(t);
-				}
-				return players;
-			}
-		} catch (NoSuchMethodException e) {
-			throw e;
-		} catch (InvocationTargetException e) {
-			throw e;
-		} catch (IllegalAccessException e) {
-			throw e;
+	public static ArrayList<Player> getOnlinePlayers() {
+		Object players = Bukkit.getOnlinePlayers();
+		if (players instanceof Collection) {
+			return new ArrayList<Player>((Collection<? extends Player>) players);
 		}
+		return new ArrayList<Player>(Arrays.asList((Player[]) players));
+	}
+
+	public static ArrayList<OfflinePlayer> getOfflinePlayers() {
+		return new ArrayList<OfflinePlayer>(Arrays.asList(Bukkit.getOfflinePlayers()));
 	}
 }

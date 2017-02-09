@@ -3,7 +3,7 @@ package com.github.yuttyann.custommessage;
 import java.util.Calendar;
 
 import com.github.yuttyann.custommessage.file.Files;
-import com.github.yuttyann.custommessage.file.Yaml;
+import com.github.yuttyann.custommessage.file.YamlConfig;
 
 public class TimeManager {
 
@@ -40,7 +40,7 @@ public class TimeManager {
 	}
 
 	public static String getTimesofDay() {
-		Yaml config = Files.getConfig();
+		YamlConfig config = Files.getConfig();
 		String[] week_name = {
 			config.getString("Sunday"), config.getString("Monday"), config.getString("Tuesday"), config.getString("Wednesday"),
 			config.getString("Thursday"), config.getString("Friday"), config.getString("Saturday")

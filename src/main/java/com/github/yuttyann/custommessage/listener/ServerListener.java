@@ -14,7 +14,7 @@ import org.bukkit.event.server.ServerListPingEvent;
 import com.github.yuttyann.custommessage.Main;
 import com.github.yuttyann.custommessage.TimeManager;
 import com.github.yuttyann.custommessage.file.Files;
-import com.github.yuttyann.custommessage.file.Yaml;
+import com.github.yuttyann.custommessage.file.YamlConfig;
 import com.github.yuttyann.custommessage.packet.ProtocolLibPacket;
 import com.github.yuttyann.custommessage.util.Utils;
 
@@ -27,7 +27,7 @@ public class ServerListener implements Listener {
 		Integer maxplayer = null;
 		String servername = null;
 		String servermotd = null;
-		Yaml config = Files.getConfig();
+		YamlConfig config = Files.getConfig();
 		if (config.getBoolean("RandomMotd.Enable")) {
 			servermotd = getRandomMotd();
 			onlineplayers = event.getNumPlayers();
@@ -60,7 +60,7 @@ public class ServerListener implements Listener {
 	}
 
 	private String getRandomMotd() {
-		Yaml config = Files.getConfig();
+		YamlConfig config = Files.getConfig();
 		List<String> messagelist = new ArrayList<String>(config.getConfigurationSection("RandomMotd.Message").getKeys(false));
 		List<String> randomlist = config.getStringList("RandomMotd.Message." + messagelist.get(new Random().nextInt(messagelist.size())));
 		String motd = "";

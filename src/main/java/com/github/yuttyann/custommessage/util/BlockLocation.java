@@ -3,14 +3,14 @@ package com.github.yuttyann.custommessage.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.util.NumberConversions;
 import org.bukkit.util.Vector;
 
-public class BlockLocation implements Cloneable, ConfigurationSerializable {
+public class BlockLocation extends Location {
 
 	private World world;
 	private int radius;
@@ -23,6 +23,7 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 	}
 
 	public BlockLocation(World world, int radius, double x, double y, double z) {
+		super(world, x, y, z);
 		this.world = world;
 		this.radius = radius;
 		this.x = x;
@@ -31,7 +32,7 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 	}
 
 	public static BlockLocation fromLocation(Location location) {
-		return new BlockLocation(location.getWorld(), 0, location.getX(), location.getY(), location.getZ());
+		return new BlockLocation(location.getWorld(), location.getX(), location.getY(), location.getZ());
 	}
 
 	public static BlockLocation fromLocation(Location location, int radius) {
@@ -50,8 +51,16 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 		return getBlockX() + ", " + getBlockY() + ", " + getBlockZ();
 	}
 
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
 	public World getWorld() {
 		return world;
+	}
+
+	public Chunk getChunk() {
+		return world.getChunkAt(getBlock());
 	}
 
 	public Block getBlock() {
@@ -66,8 +75,15 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 		return radius;
 	}
 
+	public void setXYZ(double x, double y, double z) {
+		setX(x);
+		setY(y);
+		setZ(z);
+	}
+
 	public void setX(double x) {
 		this.x = x;
+		super.setX(x);
 	}
 
 	public double getX() {
@@ -76,6 +92,7 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 
 	public void setY(double y) {
 		this.y = y;
+		super.setY(y);
 	}
 
 	public double getY() {
@@ -84,6 +101,7 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 
 	public void setZ(double z) {
 		this.z = z;
+		super.setZ(z);
 	}
 
 	public double getZ() {
@@ -91,15 +109,30 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 	}
 
 	public int getBlockX() {
-		return NumberConversions.floor(x);
+		return super.locToBlock(x);
 	}
 
 	public int getBlockY() {
-		return NumberConversions.floor(y);
+		return super.locToBlock(y);
 	}
 
 	public int getBlockZ() {
-		return NumberConversions.floor(z);
+		return super.locToBlock(z);
+	}
+
+	public BlockLocation getAllCenter() {
+		BlockLocation location = clone();
+		location.setX(location.getBlockX() + 0.5D);
+		location.setY(location.getBlockY() + 0.5D);
+		location.setZ(location.getBlockZ() + 0.5D);
+		return location;
+	}
+
+	public BlockLocation getCenter() {
+		BlockLocation location = clone();
+		location.setX(location.getBlockX() + 0.5D);
+		location.setZ(location.getBlockZ() + 0.5D);
+		return location;
 	}
 
 	public BlockLocation getMaximum() {
@@ -108,14 +141,6 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 
 	public BlockLocation getMinimum() {
 		return clone().subtract(radius, radius, radius);
-	}
-
-	public BlockLocation add(BlockLocation blockLocation) {
-		if (blockLocation == null || blockLocation.getWorld() != this.world) {
-			throw new IllegalArgumentException("Cannot add Locations of differing worlds");
-		}
-		add(blockLocation.getX(), blockLocation.getY(), blockLocation.getZ());
-		return this;
 	}
 
 	public BlockLocation add(Location location) {
@@ -135,14 +160,6 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 		setX(this.x + x);
 		setY(this.y + y);
 		setZ(this.z + z);
-		return this;
-	}
-
-	public BlockLocation subtract(BlockLocation blockLocation) {
-		if (blockLocation == null || blockLocation.getWorld() != this.world) {
-			throw new IllegalArgumentException("Cannot add Locations of differing worlds");
-		}
-		subtract(blockLocation.getX(), blockLocation.getY(), blockLocation.getZ());
 		return this;
 	}
 
@@ -167,20 +184,20 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 	}
 
 	public BlockLocation multiply(double m) {
-		setX(x * m);
-		setY(y * m);
-		setZ(z * m);
+		setX(this.x * m);
+		setY(this.y * m);
+		setZ(this.z * m);
 		return this;
 	}
 
 	public BlockLocation divide(double d) {
-		setX(x / d);
-		setY(y / d);
-		setZ(z / d);
+		setX(this.x / d);
+		setY(this.y / d);
+		setZ(this.z / d);
 		return this;
 	}
 
-	public BlockLocation reset() {
+	public BlockLocation zero() {
 		setX(0.0D);
 		setY(0.0D);
 		setZ(0.0D);
@@ -195,25 +212,13 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 		return NumberConversions.square(x) + NumberConversions.square(y) + NumberConversions.square(z);
 	}
 
-	public double distance(BlockLocation location) {
-		return Math.sqrt(distanceSquared(location));
-	}
-
 	public double distance(Location location) {
 		return Math.sqrt(distanceSquared(location));
 	}
 
-	private double distanceSquared(Object object) {
-		if (object == null) {
+	public double distanceSquared(Location location) {
+		if (location == null) {
 			throw new IllegalArgumentException("Cannot measure distance to a null location");
-		}
-		BlockLocation location;
-		if (object instanceof Location) {
-			location = fromLocation((Location) object, radius);
-		} else if (object instanceof BlockLocation) {
-			location = (BlockLocation) object;
-		} else {
-			return 0.0D;
 		}
 		World world = location.getWorld();
 		if (world == null || this.world == null) {
@@ -225,7 +230,6 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 		return NumberConversions.square(x - location.getX()) + NumberConversions.square(y - location.getY()) + NumberConversions.square(z - location.getZ());
 	}
 
-	@Override
 	public boolean equals(Object object) {
 		if (object == null || getClass() != object.getClass()) {
 			return false;
@@ -247,7 +251,6 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 		return true;
 	}
 
-	@Override
 	public int hashCode() {
 		int hash = 3;
 		hash = 19 * hash + (world != null ? world.hashCode() : 0);
@@ -257,25 +260,16 @@ public class BlockLocation implements Cloneable, ConfigurationSerializable {
 		return hash;
 	}
 
-	public Location toLocation() {
-		return new Location(world, x, y, z);
-	}
-
 	public Vector toVector() {
 		return new Vector(x, y, z);
 	}
 
-	@Override
 	public String toString() {
 		return "BlockLocation{world=" + world.getName() + ", radius=" + radius + ", x=" + x + ", y=" + y + ", z=" + z + "}";
 	}
 
 	public BlockLocation clone() {
-		try {
-			return (BlockLocation) super.clone();
-		} catch (CloneNotSupportedException e) {
-			throw new Error(e);
-		}
+		return new BlockLocation(world, radius, x, y, z);
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class BanCommand implements TabExecutor {
 			return true;
 		}
 		String reason = args.length > 0 ? StringUtils.join(args, ' ', 1, args.length) : null;
-		if (Utils.isUpperVersion_v175()) {
+		if (Utils.isCB175orLater()) {
 			Bukkit.getBanList(BanList.Type.NAME).addBan(args[0], reason, null, sender.getName());
 		} else {
 			Bukkit.getOfflinePlayer(args[0]).setBanned(true);

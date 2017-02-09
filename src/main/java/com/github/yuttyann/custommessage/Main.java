@@ -18,7 +18,6 @@ import com.github.yuttyann.custommessage.command.SayCommand;
 import com.github.yuttyann.custommessage.command.TellCommand;
 import com.github.yuttyann.custommessage.command.help.CommandView;
 import com.github.yuttyann.custommessage.file.Files;
-import com.github.yuttyann.custommessage.file.Yaml;
 import com.github.yuttyann.custommessage.listener.CommandListener;
 import com.github.yuttyann.custommessage.listener.PlayerChatListener;
 import com.github.yuttyann.custommessage.listener.PlayerDeathListener;
@@ -33,7 +32,6 @@ public class Main extends JavaPlugin {
 	public static Main instance;
 	private boolean apimode;
 	private Logger logger;
-	private String encode;
 	private HashMap<String, TabExecutor> commands;
 	private HashMap<String, List<CommandView>> commandhelp;
 
@@ -68,8 +66,8 @@ public class Main extends JavaPlugin {
 		return commandhelp;
 	}
 
-	public String getEncode() {
-		return encode;
+	public File getJarFile() {
+		return getFile();
 	}
 
 	private void setupFile() {
@@ -79,13 +77,6 @@ public class Main extends JavaPlugin {
 			saveResource("ServerIcon/icon1.png", false);
 			saveResource("ServerIcon/icon2.png", false);
 		}
-		if (Utils.isWindows() && !Utils.isUpperVersion_v19()) {
-			encode = "s-jis";
-		} else {
-			encode = "utf-8";
-		}
-		String[] args = {"config"};
-		Yaml.create(getDataFolder(), new StringBuilder(), encode, args);
 		Files.reload();
 	}
 
